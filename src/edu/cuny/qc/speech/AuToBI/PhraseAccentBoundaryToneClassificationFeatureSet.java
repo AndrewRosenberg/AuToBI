@@ -27,7 +27,7 @@ public class PhraseAccentBoundaryToneClassificationFeatureSet extends FeatureSet
   /**
    * Constructs a new PhraseAccentBoundaryToneClassificationFeatureSet.
    */
-  PhraseAccentBoundaryToneClassificationFeatureSet() {
+  public PhraseAccentBoundaryToneClassificationFeatureSet() {
     super();
 
      required_features.add("duration__duration");

@@ -28,7 +28,7 @@ public class IntermediatePhraseBoundaryDetectionFeatureSet extends FeatureSet {
   /**
    * Constructs a new IntermediatePhraseBoundaryDetectionFeatureSet.
    */
-  IntermediatePhraseBoundaryDetectionFeatureSet() {
+  public IntermediatePhraseBoundaryDetectionFeatureSet() {
     super();
 
     required_features.add("duration__duration");

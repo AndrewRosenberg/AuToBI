@@ -40,7 +40,7 @@ public class SubregionFeatureExtractor extends FeatureExtractor {
    * @param subregion_name a descriptor of the subregion
    * @throws FeatureExtractorException if the subregion_name cannot be parsed.
    */
-  SubregionFeatureExtractor(String subregion_name) throws FeatureExtractorException {
+  public SubregionFeatureExtractor(String subregion_name) throws FeatureExtractorException {
     this.subregion_name = subregion_name;
     this.subregion_length = SubregionUtils.parseSubregionName(subregion_name);
 

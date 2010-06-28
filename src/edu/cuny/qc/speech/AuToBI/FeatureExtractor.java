@@ -27,12 +27,12 @@ import java.util.HashSet;
 
 /**
  * An abstract base class for extracting features from region objects.
- *
+ * <p/>
  * FeatureExtractors are responsible for describing the features the extract and the other features they require for
  * execution.
- *
+ * <p/>
  * The extracted features are maintained in a list that can be accessed through getExtractedFeatures().
- *
+ * <p/>
  * The required features are maintained in a Set that can be accessed through getRequiredFeatures().
  */
 public abstract class FeatureExtractor {
@@ -68,7 +68,7 @@ public abstract class FeatureExtractor {
   /**
    * Constructs a new FeatureExtractor and initializes extracted and required feature storage objects.
    */
-  FeatureExtractor() {
+  public FeatureExtractor() {
     extracted_features = new ArrayList<String>();
     required_features = new HashSet<String>();
   }

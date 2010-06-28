@@ -30,7 +30,7 @@ public class PitchAccentDetectionFeatureSet extends FeatureSet {
   /**
    * Constructs a new PitchAccentDetectionFeatureSet.
    */
-  PitchAccentDetectionFeatureSet() {
+  public PitchAccentDetectionFeatureSet() {
     super();
 
     for (String acoustic : new String[]{"f0", "I"}) {

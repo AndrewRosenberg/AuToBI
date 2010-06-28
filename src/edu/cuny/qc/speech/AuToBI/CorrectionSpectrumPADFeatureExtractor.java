@@ -45,7 +45,7 @@ public class CorrectionSpectrumPADFeatureExtractor extends FeatureExtractor {
    * @param classifier the correction classifier
    * @param autobi     an autobi object to manage the feature extraction for the correction classifier
    */
-  CorrectionSpectrumPADFeatureExtractor(int low, int high, AuToBIClassifier classifier, AuToBI autobi) {
+  public CorrectionSpectrumPADFeatureExtractor(int low, int high, AuToBIClassifier classifier, AuToBI autobi) {
     this.low = low;
     this.high = high;
     this.classifier = classifier;

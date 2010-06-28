@@ -87,7 +87,7 @@ public class AuToBI {
   /**
    * Constructs a new AuToBI object.
    */
-  AuToBI() {
+  public AuToBI() {
     params = new AuToBIParameters();
     feature_registry = new HashMap<String, FeatureExtractor>();
     deferred_feature_registry = new HashMap<String, FeatureExtractor>();
@@ -105,7 +105,7 @@ public class AuToBI {
     if (params.hasParameter("log4j_config_file")) {
       try {
         PropertyConfigurator.configure(params.getParameter("log4j_config_file"));
-      } catch (AuToBIException e) {
+      } catch (Exception e) {
         BasicConfigurator.configure();
         AuToBIUtils.log("Couldn't read -log4j_config_file. BasicConfigurator logging to console");
       }

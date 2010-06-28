@@ -27,7 +27,7 @@ package edu.cuny.qc.speech.AuToBI;
  */
 public class SpectralPitchAccentDetectionFeatureSet extends FeatureSet {
 
-  SpectralPitchAccentDetectionFeatureSet() {
+  public SpectralPitchAccentDetectionFeatureSet() {
     super();
 
     for (int low = 0; low <= 19; ++low) {

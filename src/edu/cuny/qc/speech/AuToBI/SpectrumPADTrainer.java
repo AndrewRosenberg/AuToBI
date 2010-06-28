@@ -40,7 +40,7 @@ public class SpectrumPADTrainer {
    *
    * @param autobi an associated AuToBI object
    */
-  SpectrumPADTrainer(AuToBI autobi) {
+  public SpectrumPADTrainer(AuToBI autobi) {
     this.autobi = autobi;
   }
 

@@ -38,7 +38,7 @@ public class DurationFeatureExtractor extends FeatureExtractor {
   /**
    * Constructs a DurationFeatureExtractor.
    */
-  DurationFeatureExtractor() {
+  public DurationFeatureExtractor() {
     super();
 
     contexts = new ArrayList<ContextDesc>();

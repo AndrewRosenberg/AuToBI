@@ -24,10 +24,11 @@ import java.io.Serializable;
 import java.io.IOException;
 
 /**
- * FeatureSet objects are responsible for maintaining information about the features required for a classification task.
+ * FeatureSet objects are responsible for maintaining information about the features required for a classification
+ * task.
  * <p/>
- * For a given task, the required features are described.  An AuToBI object uses these required features to drive
- * the appropriate feature extraction routines.
+ * For a given task, the required features are described.  An AuToBI object uses these required features to drive the
+ * appropriate feature extraction routines.
  * <p/>
  * FeatureSets also maintain a list of data points.  This allows everything about a data set to be serialized for later
  * processing.
@@ -50,7 +51,7 @@ public class FeatureSet implements Serializable {
   /**
    * Constructs an empty FeatureSet.
    */
-  FeatureSet() {
+  public FeatureSet() {
     this.features = new LinkedHashSet<Feature>();
     this.data_points = new ArrayList<Word>();
     this.required_features = new HashSet<String>();
@@ -106,7 +107,7 @@ public class FeatureSet implements Serializable {
 
   /**
    * Retrieve a Feature object.
-   *
+   * <p/>
    * Returns null if the requested feature does not exist.
    *
    * @param feature_name the feature name
@@ -158,6 +159,7 @@ public class FeatureSet implements Serializable {
 
   /**
    * Retrieves the class attribute.
+   *
    * @return the class attribute
    */
   public String getClassAttribute() {
@@ -167,8 +169,8 @@ public class FeatureSet implements Serializable {
   /**
    * Remove all attributes from the data points in a feature set that are not in the required_features list.
    * <p/>
-   * When extracting features, additional attributes can be attached to features as intermedate features.
-   * To conserve memory, these can be deleted when the feature set is finalized.
+   * When extracting features, additional attributes can be attached to features as intermedate features. To conserve
+   * memory, these can be deleted when the feature set is finalized.
    */
   public void garbageCollection() {
     for (Word w : data_points) {
@@ -187,10 +189,10 @@ public class FeatureSet implements Serializable {
 
   /**
    * Constructs the set of features from the list of required features.
-   *
-   * Note: feature names that start with "nominal_" are treated as nominal features.  Valid nominal values are 
+   * <p/>
+   * Note: feature names that start with "nominal_" are treated as nominal features.  Valid nominal values are
    * constructed from all values represented in the associated data points.
-   *
+   * <p/>
    * The class attribute is always treated as a nominal feature.
    */
   public void constructFeatures() {
@@ -219,17 +221,16 @@ public class FeatureSet implements Serializable {
 
   /**
    * Writes the contents of the feature set to an arff formatted text file.
-   *
+   * <p/>
    * The arff format is read by the weka machine learning toolkit.
+   * <p/>
+   * A description of the format can be found at the following URL: http://www.cs.waikato.ac.nz/~ml/weka/arff.html
    *
-   * A description of the format can be found at the following URL:
-   * http://www.cs.waikato.ac.nz/~ml/weka/arff.html
-   *
-   * @param arff_file the name of the destination arff file
+   * @param arff_file     the name of the destination arff file
    * @param relation_name a description of the relation, a required arff field
-   * @throws IOException if there si a problem writing to the file.
+   * @throws IOException if there is a problem writing to the file.
    */
-  protected void writeArff(String arff_file, String relation_name) throws
+  public void writeArff(String arff_file, String relation_name) throws
       IOException {
     AuToBIFileWriter writer = new AuToBIFileWriter(arff_file);
 
@@ -238,6 +239,19 @@ public class FeatureSet implements Serializable {
     writer.write("\n\n");
     writer.write(generateArffAttributes());
     writer.write("\n@data\n");
+    writeCSVData(writer);
+    writer.close();
+  }
+
+  /**
+   * Writes the contents of the feature set to a comma separated value (CSV) text file.
+   *
+   * @param csv_file the name of the destination csv file
+   * @throws IOException if there is a problem writing to the file.
+   */
+  public void writeCSVFile(String csv_file) throws IOException {
+    AuToBIFileWriter writer = new AuToBIFileWriter(csv_file);
+    writeCSVHeader(writer);
     writeCSVData(writer);
     writer.close();
   }
@@ -276,7 +290,7 @@ public class FeatureSet implements Serializable {
   }
 
   /**
-   * Write comma separated data via the provided writer
+   * Writes comma separated data via the provided writer.
    *
    * @param writer A writer object to write to the file
    * @throws java.io.IOException on Write errors
@@ -285,18 +299,23 @@ public class FeatureSet implements Serializable {
     for (Region r : data_points) {
       boolean first = true;
       for (Feature f : this.features) {
-        if (!first) writer.write(",");
-        else first = false;
+        if (!first) {
+          writer.write(",");
+        } else {
+          first = false;
+        }
         if (r.getAttribute(f.getName()) == null) {
           AuToBIUtils.debug("missing attribute:" + f.getName() + " on word:" +
-                            r.toString());// Weka's arff standard uses the question mark (?) to indicate missing values
+              r.toString());
+
+          // Weka's arff standard uses the question mark (?) to indicate missing values
           writer.write("?");
         } else {
           String value = r.getAttribute(f.getName()).toString();
           if (value.length() == 0) {
             AuToBIUtils.warn("Empty value for attribute:" + f.getName() + " on " + r);
           }
-          writer.write(r.getAttribute(f.getName()).toString());
+          writer.write(value);
         }
         if (f.isNominal() || (f.getNominalValues() != null && f.getNominalValues().size() > 0)) {
           f.addNominalValue(r.getAttribute(f.getName()).toString());
@@ -308,7 +327,27 @@ public class FeatureSet implements Serializable {
   }
 
   /**
+   * Writes a csv header line via the provided writer.
+   *
+   * @param writer A writer object to write to the file
+   * @throws IOException on Write errors
+   */
+  protected void writeCSVHeader(AuToBIFileWriter writer) throws IOException {
+    if (data_points.size() == 0) return;
+
+    boolean first = true;
+    for (Feature f : this.features) {
+      if (!first) writer.write(",");
+      else first = false;
+      writer.write(f.getName());
+    }
+    writer.write("\n");
+  }
+
+
+  /**
    * Sets the class attribute.
+   *
    * @param class_attribute the desired class attribute
    */
   public void setClassAttribute(String class_attribute) {

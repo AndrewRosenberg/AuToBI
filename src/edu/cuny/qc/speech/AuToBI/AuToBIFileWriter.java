@@ -30,7 +30,7 @@ import java.io.*;
  */
 public class AuToBIFileWriter extends BufferedWriter {
 
-  AuToBIFileWriter(String filename) throws IOException {
+  public AuToBIFileWriter(String filename) throws IOException {
     super(new FileWriter(filename));
   }
 }

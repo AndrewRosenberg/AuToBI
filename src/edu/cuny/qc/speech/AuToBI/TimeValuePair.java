@@ -35,7 +35,7 @@ public class TimeValuePair extends Pair<Double, Double> implements Serializable 
    * @param t the time
    * @param v the value
    */
-  TimeValuePair(double t, double v) {
+  public TimeValuePair(double t, double v) {
     first = t;
     second = v;
   }

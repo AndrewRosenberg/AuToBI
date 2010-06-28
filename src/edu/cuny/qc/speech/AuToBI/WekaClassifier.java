@@ -42,7 +42,7 @@ public class WekaClassifier extends AuToBIClassifier {
    *
    * @param classifier the weka Classifier.
    */
-  WekaClassifier(Classifier classifier) {
+  public WekaClassifier(Classifier classifier) {
     this.weka_classifier = classifier;
     this.features = null;
     this.class_attribute = "";

@@ -41,7 +41,7 @@ public class SubregionTimeValuePairFeatureExtractor extends TimeValuePairFeature
    * @param tvpfe               the TimeValuePairFeatureExtractor responsible for extracting features -- and containing the contour.
    * @param subregion_attribute the name of the attribute containing the subregion
    */
-  SubregionTimeValuePairFeatureExtractor(TimeValuePairFeatureExtractor tvpfe, String subregion_attribute) {
+  public SubregionTimeValuePairFeatureExtractor(TimeValuePairFeatureExtractor tvpfe, String subregion_attribute) {
     this.attribute_name = tvpfe.attribute_name;
     this.subregion_attribute = subregion_attribute;
 

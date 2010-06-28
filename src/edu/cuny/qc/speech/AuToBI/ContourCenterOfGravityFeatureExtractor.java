@@ -33,7 +33,7 @@ public class ContourCenterOfGravityFeatureExtractor extends FeatureExtractor {
   private String attribute_name;       // the contour attribute name
   private List<TimeValuePair> values;  // the contour to extract features over
 
-  ContourCenterOfGravityFeatureExtractor(List<TimeValuePair> values, String attribute_name) {
+  public ContourCenterOfGravityFeatureExtractor(List<TimeValuePair> values, String attribute_name) {
     this.values = new ArrayList<TimeValuePair>();
     this.values.addAll(values);
     this.attribute_name = attribute_name;

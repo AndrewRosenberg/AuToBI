@@ -34,7 +34,7 @@ public class SpectrumPADFeatureSet extends FeatureSet {
    * @param low  the bottom of the spectral region
    * @param high the top of the spectral region
    */
-  SpectrumPADFeatureSet(int low, int high) {
+  public SpectrumPADFeatureSet(int low, int high) {
     super();
     for (String acoustic : new String[]{"bark", "bark_tilt"}) {
       for (String agg : new String[]{"max", "mean", "stdev", "zMax"}) {

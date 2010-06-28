@@ -41,7 +41,7 @@ public class PitchAccentDetectionClassifierCollection implements Serializable {
   /**
    * Constructs a new, empty, PitchAccentDetectionClassifierCollection.
    */
-  PitchAccentDetectionClassifierCollection() {
+  public PitchAccentDetectionClassifierCollection() {
     pitch_accent_detectors = new HashMap<String, AuToBIClassifier>();
     correction_classifiers = new HashMap<String, AuToBIClassifier>();
   }

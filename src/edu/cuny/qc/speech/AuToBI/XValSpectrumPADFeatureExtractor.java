@@ -45,7 +45,7 @@ public class XValSpectrumPADFeatureExtractor extends FeatureExtractor {
    * @param num_folds the number of folds to be used in the generation
    * @param autobi    an AuToBI object to manage the feature extraction
    */
-  XValSpectrumPADFeatureExtractor(int low, int high, int num_folds, AuToBI autobi) {
+  public XValSpectrumPADFeatureExtractor(int low, int high, int num_folds, AuToBI autobi) {
     this.low = low;
     this.high = high;
     this.num_folds = num_folds;

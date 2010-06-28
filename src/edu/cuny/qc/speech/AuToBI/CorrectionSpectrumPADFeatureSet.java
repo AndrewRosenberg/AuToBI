@@ -35,7 +35,7 @@ public class CorrectionSpectrumPADFeatureSet extends FeatureSet {
    * @param low  the low bark value
    * @param high the high bark value
    */
-  CorrectionSpectrumPADFeatureSet(int low, int high) {
+  public CorrectionSpectrumPADFeatureSet(int low, int high) {
     super();
     required_features.add("duration__duration");
 

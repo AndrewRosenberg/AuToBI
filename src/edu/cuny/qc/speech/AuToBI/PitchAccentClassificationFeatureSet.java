@@ -28,7 +28,7 @@ public class PitchAccentClassificationFeatureSet extends FeatureSet {
   /**
    * Constructs a new PitchAccentClassificationFeatureSet.
    */
-  PitchAccentClassificationFeatureSet() {
+  public PitchAccentClassificationFeatureSet() {
     super();
 
     required_features.add("duration__duration");

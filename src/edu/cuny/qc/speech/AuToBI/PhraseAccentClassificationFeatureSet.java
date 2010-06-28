@@ -28,7 +28,7 @@ public class PhraseAccentClassificationFeatureSet extends FeatureSet {
   /**
    * Constructs a new PhraseAccentClassificationFeatureSet.
    */
-  PhraseAccentClassificationFeatureSet() {
+  public PhraseAccentClassificationFeatureSet() {
     super();
 
     required_features.add("duration__duration");

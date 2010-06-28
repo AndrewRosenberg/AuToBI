@@ -27,7 +27,7 @@ public class IntonationalPhraseBoundaryDetectionFeatureSet extends FeatureSet {
   /**
    * Constructs a new IntonationalPhraseBoundaryDetectionFeatureSet
    */
-  IntonationalPhraseBoundaryDetectionFeatureSet() {
+  public IntonationalPhraseBoundaryDetectionFeatureSet() {
     super();
 
     required_features.add("duration__duration");

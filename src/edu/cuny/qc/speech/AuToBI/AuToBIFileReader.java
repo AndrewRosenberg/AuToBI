@@ -19,10 +19,7 @@
  */
 package edu.cuny.qc.speech.AuToBI;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.FileNotFoundException;
+import java.io.*;
 
 /**
  * A wrapper class to BufferedReader that tracks the current line number of the file.
@@ -33,13 +30,31 @@ public class AuToBIFileReader extends BufferedReader {
   private String filename; // the filename
 
   /**
-   * Constructs an AuToBIFileReader
+   * Constructs an AuToBIFileReader.
    *
    * @param filename the file to read
    * @throws FileNotFoundException if the file cannot be found.
    */
-  AuToBIFileReader(String filename) throws FileNotFoundException {
+  public AuToBIFileReader(String filename) throws FileNotFoundException {
     super(new FileReader(filename));
+    this.filename = filename;
+    this.line_number = 1;
+  }
+
+  /**
+   * Constructs an AuToBIFileReader with a specified character encoding.
+   * <p/>
+   * This is used to support reading of non-utf-8 character encoding.
+   *
+   * @param filename    the file to read
+   * @param charsetName The name of a supported {@link java.nio.charset.Charset </code>charset<code>}
+   * @throws FileNotFoundException if the file cannot be found.
+   * @throws java.io.UnsupportedEncodingException
+   *                               If the named charset is not supported
+   */
+  public AuToBIFileReader(String filename, String charsetName)
+      throws FileNotFoundException, UnsupportedEncodingException {
+    super(new InputStreamReader(new FileInputStream(filename), charsetName));
     this.filename = filename;
     this.line_number = 1;
   }

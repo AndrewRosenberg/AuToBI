@@ -46,7 +46,7 @@ public class SpectrumPADFeatureExtractor extends FeatureExtractor {
    * @param classifier the classifier responsible for generating hypotheses
    * @param autobi     the AuToBI object to guide feature extraction
    */
-  SpectrumPADFeatureExtractor(int low, int high, AuToBIClassifier classifier, AuToBI autobi) {
+  public SpectrumPADFeatureExtractor(int low, int high, AuToBIClassifier classifier, AuToBI autobi) {
     this.low = low;
     this.high = high;
     this.classifier = classifier;

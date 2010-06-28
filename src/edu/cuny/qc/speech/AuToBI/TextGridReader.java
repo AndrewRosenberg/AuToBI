@@ -25,28 +25,41 @@ import java.io.*;
 
 /**
  * Read a TextGrid and generate a list of Words.
- *
+ * <p/>
  * The names of orthogonal, tones and breaks tiers in the TextGrid can be specified or standard "words", "tones",
- * "breaks" can be used. 
+ * "breaks" can be used.
  */
 public class TextGridReader {
 
-  private String filename;          // the name of the textgrid file
-  private String words_tier_name;   // the name of the words tier
-  private String tones_tier_name;   // the name of the tones tier
-  private String breaks_tier_name;  // the name of the breaks tier
+  protected String filename;          // the name of the textgrid file
+  protected String charsetName;  // the name of the character set of the file to read.
 
-  private Tier words_tier;   // a words Tier object
-  private Tier tones_tier;   // a tones Tier object
-  private Tier breaks_tier;  // a breaks Tier object
+  protected String words_tier_name;   // the name of the words tier
+  protected String tones_tier_name;   // the name of the tones tier
+  protected String breaks_tier_name;  // the name of the breaks tier
+
+  protected Tier words_tier;   // a words Tier object
+  protected Tier tones_tier;   // a tones Tier object
+  protected Tier breaks_tier;  // a breaks Tier object
 
   /**
    * Constructs a new TextGridReader for a TextGrid file with default tier names.
    *
    * @param filename the filename to read
    */
-  TextGridReader(String filename) {
+  public TextGridReader(String filename) {
     this.filename = filename;
+  }
+
+  /**
+   * Constructs a new TextGridReader for a TextGrid file with default tier names.
+   *
+   * @param filename    the filename to read
+   * @param charsetName the name of the character set for the input
+   */
+  public TextGridReader(String filename, String charsetName) {
+    this.filename = filename;
+    this.charsetName = charsetName;
   }
 
   /**
@@ -56,7 +69,7 @@ public class TextGridReader {
    * @param tones_tier_name  the tones tier
    * @param breaks_tier_name the breaks tier
    */
-  TextGridReader(String words_tier_name, String tones_tier_name, String breaks_tier_name) {
+  public TextGridReader(String words_tier_name, String tones_tier_name, String breaks_tier_name) {
     this.words_tier_name = words_tier_name;
     this.tones_tier_name = tones_tier_name;
     this.breaks_tier_name = breaks_tier_name;
@@ -70,7 +83,7 @@ public class TextGridReader {
    * @param tones_tier_name  the name of the tones tier
    * @param breaks_tier_name the name of the breaks tier
    */
-  TextGridReader(String filename, String words_tier_name, String tones_tier_name, String breaks_tier_name) {
+  public TextGridReader(String filename, String words_tier_name, String tones_tier_name, String breaks_tier_name) {
     this.filename = filename;
     this.words_tier_name = words_tier_name;
     this.tones_tier_name = tones_tier_name;
@@ -78,23 +91,46 @@ public class TextGridReader {
   }
 
   /**
+   * Constructs a new TextGridReader with specified file and tier names.
+   *
+   * @param filename         the file name
+   * @param words_tier_name  the name of the orthogonal tier
+   * @param tones_tier_name  the name of the tones tier
+   * @param breaks_tier_name the name of the breaks tier
+   * @param charsetName      the name of the character set for the input
+   */
+  public TextGridReader(String filename, String words_tier_name, String tones_tier_name, String breaks_tier_name,
+                        String charsetName) {
+    this.filename = filename;
+    this.words_tier_name = words_tier_name;
+    this.tones_tier_name = tones_tier_name;
+    this.breaks_tier_name = breaks_tier_name;
+    this.charsetName = charsetName;
+  }
+
+  /**
    * Generates a list of words from the associated TextGrid file.
    * <p/>
-   * A list of words is generated, available ToBI information is aligned to them, and checked for consistency with the standard.
+   * A list of words is generated, available ToBI information is aligned to them, and checked for consistency with the
+   * standard.
    * <p/>
    * This is the main entry point for this class.
    * <p/>
    * Typical Usage:
    * <p/>
-   * TextGridReader reader = new TextGridReader(filename)
-   * List<Words> data_points = reader.readWords();
+   * TextGridReader reader = new TextGridReader(filename) List<Words> data_points = reader.readWords();
    *
    * @return A list of words with from the TextGrid
    * @throws IOException     if there is a reader problem
    * @throws AuToBIException if there is an alignment problem
    */
   public List<Word> readWords() throws IOException, AuToBIException {
-    AuToBIFileReader file_reader = new AuToBIFileReader(filename);
+    AuToBIFileReader file_reader;
+    if (charsetName != null) {
+      file_reader = new AuToBIFileReader(filename, charsetName);
+    } else {
+      file_reader = new AuToBIFileReader(filename);
+    }
 
     Tier tier;
     tier = readTextGridTier(file_reader);  // Remove TextGrid header
@@ -102,7 +138,7 @@ public class TextGridReader {
       tier = readTextGridTier(file_reader);
 
       if (words_tier_name != null) {
-        if (tier.name == words_tier_name) {
+        if (tier.name.equals(words_tier_name)) {
           words_tier = tier;
         }
       } else if (tier.name != null && (tier.name.equals("words") || tier.name.equals("orthographic"))) {
@@ -110,7 +146,7 @@ public class TextGridReader {
       }
 
       if (tones_tier_name != null) {
-        if (tier.name == tones_tier_name) {
+        if (tier.name.equals(tones_tier_name)) {
           tones_tier = tier;
         }
       } else if (tier.name != null && tier.name.equals("tones")) {
@@ -118,7 +154,7 @@ public class TextGridReader {
       }
 
       if (breaks_tier_name != null) {
-        if (tier.name == breaks_tier_name) {
+        if (tier.name.equals(breaks_tier_name)) {
           tones_tier = tier;
         }
       } else if (tier.name != null && tier.name.equals("breaks")) {
@@ -165,7 +201,7 @@ public class TextGridReader {
    * @param regions the regions to convert
    * @return a list of words
    */
-  private List<Word> generateWordList(List<Region> regions) {
+  protected List<Word> generateWordList(List<Region> regions) {
     List<Word> words = new ArrayList<Word>();
     for (Region r : regions) {
       if (!isSilentRegion(r.getLabel())) {
@@ -187,7 +223,8 @@ public class TextGridReader {
    */
   private boolean isSilentRegion(String label) {
 
-    if (label.length() > 0 && !label.matches("(#|>brth|}sil|endsil|sil)")) {
+    // put 'sil' back
+    if (label.length() > 0 && !label.matches("(#|>brth|}sil|endsil|_|_\\*_|\\*_|_\\*)")) {
       return false;
     }
     return true;
