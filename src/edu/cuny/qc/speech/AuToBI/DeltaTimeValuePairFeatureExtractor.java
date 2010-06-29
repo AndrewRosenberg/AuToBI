@@ -23,31 +23,20 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * DetltaTimeValuePairFeatureExtractor extracts aggregate qualities of the first order differences of a list of
+ * DetltaTimeValuePairFeatureExtractor extracts the first order differences of a list of
  * TimeValuePairs.
  * <p/>
- * This operates by first calculating the deltas of a contour, then sending this new contour to a standard
- * TimeValuePairFeatureExtractor.
- *
- * @see TimeValuePairFeatureExtractor
  */
-public class DeltaTimeValuePairFeatureExtractor extends TimeValuePairFeatureExtractor {
-  private List<TimeValuePair> delta_values;  // a list of first order differences
-
-  private TimeValuePairFeatureExtractor tvpfe;  // a base feature extractor
+public class DeltaTimeValuePairFeatureExtractor extends FeatureExtractor {
+  private String attribute_name;  // the attribute name to construct a delta contour from
 
   /**
    * Constructs a DeltaTimeValuePairFeatureExtractor.
    *
-   * @param values         the initial values
    * @param attribute_name the base attribute name
    */
-  public DeltaTimeValuePairFeatureExtractor(List<TimeValuePair> values, String attribute_name) {
-    this.values = values;
-    this.delta_values = null;
-    this.attribute_name = attribute_name + "_delta";
-    this.tvpfe = new TimeValuePairFeatureExtractor(null, this.attribute_name);
-    this.setAttributeName(this.attribute_name);
+  public DeltaTimeValuePairFeatureExtractor(String attribute_name) {
+    setAttributeName(attribute_name);
   }
 
   /**
@@ -56,33 +45,33 @@ public class DeltaTimeValuePairFeatureExtractor extends TimeValuePairFeatureExtr
    * @param attribute_name the attribute name
    */
   public void setAttributeName(String attribute_name) {
-    super.setAttributeName(attribute_name);
-    if (tvpfe != null)
-      tvpfe.setAttributeName(attribute_name);
+    this.attribute_name = attribute_name;
+    required_features.add(attribute_name);
+
+    extracted_features.add("delta_" + attribute_name);
   }
 
   /**
-   * Extracts delta time value pair features.
+   * Calculates delta time value pair features.
    * <p/>
-   * Note: we defer calculating the delta time values until feature extraction.
-   * This limits the construction overhead of the feature extractor in situations where the delta featues may not be used.
    *
    * @param regions The regions to extract features from
    * @throws FeatureExtractorException When something goes wrong
    */
   public void extractFeatures(List regions) throws FeatureExtractorException {
-    if (this.delta_values == null) {
-      this.delta_values = generateDeltaValues(values);
+    for (Region r : (List<Region>) regions) {
+      if (r.hasAttribute(attribute_name)) {
+        List<TimeValuePair> delta_contour = generateDeltaValues((List<TimeValuePair>) r.getAttribute(attribute_name));
+        r.setAttribute("delta_" + attribute_name, delta_contour);
+      }
     }
-    tvpfe.setValues(delta_values);
-    tvpfe.extractFeatures(regions);
   }
 
   /**
    * Generates delta time value pairs from raw data.
    * <p/>
-   * The resulting points are the first order difference of subsequent values and they are placed in time between
-   * the surrounding points..
+   * The resulting points are the first order difference of subsequent values and they are placed in time between the
+   * surrounding points..
    *
    * @param values The initial values
    * @return The delta values
@@ -92,7 +81,7 @@ public class DeltaTimeValuePairFeatureExtractor extends TimeValuePairFeatureExtr
     for (int i = 0; i < values.size() - 1; ++i) {
       double time = (values.get(i + 1).getTime() + values.get(i).getTime()) / 2;
       double value = (values.get(i + 1).getValue() - values.get(i).getValue()) /
-                     (values.get(i + 1).getTime() - values.get(i).getTime());
+          (values.get(i + 1).getTime() - values.get(i).getTime());
       d_values.add(new TimeValuePair(time, value));
     }
     return d_values;

@@ -75,7 +75,7 @@ public class SpectrumPADTrainer {
         AuToBIUtils.log("Extracting acoustic information.");
         Spectrum spectrum = spectrum_extractor.getSpectrum(0.01, 0.02);
 
-        autobi.registerAllFeatureExtractors(null, null, spectrum, wav, null);
+        autobi.registerAllFeatureExtractors(spectrum, wav, null);
 
         SpectrumPADFeatureSet current_fs =
             new SpectrumPADFeatureSet(low, high);

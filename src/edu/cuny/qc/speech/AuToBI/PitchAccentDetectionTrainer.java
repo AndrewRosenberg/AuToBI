@@ -31,8 +31,8 @@ import java.io.FileNotFoundException;
 import org.apache.log4j.BasicConfigurator;
 
 /**
- * PitchAccentDetectionTrainer trains and serializes a pitch accent detection classifier.  This class trains
- * a Logistic Regression model.  This is the classifier delivered with the first version of AuToBI.   
+ * PitchAccentDetectionTrainer trains and serializes a pitch accent detection classifier.  This class trains a Logistic
+ * Regression model.  This is the classifier delivered with the first version of AuToBI.
  */
 public class PitchAccentDetectionTrainer {
 
@@ -70,8 +70,6 @@ public class PitchAccentDetectionTrainer {
 
           AuToBIUtils.log("Extracting acoustic information.");
 
-          pitch_values = pitch_extractor.soundToPitch();
-          List<TimeValuePair> intensity_values = intensity_extractor.soundToIntensity();
 
           Spectrum spectrum = spectrum_extractor.getSpectrum(0.01, 0.02);
 
@@ -80,11 +78,14 @@ public class PitchAccentDetectionTrainer {
 
           // If stored normalization data is unavailable generate normalization data from the input file.
           if (norm_params == null) {
+            pitch_values = pitch_extractor.soundToPitch();
+            List<TimeValuePair> intensity_values = intensity_extractor.soundToIntensity();
             norm_params = new SpeakerNormalizationParameter();
             norm_params.insertPitch(pitch_values);
             norm_params.insertIntensity(intensity_values);
           }
-          autobi.registerAllFeatureExtractors(pitch_values, intensity_values, spectrum, wav, norm_params);
+          autobi.unregisterAllFeatureExtractors();
+          autobi.registerAllFeatureExtractors(spectrum, wav, norm_params);
 
           PitchAccentDetectionFeatureSet current_fs =
               new PitchAccentDetectionFeatureSet();

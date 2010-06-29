@@ -31,9 +31,9 @@ import java.io.FileNotFoundException;
 import org.apache.log4j.BasicConfigurator;
 
 /**
- * IntonationalPhraseBoundaryDetectionTrainer is used to train and serialize models that distinguish
- * intonational phrase boundaries from phrase internal word boundaries.
- *
+ * IntonationalPhraseBoundaryDetectionTrainer is used to train and serialize models that distinguish intonational phrase
+ * boundaries from phrase internal word boundaries.
+ * <p/>
  * Note: intermediatephrase boundaries are not considered phrase final by this classification task.
  */
 public class IntonationalPhraseBoundaryDetectionTrainer {
@@ -61,19 +61,15 @@ public class IntonationalPhraseBoundaryDetectionTrainer {
         TextGridReader tg_reader = new TextGridReader(filename);
 
         WavData wav = reader.read(wav_filename);
-        PitchExtractor pitch_extractor = new PitchExtractor(wav);
-        IntensityExtractor intensity_extractor = new IntensityExtractor(wav);
         SpectrumExtractor spectrum_extractor = new SpectrumExtractor(wav);
-        List<TimeValuePair> pitch_values = null;
+
         try {
           AuToBIUtils.log("Reading words from: " + filename);
           List<Word> words = tg_reader.readWords();
 
-          
+
           AuToBIUtils.log("Extracting acoustic information.");
 
-          pitch_values = pitch_extractor.soundToPitch();
-          List<TimeValuePair> intensity_values = intensity_extractor.soundToIntensity();
           Spectrum spectrum = spectrum_extractor.getSpectrum(0.01, 0.02);
 
           SpeakerNormalizationParameter norm_params =
@@ -81,16 +77,23 @@ public class IntonationalPhraseBoundaryDetectionTrainer {
 
           // If stored normalization data is unavailable generate normalization data from the input file.
           if (norm_params == null) {
+            PitchExtractor pitch_extractor = new PitchExtractor(wav);
+            IntensityExtractor intensity_extractor = new IntensityExtractor(wav);
+            List<TimeValuePair> pitch_values = null;
+            pitch_values = pitch_extractor.soundToPitch();
+            List<TimeValuePair> intensity_values = intensity_extractor.soundToIntensity();
+
             norm_params = new SpeakerNormalizationParameter();
             norm_params.insertPitch(pitch_values);
             norm_params.insertIntensity(intensity_values);
           }
-          autobi.registerAllFeatureExtractors(pitch_values, intensity_values, spectrum, wav, norm_params);
+          autobi.unregisterAllFeatureExtractors();
+          autobi.registerAllFeatureExtractors(spectrum, wav, norm_params);
 
           IntonationalPhraseBoundaryDetectionFeatureSet current_fs =
               new IntonationalPhraseBoundaryDetectionFeatureSet();
           current_fs.setDataPoints(words);
-                                                                           
+
           autobi.extractFeatures(current_fs);
           current_fs.garbageCollection();
 
@@ -103,7 +106,7 @@ public class IntonationalPhraseBoundaryDetectionTrainer {
           e.printStackTrace();
         }
       }
-      
+
       fs.constructFeatures();
 
       AuToBIUtils.log("training classifier");

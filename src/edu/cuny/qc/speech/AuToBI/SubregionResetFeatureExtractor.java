@@ -27,45 +27,36 @@ import java.util.List;
  * The standard ResetTimeValuePairFeatureExtractor extract reset features from the full regions.  This extends this
  * functionality to identify reset over narrower regions.
  * <p/>
- * While developed as a utility for subregions, this can operate on regions longer than the initial region.  For example,
- * if the initial region is 100ms, and a 200ms subregion is requested, the subregion boundary will fall earlier than
- * the initial region boundary
+ * While developed as a utility for subregions, this can operate on regions longer than the initial region.  For
+ * example, if the initial region is 100ms, and a 200ms subregion is requested, the subregion boundary will fall earlier
+ * than the initial region boundary
  *
- * @see ResetTimeValuePairFeatureExtractor
  */
-public class SubregionResetFeatureExtractor extends TimeValuePairFeatureExtractor {
+public class SubregionResetFeatureExtractor extends FeatureExtractor {
 
-  private ResetTimeValuePairFeatureExtractor rtvpfe;  // A feature extractor responsible for generating the features
-  private String subregion_name;                      // the name of the subregion
-  private Double subregion_length;                    // the length (in seconds) of the subregion
+  private String subregion_name;    // the name of the subregion
+  private Double subregion_length;  // the length (in seconds) of the subregion
 
   /**
    * Constructs a new SubregionResetFeatureExtractor.
    * <p/>
    * Assigns a contour, subregion name and the name of the acoustic feature.
    * <p/>
-   * Subregions are described as a number of seconds "2s" or milliseconds "50ms".  Other names will raise an
-   * exception
+   * Subregions are described as a number of seconds "2s" or milliseconds "50ms".  Other names will raise an exception
    *
-   * @param values         the contour
    * @param subregion_name the subregion label
-   * @param feature_prefix a feature describing the type of contour used in SpeakerNormalizationParameter
    * @throws FeatureExtractorException if something goes wrong with the subregion name
    */
-  public SubregionResetFeatureExtractor(List<TimeValuePair> values, String subregion_name, String feature_prefix)
-      throws FeatureExtractorException {
-    super();
-
-    rtvpfe = new ResetTimeValuePairFeatureExtractor(values, feature_prefix, subregion_name);
-
-    extracted_features.addAll(rtvpfe.extracted_features);
+  public SubregionResetFeatureExtractor(String subregion_name) throws FeatureExtractorException {
+    extracted_features.add("van_" + subregion_name);
+    extracted_features.add("trail_" + subregion_name);
 
     this.subregion_name = subregion_name;
     this.subregion_length = SubregionUtils.parseSubregionName(subregion_name);
   }
 
   /**
-   * Extracts subregion reset features for each region.
+   * Extracts subregion reset regions for each region.
    *
    * @param regions the regions to process
    * @throws FeatureExtractorException if something goes wrong with the extraction.
@@ -79,7 +70,5 @@ public class SubregionResetFeatureExtractor extends TimeValuePairFeatureExtracto
       r.setAttribute("van_" + subregion_name, van_region);
       r.setAttribute("trail_" + subregion_name, trail_region);
     }
-
-    rtvpfe.extractFeatures(regions);
   }
 }

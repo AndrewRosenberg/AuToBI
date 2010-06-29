@@ -31,9 +31,9 @@ import java.io.FileNotFoundException;
 
 
 /**
- * PhraseAccentClassificationTrainer is responsible for training and serializing a classfier to distinguish
- * phrase accents.
- *
+ * PhraseAccentClassificationTrainer is responsible for training and serializing a classfier to distinguish phrase
+ * accents.
+ * <p/>
  * Only intermediate phrase final words (that are not also intonational phrase final) are used in this classification.
  * That is, the destection of intermediate phrase boundaries is distinct from the classification of phrase accents.
  */
@@ -74,11 +74,9 @@ public class PhraseAccentClassificationTrainer {
             if (w.isIntermediatePhraseFinal() && !w.isIntonationalPhraseFinal())
               words.add(w);
           }
-          
+
           AuToBIUtils.log("Extracting acoustic information.");
 
-          pitch_values = pitch_extractor.soundToPitch();
-          List<TimeValuePair> intensity_values = intensity_extractor.soundToIntensity();
           Spectrum spectrum = spectrum_extractor.getSpectrum(0.01, 0.02);
 
           SpeakerNormalizationParameter norm_params =
@@ -86,11 +84,14 @@ public class PhraseAccentClassificationTrainer {
 
           // If stored normalization data is unavailable generate normalization data from the input file.
           if (norm_params == null) {
+            pitch_values = pitch_extractor.soundToPitch();
+            List<TimeValuePair> intensity_values = intensity_extractor.soundToIntensity();
             norm_params = new SpeakerNormalizationParameter();
             norm_params.insertPitch(pitch_values);
             norm_params.insertIntensity(intensity_values);
           }
-          autobi.registerAllFeatureExtractors(pitch_values, intensity_values, spectrum, wav, norm_params);
+          autobi.unregisterAllFeatureExtractors();
+          autobi.registerAllFeatureExtractors(spectrum, wav, norm_params);
 
           PhraseAccentClassificationFeatureSet current_fs =
               new PhraseAccentClassificationFeatureSet();

@@ -23,34 +23,29 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * SubregionTimeValuePairFeatureExtractor extrcts standard time value pair features from subregions rather
- * than from the entire supplied regions.
+ * SubregionTimeValuePairFeatureExtractor extarcts standard time value pair features from subregions rather than from
+ * the entire supplied regions.
  *
  * @see TimeValuePairFeatureExtractor
  */
-public class SubregionTimeValuePairFeatureExtractor extends TimeValuePairFeatureExtractor {
+public class SubregionTimeValuePairFeatureExtractor extends FeatureExtractor {
 
   private TimeValuePairFeatureExtractor tvpfe;
   // a FeatureExtractor responsible for the extraction of subregion features
+  private String attribute_name;  // the name of the acoustic attribute to analyze.
   private String subregion_attribute;
   // a descriptor of the feature containing the subregion object to be analysed
 
   /**
    * Constructs a new SubregionTimeValuePairFeatureExtractor.
    *
-   * @param tvpfe               the TimeValuePairFeatureExtractor responsible for extracting features -- and containing the contour.
+   * @param feature_name        the contour to analyze.
    * @param subregion_attribute the name of the attribute containing the subregion
    */
-  public SubregionTimeValuePairFeatureExtractor(TimeValuePairFeatureExtractor tvpfe, String subregion_attribute) {
-    this.attribute_name = tvpfe.attribute_name;
+  public SubregionTimeValuePairFeatureExtractor(String feature_name, String subregion_attribute) {
     this.subregion_attribute = subregion_attribute;
-
-    this.tvpfe = tvpfe;
-    this.attribute_name = tvpfe.attribute_name;
-    extracted_features = new ArrayList<String>();
-    for (String feature : tvpfe.extracted_features) {
-      extracted_features.add(feature + "_" + subregion_attribute);
-    }
+    this.tvpfe = new TimeValuePairFeatureExtractor(feature_name);
+    setAttributeName(feature_name);
 
     this.required_features.add(subregion_attribute);
   }
@@ -73,24 +68,17 @@ public class SubregionTimeValuePairFeatureExtractor extends TimeValuePairFeature
     for (String feature : tvpfe.extracted_features) {
       extracted_features.add(feature + "_" + subregion_attribute);
     }
-  }
-
-  /**
-   * Retrieves the contour values.
-   *
-   * @return the contour values
-   */
-  public List<TimeValuePair> getValues() {
-    return tvpfe.getValues();
+    this.required_features.add(attribute_name);
   }
 
   /**
    * Extracts time value pair features from subregions of each region.
-   *
+   * <p/>
    * A subregion object must be assigned to each region prior to processing.
    *
    * @param regions the regions to extract features from.
-   * @throws FeatureExtractorException if somethign goes wrong -- no subregion feature is assigned or a problem with the tvpfe.
+   * @throws FeatureExtractorException if somethign goes wrong -- no subregion feature is assigned or a problem with the
+   *                                   tvpfe.
    */
   public void extractFeatures(List regions) throws FeatureExtractorException {
     // Construct a list of subregions.
@@ -102,6 +90,12 @@ public class SubregionTimeValuePairFeatureExtractor extends TimeValuePairFeature
         throw new FeatureExtractorException(
             "Region, " + r + ", does not have a valid subregion feature, " + subregion_attribute);
       }
+    }
+
+    try {
+      TimeValuePairUtils.assignValuesToSubregions(subregions, regions, attribute_name);
+    } catch (AuToBIException e) {
+      throw new FeatureExtractorException(e.getMessage());
     }
 
     tvpfe.extractFeatures(subregions, regions);

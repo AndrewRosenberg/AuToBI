@@ -33,19 +33,16 @@ import java.util.*;
  * <p/>
  * AuToBI generates hypothesized ToBI tones based on manual segmentation of words and an audio file.
  * <p/>
- * The prediction is divided into six tasks.
- * 1) detection of pitch accents
- * 2) classification of pitch accent types
- * 3) detection of intonational phrase boundaries
- * 4) classification of intonational phrase ending tones (phrase accent and boundary tone pairs)
- * 5) detection of intermediate phrase boundaries
- * 6) classification of intermediate phrase ending tones (phrase accents)
+ * The prediction is divided into six tasks. 1) detection of pitch accents 2) classification of pitch accent types 3)
+ * detection of intonational phrase boundaries 4) classification of intonational phrase ending tones (phrase accent and
+ * boundary tone pairs) 5) detection of intermediate phrase boundaries 6) classification of intermediate phrase ending
+ * tones (phrase accents)
  * <p/>
- * Each of these tasks require distinct features to be extracted from the words that are being analyzed.
- * To perform the feature extraction, each task has an associated FeatureSet which describes the features required
- * for classification.  AuToBI maintains a registry of FeatureExtractors describing the Features that they will
- * calculate when processing a word.  When extracting features for a FeatureSet, AuToBI only calls those FeatureExtractors
- * necessary to generate the required features.
+ * Each of these tasks require distinct features to be extracted from the words that are being analyzed. To perform the
+ * feature extraction, each task has an associated FeatureSet which describes the features required for classification.
+ * AuToBI maintains a registry of FeatureExtractors describing the Features that they will calculate when processing a
+ * word.  When extracting features for a FeatureSet, AuToBI only calls those FeatureExtractors necessary to generate the
+ * required features.
  * <p/>
  * This class manages command line parameters, the execution of feature extractors and the generation of hypothesized
  * ToBI tones.
@@ -206,8 +203,8 @@ public class AuToBI {
   }
 
   /**
-   * Extracts the features required for the feature set and optionally deletes intermediate features
-   * that may have been generated in their processing
+   * Extracts the features required for the feature set and optionally deletes intermediate features that may have been
+   * generated in their processing
    *
    * @param fs             the feature set
    * @param clear_features should unrequired features be deleted after extraction
@@ -264,8 +261,8 @@ public class AuToBI {
   /**
    * Extracts a single feature on data points stored in the given feature set.
    * <p/>
-   * If the registered FeatureExtractor requires any features for processing, this will result in recursive calls
-   * to extractFeatures(...).
+   * If the registered FeatureExtractor requires any features for processing, this will result in recursive calls to
+   * extractFeatures(...).
    *
    * @param feature        The requested feature
    * @param fs             The feature set
@@ -400,8 +397,8 @@ public class AuToBI {
   /**
    * Generates predictions for a set of words using the supplied classifier.
    * <p/>
-   * Results are stored in hyp_attribute. If the classifier throws an error, the default_value is assigned
-   * as the hypothesis
+   * Results are stored in hyp_attribute. If the classifier throws an error, the default_value is assigned as the
+   * hypothesis
    *
    * @param classifier    the classifier to generate predictions
    * @param hyp_attribute the destination attribute for the hypotheses
@@ -448,47 +445,49 @@ public class AuToBI {
    * Loads classifiers from serialized objects.
    * <p/>
    * Only those classifiers which have been specified using the following command line parameters are loaded:
-   * -pitch_accent_detector
-   * -pitch_accent_classifier
-   * -IP_detector
-   * -ip_detector
-   * -phrase_accent_classifier
+   * -pitch_accent_detector -pitch_accent_classifier -IP_detector -ip_detector -phrase_accent_classifier
    * -boundary_tone_classifier
    */
   private void loadClassifiers() {
     try {
       String pad_filename = getParameter("pitch_accent_detector");
       pitch_accent_detector = ClassifierUtils.readAuToBIClassifier(pad_filename);
-    } catch (AuToBIException e) { }
+    } catch (AuToBIException e) {
+    }
 
     try {
       String pac_filename = getParameter("pitch_accent_classifier");
       pitch_accent_classifier = ClassifierUtils.readAuToBIClassifier(pac_filename);
-    } catch (AuToBIException e) { }
+    } catch (AuToBIException e) {
+    }
 
     try {
       String intonational_phrase_detector_filename = getParameter("IP_detector");
       intonational_phrase_boundary_detector =
           ClassifierUtils.readAuToBIClassifier(intonational_phrase_detector_filename);
-    } catch (AuToBIException e) { }
+    } catch (AuToBIException e) {
+    }
 
     try {
       String intermediate_phrase_detector_filename = getParameter("ip_detector");
       intermediate_phrase_boundary_detector =
           ClassifierUtils.readAuToBIClassifier(intermediate_phrase_detector_filename);
-    } catch (AuToBIException e) { }
+    } catch (AuToBIException e) {
+    }
 
     try {
       String phrase_accent_classifier_name = getParameter("phrase_accent_classifier");
       phrase_accent_classifier =
           ClassifierUtils.readAuToBIClassifier(phrase_accent_classifier_name);
-    } catch (AuToBIException e) { }
+    } catch (AuToBIException e) {
+    }
 
     try {
       String boundary_tone_classifier_name = getParameter("boundary_tone_classifier");
       boundary_tone_classifier =
           ClassifierUtils.readAuToBIClassifier(boundary_tone_classifier_name);
-    } catch (AuToBIException e) { }
+    } catch (AuToBIException e) {
+    }
   }
 
   /**
@@ -557,7 +556,7 @@ public class AuToBI {
       Word w = words.get(i);
       String text = "";
       if (w.hasAttribute("hyp_pitch_accent")) {
-       text = w.getAttribute("hyp_pitch_accent").toString();
+        text = w.getAttribute("hyp_pitch_accent").toString();
       }
 
       text_grid += "intervals [" + i + "]:\n";
@@ -594,19 +593,16 @@ public class AuToBI {
   /**
    * Registers a large default set of feature extractors.
    * <p/>
-   * Currently requires pitch and intensity contours and the spectrum to be calculated outside the
-   * FeatureExtractor construct. This will be changed in a future version, with FeatureExtractors used to
-   * generate these acoustic qualities.
+   * Currently requires pitch and intensity contours and the spectrum to be calculated outside the FeatureExtractor
+   * construct. This will be changed in a future version, with FeatureExtractors used to generate these acoustic
+   * qualities.
    *
-   * @param pitch_values     A pitch contour associated with the wave file
-   * @param intensity_values An intensity contour associated with the wave file
-   * @param spectrum         The specturm of the wave file
-   * @param wav_data         The wave data
-   * @param norm_params      speaker normalization parameters for the wave file
+   * @param spectrum    The specturm of the wave file
+   * @param wav_data    The wave data
+   * @param norm_params speaker normalization parameters for the wave file
    * @throws FeatureExtractorException If there is a problem registering feature extractors.
    */
-  public void registerAllFeatureExtractors(List<TimeValuePair> pitch_values, List<TimeValuePair> intensity_values,
-                                           Spectrum spectrum, WavData wav_data,
+  public void registerAllFeatureExtractors(Spectrum spectrum, WavData wav_data,
                                            SpeakerNormalizationParameter norm_params)
       throws FeatureExtractorException {
 
@@ -617,22 +613,27 @@ public class AuToBI {
     registerFeatureExtractor(new IntonationalPhraseBoundaryFeatureExtractor("nominal_IntonationalPhraseBoundary"));
     registerFeatureExtractor(new IntermediatePhraseBoundaryFeatureExtractor("nominal_IntermediatePhraseBoundary"));
 
-    registerFeatureExtractor(new TimeValuePairFeatureExtractor(pitch_values, "f0"));
-    registerFeatureExtractor(new TimeValuePairFeatureExtractor(intensity_values, "I"));
-    registerFeatureExtractor(new DeltaTimeValuePairFeatureExtractor(pitch_values, "f0"));
-    registerFeatureExtractor(new DeltaTimeValuePairFeatureExtractor(intensity_values, "I"));
-    registerFeatureExtractor(
-        new NormalizedFeatureExtractor(new TimeValuePairFeatureExtractor(pitch_values, "f0"),
-                                       norm_params, "f0"));
-    registerFeatureExtractor(
-        new NormalizedFeatureExtractor(new TimeValuePairFeatureExtractor(intensity_values, "I"),
-                                       norm_params, "I"));
-    registerFeatureExtractor(
-        new NormalizedFeatureExtractor(new DeltaTimeValuePairFeatureExtractor(pitch_values, "f0"),
-                                       norm_params, "f0"));
-    registerFeatureExtractor(
-        new NormalizedFeatureExtractor(new DeltaTimeValuePairFeatureExtractor(intensity_values, "I"),
-                                       norm_params, "I"));
+
+    registerFeatureExtractor(new PitchFeatureExtractor(wav_data, "f0"));
+    registerFeatureExtractor(new IntensityFeatureExtractor(wav_data, "I"));
+    registerFeatureExtractor(new NormalizedTimeValuePairFeatureExtractor("f0", norm_params));
+    registerFeatureExtractor(new NormalizedTimeValuePairFeatureExtractor("I", norm_params));
+
+    registerFeatureExtractor(new DeltaTimeValuePairFeatureExtractor("f0"));
+    registerFeatureExtractor(new DeltaTimeValuePairFeatureExtractor("I"));
+    registerFeatureExtractor(new DeltaTimeValuePairFeatureExtractor("norm_f0"));
+    registerFeatureExtractor(new DeltaTimeValuePairFeatureExtractor("norm_I"));
+
+
+    registerFeatureExtractor(new TimeValuePairFeatureExtractor("f0"));
+    registerFeatureExtractor(new TimeValuePairFeatureExtractor("norm_f0"));
+    registerFeatureExtractor(new TimeValuePairFeatureExtractor("delta_f0"));
+    registerFeatureExtractor(new TimeValuePairFeatureExtractor("delta_norm_f0"));
+
+    registerFeatureExtractor(new TimeValuePairFeatureExtractor("I"));
+    registerFeatureExtractor(new TimeValuePairFeatureExtractor("norm_I"));
+    registerFeatureExtractor(new TimeValuePairFeatureExtractor("delta_I"));
+    registerFeatureExtractor(new TimeValuePairFeatureExtractor("delta_norm_I"));
 
     for (int low = 0; low <= 19; ++low) {
       for (int high = low + 1; high <= 20; ++high) {
@@ -645,102 +646,58 @@ public class AuToBI {
     ////////////////////
     // Reset Features //
     ////////////////////
-    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor(pitch_values, "f0_reset", null));
-    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor(intensity_values, "I_reset", null));
-    registerFeatureExtractor(
-        new NormalizedFeatureExtractor(new ResetTimeValuePairFeatureExtractor(pitch_values, "f0_reset", null),
-                                       norm_params, "f0"));
-    registerFeatureExtractor(
-        new NormalizedFeatureExtractor(new ResetTimeValuePairFeatureExtractor(intensity_values, "I_reset", null),
-                                       norm_params, "I"));
-    registerFeatureExtractor(new SubregionResetFeatureExtractor(pitch_values, "400ms", "f0_reset"));
-    registerFeatureExtractor(new SubregionResetFeatureExtractor(pitch_values, "200ms", "f0_reset"));
-    registerFeatureExtractor(new SubregionResetFeatureExtractor(intensity_values, "400ms", "I_reset"));
-    registerFeatureExtractor(new SubregionResetFeatureExtractor(intensity_values, "200ms", "I_reset"));
+    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("f0", null));
+    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("I", null));
+    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("norm_f0", null));
+    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("norm_I", null));
 
-    registerFeatureExtractor(
-        new NormalizedFeatureExtractor(new SubregionResetFeatureExtractor(pitch_values, "400ms", "f0_reset"),
-                                       norm_params, "f0"));
-    registerFeatureExtractor(
-        new NormalizedFeatureExtractor(new SubregionResetFeatureExtractor(pitch_values, "200ms", "f0_reset"),
-                                       norm_params, "f0"));
-    registerFeatureExtractor(
-        new NormalizedFeatureExtractor(new SubregionResetFeatureExtractor(intensity_values, "400ms", "I_reset"),
-                                       norm_params, "I"));
-    registerFeatureExtractor(
-        new NormalizedFeatureExtractor(new SubregionResetFeatureExtractor(intensity_values, "200ms", "I_reset"),
-                                       norm_params, "I"));
+    registerFeatureExtractor(new SubregionResetFeatureExtractor("200ms"));
+    registerFeatureExtractor(new SubregionResetFeatureExtractor("400ms"));
+
+    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("f0", "200ms"));
+    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("I", "200ms"));
+    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("norm_f0", "200ms"));
+    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("norm_I", "200ms"));
+
+    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("f0", "400ms"));
+    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("I", "400ms"));
+    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("norm_f0", "400ms"));
+    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("norm_I", "400ms"));
 
     ////////////////////////
     // Subregion Features //
     ////////////////////////
     registerFeatureExtractor(new PseudosyllableFeatureExtractor("pseudosyllable", wav_data));
 
-    registerFeatureExtractor(
-        new SubregionTimeValuePairFeatureExtractor(new TimeValuePairFeatureExtractor(pitch_values, "f0"),
-                                                   "pseudosyllable"));
-    registerFeatureExtractor(
-        new SubregionTimeValuePairFeatureExtractor(new TimeValuePairFeatureExtractor(intensity_values, "I"),
-                                                   "pseudosyllable"));
-    registerFeatureExtractor(new NormalizedFeatureExtractor(
-        new SubregionTimeValuePairFeatureExtractor(new TimeValuePairFeatureExtractor(pitch_values, "f0"),
-                                                   "pseudosyllable"), norm_params, "f0"));
-    registerFeatureExtractor(new NormalizedFeatureExtractor(
-        new SubregionTimeValuePairFeatureExtractor(new TimeValuePairFeatureExtractor(intensity_values, "I"),
-                                                   "pseudosyllable"), norm_params, "I"));
-    registerFeatureExtractor(
-        new SubregionTimeValuePairFeatureExtractor(new DeltaTimeValuePairFeatureExtractor(pitch_values, "f0"),
-                                                   "pseudosyllable"));
-    registerFeatureExtractor(
-        new SubregionTimeValuePairFeatureExtractor(new DeltaTimeValuePairFeatureExtractor(intensity_values, "I"),
-                                                   "pseudosyllable"));
-    registerFeatureExtractor(new NormalizedFeatureExtractor(
-        new SubregionTimeValuePairFeatureExtractor(new DeltaTimeValuePairFeatureExtractor(pitch_values, "f0"),
-                                                   "pseudosyllable"), norm_params, "f0"));
-    registerFeatureExtractor(new NormalizedFeatureExtractor(
-        new SubregionTimeValuePairFeatureExtractor(new DeltaTimeValuePairFeatureExtractor(intensity_values, "I"),
-                                                   "pseudosyllable"), norm_params, "I"));
+    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("f0", "pseudosyllable"));
+    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("delta_f0", "pseudosyllable"));
+    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("norm_f0", "pseudosyllable"));
+    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("delta_norm_f0", "pseudosyllable"));
 
+    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("I", "pseudosyllable"));
+    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("delta_I", "pseudosyllable"));
+    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("norm_I", "pseudosyllable"));
+    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("delta_norm_I", "pseudosyllable"));
 
     registerFeatureExtractor(new SubregionFeatureExtractor("200ms"));
 
-    registerFeatureExtractor(
-        new SubregionTimeValuePairFeatureExtractor(new TimeValuePairFeatureExtractor(pitch_values, "f0"),
-                                                   "200ms"));
-    registerFeatureExtractor(
-        new SubregionTimeValuePairFeatureExtractor(new TimeValuePairFeatureExtractor(intensity_values, "I"),
-                                                   "200ms"));
-    registerFeatureExtractor(new NormalizedFeatureExtractor(
-        new SubregionTimeValuePairFeatureExtractor(new TimeValuePairFeatureExtractor(pitch_values, "f0"),
-                                                   "200ms"), norm_params, "f0"));
-    registerFeatureExtractor(new NormalizedFeatureExtractor(
-        new SubregionTimeValuePairFeatureExtractor(new TimeValuePairFeatureExtractor(intensity_values, "I"),
-                                                   "200ms"), norm_params, "I"));
-    registerFeatureExtractor(
-        new SubregionTimeValuePairFeatureExtractor(new DeltaTimeValuePairFeatureExtractor(pitch_values, "f0"),
-                                                   "200ms"));
-    registerFeatureExtractor(
-        new SubregionTimeValuePairFeatureExtractor(new DeltaTimeValuePairFeatureExtractor(intensity_values, "I"),
-                                                   "200ms"));
-    registerFeatureExtractor(
-        new NormalizedFeatureExtractor(
-            new SubregionTimeValuePairFeatureExtractor(new DeltaTimeValuePairFeatureExtractor(pitch_values, "f0"),
-                                                       "200ms"),
-            norm_params, "f0"));
+    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("f0", "200ms"));
+    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("delta_f0", "200ms"));
+    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("norm_f0", "200ms"));
+    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("delta_norm_f0", "200ms"));
 
-    registerFeatureExtractor(
-        new NormalizedFeatureExtractor(
-            new SubregionTimeValuePairFeatureExtractor(new DeltaTimeValuePairFeatureExtractor(intensity_values, "I"),
-                                                       "200ms"),
-            norm_params, "I"));
+    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("I", "200ms"));
+    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("delta_I", "200ms"));
+    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("norm_I", "200ms"));
+    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("delta_norm_I", "200ms"));
 
     List<String> difference_features = new ArrayList<String>();
     difference_features.add("duration__duration");
     for (String acoustic : new String[]{"f0", "I"}) {
-      for (String norm : new String[]{"", "_norm"}) {
-        for (String slope : new String[]{"", "_delta"}) {
+      for (String norm : new String[]{"", "norm_"}) {
+        for (String slope : new String[]{"", "delta_"}) {
           for (String agg : new String[]{"max", "mean", "stdev", "zMax"}) {
-            difference_features.add(acoustic + slope + norm + "__" + agg);
+            difference_features.add(slope + norm + acoustic + "__" + agg);
           }
         }
       }
@@ -748,41 +705,42 @@ public class AuToBI {
     registerFeatureExtractor(new DifferenceFeatureExtractor(difference_features));
 
     try {
-      String pad_filename = getParameter("spectral_pitch_accent_detector_collection");
-      PitchAccentDetectionClassifierCollection pacc;
+      if (hasParameter("spectral_pitch_accent_detector_collection")) {
+        String pad_filename = getParameter("spectral_pitch_accent_detector_collection");
+        PitchAccentDetectionClassifierCollection pacc;
 
-      // Load PitchAccentDetectionClassifierCollection
-      FileInputStream fis;
-      ObjectInputStream in;
-      fis = new FileInputStream(pad_filename);
-      in = new ObjectInputStream(fis);
-      Object o = in.readObject();
-      if (o instanceof PitchAccentDetectionClassifierCollection) {
-        pacc = (PitchAccentDetectionClassifierCollection) o;
-      } else {
-        throw new FeatureExtractorException(
-            "Object read from -spectral_pitch_accent_detector_collection=" + pad_filename +
-            " is not a valid PitchAccentDetectionClassifierCollection");
-      }
+        // Load PitchAccentDetectionClassifierCollection
+        FileInputStream fis;
+        ObjectInputStream in;
+        fis = new FileInputStream(pad_filename);
+        in = new ObjectInputStream(fis);
+        Object o = in.readObject();
+        if (o instanceof PitchAccentDetectionClassifierCollection) {
+          pacc = (PitchAccentDetectionClassifierCollection) o;
+        } else {
+          throw new FeatureExtractorException(
+              "Object read from -spectral_pitch_accent_detector_collection=" + pad_filename +
+                  " is not a valid PitchAccentDetectionClassifierCollection");
+        }
 
-      // Register appropriate feature extractors for each classifier in the collection
-      Integer high_bark = Integer.parseInt(getOptionalParameter("high_bark", "20"));
-      for (int low = 0; low < high_bark; ++low) {
-        for (int high = low + 1; high <= high_bark; ++high) {
-          registerFeatureExtractor(
-              new SpectrumPADFeatureExtractor(low, high, pacc.getPitchAccentDetector(low, high), this));
-          registerFeatureExtractor(
-              new CorrectionSpectrumPADFeatureExtractor(low, high, pacc.getCorrectionClassifier(low, high), this));
+        // Register appropriate feature extractors for each classifier in the collection
+        Integer high_bark = Integer.parseInt(getOptionalParameter("high_bark", "20"));
+        for (int low = 0; low < high_bark; ++low) {
+          for (int high = low + 1; high <= high_bark; ++high) {
+            registerFeatureExtractor(
+                new SpectrumPADFeatureExtractor(low, high, pacc.getPitchAccentDetector(low, high), this));
+            registerFeatureExtractor(
+                new CorrectionSpectrumPADFeatureExtractor(low, high, pacc.getCorrectionClassifier(low, high), this));
+          }
         }
       }
 
-    } catch (FeatureExtractorException e) {
-      throw e;
     } catch (AuToBIException e) {
+      throw new FeatureExtractorException(e.getMessage());
     } catch (ClassNotFoundException e) {
-      e.printStackTrace();
+      throw new FeatureExtractorException(e.getMessage());
     } catch (IOException e) {
-      e.printStackTrace();
+      throw new FeatureExtractorException(e.getMessage());
     }
   }
 
@@ -806,7 +764,7 @@ public class AuToBI {
       String[] fields = line.split(",");
       if (fields.length != 2)
         throw new AuToBIException("Malformed speaker normalization mapping file: " + speaker_normalization_file + "(" +
-                                  reader.getLineNumber() + ") : " + line);
+            reader.getLineNumber() + ") : " + line);
       speaker_norm_file_mapping.put(fields[0], fields[1]);
     }
   }
@@ -870,7 +828,7 @@ public class AuToBI {
       autobi.loadClassifiers();
 
       AuToBIUtils.log("Registering Feature Extractors");
-      autobi.registerAllFeatureExtractors(pitch_values, intensity_values, spectrum, wav, norm_params);
+      autobi.registerAllFeatureExtractors(spectrum, wav, norm_params);
 
       for (String task : autobi.getClassificationTasks()) {
         AuToBIUtils.log("Running Hypothesis task -- " + task);

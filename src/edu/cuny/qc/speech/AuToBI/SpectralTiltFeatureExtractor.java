@@ -51,7 +51,7 @@ public class SpectralTiltFeatureExtractor extends TimeValuePairFeatureExtractor 
     this.high = high_bark;
     this.attribute_name = feature_prefix;
 
-    tvpfe = new TimeValuePairFeatureExtractor(null, feature_prefix + "_" + low + "_" + high);
+    tvpfe = new TimeValuePairFeatureExtractor(feature_prefix + "_" + low + "_" + high);
 
     extracted_features = new ArrayList<String>();
     extracted_features.addAll(tvpfe.extracted_features);
@@ -77,10 +77,8 @@ public class SpectralTiltFeatureExtractor extends TimeValuePairFeatureExtractor 
    */
   public void extractFeatures(List regions) throws FeatureExtractorException {
     try {
-      if (tvpfe.getValues() == null) {
-        List<TimeValuePair> spectral_tilt = spectrum.getPowerTiltList(barkToHertz(low), barkToHertz(high), false);
-        tvpfe.setValues(spectral_tilt);
-      }
+      List<TimeValuePair> spectral_tilt = spectrum.getPowerTiltList(barkToHertz(low), barkToHertz(high), false);
+      TimeValuePairUtils.assignValuesToRegions(regions, spectral_tilt, attribute_name + "_" + low + "_" + high);
 
       tvpfe.extractFeatures(regions);
 

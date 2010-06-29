@@ -27,10 +27,7 @@ import java.util.ArrayList;
  */
 public class TimeValuePairFeatureExtractor extends FeatureExtractor {
 
-  protected List<TimeValuePair> values;  // the timevaluepairs to analyze.
-
-  // An optional feature_name to distinguish types of features
-  protected String attribute_name;
+  protected String attribute_name;  // the name of the feature name to analyze
 
   private List<ContextNormalizedFeatureExtractor> cnfes;  // associated context normalized feature extractors
 
@@ -39,11 +36,9 @@ public class TimeValuePairFeatureExtractor extends FeatureExtractor {
    * <p/>
    * The attribute name often matches the the stored SpeakerNormalizationParameter identifiers, e.g. "f0"
    *
-   * @param values         the time value pairs.
    * @param attribute_name the attribute_name
    */
-  public TimeValuePairFeatureExtractor(List<TimeValuePair> values, String attribute_name) {
-    this.values = values;
+  public TimeValuePairFeatureExtractor(String attribute_name) {
     setAttributeName(attribute_name);
   }
 
@@ -86,24 +81,8 @@ public class TimeValuePairFeatureExtractor extends FeatureExtractor {
     for (ContextNormalizedFeatureExtractor cnfe : cnfes) {
       extracted_features.addAll(cnfe.getExtractedFeatures());
     }
-  }
 
-  /**
-   * Sets the time value pairs to be analyzed.
-   *
-   * @param values the new valuse.
-   */
-  public void setValues(List<TimeValuePair> values) {
-    this.values = values;
-  }
-
-  /**
-   * Retrieves the time value pairs.
-   *
-   * @return the time value pairs.
-   */
-  public List<TimeValuePair> getValues() {
-    return values;
+    required_features.add(this.attribute_name);
   }
 
   /**
@@ -137,15 +116,6 @@ public class TimeValuePairFeatureExtractor extends FeatureExtractor {
    * @throws FeatureExtractorException if something goes wrong.
    */
   public void extractFeatures(List regions, List context_regions) throws FeatureExtractorException {
-    try {
-      TimeValuePairUtils.assignValuesToRegions(regions, values, attribute_name);
-    } catch (AuToBIException e) {
-      throw new FeatureExtractorException(attribute_name + " error: " + e.getMessage());
-    }
-    if (regions != context_regions) {
-      TimeValuePairUtils.assignValuesToOrderedRegions(context_regions, values, attribute_name);
-    }
-
     for (Region region : (List<Region>) regions) {
       extractFeatures(region);
     }
@@ -161,7 +131,6 @@ public class TimeValuePairFeatureExtractor extends FeatureExtractor {
    * @param region the region
    */
   private void extractFeatures(Region region) {
-
     List<TimeValuePair> contour = (List<TimeValuePair>) region.getAttribute(attribute_name);
     double max_location = region.getStart();
     Aggregation agg = new Aggregation();

@@ -60,7 +60,7 @@ public class SpectrumFeatureExtractor extends TimeValuePairFeatureExtractor {
     this.low = low_bark;
     this.high = high_bark;
 
-    tvpfe = new TimeValuePairFeatureExtractor(null, feature_prefix + "_" + low + "_" + high);
+    tvpfe = new TimeValuePairFeatureExtractor(feature_prefix + "_" + low + "_" + high);
 
     // register extracted features
     extracted_features = new ArrayList<String>();
@@ -75,14 +75,12 @@ public class SpectrumFeatureExtractor extends TimeValuePairFeatureExtractor {
    */
   public void extractFeatures(List regions) throws FeatureExtractorException {
     try {
-      if (tvpfe.getValues() == null) {
-        // construct time value pair lists with energy regions
-        List<TimeValuePair> spectrum_band = spectrum
-            .getPowerList(SpectralTiltFeatureExtractor.barkToHertz(low), SpectralTiltFeatureExtractor.barkToHertz(high),
-                          false);
-        tvpfe.setValues(spectrum_band);
-      }
-
+      // construct time value pair lists with energy regions
+      List<TimeValuePair> spectrum_band = spectrum
+          .getPowerList(SpectralTiltFeatureExtractor.barkToHertz(low), SpectralTiltFeatureExtractor.barkToHertz(high),
+              false);
+      TimeValuePairUtils.assignValuesToRegions(regions, spectrum_band, attribute_name + "_" + low + "_" + high);
+      
       tvpfe.extractFeatures(regions);
     } catch (AuToBIException e) {
       e.printStackTrace();

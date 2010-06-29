@@ -72,8 +72,6 @@ public class PitchAccentClassificationTrainer {
 
           AuToBIUtils.log("Extracting acoustic information.");
 
-          pitch_values = pitch_extractor.soundToPitch();
-          List<TimeValuePair> intensity_values = intensity_extractor.soundToIntensity();
           Spectrum spectrum = spectrum_extractor.getSpectrum(0.01, 0.02);
 
           SpeakerNormalizationParameter norm_params =
@@ -81,11 +79,14 @@ public class PitchAccentClassificationTrainer {
 
           // If stored normalization data is unavailable generate normalization data from the input file.
           if (norm_params == null) {
+            pitch_values = pitch_extractor.soundToPitch();
+            List<TimeValuePair> intensity_values = intensity_extractor.soundToIntensity();
             norm_params = new SpeakerNormalizationParameter();
             norm_params.insertPitch(pitch_values);
             norm_params.insertIntensity(intensity_values);
           }
-          autobi.registerAllFeatureExtractors(pitch_values, intensity_values, spectrum, wav, norm_params);
+          autobi.unregisterAllFeatureExtractors();
+          autobi.registerAllFeatureExtractors(spectrum, wav, norm_params);
 
           PitchAccentClassificationFeatureSet current_fs =
               new PitchAccentClassificationFeatureSet();

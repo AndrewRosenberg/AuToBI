@@ -25,36 +25,40 @@ import java.util.ArrayList;
 /**
  * ResetTimeValuePairFeatureExtractor identifes the change of a contour across region boundaries.
  * <p/>
- * This feature extractor assumes the presence of previously extracted subregions identifying the region of analysis
- * to calculate the amount of change across the boundary.
+ * This feature extractor assumes the presence of previously extracted subregions identifying the region of analysis to
+ * calculate the amount of change across the boundary.
  *
  * @see SubregionResetFeatureExtractor
  */
-public class ResetTimeValuePairFeatureExtractor extends TimeValuePairFeatureExtractor {
-  private List<TimeValuePair> values;  // the contour to analyze
-  private String feature_prefix;       // the prefix of the stored feature name
+public class ResetTimeValuePairFeatureExtractor extends FeatureExtractor {
+  private String feature_name;       // the prefix of the stored feature name
   private String subregion_name;       // the name of the subregion
 
   /**
    * Constructs a new ResetTimeValuePairFeatureExtractor.
    * <p/>
-   * The reset feature is stored in "<feature_prefix>_<subregion_name>_reset" or "<feature_prefix>_reset" if no
-   * subregion is specified.
+   * The reset feature is stored in "<feature_name>_<subregion_name>_reset" or "<feature_name>_reset" if no subregion is
+   * specified.
    *
-   * @param values         the contour to analyze.
-   * @param feature_prefix the prefix of the stored feature name
+   * @param feature_name   the prefix of the stored feature name
    * @param subregion_name the name of the subregion feature
    */
-  public ResetTimeValuePairFeatureExtractor(List<TimeValuePair> values, String feature_prefix, String subregion_name) {
+  public ResetTimeValuePairFeatureExtractor(String feature_name, String subregion_name) {
     super();
-    this.values = values;
-    this.feature_prefix = feature_prefix;
+    this.feature_name = feature_name;
     this.subregion_name = subregion_name;
 
     if (subregion_name != null && subregion_name.length() > 0)
-      this.extracted_features.add(feature_prefix + "_" + subregion_name + "_reset");
+      this.extracted_features.add(feature_name + "_" + subregion_name + "_reset");
     else
-      this.extracted_features.add(feature_prefix + "_reset");
+      this.extracted_features.add(feature_name + "_reset");
+
+    this.required_features.add(feature_name);
+
+    if (subregion_name != null && !subregion_name.equals("")) {
+      this.required_features.add("van_" + subregion_name);
+      this.required_features.add("trail_" + subregion_name);
+    }
   }
 
   /**
@@ -67,11 +71,10 @@ public class ResetTimeValuePairFeatureExtractor extends TimeValuePairFeatureExtr
    * @throws FeatureExtractorException if any region doesn't have a valid subregion.
    */
   public void extractFeatures(List regions) throws FeatureExtractorException {
-    TimeValuePairUtils.assignValuesToOrderedRegions(regions, values, feature_prefix);
 
     List<Region> van_subregions;
     List<Region> trail_subregions;
-    if (subregion_name != null || subregion_name != "") {
+    if (subregion_name != null && !subregion_name.equals("")) {
       van_subregions = new ArrayList<Region>();
       trail_subregions = new ArrayList<Region>();
       for (Region r : (List<Region>) regions) {
@@ -91,8 +94,8 @@ public class ResetTimeValuePairFeatureExtractor extends TimeValuePairFeatureExtr
       }
 
       try {
-        TimeValuePairUtils.assignValuesToRegions(van_subregions, values, feature_prefix);
-        TimeValuePairUtils.assignValuesToRegions(trail_subregions, values, feature_prefix);
+        TimeValuePairUtils.assignValuesToSubregions(van_subregions, regions, feature_name);
+        TimeValuePairUtils.assignValuesToSubregions(trail_subregions, regions, feature_name);
       } catch (AuToBIException e) {
         e.printStackTrace();
         return;
@@ -109,18 +112,19 @@ public class ResetTimeValuePairFeatureExtractor extends TimeValuePairFeatureExtr
       Aggregation van_agg = new Aggregation();
       Aggregation trail_agg = new Aggregation();
 
-      for (TimeValuePair tvp : (List<TimeValuePair>) van.getAttribute(feature_prefix)) {
+      for (TimeValuePair tvp : (List<TimeValuePair>) van.getAttribute(feature_name)) {
         van_agg.insert(tvp.getValue());
       }
-      for (TimeValuePair tvp : (List<TimeValuePair>) trail.getAttribute(feature_prefix)) {
+      for (TimeValuePair tvp : (List<TimeValuePair>) trail.getAttribute(feature_name)) {
         trail_agg.insert(tvp.getValue());
       }
 
       ((Region) regions.get(regions.size() - 1))
-          .setAttribute(feature_prefix + "_reset", trail_agg.getMean() - van_agg.getMean());
+          .setAttribute(feature_name + "_reset", trail_agg.getMean() - van_agg.getMean());
     }
 
-    ((Region) regions.get(regions.size() - 1)).setAttribute(feature_prefix + "_reset", "?");
+    // Sets the reset of the final attribute to "undefined".
+    ((Region) regions.get(regions.size() - 1)).setAttribute(feature_name + "_reset", "?");
 
   }
 }
