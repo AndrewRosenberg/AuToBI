@@ -31,13 +31,11 @@ import java.util.ArrayList;
  */
 public class ContourCenterOfGravityFeatureExtractor extends FeatureExtractor {
   private String attribute_name;       // the contour attribute name
-  private List<TimeValuePair> values;  // the contour to extract features over
 
-  public ContourCenterOfGravityFeatureExtractor(List<TimeValuePair> values, String attribute_name) {
-    this.values = new ArrayList<TimeValuePair>();
-    this.values.addAll(values);
+  public ContourCenterOfGravityFeatureExtractor(String attribute_name) {
     this.attribute_name = attribute_name;
-    extracted_features.add(attribute_name + "_cog");
+    extracted_features.add(attribute_name + "__cog");
+    required_features.add(attribute_name);
   }
 
   /**
@@ -47,11 +45,9 @@ public class ContourCenterOfGravityFeatureExtractor extends FeatureExtractor {
    * @throws FeatureExtractorException if something goes wrong
    */
   public void extractFeatures(List regions) throws FeatureExtractorException {
-    try {
-      TimeValuePairUtils.assignValuesToRegions(regions, values, attribute_name);
-
-      for (Region r : (List<Region>) regions) {
-        List<TimeValuePair> contour  = (List<TimeValuePair>) r.getAttribute(attribute_name);
+    for (Region r : (List<Region>) regions) {
+      if (r.hasAttribute(attribute_name)) {
+        List<TimeValuePair> contour = (List<TimeValuePair>) r.getAttribute(attribute_name);
 
         double num = 0.0;
         double denom = 0.0;
@@ -59,10 +55,8 @@ public class ContourCenterOfGravityFeatureExtractor extends FeatureExtractor {
           num += tvp.getTime() * tvp.getValue();
           denom += tvp.getValue();
         }
-        r.setAttribute(attribute_name + "_cog", num / denom);
+        r.setAttribute(attribute_name + "__cog", ((num / denom) - r.getStart()) / r.getDuration());
       }
-    } catch (AuToBIException e) {
-      throw new FeatureExtractorException(e.getMessage());
     }
   }
 }

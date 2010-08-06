@@ -36,13 +36,28 @@ import org.apache.log4j.BasicConfigurator;
  */
 public class PitchAccentDetectionTrainer {
 
+  private AuToBI autobi;
+
+  public PitchAccentDetectionTrainer(AuToBI autobi) {
+    this.autobi = autobi;
+  }
+
+  public AuToBIClassifier trainClassifier(PitchAccentDetectionFeatureSet fs) throws Exception {
+    fs.constructFeatures();
+    AuToBIClassifier classifier = new WekaClassifier(new Logistic());
+
+    classifier.train(fs);
+    return classifier;
+  }
+
   public static void main(String[] args) {
     BasicConfigurator.configure();
     AuToBI autobi = new AuToBI();
     autobi.init(args);
 
-    WavReader reader = new WavReader();
+    PitchAccentDetectionTrainer trainer = new PitchAccentDetectionTrainer(autobi);
 
+    WavReader reader = new WavReader();
     PitchAccentDetectionFeatureSet fs = new PitchAccentDetectionFeatureSet();
 
     try {
@@ -59,18 +74,12 @@ public class PitchAccentDetectionTrainer {
         TextGridReader tg_reader = new TextGridReader(filename);
 
         WavData wav = reader.read(wav_filename);
-        PitchExtractor pitch_extractor = new PitchExtractor(wav);
-        IntensityExtractor intensity_extractor = new IntensityExtractor(wav);
         SpectrumExtractor spectrum_extractor = new SpectrumExtractor(wav);
-        List<TimeValuePair> pitch_values = null;
         try {
           AuToBIUtils.log("Reading words from: " + filename);
           List<Word> words = tg_reader.readWords();
 
-
           AuToBIUtils.log("Extracting acoustic information.");
-
-
           Spectrum spectrum = spectrum_extractor.getSpectrum(0.01, 0.02);
 
           SpeakerNormalizationParameter norm_params =
@@ -78,7 +87,9 @@ public class PitchAccentDetectionTrainer {
 
           // If stored normalization data is unavailable generate normalization data from the input file.
           if (norm_params == null) {
-            pitch_values = pitch_extractor.soundToPitch();
+            PitchExtractor pitch_extractor = new PitchExtractor(wav);
+            IntensityExtractor intensity_extractor = new IntensityExtractor(wav);
+            List<TimeValuePair> pitch_values = pitch_extractor.soundToPitch();
             List<TimeValuePair> intensity_values = intensity_extractor.soundToIntensity();
             norm_params = new SpeakerNormalizationParameter();
             norm_params.insertPitch(pitch_values);
@@ -87,8 +98,7 @@ public class PitchAccentDetectionTrainer {
           autobi.unregisterAllFeatureExtractors();
           autobi.registerAllFeatureExtractors(spectrum, wav, norm_params);
 
-          PitchAccentDetectionFeatureSet current_fs =
-              new PitchAccentDetectionFeatureSet();
+          PitchAccentDetectionFeatureSet current_fs = new PitchAccentDetectionFeatureSet();
           current_fs.setDataPoints(words);
 
           autobi.extractFeatures(current_fs);
@@ -104,18 +114,16 @@ public class PitchAccentDetectionTrainer {
         }
       }
 
-      fs.constructFeatures();
-
       if (autobi.hasParameter("arff_file")) {
+        fs.constructFeatures();
         String arff_file = autobi.getParameter("arff_file");
         AuToBIUtils.log("writing arff file to: " + arff_file);
         fs.writeArff(arff_file, "pitchAccent");
       }
 
       AuToBIUtils.log("training classifier");
-      AuToBIClassifier classifier = new WekaClassifier(new Logistic());
+      AuToBIClassifier classifier = trainer.trainClassifier(fs);
 
-      classifier.train(fs);
 
       AuToBIUtils.log("writing model to: " + model_file);
       FileOutputStream fos;

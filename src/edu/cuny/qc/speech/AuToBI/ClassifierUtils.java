@@ -150,8 +150,8 @@ public class ClassifierUtils {
   }
 
   /**
-   * Given a (possibly empty) Instances object containing the required weka Attributes, generates a weka Instance for
-   * a single data point.
+   * Given a (possibly empty) Instances object containing the required weka Attributes, generates a weka Instance for a
+   * single data point.
    *
    * @param instances  the weka Instances object containing attributes
    * @param data_point the data point to convert
@@ -195,7 +195,7 @@ public class ClassifierUtils {
 
   /**
    * Assigns a class attribute to a weka Instances object.
-   *
+   * <p/>
    * If no class attribute is given, or if the class attribute is not found in the list of attributes, the last
    * attribute is set to the class attribute.
    *
@@ -219,6 +219,91 @@ public class ClassifierUtils {
       }
     } else {
       instances.setClassIndex(instances.numAttributes() - 1);
+    }
+  }
+
+  /**
+   * Evaluates classification results by comparing the values of the hypothesized and true features.
+   *
+   * @param hyp_feature  The hypothesized feature name
+   * @param true_feature The true feature name
+   * @param fs           The feature set to be evaluated
+   * @return a string representation of the evaluation
+   * @throws edu.cuny.qc.speech.AuToBI.AuToBIException
+   *          IF there is an inconsistency in the evalution
+   */
+  public static String evaluateClassification(String hyp_feature, String true_feature, FeatureSet fs)
+      throws AuToBIException {
+    Feature class_attribute = new Feature(true_feature);
+    class_attribute.generateNominalValues(fs.data_points);
+
+    Feature hyp_attribute = new Feature(hyp_feature);
+    hyp_attribute.generateNominalValues(fs.data_points);
+
+    Set<String> sorted_values = new LinkedHashSet<String>();
+    sorted_values.addAll(class_attribute.getNominalValues());
+    sorted_values.addAll(hyp_attribute.getNominalValues());
+
+    EvaluationResults eval = new EvaluationResults(sorted_values);
+
+    for (Word w : fs.getDataPoints()) {
+      eval.addInstance(w.getAttribute(hyp_feature).toString(), w.getAttribute(true_feature).toString());
+    }
+    return eval.toString();
+  }
+
+  /**
+   * Generates predictions for a set of words using the supplied classifier.
+   * <p/>
+   * Results are stored in hyp_attribute. If the classifier throws an error, the default_value is assigned as the
+   * hypothesis
+   *
+   * @param classifier    the classifier to generate predictions
+   * @param hyp_attribute the destination attribute for the hypotheses
+   * @param default_value the default classification value
+   * @param fs            the featureset to generate predictions for.
+   */
+  static void generatePredictions(AuToBIClassifier classifier, String hyp_attribute, String default_value,
+                                  FeatureSet fs) {
+    for (Word w : fs.getDataPoints()) {
+      try {
+        String result = classifier.classify(w);
+        w.setAttribute(hyp_attribute, result);
+      } catch (Exception e) {
+        w.setAttribute(hyp_attribute, default_value);
+        e.printStackTrace();
+      }
+    }
+  }
+
+  /**
+   * Generates predictions for a set of words using the supplied classifier.
+   * <p/>
+   * Results are stored in hyp_attribute. If the classifier throws an error, the default_value is assigned as the
+   * hypothesis.
+   * <p/>
+   * Confidence scores are stored in a separate attribute.
+   *
+   * @param classifier     the classifier to generate predictions
+   * @param hyp_attribute  the destination attribute for the hypotheses
+   * @param conf_attribute the destination attribute for confidence in the hypothesis
+   * @param default_value  the default classification value
+   * @param fs             the featureset to generate predictions for.
+   */
+  static void generatePredictionsWithConfidenceScores(AuToBIClassifier classifier, String hyp_attribute,
+                                                      String conf_attribute, String default_value,
+                                                      FeatureSet fs) {
+    for (Word w : fs.getDataPoints()) {
+      try {
+        Distribution dist = classifier.distributionForInstance(w); 
+        String result = dist.getKeyWithMaximumValue();
+        Double conf = dist.get(result);
+        w.setAttribute(hyp_attribute, result);
+        w.setAttribute(conf_attribute, conf);
+      } catch (Exception e) {
+        w.setAttribute(hyp_attribute, default_value);
+        e.printStackTrace();
+      }
     }
   }
 }

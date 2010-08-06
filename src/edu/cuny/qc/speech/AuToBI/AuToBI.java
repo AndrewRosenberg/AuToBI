@@ -329,46 +329,18 @@ public class AuToBI {
    */
   private String evaluateTaskPerformance(String task, FeatureSet fs) throws AuToBIException {
     if (task.equals("pitch_accent_detection"))
-      return evaluateClassification("hyp_pitch_accent_location", "nominal_PitchAccent", fs);
+      return ClassifierUtils.evaluateClassification("hyp_pitch_accent_location", "nominal_PitchAccent", fs);
     else if (task.equals("pitch_accent_classification"))
-      return evaluateClassification("hyp_pitch_accent_type", "nominal_PitchAccentType", fs);
+      return ClassifierUtils.evaluateClassification("hyp_pitch_accent_type", "nominal_PitchAccentType", fs);
     else if (task.equals("intonational_phrase_boundary_detection"))
-      return evaluateClassification("hyp_IP_location", "nominal_IntonationalPhraseBoundary", fs);
+      return ClassifierUtils.evaluateClassification("hyp_IP_location", "nominal_IntonationalPhraseBoundary", fs);
     else if (task.equals("intermediate_phrase_boundary_detection"))
-      return evaluateClassification("hyp_ip_location", "nominal_IntermediatePhraseBoundary", fs);
+      return ClassifierUtils.evaluateClassification("hyp_ip_location", "nominal_IntermediatePhraseBoundary", fs);
     else if (task.equals("boundary_tone_classification"))
-      return evaluateClassification("hyp_boundary_tone", "nominal_PhraseAccentBoundaryTone", fs);
+      return ClassifierUtils.evaluateClassification("hyp_boundary_tone", "nominal_PhraseAccentBoundaryTone", fs);
     else if (task.equals("phrase_accent_classification"))
-      return evaluateClassification("hyp_phrase_accent", "nominal_PhraseAccentType", fs);
+      return ClassifierUtils.evaluateClassification("hyp_phrase_accent", "nominal_PhraseAccentType", fs);
     else throw new AuToBIException("Undefined task: " + task);
-  }
-
-  /**
-   * Evaluates classification results by comparing the values of the hypothesized and true features.
-   *
-   * @param hyp_feature  The hypothesized feature name
-   * @param true_feature The true feature name
-   * @param fs           The feature set to be evaluated
-   * @return a string representation of the evaluation
-   * @throws AuToBIException IF there is an inconsistency in the evalution
-   */
-  private String evaluateClassification(String hyp_feature, String true_feature, FeatureSet fs) throws AuToBIException {
-    Feature class_attribute = new Feature(true_feature);
-    class_attribute.generateNominalValues(fs.data_points);
-
-    Feature hyp_attribute = new Feature(hyp_feature);
-    hyp_attribute.generateNominalValues(fs.data_points);
-
-    Set<String> sorted_values = new LinkedHashSet<String>();
-    sorted_values.addAll(class_attribute.getNominalValues());
-    sorted_values.addAll(hyp_attribute.getNominalValues());
-
-    EvaluationResults eval = new EvaluationResults(sorted_values);
-
-    for (Word w : fs.getDataPoints()) {
-      eval.addInstance(w.getAttribute(hyp_feature).toString(), w.getAttribute(true_feature).toString());
-    }
-    return eval.toString();
   }
 
   /**
@@ -380,42 +352,18 @@ public class AuToBI {
    */
   private void generatePredictions(String task, FeatureSet fs) throws AuToBIException {
     if (task.equals("pitch_accent_detection"))
-      generatePredictions(pitch_accent_detector, "hyp_pitch_accent_location", "", fs.getDataPoints());
+      ClassifierUtils.generatePredictions(pitch_accent_detector, "hyp_pitch_accent_location", "", fs);
     else if (task.equals("pitch_accent_classification"))
-      generatePredictions(pitch_accent_classifier, "hyp_pitch_accent_type", "", fs.getDataPoints());
+      ClassifierUtils.generatePredictions(pitch_accent_classifier, "hyp_pitch_accent_type", "", fs);
     else if (task.equals("intonational_phrase_boundary_detection"))
-      generatePredictions(intonational_phrase_boundary_detector, "hyp_IP_location", "", fs.getDataPoints());
+      ClassifierUtils.generatePredictions(intonational_phrase_boundary_detector, "hyp_IP_location", "", fs);
     else if (task.equals("intermediate_phrase_boundary_detection"))
-      generatePredictions(intermediate_phrase_boundary_detector, "hyp_ip_location", "", fs.getDataPoints());
+      ClassifierUtils.generatePredictions(intermediate_phrase_boundary_detector, "hyp_ip_location", "", fs);
     else if (task.equals("boundary_tone_classification"))
-      generatePredictions(boundary_tone_classifier, "hyp_boundary_tone", "", fs.getDataPoints());
+      ClassifierUtils.generatePredictions(boundary_tone_classifier, "hyp_boundary_tone", "", fs);
     else if (task.equals("phrase_accent_classification"))
-      generatePredictions(phrase_accent_classifier, "hyp_phrase_accent", "", fs.getDataPoints());
+      ClassifierUtils.generatePredictions(phrase_accent_classifier, "hyp_phrase_accent", "", fs);
     else throw new AuToBIException("Undefined task: " + task);
-  }
-
-  /**
-   * Generates predictions for a set of words using the supplied classifier.
-   * <p/>
-   * Results are stored in hyp_attribute. If the classifier throws an error, the default_value is assigned as the
-   * hypothesis
-   *
-   * @param classifier    the classifier to generate predictions
-   * @param hyp_attribute the destination attribute for the hypotheses
-   * @param default_value the default classification value
-   * @param words         the words to generate predictions for.
-   */
-  private void generatePredictions(AuToBIClassifier classifier, String hyp_attribute, String default_value,
-                                   List<Word> words) {
-    for (Word w : words) {
-      try {
-        String result = classifier.classify(w);
-        w.setAttribute(hyp_attribute, result);
-      } catch (Exception e) {
-        w.setAttribute(hyp_attribute, default_value);
-        e.printStackTrace();
-      }
-    }
   }
 
   /**

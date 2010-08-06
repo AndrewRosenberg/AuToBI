@@ -99,7 +99,7 @@ public class TimeValuePairUtils {
   public static void assignValuesToSubregions(List<Region> subregions, List<Region> regions, String feature_name)
       throws AuToBIException {
     List<TimeValuePair> values = new ArrayList<TimeValuePair>();
-    
+
     for (Region r : regions) {
       if (r.hasAttribute(feature_name)) {
         values.addAll((Collection<? extends TimeValuePair>) r.getAttribute(feature_name));
@@ -206,47 +206,36 @@ public class TimeValuePairUtils {
    * @return the index of the local minimum preceding idx
    */
   public static int getIndexOfPrecedingMinimum(List<TimeValuePair> contour, int idx, Double threshold) {
-    int previous_minimum = idx;
     double previous_value = contour.get(idx).getValue();
-    double previous_maximum_value = contour.get(idx).getValue();
-    boolean falling = false;
+    double maximum_value = contour.get(idx).getValue();
     boolean rising = false;
     for (int i = idx - 1; i > 0; --i) {
+      maximum_value = Math.max(previous_value, maximum_value);
+
       if (contour.get(i).getValue() > previous_value) {
 
-        // In a valley.  If the valley was sufficiently deep from previous peak, store the value.
-        if (falling && previous_maximum_value - previous_value > threshold) {
-          previous_minimum = i + 1;
+        if (!rising && maximum_value - previous_value > threshold) {
+          // Just passed a local minima.
+          // If the difference between the value of this minima is sufficiently lower that the maximum, return the index
+          // of the local minima
+          return i + 1;
         }
         rising = true;
-        falling = false;
       }
 
       if (contour.get(i).getValue() < previous_value) {
-
-        // At a peak
-        if (rising) {
-          // If the peak is sufficiently high from the previous stored valley, return the valley.
-          if (previous_value - contour.get(previous_minimum).getValue() > threshold) {
-            return previous_minimum;
-          }
-
-          // Save the height of the peak to compare against the next potential valley.
-          previous_maximum_value = previous_value;
-        }
-        falling = true;
         rising = false;
       }
 
       previous_value = contour.get(i).getValue();
     }
 
-    if (previous_maximum_value > 0) {
-      // There was previous maximum value, take the corresponding minimum prior to that
-      return previous_minimum;
-    } else {
-      // There was no local maxima in the contour (apart from the starting point) return the initial point.
+    if (!rising && maximum_value - contour.get(0).getValue() > threshold) {
+      // The previous minimum is the start of the contour
       return 0;
+    } else {
+      // The previous minimum is undefined, return the starting index.
+      return idx;
     }
   }
 
@@ -260,48 +249,33 @@ public class TimeValuePairUtils {
    * @return the index of the local minimum following idx
    */
   public static int getIndexOfFollowingMinimum(List<TimeValuePair> contour, int idx, Double threshold) {
-    int previous_minimum = idx;
     double previous_value = contour.get(idx).getValue();
-    double previous_maximum_value = contour.get(idx).getValue();
-    boolean falling = false;
+    double maximum_value = contour.get(idx).getValue();
     boolean rising = false;
     for (int i = idx + 1; i < contour.size(); ++i) {
+      maximum_value = Math.max(previous_value, maximum_value);
       if (contour.get(i).getValue() > previous_value) {
 
         // In a valley.  If the valley was sufficiently deep from previous peak, store the value.
-        if (falling && previous_maximum_value - previous_value > threshold) {
-          previous_minimum = i - 1;
+        if (!rising && maximum_value - previous_value > threshold) {
+          return i-1;
         }
         rising = true;
-        falling = false;
       }
 
       if (contour.get(i).getValue() < previous_value) {
-
-        // At a peak
-        if (rising) {
-          // If the peak is sufficiently high from the previous stored valley, return the valley.
-          if (previous_value - contour.get(previous_minimum).getValue() > threshold) {
-            return previous_minimum;
-          }
-
-          // Save the height of the peak to compare against the next potential valley.
-          previous_maximum_value = previous_value;
-        }
-        falling = true;
         rising = false;
       }
 
       previous_value = contour.get(i).getValue();
     }
 
-    if (previous_maximum_value > 0) {
-      // There was previous maximum value, take the corresponding minimum prior to that
-      return previous_minimum;
-    } else {
-      // There was no local maxima in the contour (apart from the starting point) return the ending point.
+    if (!rising && maximum_value - contour.get(contour.size() - 1).getValue() > threshold) {
+      // The following minimum is the end of the contour
       return contour.size() - 1;
+    } else {
+      // The following local mimina is undefined, return the ending point.
+      return idx;
     }
   }
-
 }

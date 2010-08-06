@@ -35,6 +35,7 @@ public class TiltFeatureExtractor extends FeatureExtractor {
    * @param tvp_feature the TimeValuePair feature name
    */
   public TiltFeatureExtractor(String tvp_feature) {
+    this.tvp_feature = tvp_feature;
     required_features.add(tvp_feature);
 
     extracted_features.add(tvp_feature + "__tilt");

@@ -177,7 +177,17 @@ public class TextGridReader {
             "No specified breaks tier found.  Default breaks will be generated from phrase ending tones in the tones tier.");
         ToBIUtils.generateBreaksFromTones(words);
       } else {
+        try{
         AlignmentUtils.copyToBIBreaks(words, breaks_tier.getRegions());
+        } catch (AuToBIException e) {
+
+          for (int i = 0; i < words.size(); ++i) {
+            if (words.get(i).getEnd() != breaks_tier.getRegions().get(i).getStart()) {
+              AuToBIUtils.error("misaligned break at: " + breaks_tier.getRegions().get(i).getStart());
+            }
+          }
+          throw e;
+        }
         ToBIUtils.checkToBIAnnotations(words);
       }
     } else if (breaks_tier != null) {

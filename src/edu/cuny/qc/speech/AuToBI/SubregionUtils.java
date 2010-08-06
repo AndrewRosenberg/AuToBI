@@ -63,7 +63,7 @@ public class SubregionUtils {
       while (current_pseudosyllable.getStart() < w.getEnd() && i < subregions.size()) {
         // Calculate the amount of overlapping material
         double overlap = Math.min(w.getEnd(), current_pseudosyllable.getEnd()) -
-                         Math.max(w.getStart(), current_pseudosyllable.getStart());
+            Math.max(w.getStart(), current_pseudosyllable.getStart());
         if (overlap > max_overlap) {
           max_overlap = overlap;
           best_pseudosyllable = current_pseudosyllable;
@@ -81,8 +81,7 @@ public class SubregionUtils {
    * <p/>
    * Currently only parses seconds and miliseconds.
    * <p/>
-   * 400ms
-   * 1s
+   * 400ms 1s
    *
    * @param subregion_name the name of the subregion to parse.
    * @return the number of seconds described by the string
@@ -106,6 +105,23 @@ public class SubregionUtils {
     } else {
       number = subregion_name.substring(0, subregion_name.indexOf('s'));
       return Double.parseDouble(number);
+    }
+  }
+
+  /**
+   * Copies a feature from a region to the specified subregion.
+   *
+   * @param regions             the regions to copy attributes from
+   * @param subregion_attribute the name of the subregion attribute that is the destination of the attribute
+   * @param attribute_name      the name of the copied attribute
+   */
+  public static void assignFeatureToSubregions(List<Region> regions, String subregion_attribute,
+                                               String attribute_name) {
+    for (Region r : regions) {
+      if (r.hasAttribute(subregion_attribute) && r.hasAttribute(attribute_name)) {
+        Region subregion = (Region) r.getAttribute(subregion_attribute);
+        subregion.setAttribute(attribute_name, r.getAttribute(attribute_name));
+      }
     }
   }
 }
