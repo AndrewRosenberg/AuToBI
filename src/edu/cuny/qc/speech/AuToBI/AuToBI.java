@@ -374,17 +374,17 @@ public class AuToBI {
    * @throws AuToBIException If there is no FeatureSet defined for the task identifier
    */
   private FeatureSet getTaskFeatureSet(String task) throws AuToBIException {
-    if (task == "pitch_accent_detection")
+    if (task.equals("pitch_accent_detection"))
       return new PitchAccentDetectionFeatureSet();
-    if (task == "pitch_accent_classification")
+    if (task.equals("pitch_accent_classification"))
       return new PitchAccentClassificationFeatureSet();
-    if (task == "intonational_phrase_boundary_detection")
+    if (task.equals("intonational_phrase_boundary_detection"))
       return new IntonationalPhraseBoundaryDetectionFeatureSet();
-    if (task == "intermediate_phrase_boundary_detection")
+    if (task.equals("intermediate_phrase_boundary_detection"))
       return new IntermediatePhraseBoundaryDetectionFeatureSet();
-    if (task == "boundary_tone_classification")
+    if (task.equals("boundary_tone_classification"))
       return new PhraseAccentBoundaryToneClassificationFeatureSet();
-    if (task == "phrase_accent_classification")
+    if (task.equals("phrase_accent_classification"))
       return new PhraseAccentClassificationFeatureSet();
     throw new AuToBIException("No defined feature set for task: " + task);
   }
@@ -736,7 +736,8 @@ public class AuToBI {
       String tg_filename = autobi.getParameter("text_grid_file");
       String norm_param_filename = autobi.getOptionalParameter("normalization_parameters");
       WavReader reader = new WavReader();
-      TextGridReader tg_reader = new TextGridReader(tg_filename);
+      TextGridReader tg_reader = new TextGridReader(tg_filename, autobi.getOptionalParameter("words_tier_name"),
+          autobi.getOptionalParameter("tones_tier_name"), autobi.getOptionalParameter("breaks_tier_name"));
 
       WavData wav = reader.read(wav_filename);
       PitchExtractor pitch_extractor = new PitchExtractor(wav);
