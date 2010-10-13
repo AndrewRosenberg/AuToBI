@@ -41,9 +41,9 @@ public class IntensityFeatureExtractor extends FeatureExtractor {
   public void extractFeatures(List regions) throws FeatureExtractorException {
     IntensityExtractor extractor = new IntensityExtractor(wav_data);
     try {
-      List<TimeValuePair> pitch_contour = extractor.soundToIntensity();
+      List<TimeValuePair> intensity_contour = extractor.soundToIntensity();
 
-      TimeValuePairUtils.assignValuesToRegions(regions, pitch_contour, feature_name);
+      TimeValuePairUtils.assignValuesToRegions(regions, intensity_contour, feature_name);
     } catch (AuToBIException e) {
       throw new FeatureExtractorException(e.getMessage());
     }

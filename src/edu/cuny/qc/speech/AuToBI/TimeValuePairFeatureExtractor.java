@@ -131,10 +131,16 @@ public class TimeValuePairFeatureExtractor extends FeatureExtractor {
    * @param region the region
    */
   private void extractFeatures(Region region) {
+    if (!region.hasAttribute(attribute_name)) {
+      AuToBIUtils.error("region doesn't have attribute: " + attribute_name);
+    }
     List<TimeValuePair> contour = (List<TimeValuePair>) region.getAttribute(attribute_name);
     double max_location = region.getStart();
     Aggregation agg = new Aggregation();
     for (TimeValuePair tvp : contour) {
+      if (tvp == null) {
+        AuToBIUtils.error("null time value pair in contour");
+      }
       if (tvp.getValue() > agg.getMax()) {
         max_location = tvp.getTime();
       }

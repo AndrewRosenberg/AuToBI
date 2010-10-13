@@ -45,7 +45,7 @@ public class IntensityExtractor extends SampledDataAnalyzer {
 
   /**
    * Generate an intensity contour from a wav file using default parameters.
-   *
+   * <p/>
    * The default settings are a minimum intensity of 75dB, and a timestep of 0.1 secs (100ms).
    *
    * @return a list of intensity points.
@@ -58,10 +58,10 @@ public class IntensityExtractor extends SampledDataAnalyzer {
    * Generate an intensity contour from a wav file using default parameters.
    * <p/>
    * Implementation of Paul Boersma's Sound_to_Intensity function
-   *
+   * <p/>
    * <p/>
    * Uses the RMS value amplitude of the signal weighted by a bessel-function defined window.
-   *
+   * <p/>
    * The minimum pitch is used to determine the analysis window size, and a default time step if one isn't provided.
    *
    * @param min_pitch              The minimum pitch.
@@ -156,24 +156,45 @@ public class IntensityExtractor extends SampledDataAnalyzer {
         + t * 0.00392377))))))));
   }
 
-  public static void main(String[] args) throws IOException, UnsupportedAudioFileException, AuToBIException {
+  public static void main(String[] args) {
     File file = new File(args[0]);
-    AudioInputStream soundIn = AudioSystem.getAudioInputStream(new BufferedInputStream(new FileInputStream(file)));
+    AudioInputStream soundIn = null;
+    try {
+      soundIn = AudioSystem.getAudioInputStream(new BufferedInputStream(new FileInputStream(file)));
+    } catch (UnsupportedAudioFileException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
 
     WavReader reader = new WavReader();
-    WavData wav = reader.read(soundIn);
+    WavData wav;
+    try {
 
-    System.out.println(wav.sampleRate);
-    System.out.println(wav.sampleSize);
+      if (args.length > 1)
+        wav = reader.read(soundIn, Double.parseDouble(args[1]), Double.parseDouble(args[2]));
 
-    IntensityExtractor intensityFactory = new IntensityExtractor(wav);
-    List<TimeValuePair> intensity = intensityFactory.soundToIntensity();
+      else
+        wav = reader.read(soundIn);
+      System.out.println(wav.sampleRate);
+      System.out.println(wav.sampleSize);
+      System.out.println(wav.getFrameSize());
+      System.out.println(wav.getDuration());
 
-    System.out.println("intensity points:" + intensity.size());
+      IntensityExtractor intensityFactory = new IntensityExtractor(wav);
+      List<TimeValuePair> intensity = intensityFactory.soundToIntensity();
 
-    for (int i = 0; i < intensity.size(); ++i) {
-      System.out.println("intensity point[" + i + "]: " + intensity.get(i).getValue() + " -- " + intensity.get(i).getTime());
+      System.out.println("intensity points:" + intensity.size());
+
+      for (int i = 0; i < intensity.size(); ++i) {
+        System.out
+            .println(
+                "intensity point[" + i + "]: " + intensity.get(i).getValue() + " -- " + intensity.get(i).getTime());
+      }
+    } catch (AuToBIException e) {
+      e.printStackTrace();
     }
+
   }
 
 }

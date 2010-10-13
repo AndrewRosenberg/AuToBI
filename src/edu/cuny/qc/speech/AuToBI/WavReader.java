@@ -34,14 +34,14 @@ import java.io.FileInputStream;
 public class WavReader {
   /**
    * Constructs a WavData object from the wav file pointed to by filename.
-   *
+   * <p/>
    * Note AuToBI currently only supports 16bit wave files.
    *
    * @param filename the filename to read
    * @return The wav data stored in the file.
-   * @throws IOException if there is a file reading problem
+   * @throws IOException                   if there is a file reading problem
    * @throws UnsupportedAudioFileException if there is a problem with the audio file format
-   * @throws AuToBIException if the file is not 16 bit
+   * @throws AuToBIException               if the file is not 16 bit
    */
   public WavData read(String filename)
       throws UnsupportedAudioFileException, IOException, AuToBIException {
@@ -52,13 +52,47 @@ public class WavReader {
   }
 
   /**
-   * Reads the data from an AudioInputStream.
+     * Constructs a WavData object from the wav file pointed to by filename with specified start and end times.  The original time information is *not* preserved.
+     * <p/>
+     * Note AuToBI currently only supports 16bit wave files.
+     *
+     * @param filename the filename to read
+     * @return The wav data stored in the file.
+     * @throws IOException                   if there is a file reading problem
+     * @throws UnsupportedAudioFileException if there is a problem with the audio file format
+     * @throws AuToBIException               if the file is not 16 bit
+     */
+    public WavData read(String filename, Double start, Double end)
+        throws UnsupportedAudioFileException, IOException, AuToBIException {
+      File file = new File(filename);
+      AudioInputStream soundIn = AudioSystem.getAudioInputStream(new BufferedInputStream(new FileInputStream(file)));
+
+      return read(soundIn, start, end);
+    }
+
+
+  /**
+   * Reads an entire wave file from an AudioInputStream
    *
    * @param stream the AudioInputStream containing the audio.
    * @return the wave data
    * @throws AuToBIException if the file does not use 16bit samples.
    */
   public WavData read(AudioInputStream stream) throws AuToBIException {
+    return read(stream, 0.0, null);
+  }
+
+
+  /**
+   * Reads the data from an AudioInputStream.
+   *
+   * @param stream the AudioInputStream containing the audio.
+   * @param start  The start time to read in seconds
+   * @param end    The end time to read in seconds
+   * @return the wave data
+   * @throws AuToBIException if the file does not use 16bit samples.
+   */
+  public WavData read(AudioInputStream stream, Double start, Double end) throws AuToBIException {
     WavData data = new WavData();
 
     data.numberOfChannels = stream.getFormat().getChannels();
@@ -70,12 +104,30 @@ public class WavReader {
     }
 
     // Read raw data from stream
-    byte[] bytes = new byte[(int) stream.getFrameLength() * stream.getFormat().getFrameSize()];
-    try {
-      stream.read(bytes);
-    } catch (IOException e) {
-      e.printStackTrace();
+    byte[] bytes = null;
+    if (end == null) {
+      bytes = new byte[(int) stream.getFrameLength() * stream.getFormat().getFrameSize()];
+      try {
+        stream.read(bytes);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    } else {
+      int start_sample = ((int) Math.floor(start * stream.getFormat().getFrameRate()));
+      int end_sample = ((int) Math.ceil(end * stream.getFormat().getFrameRate()));
+      int length = end_sample - start_sample;
+
+
+      bytes = new byte[(int) length * stream.getFormat().getFrameSize()];
+
+      try {
+        stream.skip(start_sample);
+        stream.read(bytes, 0, length * stream.getFormat().getFrameSize());
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
     }
+
 
     // Wave files are by default little endian.  Currently does not support big endian formatted wave files.
     // Convert endian-ness of raw data to sample data
@@ -109,9 +161,11 @@ public class WavReader {
     AudioInputStream soundIn = AudioSystem.getAudioInputStream(new BufferedInputStream(new FileInputStream(file)));
 
     WavReader reader = new WavReader();
-    WavData info = reader.read(soundIn);
+    //WavData info = reader.read(soundIn);
+    WavData info = reader.read(soundIn, 0.0, 2.5);
 
     System.out.println(info.sampleRate);
     System.out.println(info.sampleSize);
+    System.out.println(info.getDuration());
   }
 }

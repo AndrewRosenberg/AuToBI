@@ -99,7 +99,7 @@ public class DurationFeatureExtractor extends FeatureExtractor {
         if (previous_pause > -epsilon) {
           previous_pause = 0.0;
         } else {
-          throw new FeatureExtractorException(
+          AuToBIUtils.warn(
               "Invalid previous pause value on word: " + data_points.get(i).toString());
         }
       }
@@ -108,7 +108,7 @@ public class DurationFeatureExtractor extends FeatureExtractor {
         if (following_pause > -epsilon) {
           following_pause = 0.0;
         } else {
-          throw new FeatureExtractorException(
+          AuToBIUtils.warn(
               "Invalid following pause value on word: " + data_points.get(i).toString());
         }
       }

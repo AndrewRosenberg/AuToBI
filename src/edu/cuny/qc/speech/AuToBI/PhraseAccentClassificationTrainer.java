@@ -49,22 +49,16 @@ public class PhraseAccentClassificationTrainer {
 
     try {
       String model_file = autobi.getParameter("model_file");
-      String speaker_normalization_file = autobi.getParameter("speaker_normalization_filename");
       for (String filename : AuToBIUtils.glob(autobi.getParameter("training_filenames"))) {
 
         String file_stem = filename.substring(0, filename.lastIndexOf('.'));
 
         String wav_filename = file_stem + ".wav";
-        autobi.loadSpeakerNormalizationMapping(speaker_normalization_file);
-        String norm_param_filename = autobi.getSpeakerNormParamFilename(filename);
 
         TextGridReader tg_reader = new TextGridReader(filename);
 
         WavData wav = reader.read(wav_filename);
-        PitchExtractor pitch_extractor = new PitchExtractor(wav);
-        IntensityExtractor intensity_extractor = new IntensityExtractor(wav);
         SpectrumExtractor spectrum_extractor = new SpectrumExtractor(wav);
-        List<TimeValuePair> pitch_values = null;
         try {
           AuToBIUtils.log("Reading words from: " + filename);
           List<Word> tmp_words = tg_reader.readWords();
@@ -79,19 +73,12 @@ public class PhraseAccentClassificationTrainer {
 
           Spectrum spectrum = spectrum_extractor.getSpectrum(0.01, 0.02);
 
-          SpeakerNormalizationParameter norm_params =
-              SpeakerNormalizationParameterGenerator.readSerializedParameters(norm_param_filename);
-
-          // If stored normalization data is unavailable generate normalization data from the input file.
-          if (norm_params == null) {
-            pitch_values = pitch_extractor.soundToPitch();
-            List<TimeValuePair> intensity_values = intensity_extractor.soundToIntensity();
-            norm_params = new SpeakerNormalizationParameter();
-            norm_params.insertPitch(pitch_values);
-            norm_params.insertIntensity(intensity_values);
-          }
           autobi.unregisterAllFeatureExtractors();
-          autobi.registerAllFeatureExtractors(spectrum, wav, norm_params);
+          autobi.registerAllFeatureExtractors(spectrum, wav);
+          autobi.registerFeatureExtractor(new SNPAssignmentFeatureExtractor("normalization_parameters", "speaker_id",
+              AuToBIUtils.glob(autobi.getOptionalParameter("normalization_parameters"))));
+          autobi.registerNullFeatureExtractor("speaker_id");
+
 
           PhraseAccentClassificationFeatureSet current_fs =
               new PhraseAccentClassificationFeatureSet();

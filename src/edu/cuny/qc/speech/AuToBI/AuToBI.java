@@ -281,6 +281,7 @@ public class AuToBI {
       fs.addIntermediateFeatures(extractor.getRequiredFeatures());
       extractFeatures(extractor.getRequiredFeatures(), fs, false);
       extractor.extractFeatures(fs.getDataPoints());
+      AuToBIUtils.debug("extracted features using: " + extractor.getClass().getCanonicalName());
 
       if (clear_features)
         // Clear any auxilliary attributes
@@ -350,7 +351,7 @@ public class AuToBI {
    * @param fs   The feature set
    * @throws AuToBIException if there is no task associated with the identifier.
    */
-  private void generatePredictions(String task, FeatureSet fs) throws AuToBIException {
+  public void generatePredictions(String task, FeatureSet fs) throws AuToBIException {
     if (task.equals("pitch_accent_detection"))
       ClassifierUtils.generatePredictions(pitch_accent_detector, "hyp_pitch_accent_location", "", fs);
     else if (task.equals("pitch_accent_classification"))
@@ -367,13 +368,44 @@ public class AuToBI {
   }
 
   /**
+   * Generates predictions with confidence scores corresponding to a particular task
+   *
+   * @param task A task identifier
+   * @param fs   The feature set
+   * @throws AuToBIException if there is no task associated with the identifier.
+   */
+  public void generatePredictionsWithConfidenceScores(String task, FeatureSet fs) throws AuToBIException {
+    if (task.equals("pitch_accent_detection"))
+      ClassifierUtils.generatePredictionsWithConfidenceScores(pitch_accent_detector, "hyp_pitch_accent_location",
+          "hyp_pitch_accent_location_conf", "", fs);
+    else if (task.equals("pitch_accent_classification"))
+      ClassifierUtils.generatePredictionsWithConfidenceScores(pitch_accent_classifier, "hyp_pitch_accent_type",
+          "hyp_pitch_accent_type_conf", "", fs);
+    else if (task.equals("intonational_phrase_boundary_detection"))
+      ClassifierUtils
+          .generatePredictionsWithConfidenceScores(intonational_phrase_boundary_detector, "hyp_IP_location",
+              "hyp_IP_location_conf", "", fs);
+    else if (task.equals("intermediate_phrase_boundary_detection"))
+      ClassifierUtils
+          .generatePredictionsWithConfidenceScores(intermediate_phrase_boundary_detector, "hyp_ip_location",
+              "hyp_ip_location_conf", "", fs);
+    else if (task.equals("boundary_tone_classification"))
+      ClassifierUtils.generatePredictionsWithConfidenceScores(boundary_tone_classifier, "hyp_boundary_tone",
+          "hyp_boundary_tone_conf", "", fs);
+    else if (task.equals("phrase_accent_classification"))
+      ClassifierUtils.generatePredictionsWithConfidenceScores(phrase_accent_classifier, "hyp_phrase_accent",
+          "hyp_phrase_accent_conf", "", fs);
+    else throw new AuToBIException("Undefined task: " + task);
+  }
+
+  /**
    * Retrieves an empty feature set for the given task.
    *
    * @param task a task identifier.
    * @return a corresponding FeatureSet object
    * @throws AuToBIException If there is no FeatureSet defined for the task identifier
    */
-  private FeatureSet getTaskFeatureSet(String task) throws AuToBIException {
+  public FeatureSet getTaskFeatureSet(String task) throws AuToBIException {
     if (task.equals("pitch_accent_detection"))
       return new PitchAccentDetectionFeatureSet();
     if (task.equals("pitch_accent_classification"))
@@ -396,7 +428,7 @@ public class AuToBI {
    * -pitch_accent_detector -pitch_accent_classifier -IP_detector -ip_detector -phrase_accent_classifier
    * -boundary_tone_classifier
    */
-  private void loadClassifiers() {
+  public void loadClassifiers() {
     try {
       String pad_filename = getParameter("pitch_accent_detector");
       pitch_accent_detector = ClassifierUtils.readAuToBIClassifier(pad_filename);
@@ -406,35 +438,35 @@ public class AuToBI {
     try {
       String pac_filename = getParameter("pitch_accent_classifier");
       pitch_accent_classifier = ClassifierUtils.readAuToBIClassifier(pac_filename);
-    } catch (AuToBIException e) {
+    } catch (AuToBIException ignored) {
     }
 
     try {
       String intonational_phrase_detector_filename = getParameter("IP_detector");
       intonational_phrase_boundary_detector =
           ClassifierUtils.readAuToBIClassifier(intonational_phrase_detector_filename);
-    } catch (AuToBIException e) {
+    } catch (AuToBIException ignored) {
     }
 
     try {
       String intermediate_phrase_detector_filename = getParameter("ip_detector");
       intermediate_phrase_boundary_detector =
           ClassifierUtils.readAuToBIClassifier(intermediate_phrase_detector_filename);
-    } catch (AuToBIException e) {
+    } catch (AuToBIException ignored) {
     }
 
     try {
       String phrase_accent_classifier_name = getParameter("phrase_accent_classifier");
       phrase_accent_classifier =
           ClassifierUtils.readAuToBIClassifier(phrase_accent_classifier_name);
-    } catch (AuToBIException e) {
+    } catch (AuToBIException ignored) {
     }
 
     try {
       String boundary_tone_classifier_name = getParameter("boundary_tone_classifier");
       boundary_tone_classifier =
           ClassifierUtils.readAuToBIClassifier(boundary_tone_classifier_name);
-    } catch (AuToBIException e) {
+    } catch (AuToBIException ignored) {
     }
   }
 
@@ -545,13 +577,11 @@ public class AuToBI {
    * construct. This will be changed in a future version, with FeatureExtractors used to generate these acoustic
    * qualities.
    *
-   * @param spectrum    The specturm of the wave file
-   * @param wav_data    The wave data
-   * @param norm_params speaker normalization parameters for the wave file
+   * @param spectrum The specturm of the wave file
+   * @param wav_data The wave data
    * @throws FeatureExtractorException If there is a problem registering feature extractors.
    */
-  public void registerAllFeatureExtractors(Spectrum spectrum, WavData wav_data,
-                                           SpeakerNormalizationParameter norm_params)
+  public void registerAllFeatureExtractors(Spectrum spectrum, WavData wav_data)
       throws FeatureExtractorException {
 
     registerFeatureExtractor(new PitchAccentFeatureExtractor("nominal_PitchAccent"));
@@ -561,11 +591,10 @@ public class AuToBI {
     registerFeatureExtractor(new IntonationalPhraseBoundaryFeatureExtractor("nominal_IntonationalPhraseBoundary"));
     registerFeatureExtractor(new IntermediatePhraseBoundaryFeatureExtractor("nominal_IntermediatePhraseBoundary"));
 
-
     registerFeatureExtractor(new PitchFeatureExtractor(wav_data, "f0"));
     registerFeatureExtractor(new IntensityFeatureExtractor(wav_data, "I"));
-    registerFeatureExtractor(new NormalizedTimeValuePairFeatureExtractor("f0", norm_params));
-    registerFeatureExtractor(new NormalizedTimeValuePairFeatureExtractor("I", norm_params));
+    registerFeatureExtractor(new NormalizedTimeValuePairFeatureExtractor("f0", "normalization_parameters"));
+    registerFeatureExtractor(new NormalizedTimeValuePairFeatureExtractor("I", "normalization_parameters"));
 
     registerFeatureExtractor(new DeltaTimeValuePairFeatureExtractor("f0"));
     registerFeatureExtractor(new DeltaTimeValuePairFeatureExtractor("I"));
@@ -760,6 +789,8 @@ public class AuToBI {
       List<Region> pseudosyllables = syllabifier.generatePseudosyllableRegions(wav);
 
       SubregionUtils.alignLongestSubregionsToWords(words, pseudosyllables, "pseudosyllable");
+
+      /** TODO move this normalization parameter generation or loading into a feature extractor **/
       SpeakerNormalizationParameter norm_params = null;
 
       if (norm_param_filename != null) {
@@ -774,10 +805,16 @@ public class AuToBI {
         norm_params.insertIntensity(intensity_values);
       }
 
+      for (Region r : words) {
+        r.setAttribute("normalization_parameters", norm_params);
+      }
+
+      autobi.feature_registry.put("normalization_parameters", null);
+
       autobi.loadClassifiers();
 
       AuToBIUtils.log("Registering Feature Extractors");
-      autobi.registerAllFeatureExtractors(spectrum, wav, norm_params);
+      autobi.registerAllFeatureExtractors(spectrum, wav);
 
       for (String task : autobi.getClassificationTasks()) {
         AuToBIUtils.log("Running Hypothesis task -- " + task);
@@ -785,6 +822,8 @@ public class AuToBI {
         FeatureSet fs = autobi.getTaskFeatureSet(task);
         fs.setDataPoints(words);
         autobi.extractFeatures(fs, false);
+
+        fs.constructFeatures();
 
         autobi.generatePredictions(task, fs);
         AuToBIUtils.info(autobi.evaluateTaskPerformance(task, fs));
@@ -805,5 +844,19 @@ public class AuToBI {
     } catch (FeatureExtractorException e) {
       e.printStackTrace();
     }
+  }
+
+  /**
+   * Registers a null feature extractor with the registry.
+   * <p/>
+   * This implies that the feature will be manually set by the user outside the typical feature extraction process.
+   * <p/>
+   * This is used to satisfy feature requirements for feature extractors without writing a feature extractor for the
+   * requirement.  This is often used for features that are assigned by a file reader.
+   *
+   * @param s the feature name
+   */
+  public void registerNullFeatureExtractor(String s) {
+    this.feature_registry.put(s, null);
   }
 }

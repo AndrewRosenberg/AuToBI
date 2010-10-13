@@ -33,20 +33,21 @@ import java.util.List;
  */
 public class NormalizedTimeValuePairFeatureExtractor extends FeatureExtractor {
   private String feature_name;  // the feature to analyze
-  private SpeakerNormalizationParameter norm_params;  // the parameters to run the normalization
+  private String norm_feature;  // the parameters to run the normalization
 
   /**
    * Constructs a new NormalizedTimeValuePairFeatureExtractor to analyze the supplied feature_name using the supplied
    * parameters
    *
-   * @param feature_name the feature to modify
-   * @param norm_params  the zscore normalization parameters to apply
+   * @param feature_name          the feature to modify
+   * @param normalization_feature the zscore normalization parameters to apply
    */
-  public NormalizedTimeValuePairFeatureExtractor(String feature_name, SpeakerNormalizationParameter norm_params) {
+  public NormalizedTimeValuePairFeatureExtractor(String feature_name, String normalization_feature) {
     this.feature_name = feature_name;
-    this.norm_params = norm_params;
+    this.norm_feature = normalization_feature;
 
     required_features.add(feature_name);
+    required_features.add(normalization_feature);
     extracted_features.add("norm_" + feature_name);
   }
 
@@ -58,18 +59,21 @@ public class NormalizedTimeValuePairFeatureExtractor extends FeatureExtractor {
    */
   @Override
   public void extractFeatures(List regions) throws FeatureExtractorException {
-    if (norm_params.canNormalize(feature_name)) {
-      for (Region r : (List<Region>) regions) {
-        if (r.hasAttribute(feature_name)) {
+    for (Region r : (List<Region>) regions) {
+      if (r.hasAttribute(feature_name) && r.hasAttribute(norm_feature)) {
+        SpeakerNormalizationParameter norm_params = (SpeakerNormalizationParameter) r.getAttribute(norm_feature);
+        if (norm_params.canNormalize(feature_name)) {
           List<TimeValuePair> norm_contour =
               zScoreNormalizeValues((List<TimeValuePair>) r.getAttribute(feature_name), norm_params);
           r.setAttribute("norm_" + feature_name, norm_contour);
+        } else {
+          throw new FeatureExtractorException(
+              "Supplied normalization parameters cannot normalize values: " + feature_name);
         }
       }
-
-    } else {
-      throw new FeatureExtractorException("Supplied normalization parameters cannot normalize values: " + feature_name);
     }
+
+
   }
 
   /**

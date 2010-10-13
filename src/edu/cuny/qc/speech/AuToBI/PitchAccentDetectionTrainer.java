@@ -57,51 +57,43 @@ public class PitchAccentDetectionTrainer {
 
     PitchAccentDetectionTrainer trainer = new PitchAccentDetectionTrainer(autobi);
 
-    WavReader reader = new WavReader();
+    WavReader wav_reader = new WavReader();
     PitchAccentDetectionFeatureSet fs = new PitchAccentDetectionFeatureSet();
 
     try {
       String model_file = autobi.getParameter("model_file");
-      String speaker_normalization_file = autobi.getParameter("speaker_normalization_filename");
       for (String filename : AuToBIUtils.glob(autobi.getParameter("training_filenames"))) {
 
         String file_stem = filename.substring(0, filename.lastIndexOf('.'));
 
         String wav_filename = file_stem + ".wav";
-        autobi.loadSpeakerNormalizationMapping(speaker_normalization_file);
-        String norm_param_filename = autobi.getSpeakerNormParamFilename(filename);
 
-        TextGridReader tg_reader = new TextGridReader(filename);
+        AuToBIWordReader reader = null;
+        if (filename.endsWith("TextGrid")) {
+          reader = new TextGridReader(filename);
+        } else if (filename.endsWith("ala")) {
+          reader = new BURNCReader(filename.replace(".ala", ""));
+        }
 
-        WavData wav = reader.read(wav_filename);
+        WavData wav = wav_reader.read(wav_filename);
         SpectrumExtractor spectrum_extractor = new SpectrumExtractor(wav);
         try {
           AuToBIUtils.log("Reading words from: " + filename);
-          List<Word> words = tg_reader.readWords();
+          List<Word> words = reader.readWords();
 
           AuToBIUtils.log("Extracting acoustic information.");
           Spectrum spectrum = spectrum_extractor.getSpectrum(0.01, 0.02);
 
-          SpeakerNormalizationParameter norm_params =
-              SpeakerNormalizationParameterGenerator.readSerializedParameters(norm_param_filename);
-
-          // If stored normalization data is unavailable generate normalization data from the input file.
-          if (norm_params == null) {
-            PitchExtractor pitch_extractor = new PitchExtractor(wav);
-            IntensityExtractor intensity_extractor = new IntensityExtractor(wav);
-            List<TimeValuePair> pitch_values = pitch_extractor.soundToPitch();
-            List<TimeValuePair> intensity_values = intensity_extractor.soundToIntensity();
-            norm_params = new SpeakerNormalizationParameter();
-            norm_params.insertPitch(pitch_values);
-            norm_params.insertIntensity(intensity_values);
-          }
           autobi.unregisterAllFeatureExtractors();
-          autobi.registerAllFeatureExtractors(spectrum, wav, norm_params);
+          autobi.registerAllFeatureExtractors(spectrum, wav);
+          autobi.registerFeatureExtractor(new SNPAssignmentFeatureExtractor("normalization_parameters", "speaker_id",
+              AuToBIUtils.glob(autobi.getOptionalParameter("normalization_parameters"))));
+          autobi.registerNullFeatureExtractor("speaker_id");
 
           PitchAccentDetectionFeatureSet current_fs = new PitchAccentDetectionFeatureSet();
           current_fs.setDataPoints(words);
 
-          autobi.extractFeatures(current_fs);
+          autobi.extractFeatures(current_fs, false);
           current_fs.garbageCollection();
 
           fs.getDataPoints().addAll(words);

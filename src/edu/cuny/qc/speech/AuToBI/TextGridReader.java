@@ -29,7 +29,7 @@ import java.io.*;
  * The names of orthogonal, tones and breaks tiers in the TextGrid can be specified or standard "words", "tones",
  * "breaks" can be used.
  */
-public class TextGridReader {
+public class TextGridReader extends AuToBIWordReader {
 
   protected String filename;          // the name of the textgrid file
   protected String charsetName;  // the name of the character set of the file to read.
@@ -214,31 +214,14 @@ public class TextGridReader {
   protected List<Word> generateWordList(List<Region> regions) {
     List<Word> words = new ArrayList<Word>();
     for (Region r : regions) {
-      if (!isSilentRegion(r.getLabel())) {
-        words.add(new Word(r.getStart(), r.getEnd(), r.getLabel(), null, r.getFile()));
+      if (!WordReaderUtils.isSilentRegion(r.getLabel())) {
+        Word w = new Word(r.getStart(), r.getEnd(), r.getLabel(), null, r.getFile());
+        words.add(w);
       }
     }
     return words;
   }
 
-  /**
-   * Returns true if the label indicates that the region represents silence.
-   * <p/>
-   * Currently this matches the strings "#", ">brth", "}sil", "endsil", "sil", as well as, null and empty strings
-   * <p/>
-   * TODO Allow the list of silent labels to be set by the user or through command line parameters.
-   *
-   * @param label the region to check
-   * @return true if r is a silent region
-   */
-  private boolean isSilentRegion(String label) {
-
-    // put 'sil' back
-    if (label.length() > 0 && !label.matches("(#|>brth|}sil|endsil|_|_\\*_|\\*_|_\\*)")) {
-      return false;
-    }
-    return true;
-  }
 
   /**
    * Generates a TextGridTier from the supplied AuToBIFileReader.

@@ -82,7 +82,7 @@ public class AuToBIUtils {
 
 
   /**
-   * Glob a file pattern into a list of full path names that match the pattern.
+   * Globs a file pattern into a list of full path names that match the pattern.
    *
    * @param pattern The file pattern
    * @return a list of matching files.
@@ -106,10 +106,43 @@ public class AuToBIUtils {
   }
 
   /**
+   * Globs a single file from a list of full path names that match the pattern.
+   * <p/>
+   * Throws an error if the pattern matches multiple files.
+   *
+   * @param pattern The file pattern.
+   * @return the matching file
+   * @throws AuToBIException if the pattern matches multiple files
+   */
+  public static String globSingleFile(String pattern) throws AuToBIException {
+    if (pattern.contains(",")) {
+      throw new AuToBIException("Pattern, " + pattern + ", matches multiple files");
+    }
+
+    ArrayList<String> filenames = new ArrayList<String>();
+    String file_pattern = pattern.replaceAll("~", System.getProperty("user.home"));
+    if (!file_pattern.startsWith("/")) {
+      file_pattern = System.getProperty("user.dir") + "/" + file_pattern;
+    }
+    file_pattern = file_pattern.substring(1, file_pattern.length());
+    File dir = new File("/");
+
+    for (String file_name : getFileList(dir, file_pattern))
+      filenames.add(file_name);
+
+    if (filenames.size() > 1) {
+      throw new AuToBIException("Pattern, " + pattern + ", matches multiple files");
+    }
+    if (filenames.size() == 0) {
+      throw new AuToBIException("Pattern, " + pattern + ", does not match any files");
+    }
+    return filenames.get(1);
+  }
+
+  /**
    * Convert a collection to a string with elements joined by a delimiter.
    * <p/>
-   * e.g.
-   * ["a" "b" "c"] -> "a,b,c"
+   * e.g. ["a" "b" "c"] -> "a,b,c"
    *
    * @param collection the collection
    * @param delimiter  the delimiter
@@ -179,8 +212,8 @@ public class AuToBIUtils {
   }
 
   /**
-   * Constructs merged hypotheses for phrase ending tones and pitch accents by merging hypotheses from the six detection and
-   * classification tasks.
+   * Constructs merged hypotheses for phrase ending tones and pitch accents by merging hypotheses from the six detection
+   * and classification tasks.
    *
    * @param words the words to analyse
    */
@@ -192,7 +225,15 @@ public class AuToBIUtils {
       // will be assigned.  If location and type hypotheses are available, the hypothesized type will be assigned.
       // Finally, if only type information is available, every word will be assigned its best guess for accent type.
       if (word.hasAttribute("hyp_pitch_accent_location")) {
-        word.setAttribute("hyp_pitch_accent", word.getAttribute("hyp_pitch_accent_location"));
+        if (word.hasAttribute("hyp_pitch_accent_location_conf")) {
+          Double conf = (Double) word.getAttribute("hyp_pitch_accent_location_conf");
+          if (!word.getAttribute("hyp_pitch_accent_location").equals("ACCENTED")) {
+            conf = 1 - conf;
+          }
+          word.setAttribute("hyp_pitch_accent", "ACCENTED: " + conf);
+        } else {
+          word.setAttribute("hyp_pitch_accent", word.getAttribute("hyp_pitch_accent_location"));
+        }
       }
       if (word.hasAttribute("hyp_pitch_accent_type")) {
         if (!word.hasAttribute("hyp_pitch_accent") || word.getAttribute("hyp_pitch_accent").equals("ACCENTED")) {
@@ -202,7 +243,15 @@ public class AuToBIUtils {
 
       // Assigns phrase ending tones.
       if (word.hasAttribute("hyp_IP_location")) {
-        word.setAttribute("hyp_phrase_boundary", word.getAttribute("hyp_IP_location"));
+        if (word.hasAttribute("hyp_IP_location_conf")) {
+          Double conf = (Double) word.getAttribute("hyp_IP_location_conf");
+          if (!word.getAttribute("hyp_IP_location").equals("INTONATIONAL_BOUNDARY")) {
+            conf = 1 - conf;
+          }
+          word.setAttribute("hyp_phrase_boundary", "BOUNDARY: " + conf);
+        } else {
+          word.setAttribute("hyp_phrase_boundary", word.getAttribute("hyp_IP_location"));
+        }
       }
 
       if (word.hasAttribute("hyp_ip_location")) {

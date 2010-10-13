@@ -34,7 +34,8 @@ import java.util.List;
  * Tones and break information are stored in vanilla XWaves files.
  */
 public class BURNCReader extends AuToBIWordReader {
-  private String filestem;
+  private String filestem;       // The stem of the set of BURNC files to be read
+  private String phone_feature;  // The name of a feature to store phone regions in.
 
   /**
    * Constructs a new BURNC reader.
@@ -42,7 +43,16 @@ public class BURNCReader extends AuToBIWordReader {
    * @param filestem the name of the file to read
    */
   public BURNCReader(String filestem) {
+    this(filestem, null);
+  }
+
+  /**
+   * Constructs a new BURNC reader that optionally reads BURNC phones and stores then in a list associated with each
+   * word.
+   */
+  public BURNCReader(String filestem, String phone_feature) {
     this.filestem = filestem;
+    this.phone_feature = phone_feature;
   }
 
   /**
@@ -73,7 +83,49 @@ public class BURNCReader extends AuToBIWordReader {
   }
 
   /**
-   * Reads word boundaries from the .ala file.
+   * Reads word boundaries from an .ala file.
+   * <p/>
+   * Ala files include phone identities and word identities.
+   * <p/>
+   * Phone identities are whitespace separated and contain the following fields: phone_id start_time(ms) duration(ms)
+   * <p/>
+   * Lines that are start with ">" characters contain word annotations, but no start and end times, these must be
+   * constructed from the phone annotations. For example:
+   * <p/>
+   * N       20      3
+   * <p/>
+   * AY      23      12
+   * <p/>
+   * N       35      4
+   * <p/>
+   * TCL     39      2
+   * <p/>
+   * T       41      4
+   * <p/>
+   * IY+1    45      8
+   * <p/>
+   * N       53      5
+   * <p/>
+   * >nineteen
+   * <p/>
+   * S       58      10
+   * <p/>
+   * EH+1    68      8
+   * <p/>
+   * V       76      3
+   * <p/>
+   * EN      79      4
+   * <p/>
+   * TCL     83      2
+   * <p/>
+   * T       85      1
+   * <p/>
+   * IY      86      7
+   * <p/>
+   * >seventy
+   * <p/>
+   * Indicates two words: "nineteen" which starts at .2 and ends at .58 and "seventy" which starts at .58 and ends at
+   * .96
    *
    * @return A list of words.
    */
@@ -85,25 +137,42 @@ public class BURNCReader extends AuToBIWordReader {
     String filename = filestem + ".ala";
     ArrayList<Word> words = new ArrayList<Word>();
 
+    ArrayList<Region> phones = new ArrayList<Region>();
+    boolean read_phones = false;
+    if (phone_feature != null && phone_feature.length() != 0) {
+      read_phones = true;
+    }
+
     try {
       reader = new AuToBIFileReader(filename);
       while ((line = reader.readLine()) != null) {
         line = line.trim();
         if (line.startsWith(">")) {
-          // insert Region
+          // Read a word and construct the start and end times.
           String word = line.replaceFirst(">", "");
           if (!WordReaderUtils.isSilentRegion(word)) {
             Word w = new Word(start_time, end_time, word, null, filename);
             w.setAttribute("speaker_id", filename.replaceFirst("^.*/", "").subSequence(0, 3));
+            if (read_phones) {
+              w.setAttribute(phone_feature, phones);  // Assign the phones to the list.
+              phones = new ArrayList<Region>();
+            }
             words.add(w);
           }
           start_time = -1.0;
         } else {
+
+          // The .ala format is a whitespace delimited format containing the fields:
+          // phoneid start_time duration
           String[] data = line.split("\\s+");
           if (start_time == -1.0) {
             start_time = (Double.parseDouble(data[1]) - 1) / 100.0;
           }
           end_time = ((Double.parseDouble(data[1]) - 1) + Double.parseDouble(data[2])) / 100.0;
+
+          if (read_phones) {
+            phones.add(new Region(start_time, end_time, data[0]));
+          }
         }
       }
       reader.close();

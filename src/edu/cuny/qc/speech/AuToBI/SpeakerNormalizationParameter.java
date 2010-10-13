@@ -56,6 +56,14 @@ public class SpeakerNormalizationParameter implements Serializable {
   }
 
   /**
+   * Retrieves the speaker id value
+   * @return the speaker identifier
+   */
+  public String getSpeakerId() {
+    return speaker_id;
+  }
+
+  /**
    * Inserts a pitch value to the parameters.
    *
    * @param pitch the pitch value
