@@ -23,15 +23,26 @@ import java.io.*;
 
 /**
  * A wrapper around a BufferedWriter.
- *
+ * <p/>
  * AuToBIFileWriter doesn't currently extend the functionality of BufferedWriter.
- *
+ * <p/>
  * This class is a placeholder if any extensions are required.
  */
 public class AuToBIFileWriter extends BufferedWriter {
 
   public AuToBIFileWriter(String filename) throws IOException {
     super(new FileWriter(filename));
+  }
+
+  /**
+   * Constructs a new AuToBIFileWriter with an option to open a file for appending.
+   *
+   * @param filename the name of the file to write to.
+   * @param append   If true, opens the file for appending.
+   * @throws IOException
+   */
+  public AuToBIFileWriter(String filename, boolean append) throws IOException {
+    super(new FileWriter(filename, append));
   }
 }
 
