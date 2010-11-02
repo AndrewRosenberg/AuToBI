@@ -20,9 +20,13 @@
 
 package edu.cuny.qc.speech.AuToBI;
 
+import org.apache.commons.math.MathException;
+
 import java.util.List;
 import java.util.Collection;
 import java.io.Serializable;
+
+import static org.apache.commons.math.special.Erf.erf;
 
 /**
  * A class to store aggregations of real numbered information.
@@ -102,8 +106,8 @@ public class Aggregation implements Serializable {
   /**
    * Removes a value from the Aggregation.
    * <p/>
-   * Removing a value from an Aggregation can invalidate its minimum and maximum calculation if the value was equal
-   * to the current minmum or maximum.
+   * Removing a value from an Aggregation can invalidate its minimum and maximum calculation if the value was equal to
+   * the current minmum or maximum.
    * <p/>
    * Note: no check is made that the value was ever initially added to the Aggregation.
    *
@@ -112,9 +116,9 @@ public class Aggregation implements Serializable {
   public void remove(Double v) {
     sum -= v;
     ssq -= (v * v);
-    if (v == max)
+    if (v.equals(max))
       max = null;  // no runnig max and min
-    if (v == min)
+    if (v.equals(min))
       min = null;
     n--;
   }
@@ -141,7 +145,7 @@ public class Aggregation implements Serializable {
 
   /**
    * Calculates the mean value.
-   *
+   * <p/>
    * If there are no elements in the Aggregation, the mean is zero.
    *
    * @return the mean
@@ -153,7 +157,7 @@ public class Aggregation implements Serializable {
 
   /**
    * Calculates the standard deviation.
-   *
+   * <p/>
    * If there are less than 2 elements in the Aggregation, the standard deviation is zero.
    *
    * @return the standard deviation
@@ -166,13 +170,14 @@ public class Aggregation implements Serializable {
 
   /**
    * Calculates the variance
-   *
+   * <p/>
    * If there are less than 2 elements in the Aggregation, the variance is zero.
+   *
    * @return the variance
    */
   public Double getVariance() {
     if (n < 2) return 0.0;
-    
+
     Double mean = sum / n;
     return (ssq - (n * mean * mean)) / (n - 1);
   }
@@ -197,7 +202,7 @@ public class Aggregation implements Serializable {
 
   /**
    * Overrides the current min with an externally calculated value
-   *
+   * <p/>
    * This is helpful if the minimum value gets invalidated by remove.
    *
    * @param min the minimum value
@@ -214,9 +219,10 @@ public class Aggregation implements Serializable {
   public Double getMax() {
     return max;
   }
+
   /**
    * Overrides the current max with an externally calculated value
-   *
+   * <p/>
    * This is helpful if the maximum value gets invalidated by remove.
    *
    * @param max the maximum value
@@ -248,6 +254,25 @@ public class Aggregation implements Serializable {
     double pdf = 1 / (stdev * Math.sqrt(2 * Math.PI));
     pdf *= Math.pow(Math.E, (-(value - mean) * (value - mean)) / (2 * stdev * stdev));
     return pdf;
+  }
+
+  /**
+   * Evaluates the CDF of the aggregation.  The aggregation is treated as a Gaussian distribution in this case
+   * <p/>
+   * The CDF is the probability of a value drawn from the distribution falling below f
+   * <p/>
+   * cdf(x) = 1/2 [1 + erf(x - mu/sqrt(2 * stdev^2))]
+   * @param value the value
+   * @return the CDF
+   */
+  public double evaluateGaussianCDF(double value) {
+    try {
+      double stdev = getStdev();
+      return .5 * (1 + erf(value - getMean() / Math.sqrt(2 * stdev * stdev)));
+    } catch (MathException e) {
+      e.printStackTrace();
+    }
+    return 0;
   }
 
   /**

@@ -131,7 +131,7 @@ public class BURNCReader extends AuToBIWordReader {
    */
   private List<Word> readALAWords() {
     String line;
-    Double start_time = -1.0;
+    Double word_start_time = -1.0;
     Double end_time = -1.0;
     AuToBIFileReader reader;
     String filename = filestem + ".ala";
@@ -151,27 +151,29 @@ public class BURNCReader extends AuToBIWordReader {
           // Read a word and construct the start and end times.
           String word = line.replaceFirst(">", "");
           if (!WordReaderUtils.isSilentRegion(word)) {
-            Word w = new Word(start_time, end_time, word, null, filename);
+            Word w = new Word(word_start_time, end_time, word, null, filename);
             w.setAttribute("speaker_id", filename.replaceFirst("^.*/", "").subSequence(0, 3));
             if (read_phones) {
               w.setAttribute(phone_feature, phones);  // Assign the phones to the list.
-              phones = new ArrayList<Region>();
             }
             words.add(w);
           }
-          start_time = -1.0;
+          if (read_phones) {
+            phones = new ArrayList<Region>();
+          }
+          word_start_time = -1.0;
         } else {
 
           // The .ala format is a whitespace delimited format containing the fields:
-          // phoneid start_time duration
+          // phoneid word_start_time duration
           String[] data = line.split("\\s+");
-          if (start_time == -1.0) {
-            start_time = (Double.parseDouble(data[1]) - 1) / 100.0;
+          if (word_start_time == -1.0) {
+            word_start_time = (Double.parseDouble(data[1]) - 1) / 100.0;
           }
           end_time = ((Double.parseDouble(data[1]) - 1) + Double.parseDouble(data[2])) / 100.0;
 
           if (read_phones) {
-            phones.add(new Region(start_time, end_time, data[0]));
+            phones.add(new Region((Double.parseDouble(data[1]) - 1) / 100.0, end_time, data[0]));
           }
         }
       }
