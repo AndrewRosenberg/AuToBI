@@ -115,12 +115,30 @@ public class SubregionUtils {
    * @param subregion_attribute the name of the subregion attribute that is the destination of the attribute
    * @param attribute_name      the name of the copied attribute
    */
-  public static void assignFeatureToSubregions(List<Region> regions, String subregion_attribute,
+  public static void assignFeatureToSubregions(List regions, String subregion_attribute,
                                                String attribute_name) {
-    for (Region r : regions) {
+    for (Region r : (List<Region>) regions) {
       if (r.hasAttribute(subregion_attribute) && r.hasAttribute(attribute_name)) {
         Region subregion = (Region) r.getAttribute(subregion_attribute);
         subregion.setAttribute(attribute_name, r.getAttribute(attribute_name));
+      }
+    }
+  }
+
+  /**
+   * Copies a feature from a region to the specified list of subregions.
+   *
+   * @param regions             the regions to copy attributes from
+   * @param subregion_attribute the name of the subregion attribute that is the destination of the attribute
+   * @param attribute_name      the name of the copied attribute
+   */
+  public static void assignFeatureToAllSubregions(List regions, String subregion_attribute,
+                                                  String attribute_name) {
+    for (Region r : (List<Region>) regions) {
+      if (r.hasAttribute(subregion_attribute) && r.hasAttribute(attribute_name)) {
+        for (Region subregion : (List<Region>) r.getAttribute(subregion_attribute)) {
+          subregion.setAttribute(attribute_name, r.getAttribute(attribute_name));
+        }
       }
     }
   }

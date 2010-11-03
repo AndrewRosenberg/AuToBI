@@ -268,8 +268,8 @@ public class Aggregation implements Serializable {
   public double evaluateGaussianCDF(double value) {
     try {
       double stdev = getStdev();
-      return .5 * (1 + erf(value - getMean() / Math.sqrt(2 * stdev * stdev)));
-    } catch (MathException e) {
+      return .5 * (1 + erf((value - getMean()) / Math.sqrt(2 * stdev * stdev)));
+    } catch (Exception e) {
       e.printStackTrace();
     }
     return 0;

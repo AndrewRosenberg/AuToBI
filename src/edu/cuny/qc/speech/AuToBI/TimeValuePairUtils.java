@@ -76,9 +76,9 @@ public class TimeValuePairUtils {
    * @param feature_name The feature name to store the values on the regions
    * @throws AuToBIException If the start and end times of a region are inconsistent. (I.e., start > end)
    */
-  public static void assignValuesToRegions(List<Region> regions, List<TimeValuePair> values, String feature_name)
+  public static void assignValuesToRegions(List regions, List<TimeValuePair> values, String feature_name)
       throws AuToBIException {
-    for (Region r : regions) {
+    for (Region r : (List<Region>) regions) {
       List<TimeValuePair> values_subset = TimeValuePairUtils.getTimeValuePairSublist(values, r.getStart(), r.getEnd());
       r.setAttribute(feature_name, values_subset);
     }
@@ -96,11 +96,11 @@ public class TimeValuePairUtils {
    * @param feature_name The feature name of the values on the regions and subregions
    * @throws AuToBIException If the start and end times of a region are inconsistent. (I.e., start > end)
    */
-  public static void assignValuesToSubregions(List<Region> subregions, List<Region> regions, String feature_name)
+  public static void assignValuesToSubregions(List<Region> subregions, List regions, String feature_name)
       throws AuToBIException {
     List<TimeValuePair> values = new ArrayList<TimeValuePair>();
 
-    for (Region r : regions) {
+    for (Region r : (List<Region>) regions) {
       if (r.hasAttribute(feature_name)) {
         values.addAll((Collection<? extends TimeValuePair>) r.getAttribute(feature_name));
       }
@@ -151,8 +151,18 @@ public class TimeValuePairUtils {
     int bottom = 0;
     int top = tvp.size() - 1;
 
-    if (tvp.get(bottom).getTime() > time) return bottom;
-    if (tvp.get(top).getTime() < time) return top;
+    if (tvp.get(bottom).getTime() > time) {
+      if (greater_than)
+        return bottom;
+      else
+        return -1;
+    }
+    if (tvp.get(top).getTime() < time) {
+      if (greater_than)
+        return tvp.size();
+      else
+        return top;
+    }
 
     while (!tvp.get(bottom).getTime().equals(time) && !tvp.get(top).getTime().equals(time) && top - bottom > 1) {
       int middle = Math.round((bottom + top) / 2);
@@ -258,7 +268,7 @@ public class TimeValuePairUtils {
 
         // In a valley.  If the valley was sufficiently deep from previous peak, store the value.
         if (!rising && maximum_value - previous_value > threshold) {
-          return i-1;
+          return i - 1;
         }
         rising = true;
       }
