@@ -592,13 +592,17 @@ public class AuToBI {
     registerFeatureExtractor(new IntermediatePhraseBoundaryFeatureExtractor("nominal_IntermediatePhraseBoundary"));
 
     registerFeatureExtractor(new PitchFeatureExtractor(wav_data, "f0"));
+    registerFeatureExtractor(new LogContourFeatureExtractor("f0", "log_f0"));
     registerFeatureExtractor(new IntensityFeatureExtractor(wav_data, "I"));
     registerFeatureExtractor(new NormalizedTimeValuePairFeatureExtractor("f0", "normalization_parameters"));
+    registerFeatureExtractor(new NormalizedTimeValuePairFeatureExtractor("log_f0", "normalization_parameters"));
     registerFeatureExtractor(new NormalizedTimeValuePairFeatureExtractor("I", "normalization_parameters"));
 
     registerFeatureExtractor(new DeltaTimeValuePairFeatureExtractor("f0"));
+    registerFeatureExtractor(new DeltaTimeValuePairFeatureExtractor("log_f0"));
     registerFeatureExtractor(new DeltaTimeValuePairFeatureExtractor("I"));
     registerFeatureExtractor(new DeltaTimeValuePairFeatureExtractor("norm_f0"));
+    registerFeatureExtractor(new DeltaTimeValuePairFeatureExtractor("norm_log_f0"));
     registerFeatureExtractor(new DeltaTimeValuePairFeatureExtractor("norm_I"));
 
 
@@ -606,6 +610,11 @@ public class AuToBI {
     registerFeatureExtractor(new TimeValuePairFeatureExtractor("norm_f0"));
     registerFeatureExtractor(new TimeValuePairFeatureExtractor("delta_f0"));
     registerFeatureExtractor(new TimeValuePairFeatureExtractor("delta_norm_f0"));
+
+    registerFeatureExtractor(new TimeValuePairFeatureExtractor("log_f0"));
+    registerFeatureExtractor(new TimeValuePairFeatureExtractor("norm_log_f0"));
+    registerFeatureExtractor(new TimeValuePairFeatureExtractor("delta_log_f0"));
+    registerFeatureExtractor(new TimeValuePairFeatureExtractor("delta_norm_log_f0"));
 
     registerFeatureExtractor(new TimeValuePairFeatureExtractor("I"));
     registerFeatureExtractor(new TimeValuePairFeatureExtractor("norm_I"));
@@ -624,21 +633,27 @@ public class AuToBI {
     // Reset Features //
     ////////////////////
     registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("f0", null));
+    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("log_f0", null));
     registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("I", null));
     registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("norm_f0", null));
+    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("norm_log_f0", null));
     registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("norm_I", null));
 
     registerFeatureExtractor(new SubregionResetFeatureExtractor("200ms"));
     registerFeatureExtractor(new SubregionResetFeatureExtractor("400ms"));
 
     registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("f0", "200ms"));
+    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("log_f0", "200ms"));
     registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("I", "200ms"));
     registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("norm_f0", "200ms"));
+    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("norm_log_f0", "200ms"));
     registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("norm_I", "200ms"));
 
     registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("f0", "400ms"));
+    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("log_f0", "400ms"));
     registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("I", "400ms"));
     registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("norm_f0", "400ms"));
+    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("norm_log_f0", "400ms"));
     registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("norm_I", "400ms"));
 
     ////////////////////////
@@ -650,6 +665,11 @@ public class AuToBI {
     registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("delta_f0", "pseudosyllable"));
     registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("norm_f0", "pseudosyllable"));
     registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("delta_norm_f0", "pseudosyllable"));
+
+    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("log_f0", "pseudosyllable"));
+    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("delta_log_f0", "pseudosyllable"));
+    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("norm_log_f0", "pseudosyllable"));
+    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("delta_norm_log_f0", "pseudosyllable"));
 
     registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("I", "pseudosyllable"));
     registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("delta_I", "pseudosyllable"));
@@ -663,6 +683,11 @@ public class AuToBI {
     registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("norm_f0", "200ms"));
     registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("delta_norm_f0", "200ms"));
 
+    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("log_f0", "200ms"));
+    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("delta_log_f0", "200ms"));
+    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("norm_log_f0", "200ms"));
+    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("delta_norm_log_f0", "200ms"));
+
     registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("I", "200ms"));
     registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("delta_I", "200ms"));
     registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("norm_I", "200ms"));
@@ -670,7 +695,7 @@ public class AuToBI {
 
     List<String> difference_features = new ArrayList<String>();
     difference_features.add("duration__duration");
-    for (String acoustic : new String[]{"f0", "I"}) {
+    for (String acoustic : new String[]{"f0","log_f0", "I"}) {
       for (String norm : new String[]{"", "norm_"}) {
         for (String slope : new String[]{"", "delta_"}) {
           for (String agg : new String[]{"max", "mean", "stdev", "zMax"}) {

@@ -34,7 +34,7 @@ public class WordReaderUtils {
    * @return true if r is a silent region
    */
   public static boolean isSilentRegion(String label) {
-    if (label.length() > 0 && !label.matches("(#|>brth|}sil|endsil|sil|_|_\\*_|\\*_|_\\*)")) {
+    if (label.length() > 0 && !label.matches("(#|>brth|brth|}sil|endsil|sil|_|_\\*_|\\*_|_\\*)")) {
       return false;
     }
     return true;
