@@ -23,18 +23,35 @@ package edu.cuny.qc.speech.AuToBI;
  * A Utility Class for functions used by AuToBIWordReaders.
  */
 public class WordReaderUtils {
+  public static String DEFAULT_SILENCE_REGEX = "(#|>brth|brth|}sil|endsil|sil|_|_\\*_|\\*_|_\\*)";
+
   /**
    * Returns true if the label indicates that the region represents silence.
    * <p/>
-   * Currently this matches the strings "#", ">brth", "}sil", "endsil", "sil", as well as, null and empty strings
+   * Matches the strings "#", ">brth", "}sil", "endsil", "sil", as well as, null and empty strings
    * <p/>
-   * TODO Allow the list of silent labels to be set by the user or through command line parameters.
    *
    * @param label the region to check
    * @return true if r is a silent region
    */
   public static boolean isSilentRegion(String label) {
-    if (label.length() > 0 && !label.matches("(#|>brth|brth|}sil|endsil|sil|_|_\\*_|\\*_|_\\*)")) {
+    return isSilentRegion(label, DEFAULT_SILENCE_REGEX);
+  }
+
+  /**
+   * Returns true if the label indicates that the region represents silence.
+   * <p/>
+   * Silent regions are indicated by the regular expression passed as a parameter.
+   * <p/>
+   *
+   * @param label the region to check
+   * @param regex the regular expression to match silence
+   * @return true if r is a silent region
+   */
+  public static boolean isSilentRegion(String label, String regex) {
+    if (regex == null)
+      regex = DEFAULT_SILENCE_REGEX;
+    if (label.length() > 0 && !label.matches(regex)) {
       return false;
     }
     return true;

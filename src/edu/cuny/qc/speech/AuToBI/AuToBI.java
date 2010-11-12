@@ -793,6 +793,10 @@ public class AuToBI {
       TextGridReader tg_reader = new TextGridReader(tg_filename, autobi.getOptionalParameter("words_tier_name"),
           autobi.getOptionalParameter("tones_tier_name"), autobi.getOptionalParameter("breaks_tier_name"));
 
+      if (autobi.hasParameter("silence_regex")) {
+        tg_reader.setSilenceRegex(autobi.getParameter("silence_regex"));
+      }
+
       WavData wav = reader.read(wav_filename);
       PitchExtractor pitch_extractor = new PitchExtractor(wav);
       IntensityExtractor intensity_extractor = new IntensityExtractor(wav);

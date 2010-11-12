@@ -150,7 +150,7 @@ public class BURNCReader extends AuToBIWordReader {
         if (line.startsWith(">")) {
           // Read a word and construct the start and end times.
           String word = line.replaceFirst(">", "");
-          if (!WordReaderUtils.isSilentRegion(word)) {
+          if (!WordReaderUtils.isSilentRegion(word, silence_regex)) {
             Word w = new Word(word_start_time, end_time, word, null, filename);
             w.setAttribute("speaker_id", filename.replaceFirst("^.*/", "").subSequence(0, 3));
             if (read_phones) {
