@@ -19,7 +19,9 @@
  */
 package edu.cuny.qc.speech.AuToBI;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  * Utility class for aligning information to Regions.
@@ -34,7 +36,7 @@ public class AlignmentUtils {
    * @param words tones
    * @param tones words
    */
-  public static void copyToBITones(List<Word> words, List<Region> tones) {
+  public static void copyToBITonesByTime(List<Word> words, List<Region> tones) {
     int word_idx = 0;
     int tone_idx = 0;
 
@@ -91,9 +93,9 @@ public class AlignmentUtils {
    * Requires that the number of breaks and words are equal for alignment.  This can cause a problem for some
    * annotations which (erroneously) label silence with a break index.
    *
-   * @param words The list of words
+   * @param words  The list of words
    * @param breaks The list of breaks
-   * @throws AuToBIException If there is an unqual number of breaks and words 
+   * @throws AuToBIException If there is an unqual number of breaks and words
    */
   public static void copyToBIBreaks(List<Word> words, List<Region> breaks) throws AuToBIException {
     String previous_break = null;
@@ -108,5 +110,116 @@ public class AlignmentUtils {
       w.setBreakAfter(current_break);
       previous_break = current_break;
     }
+  }
+
+  /**
+   * Copies a list of ToBI tones to words based on their index.
+   * <p/>
+   * That is, the i-th phrase ending tone is aligned to the i-th phrase, regardless of the annotation time.
+   * <p/>
+   * Accents are aligned to words based on time.
+   *
+   * @param words the list of words
+   * @param tones the list of tones
+   * @throws AuToBIException If there is an alignment problem
+   */
+  public static void copyToBITonesByIndex(List<Word> words, List<Region> tones) throws AuToBIException {
+    List<String> phrase_accents = new ArrayList<String>();
+    List<String> boundary_tones = new ArrayList<String>();
+
+    ListIterator<Region> toneIter = tones.listIterator();
+    for (Word word : words) {
+      Region toneRegion = getNextRegion(word.getEnd(), toneIter);
+
+      while (toneRegion != null) {
+        if (toneRegion.getLabel().equals(""))
+          throw new AuToBIException(toneRegion + " contains an empty tone.");
+
+        // Common idiosyncracies in the Boston University Radio News Corpus, that are not in the ToBI standard.
+        if (toneRegion.getLabel().equals("X%?") || toneRegion.getLabel().equals("%?")) {
+          toneRegion.setLabel("X-?X%?");
+        }
+        if (toneRegion.getLabel().equals("-X?")) {
+          toneRegion.setLabel("X-?");
+        }
+
+        String tone = ToBIUtils.getPitchAccent(toneRegion.getLabel());
+        if (tone != null) {
+          String phraseAccent = ToBIUtils.getPhraseAccent(toneRegion.getLabel());
+          String boundaryTone = ToBIUtils.getBoundaryTone(toneRegion.getLabel());
+
+          if (phraseAccent != null) {
+            phrase_accents.add(phraseAccent);
+          }
+          if (boundaryTone != null) {
+            boundary_tones.add(boundaryTone);
+          }
+        } else {
+          word.setAccent(tone);
+          word.setAccentTime(toneRegion.getStart());
+        }
+
+        toneRegion = getNextRegion(word.getEnd(), toneIter);
+      }
+    }
+
+    // Phrase ending tones do not align in time, but there are the right amount of them
+    // So align by index rather than by time.
+
+    // Retrieve any remaining phrase final tones
+    while (toneIter.hasNext()) {
+      Region toneRegion = toneIter.next();
+      String phraseAccent = ToBIUtils.getPhraseAccent(toneRegion.getLabel());
+      String boundaryTone = ToBIUtils.getBoundaryTone(toneRegion.getLabel());
+
+      if (phraseAccent != null) {
+        phrase_accents.add(phraseAccent);
+      }
+      if (boundaryTone != null) {
+        boundary_tones.add(boundaryTone);
+      }
+    }
+
+    ListIterator<String> phrase_accent_iter = phrase_accents.listIterator();
+    ListIterator<String> boundary_tone_iter = boundary_tones.listIterator();
+
+    for (Word word : words) {
+      if (word.getBreakAfter().matches("(3|3-|3p|4|4-|4p)")) {
+        if (!phrase_accent_iter.hasNext()) {
+          throw new AuToBIException("No available phrase accent for phrase final word: " + word);
+        } else {
+          word.setPhraseAccent(phrase_accent_iter.next());
+        }
+      }
+      if (word.getBreakAfter().matches("(4|4-|4p)")) {
+        if (!boundary_tone_iter.hasNext()) {
+          throw new AuToBIException("No available boundary tone for phrase final word: " + word);
+        } else {
+          word.setBoundaryTone(boundary_tone_iter.next());
+        }
+      }
+    }
+  }
+
+
+
+  /**
+   * Retrieves the next region in the list following a particular time.
+   *
+   * @param time the time
+   * @param iter the list iterator
+   * @return the first region that starts after the time.
+   */
+  protected static Region getNextRegion(double time, ListIterator<Region> iter) {
+    if (!iter.hasNext()) return null;
+
+    Double epsilon = 0.005;// To deal with Double precision errors.
+    Region region = iter.next();
+    if (region.getStart() > time + epsilon) {
+      iter.previous();
+      return null;
+    }
+
+    return region;
   }
 }

@@ -27,7 +27,7 @@ import java.util.regex.Matcher;
 /**
  * ToBIUtils is a utility class to store static methods used in the processing and interpretation of ToBI annotations,
  * specifically breaks and tones.
- *
+ * <p/>
  * Note: It may be preferred to fold many of these functions into the FeatureExtractor framework.  Currently they remain
  * as static methods, some of which contain FeatureExtractor wrappers.  This is a likely future modification.
  */
@@ -44,7 +44,7 @@ public class ToBIUtils {
       String label = "NONBOUNDARY";
       if (word.getBreakAfter() != null && (
           word.getBreakAfter().equals("3") || word.getBreakAfter().equals("3p") ||
-          word.getBreakAfter().equals("3-")))
+              word.getBreakAfter().equals("3-")))
         label = "INTERMEDIATE_BOUNDARY";
       if ((word.getBreakAfter() != null) && (
           word.getBreakAfter().equals("4-") || word.getBreakAfter().equals("4"))) label = "INTONATIONAL_BOUNDARY";
@@ -53,12 +53,12 @@ public class ToBIUtils {
   }
 
   /**
-     * Constructs an intonational phrase boundary annotation, either NONBOUNDARY or
-     * INTONATIONAL_BOUNDARY based on analysis of associated breaks information
-     *
-     * @param data_points    the words to analyse
-     * @param attribute_name the destination attribute
-     */
+   * Constructs an intonational phrase boundary annotation, either NONBOUNDARY or INTONATIONAL_BOUNDARY based on
+   * analysis of associated breaks information
+   *
+   * @param data_points    the words to analyse
+   * @param attribute_name the destination attribute
+   */
 
   public static void setIntonationalPhraseBoundary(List<Word> data_points, String attribute_name) {
     for (Word word : data_points) {
@@ -86,7 +86,7 @@ public class ToBIUtils {
   /**
    * Assigns the annotated phrase accent as an attribute.
    *
-   * @param words the words to analyse.
+   * @param words          the words to analyse.
    * @param attribute_name the destination attribute name
    */
   public static void setPhraseAccent(List<Word> words, String attribute_name) {
@@ -100,7 +100,7 @@ public class ToBIUtils {
   /**
    * Assigns the annotated pitch accent type as an attribute.
    *
-   * @param words the words to analyse.
+   * @param words          the words to analyse.
    * @param attribute_name the destination attribute name
    */
   public static void setPitchAccentType(List<Word> words, String attribute_name) {
@@ -172,9 +172,8 @@ public class ToBIUtils {
   /**
    * Confirms that ToBI annotations are consistent with the ToBI standard.
    * <p/>
-   * Checks that 1) every intermediate phrase has a phrase accent.
-   * 2) every intermediate phrase contains an accented word.
-   * 3) every intonational phrase has a boundary tone
+   * Checks that 1) every intermediate phrase has a phrase accent. 2) every intermediate phrase contains an accented
+   * word. 3) every intonational phrase has a boundary tone
    *
    * @param words The words to check
    * @throws AuToBIException when word annotations to not match the ToBI standard
@@ -193,24 +192,24 @@ public class ToBIUtils {
         word.setPhraseAccent("X-?");
         AuToBIUtils.warn(
             "Word, " + word + ", has an intermediate phrase ending break, " + word.getBreakAfter() +
-            ", but no phrase accent");
+                ", but no phrase accent");
       }
       if (word.isIntonationalPhraseFinal() && !word.hasBoundaryTone()) {
         word.setBoundaryTone("X%?");
         AuToBIUtils.warn(
             "Word, " + word + ", has an intonational phrase ending break, " + word.getBreakAfter() +
-            ", but no boundary tone");
+                ", but no boundary tone");
       }
 
       if (!word.isIntermediatePhraseFinal() && word.hasPhraseAccent()) {
         throw new AuToBIException(
             "Word, " + word + ", has a phrase accent, " + word.getPhraseAccent() +
-            ", but no intermediate phrase ending break, " + word.getBreakAfter());
+                ", but no intermediate phrase ending break, " + word.getBreakAfter());
       }
       if (!word.isIntonationalPhraseFinal() && word.hasBoundaryTone()) {
         throw new AuToBIException(
             "Word, " + word + ", has a boundary tone, " + word.getBoundaryTone() +
-            ", but no intonational phrase ending break, " + word.getBreakAfter());
+                ", but no intonational phrase ending break, " + word.getBreakAfter());
       }
 
       if (word.isAccented()) {
@@ -223,7 +222,7 @@ public class ToBIUtils {
       if (end_of_phrase && !has_accented_word) {
         AuToBIUtils.warn(
             "The intermediate phrase that started at the word, " + starting_word + ", and ended at the word, " + word +
-            ", contains no pitch accent bearing word.");
+                ", contains no pitch accent bearing word.");
       }
     }
 
@@ -232,7 +231,8 @@ public class ToBIUtils {
   /**
    * Parses available tone components from a tone label
    * <p/>
-   * These are returned as an array containing 3 strings for the pitch accent, phrase acent, and boutary tone present int helabel
+   * These are returned as an array containing 3 strings for the pitch accent, phrase acent, and boutary tone present
+   * int helabel
    *
    * @param label the tone label to parse
    * @return an array with three pottential tone elements
@@ -265,5 +265,52 @@ public class ToBIUtils {
     }
 
     return tones;
+  }
+
+  /**
+   * Parses a valid phrase accent from a tone label.
+   *
+   * @param label the tone label
+   * @return the phrase accent or null if none exists
+   */
+  public static String getPhraseAccent(String label) {
+    if (label.startsWith("L-") || label.startsWith("H-") || label.startsWith("!H-") || label.startsWith("X-?")) {
+      return label.replaceAll("(.+?-\\??).*", "$1");
+    }
+    return null;
+  }
+
+  /**
+   * Parses a valid boundary tone from a tone label.
+   *
+   * @param label the tone label
+   * @return the boundary tone or null if none exists
+   */
+  public static String getBoundaryTone(String label) {
+    if (label.endsWith("H%") || label.endsWith("L%") || label.endsWith("!H%") || label.endsWith("X%?")) {
+      return label.replaceAll("(.*?)-\\??(.+?%)", "$2");
+    }
+    return null;
+  }
+
+  /**
+   * Parses a valid pitch accent from a tone label.
+   *
+   * @param label the tone label
+   * @return the pitch accent or null if none exists
+   */
+  public static String getPitchAccent(String label) {
+    // Repair common non-standard accents.
+    if (label.equals("X*") || label.equals("*?") || label.equals("*")) {
+      label = ("X*?");
+    }
+
+    label = label.replace(";", "");
+
+    if (label.contains("*")) {
+      return label;
+    } else {
+      return null;
+    }
   }
 }

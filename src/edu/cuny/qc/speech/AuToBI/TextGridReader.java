@@ -171,7 +171,7 @@ public class TextGridReader extends AuToBIWordReader {
     }
 
     if (tones_tier != null) {
-      AlignmentUtils.copyToBITones(words, tones_tier.getRegions());
+      AlignmentUtils.copyToBITonesByTime(words, tones_tier.getRegions());
       if (breaks_tier == null || breaks_tier.getRegions().size() == 0) {
         AuToBIUtils.warn(
             "Null or empty specified breaks tier found.  Default breaks will be generated from phrase ending tones in the tones tier.");

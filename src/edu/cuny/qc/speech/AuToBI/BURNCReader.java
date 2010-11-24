@@ -72,7 +72,9 @@ public class BURNCReader extends AuToBIWordReader {
       List<Region> breaks = readBreaks();
 
       AlignmentUtils.copyToBIBreaks(words, breaks);
-      AlignmentUtils.copyToBITones(words, tones);
+      // BURNC annotations include the correct number of phrase ending tones, but
+      // these are not always aligned with the phrase final breaks
+      AlignmentUtils.copyToBITonesByIndex(words, tones);
 
     } catch (FileNotFoundException e) {
       e.printStackTrace();
