@@ -144,7 +144,7 @@ public class AlignmentUtils {
         }
 
         String tone = ToBIUtils.getPitchAccent(toneRegion.getLabel());
-        if (tone != null) {
+        if (tone == null) {
           String phraseAccent = ToBIUtils.getPhraseAccent(toneRegion.getLabel());
           String boundaryTone = ToBIUtils.getBoundaryTone(toneRegion.getLabel());
 
