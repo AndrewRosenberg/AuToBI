@@ -19,6 +19,17 @@
  */
 package edu.cuny.qc.speech.AuToBI;
 
+import edu.cuny.qc.speech.AuToBI.classifier.AuToBIClassifier;
+import edu.cuny.qc.speech.AuToBI.core.*;
+import edu.cuny.qc.speech.AuToBI.featureextractor.*;
+import edu.cuny.qc.speech.AuToBI.featureset.*;
+import edu.cuny.qc.speech.AuToBI.io.AuToBIFileReader;
+import edu.cuny.qc.speech.AuToBI.io.AuToBIFileWriter;
+import edu.cuny.qc.speech.AuToBI.io.TextGridReader;
+import edu.cuny.qc.speech.AuToBI.io.WavReader;
+import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
+import edu.cuny.qc.speech.AuToBI.util.ClassifierUtils;
+import edu.cuny.qc.speech.AuToBI.util.SubregionUtils;
 import org.apache.log4j.PropertyConfigurator;
 import org.apache.log4j.BasicConfigurator;
 

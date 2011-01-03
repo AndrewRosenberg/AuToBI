@@ -22,6 +22,9 @@
 
 package edu.cuny.qc.speech.AuToBI;
 
+import edu.cuny.qc.speech.AuToBI.core.*;
+import edu.cuny.qc.speech.AuToBI.io.WavReader;
+
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;

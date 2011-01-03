@@ -19,6 +19,12 @@
  */
 package edu.cuny.qc.speech.AuToBI;
 
+import edu.cuny.qc.speech.AuToBI.classifier.AuToBIClassifier;
+import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
+import edu.cuny.qc.speech.AuToBI.core.Distribution;
+import edu.cuny.qc.speech.AuToBI.core.FeatureSet;
+import edu.cuny.qc.speech.AuToBI.core.Word;
+
 /**
  * SpectralPitchAccentDetector is an ensemble classifier.
  * <p/>

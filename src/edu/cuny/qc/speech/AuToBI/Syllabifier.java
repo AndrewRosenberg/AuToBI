@@ -22,6 +22,11 @@
  */
 package edu.cuny.qc.speech.AuToBI;
 
+import edu.cuny.qc.speech.AuToBI.core.Pair;
+import edu.cuny.qc.speech.AuToBI.core.Region;
+import edu.cuny.qc.speech.AuToBI.core.WavData;
+import edu.cuny.qc.speech.AuToBI.io.WavReader;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import java.io.File;

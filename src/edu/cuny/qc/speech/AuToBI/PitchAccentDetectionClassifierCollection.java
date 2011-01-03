@@ -19,6 +19,8 @@
  */
 package edu.cuny.qc.speech.AuToBI;
 
+import edu.cuny.qc.speech.AuToBI.classifier.AuToBIClassifier;
+
 import java.io.Serializable;
 import java.util.HashMap;
 

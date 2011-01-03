@@ -19,6 +19,16 @@
  */
 package edu.cuny.qc.speech.AuToBI;
 
+import edu.cuny.qc.speech.AuToBI.classifier.AuToBIClassifier;
+import edu.cuny.qc.speech.AuToBI.classifier.WekaClassifier;
+import edu.cuny.qc.speech.AuToBI.core.*;
+import edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException;
+import edu.cuny.qc.speech.AuToBI.featureextractor.MatchingFeatureExtractor;
+import edu.cuny.qc.speech.AuToBI.featureextractor.XValSpectrumPADFeatureExtractor;
+import edu.cuny.qc.speech.AuToBI.featureset.CorrectionSpectrumPADFeatureSet;
+import edu.cuny.qc.speech.AuToBI.io.TextGridReader;
+import edu.cuny.qc.speech.AuToBI.io.WavReader;
+import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
 import weka.classifiers.trees.J48;
 
 import javax.sound.sampled.UnsupportedAudioFileException;
