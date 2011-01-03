@@ -94,7 +94,7 @@ public class CorrectionSpectrumPADTrainer {
           autobi.registerAllFeatureExtractors(spectrum, wav);
 
           // At training the feature set requires nominal_PitchAccent to establish the "correct" class.
-          fs.required_features.add("nominal_PitchAccent");
+          fs.getRequiredFeatures().add("nominal_PitchAccent");
 
           // register a feature extractors specific for the XVal predictions
           autobi.registerDeferredFeatureExtractor(new XValSpectrumPADFeatureExtractor(low, high, num_folds, autobi));
@@ -123,7 +123,7 @@ public class CorrectionSpectrumPADTrainer {
         AuToBIUtils.error(e.getMessage());
       }
 
-      fs.required_features.remove("nominal_PitchAccent");
+      fs.getRequiredFeatures().remove("nominal_PitchAccent");
       fs.garbageCollection();
 
       fs.constructFeatures();

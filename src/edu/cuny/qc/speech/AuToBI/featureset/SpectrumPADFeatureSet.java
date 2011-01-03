@@ -19,7 +19,7 @@
  */
 package edu.cuny.qc.speech.AuToBI.featureset;
 
-import edu.cuny.qc.speech.AuToBI.ContextDesc;
+import edu.cuny.qc.speech.AuToBI.core.ContextDesc;
 import edu.cuny.qc.speech.AuToBI.core.FeatureSet;
 
 import java.util.ArrayList;

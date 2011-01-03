@@ -25,15 +25,15 @@ package edu.cuny.qc.speech.AuToBI.core;
  */
 public class WavData {
   // Audio Data
-  protected int[][] raw_samples;
+  public int[][] raw_samples;
 
-  protected double[][] samples;
+  public double[][] samples;
   // Number of stored channels
-  protected int numberOfChannels;
+  public int numberOfChannels;
   // Size of each sample in bits
-  protected int sampleSize;
+  public int sampleSize;
   // Number of raw_samples per second.
-  protected float sampleRate;
+  public float sampleRate;
 
   /**
    * Return the raw audio samples on a given channel.

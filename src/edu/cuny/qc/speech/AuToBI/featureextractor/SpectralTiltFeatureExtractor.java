@@ -59,7 +59,7 @@ public class SpectralTiltFeatureExtractor extends TimeValuePairFeatureExtractor 
     tvpfe = new TimeValuePairFeatureExtractor(feature_prefix + "_" + low + "_" + high);
 
     extracted_features = new ArrayList<String>();
-    extracted_features.addAll(tvpfe.extracted_features);
+    extracted_features.addAll(tvpfe.getExtractedFeatures());
   }
 
   /**

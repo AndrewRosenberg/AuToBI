@@ -19,10 +19,7 @@
  */
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
-import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
-import edu.cuny.qc.speech.AuToBI.core.ContextFrame;
-import edu.cuny.qc.speech.AuToBI.core.FeatureExtractor;
-import edu.cuny.qc.speech.AuToBI.core.Region;
+import edu.cuny.qc.speech.AuToBI.core.*;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -39,7 +36,7 @@ import java.util.ArrayList;
  * If the attribute is a list of TimeValuePairs, zscore normalization of the min, max and mean within the current word
  * based on the context are calculated.
  *
- * @see edu.cuny.qc.speech.AuToBI.ContextDesc
+ * @see edu.cuny.qc.speech.AuToBI.core.ContextDesc
  */
 public class ContextNormalizedFeatureExtractor extends FeatureExtractor {
 

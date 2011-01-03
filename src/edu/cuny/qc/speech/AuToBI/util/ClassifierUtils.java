@@ -237,10 +237,10 @@ public class ClassifierUtils {
   public static String evaluateClassification(String hyp_feature, String true_feature, FeatureSet fs)
       throws AuToBIException {
     Feature class_attribute = new Feature(true_feature);
-    class_attribute.generateNominalValues(fs.data_points);
+    class_attribute.generateNominalValues(fs.getDataPoints());
 
     Feature hyp_attribute = new Feature(hyp_feature);
-    hyp_attribute.generateNominalValues(fs.data_points);
+    hyp_attribute.generateNominalValues(fs.getDataPoints());
 
     Set<String> sorted_values = new LinkedHashSet<String>();
     sorted_values.addAll(class_attribute.getNominalValues());
@@ -265,8 +265,8 @@ public class ClassifierUtils {
    * @param default_value the default classification value
    * @param fs            the featureset to generate predictions for.
    */
-  static void generatePredictions(AuToBIClassifier classifier, String hyp_attribute, String default_value,
-                                  FeatureSet fs) {
+  public static void generatePredictions(AuToBIClassifier classifier, String hyp_attribute, String default_value,
+                                         FeatureSet fs) {
     for (Word w : fs.getDataPoints()) {
       try {
         String result = classifier.classify(w);
@@ -292,9 +292,9 @@ public class ClassifierUtils {
    * @param default_value  the default classification value
    * @param fs             the featureset to generate predictions for.
    */
-  static void generatePredictionsWithConfidenceScores(AuToBIClassifier classifier, String hyp_attribute,
-                                                      String conf_attribute, String default_value,
-                                                      FeatureSet fs) {
+  public static void generatePredictionsWithConfidenceScores(AuToBIClassifier classifier, String hyp_attribute,
+                                                             String conf_attribute, String default_value,
+                                                             FeatureSet fs) {
     for (Word w : fs.getDataPoints()) {
       try {
         Distribution dist = classifier.distributionForInstance(w);

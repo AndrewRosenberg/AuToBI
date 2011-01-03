@@ -70,7 +70,7 @@ public class SubregionTimeValuePairFeatureExtractor extends FeatureExtractor {
     tvpfe.setAttributeName(attribute_name);
 
     extracted_features = new ArrayList<String>();
-    for (String feature : tvpfe.extracted_features) {
+    for (String feature : tvpfe.getExtractedFeatures()) {
       extracted_features.add(feature + "_" + subregion_attribute);
     }
     this.required_features.add(attribute_name);
@@ -109,7 +109,7 @@ public class SubregionTimeValuePairFeatureExtractor extends FeatureExtractor {
     for (int i = 0; i < regions.size(); ++i) {
       Region r = (Region) regions.get(i);
       Region subregion = subregions.get(i);
-      for (String feature : tvpfe.extracted_features) {
+      for (String feature : tvpfe.getExtractedFeatures()) {
         r.setAttribute(feature + "_" + subregion_attribute, subregion.getAttribute(feature));
       }
     }

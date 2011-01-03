@@ -49,10 +49,10 @@ public class SubregionWrappedFeatureExtractor extends FeatureExtractor {
     this.fe = fe;
 
     extracted_features = new ArrayList<String>();
-    for (String feature : fe.extracted_features) {
+    for (String feature : fe.getExtractedFeatures()) {
       extracted_features.add(feature + "_" + subregion_attribute);
     }
-    this.required_features.addAll(fe.required_features);
+    this.required_features.addAll(fe.getRequiredFeatures());
     this.required_features.add(subregion_attribute);
   }
 
@@ -79,7 +79,7 @@ public class SubregionWrappedFeatureExtractor extends FeatureExtractor {
 
     try {
       // if Feature Extractor needs an attribute, copy it to the subregions.
-      for (String f : fe.required_features) {
+      for (String f : fe.getExtractedFeatures()) {
         Region r = (Region) regions.get(0);
         if (r.getAttribute(f) instanceof List) {
           TimeValuePairUtils.assignValuesToSubregions(subregions, regions, f);
@@ -98,7 +98,7 @@ public class SubregionWrappedFeatureExtractor extends FeatureExtractor {
     for (int i = 0; i < regions.size(); ++i) {
       Region r = (Region) regions.get(i);
       Region subregion = subregions.get(i);
-      for (String feature : fe.extracted_features) {
+      for (String feature : fe.getExtractedFeatures()) {
         r.setAttribute(feature + "_" + subregion_attribute, subregion.getAttribute(feature));
       }
     }

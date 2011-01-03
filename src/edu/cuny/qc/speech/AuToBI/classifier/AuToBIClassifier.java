@@ -63,7 +63,7 @@ public abstract class AuToBIClassifier implements Serializable {
    * @return the hypothesized value
    * @throws Exception if something goes wrong.
    */
-  protected String classify(Word testing_point) throws Exception {
+  public String classify(Word testing_point) throws Exception {
     Distribution dist = distributionForInstance(testing_point);
     if (dist == null)
       return null;

@@ -24,7 +24,7 @@ package edu.cuny.qc.speech.AuToBI.core;
  * <p/>
  * This is used to define windows of analysis of the form, x units forward, y units back.
  */
-class ContextDesc {
+public class ContextDesc {
   private String label;     // a label to describe the context
   private Integer back;     // the number of backwards units to include
   private Integer forward;  // The number of forward units to include

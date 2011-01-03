@@ -69,7 +69,7 @@ public class SpectrumFeatureExtractor extends TimeValuePairFeatureExtractor {
 
     // register extracted features
     extracted_features = new ArrayList<String>();
-    extracted_features.addAll(tvpfe.extracted_features);
+    extracted_features.addAll(tvpfe.getExtractedFeatures());
   }
 
   /**

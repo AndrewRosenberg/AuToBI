@@ -223,7 +223,7 @@ public class AuToBI {
    * @throws AuToBIException           If there are other problems
    */
   public void extractFeatures(FeatureSet fs, boolean clear_features) throws FeatureExtractorException, AuToBIException {
-    extractFeature(fs.class_attribute, fs, clear_features);
+    extractFeature(fs.getClassAttribute(), fs, clear_features);
     extractFeatures(fs.getRequiredFeatures(), fs, clear_features);
   }
 
@@ -302,7 +302,7 @@ public class AuToBI {
 
   @Deprecated
   public void extractDeferredFeatures(FeatureSet fs) throws FeatureExtractorException, AuToBIException {
-    extractDeferredFeatures(fs.class_attribute, fs);
+    extractDeferredFeatures(fs.getClassAttribute(), fs);
     extractDeferredFeatures(fs.getRequiredFeatures(), fs);
   }
 
