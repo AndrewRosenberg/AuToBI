@@ -19,9 +19,7 @@
  */
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
-import edu.cuny.qc.speech.AuToBI.core.Region;
-import edu.cuny.qc.speech.AuToBI.core.TimeValuePair;
-import edu.cuny.qc.speech.AuToBI.core.FeatureExtractor;
+import edu.cuny.qc.speech.AuToBI.core.*;
 
 import java.util.List;
 
@@ -50,13 +48,13 @@ public class ContourCenterOfGravityFeatureExtractor extends FeatureExtractor {
   public void extractFeatures(List regions) throws FeatureExtractorException {
     for (Region r : (List<Region>) regions) {
       if (r.hasAttribute(attribute_name)) {
-        List<TimeValuePair> contour = (List<TimeValuePair>) r.getAttribute(attribute_name);
+        Contour contour = (Contour) r.getAttribute(attribute_name);
 
         double num = 0.0;
         double denom = 0.0;
-        for (TimeValuePair tvp : contour) {
-          num += tvp.getTime() * tvp.getValue();
-          denom += tvp.getValue();
+        for (Pair<Double, Double> tvp : contour) {
+          num += tvp.first * tvp.second;
+          denom += tvp.second;
         }
         r.setAttribute(attribute_name + "__cog", ((num / denom) - r.getStart()) / r.getDuration());
       }

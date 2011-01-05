@@ -20,11 +20,8 @@
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
 import edu.cuny.qc.speech.AuToBI.*;
-import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
-import edu.cuny.qc.speech.AuToBI.core.FeatureExtractor;
-import edu.cuny.qc.speech.AuToBI.core.TimeValuePair;
-import edu.cuny.qc.speech.AuToBI.core.WavData;
-import edu.cuny.qc.speech.AuToBI.util.TimeValuePairUtils;
+import edu.cuny.qc.speech.AuToBI.core.*;
+import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 
 import java.util.List;
 
@@ -48,9 +45,9 @@ public class IntensityFeatureExtractor extends FeatureExtractor {
   public void extractFeatures(List regions) throws FeatureExtractorException {
     IntensityExtractor extractor = new IntensityExtractor(wav_data);
     try {
-      List<TimeValuePair> intensity_contour = extractor.soundToIntensity();
+      Contour intensity_contour = extractor.soundToIntensity();
 
-      TimeValuePairUtils.assignValuesToRegions(regions, intensity_contour, feature_name);
+      ContourUtils.assignValuesToRegions(regions, intensity_contour, feature_name);
     } catch (AuToBIException e) {
       throw new FeatureExtractorException(e.getMessage());
     }

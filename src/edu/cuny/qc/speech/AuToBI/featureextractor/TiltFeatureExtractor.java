@@ -19,10 +19,7 @@
  */
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
-import edu.cuny.qc.speech.AuToBI.core.FeatureExtractor;
-import edu.cuny.qc.speech.AuToBI.core.Region;
-import edu.cuny.qc.speech.AuToBI.core.TiltParameters;
-import edu.cuny.qc.speech.AuToBI.core.TimeValuePair;
+import edu.cuny.qc.speech.AuToBI.core.*;
 import edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException;
 
 import java.util.List;
@@ -58,7 +55,7 @@ public class TiltFeatureExtractor extends FeatureExtractor {
   @Override
   public void extractFeatures(List regions) throws FeatureExtractorException {
     for (Region r: (List<Region>) regions) {
-      TiltParameters tilt = new TiltParameters((List<TimeValuePair>) r.getAttribute(tvp_feature));
+      TiltParameters tilt = new TiltParameters((Contour) r.getAttribute(tvp_feature));
 
       r.setAttribute(tvp_feature + "__tilt", tilt.getTilt());
       r.setAttribute(tvp_feature + "__tilt_amp", tilt.getAmplitudeTilt());

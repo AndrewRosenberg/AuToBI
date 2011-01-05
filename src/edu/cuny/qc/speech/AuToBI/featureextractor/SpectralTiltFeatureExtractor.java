@@ -20,9 +20,9 @@
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
 import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
+import edu.cuny.qc.speech.AuToBI.core.Contour;
 import edu.cuny.qc.speech.AuToBI.core.Spectrum;
-import edu.cuny.qc.speech.AuToBI.core.TimeValuePair;
-import edu.cuny.qc.speech.AuToBI.util.TimeValuePairUtils;
+import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -33,11 +33,11 @@ import java.util.ArrayList;
  * Spectral tilt, in this case, is defined as the ratio of the energy in a specified spectral region and the total
  * energy in the frame.
  */
-public class SpectralTiltFeatureExtractor extends TimeValuePairFeatureExtractor {
+public class SpectralTiltFeatureExtractor extends ContourFeatureExtractor {
   private Spectrum spectrum;  // the spectrum of the signal
 
-  private TimeValuePairFeatureExtractor tvpfe;
-  // An associated TimeValuePairFeatureExtractor responsible for the extraction
+  private ContourFeatureExtractor tvpfe;
+  // An associated ContourFeatureExtractor responsible for the extraction
   private Integer low;                          // The low boundary of the frequency bandwidth
   private Integer high;                         // The high boundary of the frequency bandwidth
 
@@ -56,7 +56,7 @@ public class SpectralTiltFeatureExtractor extends TimeValuePairFeatureExtractor 
     this.high = high_bark;
     this.attribute_name = feature_prefix;
 
-    tvpfe = new TimeValuePairFeatureExtractor(feature_prefix + "_" + low + "_" + high);
+    tvpfe = new ContourFeatureExtractor(feature_prefix + "_" + low + "_" + high);
 
     extracted_features = new ArrayList<String>();
     extracted_features.addAll(tvpfe.getExtractedFeatures());
@@ -82,8 +82,8 @@ public class SpectralTiltFeatureExtractor extends TimeValuePairFeatureExtractor 
    */
   public void extractFeatures(List regions) throws FeatureExtractorException {
     try {
-      List<TimeValuePair> spectral_tilt = spectrum.getPowerTiltList(barkToHertz(low), barkToHertz(high), false);
-      TimeValuePairUtils.assignValuesToRegions(regions, spectral_tilt, attribute_name + "_" + low + "_" + high);
+      Contour spectral_tilt = spectrum.getPowerTiltList(barkToHertz(low), barkToHertz(high), false);
+      ContourUtils.assignValuesToRegions(regions, spectral_tilt, attribute_name + "_" + low + "_" + high);
 
       tvpfe.extractFeatures(regions);
 

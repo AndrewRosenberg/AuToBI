@@ -95,7 +95,7 @@ public class PhraseAccentClassificationTrainer {
           PhraseAccentClassificationFeatureSet current_fs =
               new PhraseAccentClassificationFeatureSet();
           current_fs.setDataPoints(words);
-          autobi.extractFeatures(current_fs);
+          autobi.extractFeatures(current_fs, false);
           current_fs.garbageCollection();
 
           fs.getDataPoints().addAll(words);

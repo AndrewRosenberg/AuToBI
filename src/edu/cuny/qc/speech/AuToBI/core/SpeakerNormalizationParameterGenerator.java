@@ -62,8 +62,8 @@ public class SpeakerNormalizationParameterGenerator {
       PitchExtractor pe = new PitchExtractor(wav);
 
       try {
-        List<TimeValuePair> pitches = pe.soundToPitch();
-        for (TimeValuePair pitch : pitches) {
+        Contour pitches = pe.soundToPitch();
+        for (Pair<Double, Double> pitch : pitches) {
           snp.insertPitch(pitch.second);
         }
       } catch (AuToBIException e) {
@@ -72,8 +72,8 @@ public class SpeakerNormalizationParameterGenerator {
 
       IntensityExtractor ie = new IntensityExtractor(wav);
 
-      List<TimeValuePair> intensities = ie.soundToIntensity();
-      for (TimeValuePair intensity : intensities) {
+      Contour intensities = ie.soundToIntensity();
+      for (Pair<Double, Double> intensity : intensities) {
         snp.insertIntensity(intensity.second);
       }
     }
@@ -132,8 +132,8 @@ public class SpeakerNormalizationParameterGenerator {
         PitchExtractor pitch_extractor = new PitchExtractor(wav);
         IntensityExtractor intensity_extractor = new IntensityExtractor(wav);
 
-        List<TimeValuePair> pitch_values = pitch_extractor.soundToPitch();
-        List<TimeValuePair> intensity_values = intensity_extractor.soundToIntensity();
+        Contour pitch_values = pitch_extractor.soundToPitch();
+        Contour intensity_values = intensity_extractor.soundToIntensity();
 
         norm_param.insertPitch(pitch_values);
         norm_param.insertIntensity(intensity_values);

@@ -27,7 +27,11 @@ import java.io.Serializable;
 /**
  * TimeValuePairs associate values and times, and are typically used to represent acoustic
  * contours in AuToBI.
+ *
+ * @Deprecated Use Contour instead.
+ *
  */
+@Deprecated
 public class TimeValuePair extends Pair<Double, Double> implements Serializable {
   private static final long serialVersionUID = 6410344724558496459L;
 

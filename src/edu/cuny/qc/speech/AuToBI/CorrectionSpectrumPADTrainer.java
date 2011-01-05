@@ -73,7 +73,7 @@ public class CorrectionSpectrumPADTrainer {
         WavData wav = reader.read(wav_filename);
         PitchExtractor pitch_extractor = new PitchExtractor(wav);
         SpectrumExtractor spectrum_extractor = new SpectrumExtractor(wav);
-        List<TimeValuePair> pitch_values = null;
+        Contour pitch_values = null;
         try {
           AuToBIUtils.log("Reading words from: " + filename);
           List<Word> words = tg_reader.readWords();

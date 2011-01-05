@@ -92,7 +92,7 @@ public class PitchAccentClassificationTrainer {
           current_fs.setDataPoints(words);
 
           AuToBIUtils.info("Extracting Features.");
-          autobi.extractFeatures(current_fs);
+          autobi.extractFeatures(current_fs, false);
           current_fs.garbageCollection();
 
           fs.getDataPoints().addAll(words);

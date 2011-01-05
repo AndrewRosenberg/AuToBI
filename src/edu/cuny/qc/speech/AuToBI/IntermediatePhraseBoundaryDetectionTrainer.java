@@ -91,7 +91,7 @@ public class IntermediatePhraseBoundaryDetectionTrainer {
 
           current_fs.setDataPoints(tmp);
 
-          autobi.extractFeatures(current_fs);
+          autobi.extractFeatures(current_fs, false);
           List<Word> words = new ArrayList<Word>();
           for (Word w : tmp) {
             if (!w.isIntonationalPhraseFinal())

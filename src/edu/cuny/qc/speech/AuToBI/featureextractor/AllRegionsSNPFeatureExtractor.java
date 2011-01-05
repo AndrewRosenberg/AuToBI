@@ -1,9 +1,6 @@
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
-import edu.cuny.qc.speech.AuToBI.core.FeatureExtractor;
-import edu.cuny.qc.speech.AuToBI.core.Region;
-import edu.cuny.qc.speech.AuToBI.core.SpeakerNormalizationParameter;
-import edu.cuny.qc.speech.AuToBI.core.TimeValuePair;
+import edu.cuny.qc.speech.AuToBI.core.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -53,10 +50,10 @@ public class AllRegionsSNPFeatureExtractor extends FeatureExtractor {
       SpeakerNormalizationParameter snp = snp_map.get(speaker_id);
 
       if (r.hasAttribute("f0")) {
-        snp.insertPitch((List<TimeValuePair>) r.getAttribute("f0"));
+        snp.insertPitch((Contour) r.getAttribute("f0"));
       }
       if (r.hasAttribute("I")) {
-        snp.insertIntensity((List<TimeValuePair>) r.getAttribute("I"));
+        snp.insertIntensity((Contour) r.getAttribute("I"));
       }
     }
 

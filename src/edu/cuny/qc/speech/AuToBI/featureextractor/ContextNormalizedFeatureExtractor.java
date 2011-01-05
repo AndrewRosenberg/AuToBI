@@ -124,7 +124,7 @@ public class ContextNormalizedFeatureExtractor extends FeatureExtractor {
       if ((max - min) > EPSILON) {
         r.setAttribute(context_feature_prefix + "__rNorm", (value - min) / (max - min));
       }
-    } else if (r.getAttribute(attribute_name) instanceof List) {
+    } else if (r.getAttribute(attribute_name) instanceof Contour) {
       // Calculate Z Score normalization
       if (Math.abs(stdev) > EPSILON) {
         if (r.hasAttribute(stored_feature_prefix + "min"))

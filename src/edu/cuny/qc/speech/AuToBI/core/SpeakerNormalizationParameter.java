@@ -141,8 +141,8 @@ public class SpeakerNormalizationParameter implements Serializable {
    *
    * @param pitch_values the pitch values to insert
    */
-  public void insertPitch(List<TimeValuePair> pitch_values) {
-    for (TimeValuePair pitch : pitch_values) {
+  public void insertPitch(Contour pitch_values) {
+    for (Pair<Double, Double> pitch : pitch_values) {
       insertPitch(pitch.second);
     }
   }
@@ -152,8 +152,8 @@ public class SpeakerNormalizationParameter implements Serializable {
    *
    * @param intensity_values the intensity values to insert
    */
-  public void insertIntensity(List<TimeValuePair> intensity_values) {
-    for (TimeValuePair intensity : intensity_values) {
+  public void insertIntensity(Contour intensity_values) {
+    for (Pair<Double, Double> intensity : intensity_values) {
       insertIntensity(intensity.second);
     }
   }

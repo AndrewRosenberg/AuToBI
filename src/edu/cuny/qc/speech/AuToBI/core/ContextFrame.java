@@ -82,18 +82,16 @@ public class ContextFrame {
         window.add(d);
         agg.insert(d);
       } else {
-        if ((data.get(i).getAttribute(feature_name) instanceof ArrayList) &&
-          (((ArrayList) data.get(i).getAttribute(feature_name)).size() > 0)) {
-          if (((ArrayList) data.get(i).getAttribute(feature_name)).size() == 0) continue;
+        if ((data.get(i).getAttribute(feature_name) instanceof Contour) &&
+            (((Contour) data.get(i).getAttribute(feature_name)).size() > 0)) {
 
-          if (((ArrayList) data.get(i).getAttribute(feature_name)).get(0) instanceof TimeValuePair) {
-            for (TimeValuePair tvp : (List<TimeValuePair>) data.get(i).getAttribute(feature_name)) {
-              Double d = tvp.getValue();
+          for (Pair<Double, Double> tvp : (Contour) data.get(i).getAttribute(feature_name)) {
+            Double d = tvp.second;
 
-              window.add(d);
-              agg.insert(d);
-            }
+            window.add(d);
+            agg.insert(d);
           }
+
         }
       }
     }
@@ -102,7 +100,8 @@ public class ContextFrame {
   /**
    * Slides the window forward one region.
    *
-   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException if a region does not have an attribute associated with feature_name
+   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException
+   *          if a region does not have an attribute associated with feature_name
    */
   public void increment() throws AuToBIException {
     current++;
@@ -125,11 +124,11 @@ public class ContextFrame {
         window.add(d);
         agg.insert(d);
       }
-    } else if (data.get(0).getAttribute(feature_name) instanceof List) {
+    } else if (data.get(0).getAttribute(feature_name) instanceof Contour) {
       // remove trailing values
       Integer points_to_remove = 0;
-      if (current - back - 1 > 0 && data.get(current - back - 1).getAttribute(feature_name) instanceof List) {
-        points_to_remove = ((List) data.get(current - back - 1).getAttribute(feature_name)).size();
+      if (current - back - 1 > 0 && data.get(current - back - 1).getAttribute(feature_name) instanceof Contour) {
+        points_to_remove = ((Contour) data.get(current - back - 1).getAttribute(feature_name)).contentSize();
       }
       for (int i = 0; i < Math.min(window.size(), points_to_remove); ++i) {
         Double d = window.removeFirst();
@@ -141,8 +140,8 @@ public class ContextFrame {
         if (data.get(current + front).getAttribute(feature_name) == null) {
           AuToBIUtils.debug("null feature: " + feature_name);
         }
-        for (TimeValuePair tvp : (List<TimeValuePair>) data.get(current + front).getAttribute(feature_name)) {
-          Double d = tvp.getValue();
+        for (Pair<Double, Double> tvp : (Contour) data.get(current + front).getAttribute(feature_name)) {
+          Double d = tvp.second;
 
           window.add(d);
           agg.insert(d);

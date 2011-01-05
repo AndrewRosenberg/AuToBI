@@ -23,7 +23,7 @@ import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
 import edu.cuny.qc.speech.AuToBI.core.Region;
 import edu.cuny.qc.speech.AuToBI.core.FeatureExtractor;
 import edu.cuny.qc.speech.AuToBI.util.SubregionUtils;
-import edu.cuny.qc.speech.AuToBI.util.TimeValuePairUtils;
+import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,7 +82,7 @@ public class SubregionWrappedFeatureExtractor extends FeatureExtractor {
       for (String f : fe.getExtractedFeatures()) {
         Region r = (Region) regions.get(0);
         if (r.getAttribute(f) instanceof List) {
-          TimeValuePairUtils.assignValuesToSubregions(subregions, regions, f);
+          ContourUtils.assignValuesToSubregions(subregions, regions, f);
         } else {
           SubregionUtils.assignFeatureToSubregions(regions, subregion_attribute, f);
         }

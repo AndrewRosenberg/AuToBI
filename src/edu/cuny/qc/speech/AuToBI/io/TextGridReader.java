@@ -224,6 +224,7 @@ public class TextGridReader extends AuToBIWordReader {
     for (Region r : regions) {
       if (!WordReaderUtils.isSilentRegion(r.getLabel(), silence_regex)) {
         Word w = new Word(r.getStart(), r.getEnd(), r.getLabel(), null, r.getFile());
+        w.setAttribute("speaker_id", filename.replaceFirst("^.*/", "").subSequence(0, 2));
         words.add(w);
       }
     }

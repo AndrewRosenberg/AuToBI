@@ -19,7 +19,7 @@
  */
 package edu.cuny.qc.speech.AuToBI.core;
 
-import edu.cuny.qc.speech.AuToBI.util.TimeValuePairUtils;
+import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 
 import java.util.List;
 
@@ -56,7 +56,7 @@ public class TiltParameters {
    *
    * @param data a list of TimeValuePairs that represents the contour
    */
-  public TiltParameters(List<TimeValuePair> data) {
+  public TiltParameters(Contour data) {
     calculateTilt(data);
   }
 
@@ -98,7 +98,7 @@ public class TiltParameters {
    *
    * @param data the TimeValuePair objects to calculate tilt over
    */
-  public void calculateTilt(List<TimeValuePair> data) {
+  public void calculateTilt(Contour data) {
     if (data == null || data.size() == 0) {
       amplitude_rise = 0;
       amplitude_fall = 0;
@@ -107,13 +107,13 @@ public class TiltParameters {
       return;
     }
 
-    int max_index = TimeValuePairUtils.getIndexOfMaximum(data);
-    int prev_min_index = TimeValuePairUtils.getIndexOfPrecedingMinimum(data, max_index, 1.0);
-    int fol_min_index = TimeValuePairUtils.getIndexOfFollowingMinimum(data, max_index, 1.0);
+    int max_index = ContourUtils.getIndexOfMaximum(data);
+    int prev_min_index = ContourUtils.getIndexOfPrecedingMinimum(data, max_index, 1.0);
+    int fol_min_index = ContourUtils.getIndexOfFollowingMinimum(data, max_index, 1.0);
 
-    amplitude_rise = data.get(max_index).getValue() - data.get(prev_min_index).getValue();
-    amplitude_fall = data.get(max_index).getValue() - data.get(fol_min_index).getValue();
-    duration_rise = data.get(max_index).getTime() - data.get(prev_min_index).getTime();
-    duration_fall = data.get(max_index).getTime() - data.get(fol_min_index).getTime();
+    amplitude_rise = data.get(max_index) - data.get(prev_min_index);
+    amplitude_fall = data.get(max_index) - data.get(fol_min_index);
+    duration_rise = data.timeFromIndex(max_index) - data.timeFromIndex(prev_min_index);
+    duration_fall = data.timeFromIndex(max_index) - data.timeFromIndex(fol_min_index);
   }
 }

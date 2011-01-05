@@ -1,5 +1,6 @@
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
+import edu.cuny.qc.speech.AuToBI.core.Contour;
 import edu.cuny.qc.speech.AuToBI.core.Region;
 import edu.cuny.qc.speech.AuToBI.core.TimeValuePair;
 import edu.cuny.qc.speech.AuToBI.core.FeatureExtractor;
@@ -32,10 +33,10 @@ public class LogContourFeatureExtractor extends FeatureExtractor {
     for (Region r : (List<Region>) regions) {
 
       if (r.hasAttribute(src)) {
-        List<TimeValuePair> src_contour = (List<TimeValuePair>) r.getAttribute(src);
-        List<TimeValuePair> tgt_contour = new ArrayList<TimeValuePair>();
-        for (TimeValuePair tvp : src_contour) {
-          tgt_contour.add(new TimeValuePair(tvp.getTime(), Math.log(tvp.getValue())));
+        Contour src_contour = (Contour) r.getAttribute(src);
+        Contour tgt_contour = new Contour(src_contour.getStart(), src_contour.getStep(), src_contour.size());
+        for (int i = 0; i < src_contour.size(); ++i) {
+          tgt_contour.set(i, Math.log(src_contour.get(i)));
         }
         r.setAttribute(tgt, tgt_contour);
       }

@@ -20,9 +20,9 @@
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
 import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
+import edu.cuny.qc.speech.AuToBI.core.Contour;
 import edu.cuny.qc.speech.AuToBI.core.Spectrum;
-import edu.cuny.qc.speech.AuToBI.core.TimeValuePair;
-import edu.cuny.qc.speech.AuToBI.util.TimeValuePairUtils;
+import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -32,10 +32,10 @@ import java.util.ArrayList;
  * <p/>
  * The frequency range is defined in bark scale.
  */
-public class SpectrumFeatureExtractor extends TimeValuePairFeatureExtractor {
+public class SpectrumFeatureExtractor extends ContourFeatureExtractor {
   private Spectrum spectrum;  // the spectrum
 
-  private TimeValuePairFeatureExtractor tvpfe;
+  private ContourFeatureExtractor tvpfe;
   // asn associated feature extractor responsible for the feature calculation
   private Integer low;                          // the low boundary of the frequency bandwidth
   private Integer high;                         // the high boundary of the frequency bandwidth
@@ -65,7 +65,7 @@ public class SpectrumFeatureExtractor extends TimeValuePairFeatureExtractor {
     this.low = low_bark;
     this.high = high_bark;
 
-    tvpfe = new TimeValuePairFeatureExtractor(feature_prefix + "_" + low + "_" + high);
+    tvpfe = new ContourFeatureExtractor(feature_prefix + "_" + low + "_" + high);
 
     // register extracted features
     extracted_features = new ArrayList<String>();
@@ -81,10 +81,10 @@ public class SpectrumFeatureExtractor extends TimeValuePairFeatureExtractor {
   public void extractFeatures(List regions) throws FeatureExtractorException {
     try {
       // construct time value pair lists with energy regions
-      List<TimeValuePair> spectrum_band = spectrum
+      Contour spectrum_band = spectrum
           .getPowerList(SpectralTiltFeatureExtractor.barkToHertz(low), SpectralTiltFeatureExtractor.barkToHertz(high),
               false);
-      TimeValuePairUtils.assignValuesToRegions(regions, spectrum_band, attribute_name + "_" + low + "_" + high);
+      ContourUtils.assignValuesToRegions(regions, spectrum_band, attribute_name + "_" + low + "_" + high);
       
       tvpfe.extractFeatures(regions);
     } catch (AuToBIException e) {

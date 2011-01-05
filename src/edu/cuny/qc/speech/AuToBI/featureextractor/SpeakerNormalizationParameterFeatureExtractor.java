@@ -1,9 +1,6 @@
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
-import edu.cuny.qc.speech.AuToBI.core.Region;
-import edu.cuny.qc.speech.AuToBI.core.SpeakerNormalizationParameter;
-import edu.cuny.qc.speech.AuToBI.core.TimeValuePair;
-import edu.cuny.qc.speech.AuToBI.core.FeatureExtractor;
+import edu.cuny.qc.speech.AuToBI.core.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -36,10 +33,10 @@ public class SpeakerNormalizationParameterFeatureExtractor extends FeatureExtrac
       }
       norm_params = params.get(r.getAttribute(speaker_id_feature));
       if (r.hasAttribute("f0")) {
-        norm_params.insertPitch((List<TimeValuePair>) r.getAttribute("f0"));
+        norm_params.insertPitch((Contour) r.getAttribute("f0"));
       }
       if (r.hasAttribute("I")) {
-        norm_params.insertIntensity((List<TimeValuePair>) r.getAttribute("I"));
+        norm_params.insertIntensity((Contour) r.getAttribute("I"));
       }
     }
 

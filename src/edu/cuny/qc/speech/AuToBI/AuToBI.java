@@ -91,6 +91,7 @@ public class AuToBI {
   // A map from input filenames to serialized speaker normalization parameter files.
   private Map<String, String> speaker_norm_file_mapping;
 
+  public static long max_memory = 0L;
 
   /**
    * Constructs a new AuToBI object.
@@ -292,6 +293,26 @@ public class AuToBI {
       fs.addIntermediateFeatures(extractor.getRequiredFeatures());
       extractFeatures(extractor.getRequiredFeatures(), fs, false);
       extractor.extractFeatures(fs.getDataPoints());
+
+      System.gc();
+      System.gc();
+      System.gc();
+      System.gc();
+      System.gc();
+      System.gc();
+      System.gc();
+      System.gc();
+      System.gc();
+      System.gc();
+      System.gc();
+      System.gc();
+      System.gc();
+      System.gc();
+      System.gc();
+      System.gc();
+      max_memory = Math.max(max_memory, Runtime.getRuntime().totalMemory() -
+          Runtime.getRuntime().freeMemory());
+
       AuToBIUtils.debug("extracted features using: " + extractor.getClass().getCanonicalName());
 
       if (clear_features)
@@ -605,32 +626,32 @@ public class AuToBI {
     registerFeatureExtractor(new PitchFeatureExtractor(wav_data, "f0"));
     registerFeatureExtractor(new LogContourFeatureExtractor("f0", "log_f0"));
     registerFeatureExtractor(new IntensityFeatureExtractor(wav_data, "I"));
-    registerFeatureExtractor(new NormalizedTimeValuePairFeatureExtractor("f0", "normalization_parameters"));
-    registerFeatureExtractor(new NormalizedTimeValuePairFeatureExtractor("log_f0", "normalization_parameters"));
-    registerFeatureExtractor(new NormalizedTimeValuePairFeatureExtractor("I", "normalization_parameters"));
+    registerFeatureExtractor(new NormalizedContourFeatureExtractor("f0", "normalization_parameters"));
+    registerFeatureExtractor(new NormalizedContourFeatureExtractor("log_f0", "normalization_parameters"));
+    registerFeatureExtractor(new NormalizedContourFeatureExtractor("I", "normalization_parameters"));
 
-    registerFeatureExtractor(new DeltaTimeValuePairFeatureExtractor("f0"));
-    registerFeatureExtractor(new DeltaTimeValuePairFeatureExtractor("log_f0"));
-    registerFeatureExtractor(new DeltaTimeValuePairFeatureExtractor("I"));
-    registerFeatureExtractor(new DeltaTimeValuePairFeatureExtractor("norm_f0"));
-    registerFeatureExtractor(new DeltaTimeValuePairFeatureExtractor("norm_log_f0"));
-    registerFeatureExtractor(new DeltaTimeValuePairFeatureExtractor("norm_I"));
+    registerFeatureExtractor(new DeltaContourFeatureExtractor("f0"));
+    registerFeatureExtractor(new DeltaContourFeatureExtractor("log_f0"));
+    registerFeatureExtractor(new DeltaContourFeatureExtractor("I"));
+    registerFeatureExtractor(new DeltaContourFeatureExtractor("norm_f0"));
+    registerFeatureExtractor(new DeltaContourFeatureExtractor("norm_log_f0"));
+    registerFeatureExtractor(new DeltaContourFeatureExtractor("norm_I"));
 
 
-    registerFeatureExtractor(new TimeValuePairFeatureExtractor("f0"));
-    registerFeatureExtractor(new TimeValuePairFeatureExtractor("norm_f0"));
-    registerFeatureExtractor(new TimeValuePairFeatureExtractor("delta_f0"));
-    registerFeatureExtractor(new TimeValuePairFeatureExtractor("delta_norm_f0"));
+    registerFeatureExtractor(new ContourFeatureExtractor("f0"));
+    registerFeatureExtractor(new ContourFeatureExtractor("norm_f0"));
+    registerFeatureExtractor(new ContourFeatureExtractor("delta_f0"));
+    registerFeatureExtractor(new ContourFeatureExtractor("delta_norm_f0"));
 
-    registerFeatureExtractor(new TimeValuePairFeatureExtractor("log_f0"));
-    registerFeatureExtractor(new TimeValuePairFeatureExtractor("norm_log_f0"));
-    registerFeatureExtractor(new TimeValuePairFeatureExtractor("delta_log_f0"));
-    registerFeatureExtractor(new TimeValuePairFeatureExtractor("delta_norm_log_f0"));
+    registerFeatureExtractor(new ContourFeatureExtractor("log_f0"));
+    registerFeatureExtractor(new ContourFeatureExtractor("norm_log_f0"));
+    registerFeatureExtractor(new ContourFeatureExtractor("delta_log_f0"));
+    registerFeatureExtractor(new ContourFeatureExtractor("delta_norm_log_f0"));
 
-    registerFeatureExtractor(new TimeValuePairFeatureExtractor("I"));
-    registerFeatureExtractor(new TimeValuePairFeatureExtractor("norm_I"));
-    registerFeatureExtractor(new TimeValuePairFeatureExtractor("delta_I"));
-    registerFeatureExtractor(new TimeValuePairFeatureExtractor("delta_norm_I"));
+    registerFeatureExtractor(new ContourFeatureExtractor("I"));
+    registerFeatureExtractor(new ContourFeatureExtractor("norm_I"));
+    registerFeatureExtractor(new ContourFeatureExtractor("delta_I"));
+    registerFeatureExtractor(new ContourFeatureExtractor("delta_norm_I"));
 
     for (int low = 0; low <= 19; ++low) {
       for (int high = low + 1; high <= 20; ++high) {
@@ -643,29 +664,29 @@ public class AuToBI {
     ////////////////////
     // Reset Features //
     ////////////////////
-    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("f0", null));
-    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("log_f0", null));
-    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("I", null));
-    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("norm_f0", null));
-    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("norm_log_f0", null));
-    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("norm_I", null));
+    registerFeatureExtractor(new ResetContourFeatureExtractor("f0", null));
+    registerFeatureExtractor(new ResetContourFeatureExtractor("log_f0", null));
+    registerFeatureExtractor(new ResetContourFeatureExtractor("I", null));
+    registerFeatureExtractor(new ResetContourFeatureExtractor("norm_f0", null));
+    registerFeatureExtractor(new ResetContourFeatureExtractor("norm_log_f0", null));
+    registerFeatureExtractor(new ResetContourFeatureExtractor("norm_I", null));
 
     registerFeatureExtractor(new SubregionResetFeatureExtractor("200ms"));
     registerFeatureExtractor(new SubregionResetFeatureExtractor("400ms"));
 
-    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("f0", "200ms"));
-    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("log_f0", "200ms"));
-    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("I", "200ms"));
-    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("norm_f0", "200ms"));
-    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("norm_log_f0", "200ms"));
-    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("norm_I", "200ms"));
+    registerFeatureExtractor(new ResetContourFeatureExtractor("f0", "200ms"));
+    registerFeatureExtractor(new ResetContourFeatureExtractor("log_f0", "200ms"));
+    registerFeatureExtractor(new ResetContourFeatureExtractor("I", "200ms"));
+    registerFeatureExtractor(new ResetContourFeatureExtractor("norm_f0", "200ms"));
+    registerFeatureExtractor(new ResetContourFeatureExtractor("norm_log_f0", "200ms"));
+    registerFeatureExtractor(new ResetContourFeatureExtractor("norm_I", "200ms"));
 
-    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("f0", "400ms"));
-    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("log_f0", "400ms"));
-    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("I", "400ms"));
-    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("norm_f0", "400ms"));
-    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("norm_log_f0", "400ms"));
-    registerFeatureExtractor(new ResetTimeValuePairFeatureExtractor("norm_I", "400ms"));
+    registerFeatureExtractor(new ResetContourFeatureExtractor("f0", "400ms"));
+    registerFeatureExtractor(new ResetContourFeatureExtractor("log_f0", "400ms"));
+    registerFeatureExtractor(new ResetContourFeatureExtractor("I", "400ms"));
+    registerFeatureExtractor(new ResetContourFeatureExtractor("norm_f0", "400ms"));
+    registerFeatureExtractor(new ResetContourFeatureExtractor("norm_log_f0", "400ms"));
+    registerFeatureExtractor(new ResetContourFeatureExtractor("norm_I", "400ms"));
 
     ////////////////////////
     // Subregion Features //
@@ -706,7 +727,7 @@ public class AuToBI {
 
     List<String> difference_features = new ArrayList<String>();
     difference_features.add("duration__duration");
-    for (String acoustic : new String[]{"f0","log_f0", "I"}) {
+    for (String acoustic : new String[]{"f0", "I"}) {
       for (String norm : new String[]{"", "norm_"}) {
         for (String slope : new String[]{"", "delta_"}) {
           for (String agg : new String[]{"max", "mean", "stdev", "zMax"}) {
@@ -793,6 +814,7 @@ public class AuToBI {
   }
 
   public static void main(String[] args) {
+    Date start_time = new Date();
     AuToBI autobi = new AuToBI();
     autobi.init(args);
 
@@ -818,9 +840,9 @@ public class AuToBI {
       List<Word> words = tg_reader.readWords();
 
       AuToBIUtils.log("Extracting acoustic information.");
-      List<TimeValuePair> pitch_values = pitch_extractor.soundToPitch();
+      Contour pitch_values = pitch_extractor.soundToPitch();
       AuToBIUtils.debug("Extracted Pitch");
-      List<TimeValuePair> intensity_values = intensity_extractor.soundToIntensity();
+      Contour intensity_values = intensity_extractor.soundToIntensity();
       AuToBIUtils.debug("Extracted Intensity");
       Spectrum spectrum = spectrum_extractor.getSpectrum(0.01, 0.02);
       AuToBIUtils.debug("Extracted Spectrum");
@@ -841,6 +863,7 @@ public class AuToBI {
       // If stored normalization data is unavailable generate normalization data from the input file.
       if (norm_params == null) {
         norm_params = new SpeakerNormalizationParameter();
+
         norm_params.insertPitch(pitch_values);
         norm_params.insertIntensity(intensity_values);
       }
@@ -849,12 +872,12 @@ public class AuToBI {
         r.setAttribute("normalization_parameters", norm_params);
       }
 
-      autobi.feature_registry.put("normalization_parameters", null);
-
       autobi.loadClassifiers();
 
       AuToBIUtils.log("Registering Feature Extractors");
       autobi.registerAllFeatureExtractors(spectrum, wav);
+      autobi.registerNullFeatureExtractor("speaker_id");
+      autobi.registerNullFeatureExtractor("normalization_parameters");
 
       for (String task : autobi.getClassificationTasks()) {
         AuToBIUtils.log("Running Hypothesis task -- " + task);
@@ -867,6 +890,10 @@ public class AuToBI {
 
         autobi.generatePredictions(task, fs);
         AuToBIUtils.info(autobi.evaluateTaskPerformance(task, fs));
+
+        if (autobi.hasParameter("arff_file")) {
+          fs.writeArff(autobi.getParameter("arff_file"), "test");
+        }
       }
 
       if (autobi.hasParameter("out_file")) {
@@ -884,6 +911,10 @@ public class AuToBI {
     } catch (FeatureExtractorException e) {
       e.printStackTrace();
     }
+    Date end_time = new Date();
+
+    AuToBIUtils.log("Time to run: " + (end_time.getTime() - start_time.getTime()));
+    AuToBIUtils.log("Maximum Memory Used: " + max_memory + " bytes");
   }
 
   /**

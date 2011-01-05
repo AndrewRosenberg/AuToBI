@@ -53,7 +53,7 @@ public class IntensityExtractor extends SampledDataAnalyzer {
    *
    * @return a list of intensity points.
    */
-  public List<TimeValuePair> soundToIntensity() {
+  public Contour soundToIntensity() {
     return soundToIntensity(75, 0.01, true);
   }
 
@@ -72,7 +72,7 @@ public class IntensityExtractor extends SampledDataAnalyzer {
    * @param subtract_mean_pressure Wether or not to subtract the mean pressure from the intensity contour.
    * @return a list of intensity points.
    */
-  public List<TimeValuePair> soundToIntensity(double min_pitch, double time_step, boolean subtract_mean_pressure) {
+  public Contour soundToIntensity(double min_pitch, double time_step, boolean subtract_mean_pressure) {
     if (time_step <= 0.0) time_step = 0.8 / min_pitch;   /* Default: four times oversampling Hanning-wise. */
 
     int i, iframe, numberOfFrames;
@@ -93,7 +93,7 @@ public class IntensityExtractor extends SampledDataAnalyzer {
     numberOfFrames = pair.first;
     t0 = pair.second;
 
-    ArrayList<TimeValuePair> contour = new ArrayList<TimeValuePair>();
+    Contour contour = new Contour(t0, time_step, numberOfFrames);
     for (iframe = 0; iframe < numberOfFrames; iframe++) {
       double midTime = indexToX(t0, time_step, iframe);
       int midSample = xToNearestIndex(0, wav.getFrameSize(), midTime);
@@ -124,7 +124,7 @@ public class IntensityExtractor extends SampledDataAnalyzer {
       }
       intensity = sumxw / sumw;
       if (intensity != 0.0) intensity /= 4e-10;
-      contour.add(new TimeValuePair(midTime, intensity < 1e-30 ? -300 : 10 * Math.log10(intensity)));
+      contour.set(midTime, intensity < 1e-30 ? -300 : 10 * Math.log10(intensity));
     }
 
     return contour;
@@ -185,14 +185,14 @@ public class IntensityExtractor extends SampledDataAnalyzer {
       System.out.println(wav.getDuration());
 
       IntensityExtractor intensityFactory = new IntensityExtractor(wav);
-      List<TimeValuePair> intensity = intensityFactory.soundToIntensity();
+      Contour intensity = intensityFactory.soundToIntensity();
 
       System.out.println("intensity points:" + intensity.size());
 
       for (int i = 0; i < intensity.size(); ++i) {
         System.out
             .println(
-                "intensity point[" + i + "]: " + intensity.get(i).getValue() + " -- " + intensity.get(i).getTime());
+                "intensity point[" + i + "]: " + intensity.get(i) + " -- " + intensity.timeFromIndex(i));
       }
     } catch (AuToBIException e) {
       e.printStackTrace();

@@ -22,7 +22,7 @@ package edu.cuny.qc.speech.AuToBI.featureextractor;
 import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
 import edu.cuny.qc.speech.AuToBI.core.Region;
 import edu.cuny.qc.speech.AuToBI.core.FeatureExtractor;
-import edu.cuny.qc.speech.AuToBI.util.TimeValuePairUtils;
+import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -31,11 +31,11 @@ import java.util.ArrayList;
  * SubregionTimeValuePairFeatureExtractor extarcts standard time value pair features from subregions rather than from
  * the entire supplied regions.
  *
- * @see TimeValuePairFeatureExtractor
+ * @see ContourFeatureExtractor
  */
 public class SubregionTimeValuePairFeatureExtractor extends FeatureExtractor {
 
-  private TimeValuePairFeatureExtractor tvpfe;
+  private ContourFeatureExtractor tvpfe;
   // a FeatureExtractor responsible for the extraction of subregion features
   private String attribute_name;  // the name of the acoustic attribute to analyze.
   private String subregion_attribute;
@@ -49,7 +49,7 @@ public class SubregionTimeValuePairFeatureExtractor extends FeatureExtractor {
    */
   public SubregionTimeValuePairFeatureExtractor(String feature_name, String subregion_attribute) {
     this.subregion_attribute = subregion_attribute;
-    this.tvpfe = new TimeValuePairFeatureExtractor(feature_name);
+    this.tvpfe = new ContourFeatureExtractor(feature_name);
     setAttributeName(feature_name);
 
     this.required_features.add(subregion_attribute);
@@ -58,7 +58,7 @@ public class SubregionTimeValuePairFeatureExtractor extends FeatureExtractor {
   /**
    * Sets the base attribute name, e.g., "f0".
    * <p/>
-   * This is initially assigned from the associated TimeValuePairFeatureExtractor.
+   * This is initially assigned from the associated ContourFeatureExtractor.
    * <p/>
    * It is necessary for this value to match the identifier stored in SpeakerNormalizationParameter.
    *
@@ -98,7 +98,7 @@ public class SubregionTimeValuePairFeatureExtractor extends FeatureExtractor {
     }
 
     try {
-      TimeValuePairUtils.assignValuesToSubregions(subregions, regions, attribute_name);
+      ContourUtils.assignValuesToSubregions(subregions, regions, attribute_name);
     } catch (AuToBIException e) {
       throw new FeatureExtractorException(e.getMessage());
     }

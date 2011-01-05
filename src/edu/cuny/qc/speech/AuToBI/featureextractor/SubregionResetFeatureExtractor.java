@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * SubregionResetFeatureExtractor extracts reset features from subregions.
  * <p/>
- * The standard ResetTimeValuePairFeatureExtractor extract reset features from the full regions.  This extends this
+ * The standard ResetContourFeatureExtractor extract reset features from the full regions.  This extends this
  * functionality to identify reset over narrower regions.
  * <p/>
  * While developed as a utility for subregions, this can operate on regions longer than the initial region.  For

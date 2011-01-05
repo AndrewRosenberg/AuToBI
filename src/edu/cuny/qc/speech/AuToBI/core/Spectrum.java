@@ -197,13 +197,11 @@ public class Spectrum {
    * @return An array of powers in a frequency band across the whole spectrum.
    * @throws AuToBIException if an invalid band is requested.
    */
-  public List<TimeValuePair> getPowerList(double freq_1, double freq_2, boolean log_values) throws AuToBIException {
+  public Contour getPowerList(double freq_1, double freq_2, boolean log_values) throws AuToBIException {
     double[] power = getPowerInBand(freq_1, freq_2, log_values);
-    ArrayList<TimeValuePair> power_list = new ArrayList<TimeValuePair>();
 
-    for (int i = 0; i < power.length; ++i) {
-      power_list.add(new TimeValuePair(i * frame_size + starting_time, power[i]));
-    }
+    Contour power_list = new Contour(starting_time, frame_size, power);
+
     return power_list;
   }
 
@@ -219,13 +217,13 @@ public class Spectrum {
    * @return An array of powers in a frequency band across the whole spectrum.
    * @throws AuToBIException if an invalid band is requested.
    */
-  public List<TimeValuePair> getPowerTiltList(double freq_1, double freq_2, boolean log_values) throws AuToBIException {
+  public Contour getPowerTiltList(double freq_1, double freq_2, boolean log_values) throws AuToBIException {
     double[] power_band = getPowerInBand(freq_1, freq_2, log_values);
     double[] power = getPower(log_values);
-    ArrayList<TimeValuePair> power_list = new ArrayList<TimeValuePair>();
 
+    Contour power_list = new Contour(starting_time, frame_size, power.length);
     for (int i = 0; i < power.length; ++i) {
-      power_list.add(new TimeValuePair(i * frame_size + starting_time, power_band[i] / power[i]));
+      power_list.set(i, power_band[i] / power[i]);
     }
     return power_list;
   }
