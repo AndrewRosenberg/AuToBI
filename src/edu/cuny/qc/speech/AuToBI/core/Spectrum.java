@@ -19,9 +19,6 @@
  */
 package edu.cuny.qc.speech.AuToBI.core;
 
-import java.util.List;
-import java.util.ArrayList;
-
 /**
  * Contains acoustic spectrum information.
  * <p/>
