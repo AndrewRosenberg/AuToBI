@@ -25,7 +25,8 @@ import java.util.ArrayList;
 /**
  * Contains acoustic spectrum information.
  * <p/>
- * The spectrum is a three dimensional representation of acoustic energy, containing power indexed by time and frequency.
+ * The spectrum is a three dimensional representation of acoustic energy, containing power indexed by time and
+ * frequency.
  */
 public class Spectrum {
   private double[][] data;
@@ -92,7 +93,8 @@ public class Spectrum {
    * @param time_1 The lower time (in seconds).
    * @param time_2 The upper time (in seconds).
    * @return A subspectrum between two times
-   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException when invalid times are requested
+   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException
+   *          when invalid times are requested
    */
   public Spectrum getSlice(double time_1, double time_2) throws AuToBIException {
     if (time_1 >= time_2) {
@@ -104,7 +106,7 @@ public class Spectrum {
     int index_1 = (int) Math.floor((time_1 - starting_time) / frame_size);
     int index_2 = (int) Math.ceil((time_2 - starting_time) / frame_size);
 
-    double[][] slice_data = new double[data.length][data[0].length];
+    double[][] slice_data = new double[index_2 - index_1][data[0].length];
 
     for (int i = index_1; i < index_2; ++i) {
       slice_data[i - index_1] = data[i];
@@ -149,7 +151,7 @@ public class Spectrum {
 
   /**
    * Identify the spectrum frequency bin corresponding to a given frequency
-   *
+   * <p/>
    * Note: Returns a double to allow a user function to decide whether to round up or down.
    *
    * @param frequency the frequency

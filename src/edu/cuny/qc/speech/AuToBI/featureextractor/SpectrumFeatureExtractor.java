@@ -1,6 +1,6 @@
 /*  SpectrumFeatureExtractor.java
 
-    Copyright (c) 2009-2010 Andrew Rosenberg
+    Copyright (c) 2009-2011 Andrew Rosenberg
 
     This file is part of the AuToBI prosodic analysis package.
 
@@ -19,76 +19,60 @@
  */
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
-import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
-import edu.cuny.qc.speech.AuToBI.core.Contour;
-import edu.cuny.qc.speech.AuToBI.core.Spectrum;
-import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
+import edu.cuny.qc.speech.AuToBI.SpectrumExtractor;
+import edu.cuny.qc.speech.AuToBI.core.*;
 
 import java.util.List;
-import java.util.ArrayList;
 
 /**
- * SpectrumFeatureExtractor extracts the energy from a specific frequency range.
- * <p/>
- * The frequency range is defined in bark scale.
+ * SpectrumFeatureExtractor extracts a spectrum from a given WavData object and aligns the appropriate sections to the
+ * supplied regions.
  */
-public class SpectrumFeatureExtractor extends ContourFeatureExtractor {
-  private Spectrum spectrum;  // the spectrum
+public class SpectrumFeatureExtractor extends FeatureExtractor {
+  private WavData wav_data;  // the audio information to analyze
+  private String feature_name;  // the name of the feature to hold pitch information
+  private double frame_size; // The spectrum frame duration
+  private double hamming_window; // The size of the hamming window used in the spectrum analysis
 
-  private ContourFeatureExtractor tvpfe;
-  // asn associated feature extractor responsible for the feature calculation
-  private Integer low;                          // the low boundary of the frequency bandwidth
-  private Integer high;                         // the high boundary of the frequency bandwidth
 
   /**
-   * Constructs a new SpectrumFeatureExtractor with an associated Spectrum object.
+   * Constructs a new SpectrumFeatureExtractor to process wav_data and store the resulting Spectrum objects on feature_name
    *
-   * @param spectrum the spectrum
+   * This uses a default frame size of 0.01s, and a hamming window of 0.02s.
+   *
+   * @param wav_data the wave data to analyse
+   * @param feature_name the feature name
    */
-  public SpectrumFeatureExtractor(Spectrum spectrum) {
-    super();
-    this.spectrum = spectrum;
+  public SpectrumFeatureExtractor(WavData wav_data, String feature_name) {
+    this(wav_data, feature_name, 0.01, 0.02);
   }
 
-  /**
-   * Constructs a new SpectrumFeatureExtractor with associated spectrum, feature prefix and frequency region.
-   *
-   * @param feature_prefix a feature prefix for extracted features
-   * @param spectrum       the spectrum to be analyzed
-   * @param low_bark       the bottom of the frequency region
-   * @param high_bark      the top of the frequency region
-   */
-  public SpectrumFeatureExtractor(String feature_prefix, Spectrum spectrum, Integer low_bark, Integer high_bark) {
-    this.spectrum = spectrum;
+  public SpectrumFeatureExtractor(WavData wav_data, String feature_name, double frame_size, double hamming_window) {
+    this.wav_data = wav_data;
+    this.feature_name = feature_name;
+    this.frame_size = frame_size;
+    this.hamming_window = hamming_window;
 
-    this.attribute_name = feature_prefix;
-    this.low = low_bark;
-    this.high = high_bark;
-
-    tvpfe = new ContourFeatureExtractor(feature_prefix + "_" + low + "_" + high);
-
-    // register extracted features
-    extracted_features = new ArrayList<String>();
-    extracted_features.addAll(tvpfe.getExtractedFeatures());
+    this.extracted_features.add(feature_name);
   }
-
   /**
-   * Extracts spectrum based features for each region.
+   * Extracts the spectrum and aligns information to regions.
    *
-   * @param regions the regions to extract features from.
-   * @throws FeatureExtractorException if something goes wrong.
+   * @param regions The regions to extract features from.
+   * @throws FeatureExtractorException if there is a problem.
    */
+  @Override
   public void extractFeatures(List regions) throws FeatureExtractorException {
+    SpectrumExtractor extractor = new SpectrumExtractor(wav_data);
     try {
-      // construct time value pair lists with energy regions
-      Contour spectrum_band = spectrum
-          .getPowerList(SpectralTiltFeatureExtractor.barkToHertz(low), SpectralTiltFeatureExtractor.barkToHertz(high),
-              false);
-      ContourUtils.assignValuesToRegions(regions, spectrum_band, attribute_name + "_" + low + "_" + high);
-      
-      tvpfe.extractFeatures(regions);
+      Spectrum spectrum = extractor.getSpectrum(frame_size, hamming_window);
+
+      for (Region r : (List<Region>) regions) {
+        Spectrum sub_spectrum = spectrum.getSlice(r.getStart(), r.getEnd());
+        r.setAttribute(feature_name, sub_spectrum);
+      }
     } catch (AuToBIException e) {
-      e.printStackTrace();
+      throw new FeatureExtractorException(e.getMessage());
     }
   }
 }

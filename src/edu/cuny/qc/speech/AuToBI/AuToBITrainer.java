@@ -87,9 +87,8 @@ public class AuToBITrainer {
         AuToBIUtils.log("Reading words from: " + filename);
         List<Word> words = reader.readWords();
 
-        Spectrum spectrum = spectrum_extractor.getSpectrum(0.01, 0.02);
         autobi.unregisterAllFeatureExtractors();
-        autobi.registerAllFeatureExtractors(spectrum, wav);
+        autobi.registerAllFeatureExtractors(wav);
         autobi.registerFeatureExtractor(new SNPAssignmentFeatureExtractor("normalization_parameters", "speaker_id",
             AuToBIUtils.glob(autobi.getOptionalParameter("normalization_parameters"))));
         autobi.registerNullFeatureExtractor("speaker_id");

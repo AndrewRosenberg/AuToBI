@@ -587,16 +587,11 @@ public class AuToBI {
 
   /**
    * Registers a large default set of feature extractors.
-   * <p/>
-   * Currently requires pitch and intensity contours and the spectrum to be calculated outside the FeatureExtractor
-   * construct. This will be changed in a future version, with FeatureExtractors used to generate these acoustic
-   * qualities.
    *
-   * @param spectrum The specturm of the wave file
    * @param wav_data The wave data
-   * @throws FeatureExtractorException If there is a problem registering feature extractors.
+   * @throws FeatureExtractorException If there is a problem registering (not running) feature extractors.
    */
-  public void registerAllFeatureExtractors(Spectrum spectrum, WavData wav_data)
+  public void registerAllFeatureExtractors(WavData wav_data)
       throws FeatureExtractorException {
 
     registerFeatureExtractor(new PitchAccentFeatureExtractor("nominal_PitchAccent"));
@@ -620,7 +615,6 @@ public class AuToBI {
     registerFeatureExtractor(new DeltaContourFeatureExtractor("norm_log_f0"));
     registerFeatureExtractor(new DeltaContourFeatureExtractor("norm_I"));
 
-
     registerFeatureExtractor(new ContourFeatureExtractor("f0"));
     registerFeatureExtractor(new ContourFeatureExtractor("norm_f0"));
     registerFeatureExtractor(new ContourFeatureExtractor("delta_f0"));
@@ -636,10 +630,12 @@ public class AuToBI {
     registerFeatureExtractor(new ContourFeatureExtractor("delta_I"));
     registerFeatureExtractor(new ContourFeatureExtractor("delta_norm_I"));
 
+    registerFeatureExtractor(new SpectrumFeatureExtractor(wav_data, "spectrum"));
+
     for (int low = 0; low <= 19; ++low) {
       for (int high = low + 1; high <= 20; ++high) {
-        registerFeatureExtractor(new SpectralTiltFeatureExtractor("bark_tilt", spectrum, low, high));
-        registerFeatureExtractor(new SpectrumFeatureExtractor("bark", spectrum, low, high));
+        registerFeatureExtractor(new SpectralTiltFeatureExtractor("bark_tilt", "spectrum", low, high));
+        registerFeatureExtractor(new SpectrumBandFeatureExtractor("bark", "spectrum", low, high));
       }
     }
     registerFeatureExtractor(new DurationFeatureExtractor());
@@ -826,8 +822,6 @@ public class AuToBI {
       AuToBIUtils.debug("Extracted Pitch");
       Contour intensity_values = intensity_extractor.soundToIntensity();
       AuToBIUtils.debug("Extracted Intensity");
-      Spectrum spectrum = spectrum_extractor.getSpectrum(0.01, 0.02);
-      AuToBIUtils.debug("Extracted Spectrum");
 
       Syllabifier syllabifier = new Syllabifier();
       List<Region> pseudosyllables = syllabifier.generatePseudosyllableRegions(wav);
@@ -857,7 +851,7 @@ public class AuToBI {
       autobi.loadClassifiers();
 
       AuToBIUtils.log("Registering Feature Extractors");
-      autobi.registerAllFeatureExtractors(spectrum, wav);
+      autobi.registerAllFeatureExtractors(wav);
       autobi.registerNullFeatureExtractor("speaker_id");
       autobi.registerNullFeatureExtractor("normalization_parameters");
 

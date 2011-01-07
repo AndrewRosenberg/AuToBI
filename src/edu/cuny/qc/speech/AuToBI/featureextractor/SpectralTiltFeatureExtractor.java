@@ -21,6 +21,7 @@ package edu.cuny.qc.speech.AuToBI.featureextractor;
 
 import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
 import edu.cuny.qc.speech.AuToBI.core.Contour;
+import edu.cuny.qc.speech.AuToBI.core.Region;
 import edu.cuny.qc.speech.AuToBI.core.Spectrum;
 import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 
@@ -34,7 +35,7 @@ import java.util.ArrayList;
  * energy in the frame.
  */
 public class SpectralTiltFeatureExtractor extends ContourFeatureExtractor {
-  private Spectrum spectrum;  // the spectrum of the signal
+  private String spectrum_feature;  // the spectrum of the signal
 
   private ContourFeatureExtractor tvpfe;
   // An associated ContourFeatureExtractor responsible for the extraction
@@ -45,13 +46,13 @@ public class SpectralTiltFeatureExtractor extends ContourFeatureExtractor {
    * Constructs a new SpectralTiltFeatureExtractor.
    *
    * @param feature_prefix an identifier for the extracted feature -- typically "bark"
-   * @param spectrum       the spectrum of the signal
+   * @param spectrum_feature       the spectrum_feature of the signal
    * @param low_bark       the low boundary of the spectral region
    * @param high_bark      the high boundary of the spectral region
    */
-  public SpectralTiltFeatureExtractor(String feature_prefix, Spectrum spectrum, Integer low_bark, Integer high_bark) {
+  public SpectralTiltFeatureExtractor(String feature_prefix, String spectrum_feature, Integer low_bark, Integer high_bark) {
     super();
-    this.spectrum = spectrum;
+    this.spectrum_feature = spectrum_feature;
     this.low = low_bark;
     this.high = high_bark;
     this.attribute_name = feature_prefix;
@@ -59,7 +60,10 @@ public class SpectralTiltFeatureExtractor extends ContourFeatureExtractor {
     tvpfe = new ContourFeatureExtractor(feature_prefix + "_" + low + "_" + high);
 
     extracted_features = new ArrayList<String>();
+    extracted_features.add(feature_prefix + "_" + low + "_" + high);
     extracted_features.addAll(tvpfe.getExtractedFeatures());
+
+    required_features.add(spectrum_feature);
   }
 
   /**
@@ -82,8 +86,13 @@ public class SpectralTiltFeatureExtractor extends ContourFeatureExtractor {
    */
   public void extractFeatures(List regions) throws FeatureExtractorException {
     try {
-      Contour spectral_tilt = spectrum.getPowerTiltList(barkToHertz(low), barkToHertz(high), false);
-      ContourUtils.assignValuesToRegions(regions, spectral_tilt, attribute_name + "_" + low + "_" + high);
+      for (Region r : (List<Region>) regions) {
+        if (r.hasAttribute(spectrum_feature)) {
+          Spectrum spectrum = (Spectrum) r.getAttribute(spectrum_feature);
+          Contour spectral_tilt = spectrum.getPowerTiltList(barkToHertz(low), barkToHertz(high), false);
+          r.setAttribute(attribute_name + "_" + low + "_" + high, spectral_tilt);
+        }
+      }
 
       tvpfe.extractFeatures(regions);
 

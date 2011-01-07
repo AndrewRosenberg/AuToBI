@@ -34,7 +34,6 @@ import java.io.IOException;
  */
 public class SpectrumExtractor extends SampledDataAnalyzer {
 
-
   /**
    * Constructs a SpectrumExtractor object and attach it to wave data.
    *
