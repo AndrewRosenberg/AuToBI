@@ -78,7 +78,7 @@ public class SpectrumPADFeatureExtractor extends FeatureExtractor {
     // Extract spectrum features.
     fs.setDataPoints((List<Word>) regions);
     try {
-      autobi.extractFeatures(fs, false);
+      autobi.extractFeatures(fs);
     } catch (AuToBIException e) {
       throw new FeatureExtractorException(e.getMessage());
     }

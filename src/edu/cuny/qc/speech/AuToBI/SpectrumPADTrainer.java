@@ -92,7 +92,6 @@ public class SpectrumPADTrainer {
             new SpectrumPADFeatureSet(low, high);
         current_fs.setDataPoints(words);
         autobi.extractFeatures(current_fs);
-        current_fs.garbageCollection();
 
         fs.getDataPoints().addAll(words);
       } catch (AuToBIException e) {

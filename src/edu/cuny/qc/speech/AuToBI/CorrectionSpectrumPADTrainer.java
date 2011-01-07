@@ -97,8 +97,8 @@ public class CorrectionSpectrumPADTrainer {
           fs.getRequiredFeatures().add("nominal_PitchAccent");
 
           // register a feature extractors specific for the XVal predictions
-          autobi.registerDeferredFeatureExtractor(new XValSpectrumPADFeatureExtractor(low, high, num_folds, autobi));
-          autobi.registerDeferredFeatureExtractor(
+          autobi.registerFeatureExtractor(new XValSpectrumPADFeatureExtractor(low, high, num_folds, autobi));
+          autobi.registerFeatureExtractor(
               new MatchingFeatureExtractor("nominal_PitchAccent", "nominal_bark_" + low + "_" + high + "__prediction",
                                            "nominal_PitchAccentCorrect"));
 
@@ -118,13 +118,12 @@ public class CorrectionSpectrumPADTrainer {
       }
 
       try {
-        autobi.extractDeferredFeatures(fs);
+        autobi.extractFeatures(fs);
       } catch (FeatureExtractorException e) {
         AuToBIUtils.error(e.getMessage());
       }
 
       fs.getRequiredFeatures().remove("nominal_PitchAccent");
-      fs.garbageCollection();
 
       fs.constructFeatures();
 

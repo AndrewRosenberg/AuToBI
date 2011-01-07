@@ -21,20 +21,10 @@ package edu.cuny.qc.speech.AuToBI;
 
 import edu.cuny.qc.speech.AuToBI.classifier.AuToBIClassifier;
 import edu.cuny.qc.speech.AuToBI.classifier.WekaClassifier;
-import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
-import edu.cuny.qc.speech.AuToBI.core.Spectrum;
-import edu.cuny.qc.speech.AuToBI.core.WavData;
-import edu.cuny.qc.speech.AuToBI.core.Word;
-import edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException;
-import edu.cuny.qc.speech.AuToBI.featureextractor.SNPAssignmentFeatureExtractor;
-import edu.cuny.qc.speech.AuToBI.featureset.IntermediatePhraseBoundaryDetectionFeatureSet;
-import edu.cuny.qc.speech.AuToBI.io.TextGridReader;
-import edu.cuny.qc.speech.AuToBI.io.WavReader;
+import edu.cuny.qc.speech.AuToBI.featureset.PitchAccentDetectionFeatureSet;
 import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
-import org.apache.log4j.BasicConfigurator;
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.Collection;
 import java.io.IOException;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
@@ -42,86 +32,45 @@ import java.io.FileNotFoundException;
 
 import weka.classifiers.functions.Logistic;
 
-import javax.sound.sampled.UnsupportedAudioFileException;
-
 /**
  * IntermediatePhraseBoundaryDetectionTrainer is used to train and serialize models that distinguish (intonational
  * phrase medial) intermediate phrase boundaries from phrase internal word boundaries.
  */
-public class IntermediatePhraseBoundaryDetectionTrainer {
+public class IntermediatePhraseBoundaryDetectionTrainer extends AuToBITrainer {
+                      /**
+   * Constructs a new AuToBITrainer with an associated AuToBI object to manage parameters and feature extraction.
+   *
+   * @param autobi an AuToBI object.
+   */
+  public IntermediatePhraseBoundaryDetectionTrainer(AuToBI autobi) {
+    super(autobi);
+  }
+
+  /**
+   * Trains a PitchAccentDetection classifier.
+   *
+   * @param filenames The filenames to use for training
+   * @return A classifier to detect pitch accents
+   * @throws Exception if there is a problem with the classifier training.
+   */
+  public AuToBIClassifier trainClassifier(Collection<String> filenames) throws Exception {
+    PitchAccentDetectionFeatureSet padfs = new PitchAccentDetectionFeatureSet();
+    AuToBIClassifier classifier = new WekaClassifier(new Logistic());
+
+    trainClassifier(filenames, padfs, classifier);
+    return classifier;
+  }
 
   public static void main(String[] args) {
-    BasicConfigurator.configure();
-    AuToBI autobi = new AuToBI();
+  AuToBI autobi = new AuToBI();
     autobi.init(args);
 
-    WavReader reader = new WavReader();
-
-    IntermediatePhraseBoundaryDetectionFeatureSet fs = new IntermediatePhraseBoundaryDetectionFeatureSet();
+    IntermediatePhraseBoundaryDetectionTrainer trainer = new IntermediatePhraseBoundaryDetectionTrainer(autobi);
 
     try {
       String model_file = autobi.getParameter("model_file");
-      for (String filename : AuToBIUtils.glob(autobi.getParameter("training_filenames"))) {
-
-        String file_stem = filename.substring(0, filename.lastIndexOf('.'));
-
-        String wav_filename = file_stem + ".wav";
-
-        TextGridReader tg_reader = new TextGridReader(filename);
-
-        WavData wav = reader.read(wav_filename);
-        SpectrumExtractor spectrum_extractor = new SpectrumExtractor(wav);
-
-        try {
-          AuToBIUtils.log("Reading words from: " + filename);
-          List<Word> tmp = tg_reader.readWords();
-
-          AuToBIUtils.log("Extracting acoustic information.");
-
-          Spectrum spectrum = spectrum_extractor.getSpectrum(0.01, 0.02);
-          autobi.unregisterAllFeatureExtractors();
-          autobi.registerAllFeatureExtractors(spectrum, wav);
-          autobi.registerFeatureExtractor(new SNPAssignmentFeatureExtractor("normalization_parameters", "speaker_id",
-              AuToBIUtils.glob(autobi.getOptionalParameter("normalization_parameters"))));
-          autobi.registerNullFeatureExtractor("speaker_id");
-
-          IntermediatePhraseBoundaryDetectionFeatureSet current_fs =
-              new IntermediatePhraseBoundaryDetectionFeatureSet();
-
-
-          current_fs.setDataPoints(tmp);
-
-          autobi.extractFeatures(current_fs, false);
-          List<Word> words = new ArrayList<Word>();
-          for (Word w : tmp) {
-            if (!w.isIntonationalPhraseFinal())
-              words.add(w);
-          }
-          current_fs.setDataPoints(words);
-          current_fs.garbageCollection();
-
-          fs.getDataPoints().addAll(words);
-        } catch (AuToBIException e) {
-          e.printStackTrace();
-        } catch (IOException e) {
-          e.printStackTrace();
-        } catch (FeatureExtractorException e) {
-          e.printStackTrace();
-        }
-      }
-
-      fs.constructFeatures();
-
-      if (autobi.hasParameter("arff_file")) {
-        String arff_file = autobi.getParameter("arff_file");
-        AuToBIUtils.log("writing arff file to: " + arff_file);
-        fs.writeArff(arff_file, "IntermediatePhraseBoundary");
-      }
-
-      AuToBIUtils.log("training classifier");
-      AuToBIClassifier classifier = new WekaClassifier(new Logistic());
-
-      classifier.train(fs);
+      AuToBIClassifier classifier =
+          trainer.trainClassifier(AuToBIUtils.glob(autobi.getParameter("training_filenames")));
 
       AuToBIUtils.log("writing model to: " + model_file);
       FileOutputStream fos;
@@ -136,14 +85,6 @@ public class IntermediatePhraseBoundaryDetectionTrainer {
       } catch (IOException e) {
         e.printStackTrace();
       }
-
-      // serialize model
-    } catch (AuToBIException e) {
-      e.printStackTrace();
-    } catch (UnsupportedAudioFileException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
     } catch (Exception e) {
       e.printStackTrace();
     }

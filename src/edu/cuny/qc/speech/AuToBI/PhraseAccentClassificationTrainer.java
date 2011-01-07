@@ -21,26 +21,15 @@ package edu.cuny.qc.speech.AuToBI;
 
 import edu.cuny.qc.speech.AuToBI.classifier.AuToBIClassifier;
 import edu.cuny.qc.speech.AuToBI.classifier.WekaClassifier;
-import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
-import edu.cuny.qc.speech.AuToBI.core.Spectrum;
-import edu.cuny.qc.speech.AuToBI.core.WavData;
-import edu.cuny.qc.speech.AuToBI.core.Word;
-import edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException;
-import edu.cuny.qc.speech.AuToBI.featureextractor.SNPAssignmentFeatureExtractor;
-import edu.cuny.qc.speech.AuToBI.featureset.PhraseAccentClassificationFeatureSet;
-import edu.cuny.qc.speech.AuToBI.io.TextGridReader;
-import edu.cuny.qc.speech.AuToBI.io.WavReader;
+import edu.cuny.qc.speech.AuToBI.featureset.PitchAccentDetectionFeatureSet;
 import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
 import weka.classifiers.functions.SMO;
 
-import javax.sound.sampled.UnsupportedAudioFileException;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.Collection;
 import java.io.IOException;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.io.FileNotFoundException;
-
 
 /**
  * PhraseAccentClassificationTrainer is responsible for training and serializing a classfier to distinguish phrase
@@ -49,71 +38,41 @@ import java.io.FileNotFoundException;
  * Only intermediate phrase final words (that are not also intonational phrase final) are used in this classification.
  * That is, the destection of intermediate phrase boundaries is distinct from the classification of phrase accents.
  */
-public class PhraseAccentClassificationTrainer {
+public class PhraseAccentClassificationTrainer extends AuToBITrainer {
+  /**
+   * Constructs a new AuToBITrainer with an associated AuToBI object to manage parameters and feature extraction.
+   *
+   * @param autobi an AuToBI object.
+   */
+  public PhraseAccentClassificationTrainer(AuToBI autobi) {
+    super(autobi);
+  }
+
+  /**
+   * Trains a PitchAccentDetection classifier.
+   *
+   * @param filenames The filenames to use for training
+   * @return A classifier to detect pitch accents
+   * @throws Exception if there is a problem with the classifier training.
+   */
+  public AuToBIClassifier trainClassifier(Collection<String> filenames) throws Exception {
+    PitchAccentDetectionFeatureSet padfs = new PitchAccentDetectionFeatureSet();
+    AuToBIClassifier classifier = new WekaClassifier(new SMO());
+
+    trainClassifier(filenames, padfs, classifier);
+    return classifier;
+  }
 
   public static void main(String[] args) {
     AuToBI autobi = new AuToBI();
     autobi.init(args);
 
-    WavReader reader = new WavReader();
-
-    PhraseAccentClassificationFeatureSet fs = new PhraseAccentClassificationFeatureSet();
+    PhraseAccentClassificationTrainer trainer = new PhraseAccentClassificationTrainer(autobi);
 
     try {
       String model_file = autobi.getParameter("model_file");
-      for (String filename : AuToBIUtils.glob(autobi.getParameter("training_filenames"))) {
-
-        String file_stem = filename.substring(0, filename.lastIndexOf('.'));
-
-        String wav_filename = file_stem + ".wav";
-
-        TextGridReader tg_reader = new TextGridReader(filename);
-
-        WavData wav = reader.read(wav_filename);
-        SpectrumExtractor spectrum_extractor = new SpectrumExtractor(wav);
-        try {
-          AuToBIUtils.log("Reading words from: " + filename);
-          List<Word> tmp_words = tg_reader.readWords();
-
-          List<Word> words = new ArrayList<Word>();
-          for (Word w : tmp_words) {
-            if (w.isIntermediatePhraseFinal() && !w.isIntonationalPhraseFinal())
-              words.add(w);
-          }
-
-          AuToBIUtils.log("Extracting acoustic information.");
-
-          Spectrum spectrum = spectrum_extractor.getSpectrum(0.01, 0.02);
-
-          autobi.unregisterAllFeatureExtractors();
-          autobi.registerAllFeatureExtractors(spectrum, wav);
-          autobi.registerFeatureExtractor(new SNPAssignmentFeatureExtractor("normalization_parameters", "speaker_id",
-              AuToBIUtils.glob(autobi.getOptionalParameter("normalization_parameters"))));
-          autobi.registerNullFeatureExtractor("speaker_id");
-
-
-          PhraseAccentClassificationFeatureSet current_fs =
-              new PhraseAccentClassificationFeatureSet();
-          current_fs.setDataPoints(words);
-          autobi.extractFeatures(current_fs, false);
-          current_fs.garbageCollection();
-
-          fs.getDataPoints().addAll(words);
-        } catch (AuToBIException e) {
-          e.printStackTrace();
-        } catch (IOException e) {
-          e.printStackTrace();
-        } catch (FeatureExtractorException e) {
-          e.printStackTrace();
-        }
-      }
-
-      fs.constructFeatures();
-
-      AuToBIUtils.log("training classifier");
-      AuToBIClassifier classifier = new WekaClassifier(new SMO());
-
-      classifier.train(fs);
+      AuToBIClassifier classifier =
+          trainer.trainClassifier(AuToBIUtils.glob(autobi.getParameter("training_filenames")));
 
       AuToBIUtils.log("writing model to: " + model_file);
       FileOutputStream fos;
@@ -128,14 +87,6 @@ public class PhraseAccentClassificationTrainer {
       } catch (IOException e) {
         e.printStackTrace();
       }
-
-      // serialize model
-    } catch (AuToBIException e) {
-      e.printStackTrace();
-    } catch (UnsupportedAudioFileException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
     } catch (Exception e) {
       e.printStackTrace();
     }

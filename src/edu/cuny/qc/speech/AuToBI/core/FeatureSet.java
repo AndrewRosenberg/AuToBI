@@ -46,10 +46,6 @@ public class FeatureSet implements Serializable {
   protected List<Word> data_points;         // Associated data points
   protected String class_attribute;         // The name of the class attribute (if any)
 
-  // TODO update the feature extraction routine to make this unnecessary -- see AuToBI for notes about reference counting.
-  // Intermediate features are kept from being removed from data points when cleaning unnecessary features
-  // during feature extraction.
-  protected Set<String> intermediate_features;  // Any intermediate features that may be needed for processing
 
   /**
    * Constructs an empty FeatureSet.
@@ -58,7 +54,6 @@ public class FeatureSet implements Serializable {
     this.features = new LinkedHashSet<Feature>();
     this.data_points = new ArrayList<Word>();
     this.required_features = new HashSet<String>();
-    this.intermediate_features = new HashSet<String>();
   }
 
   /**
@@ -71,7 +66,6 @@ public class FeatureSet implements Serializable {
     newfs.features.addAll(this.getFeatures());
     newfs.data_points.addAll(this.getDataPoints());
     newfs.required_features.addAll(this.getRequiredFeatures());
-    newfs.intermediate_features.addAll(this.getIntermediateFeatures());
     newfs.class_attribute = this.getClassAttribute();
     return newfs;
   }
@@ -170,23 +164,13 @@ public class FeatureSet implements Serializable {
   }
 
   /**
-   * Remove all attributes from the data points in a feature set that are not in the required_features list.
-   * <p/>
-   * When extracting features, additional attributes can be attached to features as intermedate features. To conserve
-   * memory, these can be deleted when the feature set is finalized.
+   * Removes an feature from every data point assigned to the data set.
+   *
+   * @param feature_name the attribute to remove.
    */
-  public void garbageCollection() {
+  public void removeFeature(String feature_name) {
     for (Word w : data_points) {
-      List<String> to_delete = new ArrayList<String>();
-      for (String attribute_name : w.getAttributes().keySet()) {
-        if (!required_features.contains(attribute_name) && !attribute_name.equals(class_attribute) &&
-            !intermediate_features.contains(attribute_name)) {
-          to_delete.add(attribute_name);
-        }
-      }
-      for (String attribute_name : to_delete) {
-        w.getAttributes().remove(attribute_name);
-      }
+      w.removeAttribute(feature_name);
     }
   }
 
@@ -355,23 +339,5 @@ public class FeatureSet implements Serializable {
    */
   public void setClassAttribute(String class_attribute) {
     this.class_attribute = class_attribute;
-  }
-
-  /**
-   * Retrieves the set of intermediate features.
-   *
-   * @return the intermediate features
-   */
-  public Collection<? extends String> getIntermediateFeatures() {
-    return intermediate_features;
-  }
-
-  /**
-   * Adds a collection of strings to the list of intermediate features.
-   *
-   * @param features the features to add to the set
-   */
-  public void addIntermediateFeatures(Collection<String> features) {
-    intermediate_features.addAll(features);
   }
 }

@@ -2,7 +2,6 @@ package edu.cuny.qc.speech.AuToBI.featureextractor;
 
 import edu.cuny.qc.speech.AuToBI.core.Contour;
 import edu.cuny.qc.speech.AuToBI.core.Region;
-import edu.cuny.qc.speech.AuToBI.core.TimeValuePair;
 import edu.cuny.qc.speech.AuToBI.core.FeatureExtractor;
 
 import java.util.ArrayList;

@@ -40,7 +40,7 @@ import java.io.ObjectInputStream;
 import java.util.*;
 
 /**
- * Driving class for the AuToBI system.
+ * This is the main class for the AuToBI system.
  * <p/>
  * AuToBI generates hypothesized ToBI tones based on manual segmentation of words and an audio file.
  * <p/>
@@ -57,12 +57,6 @@ import java.util.*;
  * <p/>
  * This class manages command line parameters, the execution of feature extractors and the generation of hypothesized
  * ToBI tones.
- * <p/>
- * Note: The way feature extraction handles intermediate or extraneous features that are not required by a FeatureSet
- * needs revision.  In the next revision, I'll move to a reference counting approach.  At feature extraction, determine
- * how many components (the FeatureSet and FeatureExtractors) require a feature.  After running each feature extractor,
- * decrement the reference count of its required features.  If any features have a reference count of zero, remove them
- * from the data points.
  *
  * @see FeatureSet
  * @see FeatureExtractor
@@ -81,17 +75,17 @@ public class AuToBI {
   // A map from feature names to the FeatureExtractors that generate them
   private Map<String, FeatureExtractor> feature_registry;
 
-  // A feature registry for Extractors that need to be run after all other FeatureExtractors
-  @Deprecated
-  private Map<String, FeatureExtractor> deferred_feature_registry;
-
   // A set of FeatureExtractors that have already executed
   private Set<FeatureExtractor> executed_feature_extractors;
 
   // A map from input filenames to serialized speaker normalization parameter files.
   private Map<String, String> speaker_norm_file_mapping;
 
-  public static long max_memory = 0L;
+  // A map of the number of times each feature is needed.
+  private HashMap<String, Integer> reference_count;
+
+  // A set of features to delete on the next garbage collection call
+  private Set<String> dead_features;
 
   /**
    * Constructs a new AuToBI object.
@@ -99,7 +93,6 @@ public class AuToBI {
   public AuToBI() {
     params = new AuToBIParameters();
     feature_registry = new HashMap<String, FeatureExtractor>();
-    deferred_feature_registry = new HashMap<String, FeatureExtractor>();
     executed_feature_extractors = new HashSet<FeatureExtractor>();
     speaker_norm_file_mapping = new HashMap<String, String>();
   }
@@ -186,46 +179,18 @@ public class AuToBI {
     executed_feature_extractors = new HashSet<FeatureExtractor>();
   }
 
-
   /**
-   * Registers a deferred FeatureExtractor with AuToBI.
-   * <p/>
-   * Deferred FeatureExtractors are run after all other FeatureExtractors
-   * <p/>
-   * A FeatureExtractor class is responsible for reporting what features it extracts.
-   *
-   * @param fe the feature extractor
-   */
-  @Deprecated
-  public void registerDeferredFeatureExtractor(FeatureExtractor fe) {
-    for (String feature_name : fe.getExtractedFeatures()) {
-      deferred_feature_registry.put(feature_name, fe);
-    }
-  }
-
-  /**
-   * Extracts the features required for the feature set.
+   * Extracts the features required for the feature set and optionally deletes intermediate features that may have been
+   * generated in their processing
    *
    * @param fs the feature set
    * @throws FeatureExtractorException If any of the FeatureExtractors have a problem
    * @throws AuToBIException           If there are other problems
    */
   public void extractFeatures(FeatureSet fs) throws FeatureExtractorException, AuToBIException {
-    extractFeatures(fs, true);
-  }
-
-  /**
-   * Extracts the features required for the feature set and optionally deletes intermediate features that may have been
-   * generated in their processing
-   *
-   * @param fs             the feature set
-   * @param clear_features should unrequired features be deleted after extraction
-   * @throws FeatureExtractorException If any of the FeatureExtractors have a problem
-   * @throws AuToBIException           If there are other problems
-   */
-  public void extractFeatures(FeatureSet fs, boolean clear_features) throws FeatureExtractorException, AuToBIException {
-    extractFeature(fs.getClassAttribute(), fs, clear_features);
-    extractFeatures(fs.getRequiredFeatures(), fs, clear_features);
+    initializeReferenceCounting(fs);
+    extractFeature(fs.getClassAttribute(), fs);
+    extractFeatures(fs.getRequiredFeatures(), fs);
   }
 
   /**
@@ -238,36 +203,89 @@ public class AuToBI {
    */
   public void extractFeatures(Set<String> features, FeatureSet fs)
       throws FeatureExtractorException, AuToBIException {
-    extractFeatures(features, fs, true);
-  }
-
-  /**
-   * Extracts a set of features on data points stored in the given feature set
-   *
-   * @param features       The requested features
-   * @param fs             The feature set
-   * @param clear_features should unrequired features be deleted after extraction
-   * @throws FeatureExtractorException If any of the FeatureExtractors have a problem
-   * @throws AuToBIException           If there are other problems
-   */
-  public void extractFeatures(Set<String> features, FeatureSet fs, boolean clear_features)
-      throws FeatureExtractorException, AuToBIException {
     for (String feature : features) {
-      extractFeature(feature, fs, clear_features);
+      extractFeature(feature, fs);
     }
   }
 
   /**
-   * Extracts a single feature on data points stored in the given feature set.
+   * Initializes the number of times a feature is required by a FeatureSet. This allows AuToBI to guarantee that every
+   * stored feature is necessary, deleting unneeded intermediate features.
+   * <p/>
+   * After each feature is extracted its reference count is decremented.  When a feature has a reference count of zero,
+   * it can safely be removed.
    *
-   * @param feature The requested feature
-   * @param fs      The feature set
-   * @throws FeatureExtractorException If any of the FeatureExtractors have a problem
-   * @throws AuToBIException           If there are other problems
+   * @param fs the feature set
+   * @throws AuToBIException if there are features required that do not have associated registered feature extractors.
    */
-  public void extractFeature(String feature, FeatureSet fs)
-      throws FeatureExtractorException, AuToBIException {
-    extractFeature(feature, fs, true);
+  public void initializeReferenceCounting(FeatureSet fs) throws AuToBIException {
+    reference_count = new HashMap<String, Integer>();
+    dead_features = new HashSet<String>();
+
+    Stack<String> features = new Stack<String>();
+    if (fs.getClassAttribute() != null)
+      features.add(fs.getClassAttribute());
+    features.addAll(fs.getRequiredFeatures());
+
+    while (features.size() != 0) {
+      String feature = features.pop();
+      if (!feature_registry.containsKey(feature)) {
+        throw new AuToBIException("No feature extractor registered for feature: " + feature);
+      }
+
+      incrementReferenceCount(feature);
+
+      // Add required features that wouldn't have been extracted previously.
+      if (feature_registry.get(feature) != null) {
+        features.addAll(feature_registry.get(feature).getRequiredFeatures());
+      }
+    }
+  }
+
+  /**
+   * Retrieves the remaining reference count for a given feature.
+   *
+   * @param feature the feature
+   * @return the current reference count for the feature
+   */
+  public int getReferenceCount(String feature) {
+    if (reference_count.containsKey(feature)) {
+      return reference_count.get(feature);
+    } else {
+      return 0;
+    }
+  }
+
+  /**
+   * Increments the reference count for a given feature.
+   *
+   * @param feature the feature name
+   */
+  public void incrementReferenceCount(String feature) {
+    if (!reference_count.containsKey(feature)) {
+      reference_count.put(feature, 0);
+    }
+    reference_count.put(feature, reference_count.get(feature) + 1);
+
+    // It is unlikely that a feature would get a new reference after being obliterated, but this guarantees
+    // that there are no features with positive reference counts in the dead feature set.
+    if (dead_features.contains(feature)) {
+      dead_features.remove(feature);
+    }
+  }
+
+  /**
+   * Decrement the reference count for a given feature.
+   *
+   * @param feature the feature name
+   */
+  public void decrementReferenceCount(String feature) {
+    if (reference_count.containsKey(feature)) {
+      reference_count.put(feature, Math.max(0, reference_count.get(feature) - 1));
+      if (reference_count.get(feature) == 0) {
+        dead_features.add(feature);
+      }
+    }
   }
 
   /**
@@ -276,61 +294,45 @@ public class AuToBI {
    * If the registered FeatureExtractor requires any features for processing, this will result in recursive calls to
    * extractFeatures(...).
    *
-   * @param feature        The requested feature
-   * @param fs             The feature set
-   * @param clear_features should unrequired features be deleted after extraction
+   * @param feature The requested feature
+   * @param fs      The feature set
    * @throws FeatureExtractorException If any of the FeatureExtractors have a problem
    * @throws AuToBIException           If there are other problems
    */
-  public void extractFeature(String feature, FeatureSet fs, boolean clear_features)
-      throws FeatureExtractorException, AuToBIException {
-    if (!feature_registry.containsKey(feature) && !deferred_feature_registry.containsKey(feature))
+  public void extractFeature(String feature, FeatureSet fs) throws FeatureExtractorException, AuToBIException {
+    if (!feature_registry.containsKey(feature))
       throw new AuToBIException("No feature extractor registered for feature: " + feature);
     FeatureExtractor extractor = feature_registry.get(feature);
-    if (!executed_feature_extractors.contains(extractor) && extractor != null) {
-      executed_feature_extractors.add(extractor);
-      AuToBIUtils.debug("running feature extraction for: " + feature);
-      fs.addIntermediateFeatures(extractor.getRequiredFeatures());
-      extractFeatures(extractor.getRequiredFeatures(), fs, false);
-      extractor.extractFeatures(fs.getDataPoints());
+    AuToBIUtils.debug("Start Feature Extraction for: " + feature);
+    if (extractor != null) {
+      extractFeatures(extractor.getRequiredFeatures(), fs);
 
-      AuToBIUtils.debug("extracted features using: " + extractor.getClass().getCanonicalName());
+      if (!executed_feature_extractors.contains(extractor)) {
+        AuToBIUtils.debug("running feature extraction for: " + feature);
+        extractor.extractFeatures(fs.getDataPoints());
+        AuToBIUtils.debug("extracted features using: " + extractor.getClass().getCanonicalName());
+        executed_feature_extractors.add(extractor);
+      }
 
-      if (clear_features)
-        // Clear any auxilliary attributes
-        fs.garbageCollection();
+      for (String rf : extractor.getRequiredFeatures()) {
+        decrementReferenceCount(rf);
+      }
+      featureGarbageCollection(fs);
     }
+    AuToBIUtils.debug("End Feature Extraction for: " + feature);
   }
 
-  @Deprecated
-  public void extractDeferredFeatures(FeatureSet fs) throws FeatureExtractorException, AuToBIException {
-    extractDeferredFeatures(fs.getClassAttribute(), fs);
-    extractDeferredFeatures(fs.getRequiredFeatures(), fs);
-  }
-
-  @Deprecated
-  public void extractDeferredFeatures(Set<String> features, FeatureSet fs)
-      throws FeatureExtractorException, AuToBIException {
-    for (String feature : features) {
-      extractDeferredFeatures(feature, fs);
+  /**
+   * Removes any features which are no longer referenced in the feature set.
+   *
+   * @param fs the feature set
+   */
+  public void featureGarbageCollection(FeatureSet fs) {
+    for (String feature : dead_features) {
+      AuToBIUtils.debug("Removing feature: " + feature);
+      fs.removeFeature(feature);
     }
-  }
-
-  @Deprecated
-  public void extractDeferredFeatures(String feature, FeatureSet fs)
-      throws FeatureExtractorException, AuToBIException {
-    if (!feature_registry.containsKey(feature) && !deferred_feature_registry.containsKey(feature))
-      throw new AuToBIException("No feature extractor registered for feature: " + feature);
-    FeatureExtractor extractor = deferred_feature_registry.get(feature);
-    if (!executed_feature_extractors.contains(extractor) && extractor != null) {
-      executed_feature_extractors.add(extractor);
-      extractDeferredFeatures(extractor.getRequiredFeatures(), fs);
-      AuToBIUtils.debug("running deferred feature extraction for: " + feature);
-      extractor.extractFeatures(fs.getDataPoints());
-
-      // Clear any auxilliary attributes from the data points before moving on
-      fs.garbageCollection();
-    }
+    dead_features.clear();
   }
 
   /**
@@ -445,7 +447,7 @@ public class AuToBI {
     try {
       String pad_filename = getParameter("pitch_accent_detector");
       pitch_accent_detector = ClassifierUtils.readAuToBIClassifier(pad_filename);
-    } catch (AuToBIException e) {
+    } catch (AuToBIException ignored) {
     }
 
     try {
@@ -795,7 +797,6 @@ public class AuToBI {
   }
 
   public static void main(String[] args) {
-    Date start_time = new Date();
     AuToBI autobi = new AuToBI();
     autobi.init(args);
 
@@ -865,7 +866,7 @@ public class AuToBI {
 
         FeatureSet fs = autobi.getTaskFeatureSet(task);
         fs.setDataPoints(words);
-        autobi.extractFeatures(fs, false);
+        autobi.extractFeatures(fs);
 
         fs.constructFeatures();
 
@@ -892,10 +893,6 @@ public class AuToBI {
     } catch (FeatureExtractorException e) {
       e.printStackTrace();
     }
-    Date end_time = new Date();
-
-    AuToBIUtils.log("Time to run: " + (end_time.getTime() - start_time.getTime()));
-    AuToBIUtils.log("Maximum Memory Used: " + max_memory + " bytes");
   }
 
   /**

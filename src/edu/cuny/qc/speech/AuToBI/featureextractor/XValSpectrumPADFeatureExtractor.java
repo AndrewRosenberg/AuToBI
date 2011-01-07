@@ -79,7 +79,7 @@ public class XValSpectrumPADFeatureExtractor extends FeatureExtractor {
     // Extract spectrum features.
     fs.setDataPoints((List<Word>) regions);
     try {
-      autobi.extractFeatures(fs, false);
+      autobi.extractFeatures(fs);
       PartitionUtils
           .assignStratifiedFoldNum((List<Word>) regions, FOLD_ASSIGNMENT_FEATURE, num_folds, fs.getClassAttribute());
     } catch (AuToBIException e) {

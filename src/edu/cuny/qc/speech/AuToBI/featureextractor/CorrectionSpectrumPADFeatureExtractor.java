@@ -80,7 +80,7 @@ public class CorrectionSpectrumPADFeatureExtractor extends FeatureExtractor {
 
     // Extract correction features.
     try {
-      autobi.extractFeatures(fs, false);
+      autobi.extractFeatures(fs);
     } catch (AuToBIException e) {
       throw new FeatureExtractorException(e.getMessage());
     }
