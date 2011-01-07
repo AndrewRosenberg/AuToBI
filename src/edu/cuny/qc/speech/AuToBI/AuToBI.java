@@ -294,25 +294,6 @@ public class AuToBI {
       extractFeatures(extractor.getRequiredFeatures(), fs, false);
       extractor.extractFeatures(fs.getDataPoints());
 
-      System.gc();
-      System.gc();
-      System.gc();
-      System.gc();
-      System.gc();
-      System.gc();
-      System.gc();
-      System.gc();
-      System.gc();
-      System.gc();
-      System.gc();
-      System.gc();
-      System.gc();
-      System.gc();
-      System.gc();
-      System.gc();
-      max_memory = Math.max(max_memory, Runtime.getRuntime().totalMemory() -
-          Runtime.getRuntime().freeMemory());
-
       AuToBIUtils.debug("extracted features using: " + extractor.getClass().getCanonicalName());
 
       if (clear_features)
