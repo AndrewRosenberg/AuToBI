@@ -20,7 +20,7 @@
 package edu.cuny.qc.speech.AuToBI.core;
 
 /**
- * Contains acoustic spectrum information.
+ * Spectrum objects contain acoustic spectrum information.
  * <p/>
  * The spectrum is a three dimensional representation of acoustic energy, containing power indexed by time and
  * frequency.
@@ -34,9 +34,10 @@ public class Spectrum {
   /**
    * Constructs a Spectrum object.
    *
-   * @param data          The spectrum data
-   * @param starting_time The time of the initial index
-   * @param frame_size    The size (in seconds) of each frame
+   * @param data            The spectrum data
+   * @param starting_time   The time of the initial index
+   * @param frame_size      The size (in seconds) of each frame
+   * @param freq_resolution the frequency resolution for the spectrum
    */
   public Spectrum(double[][] data, double starting_time, double frame_size, double freq_resolution) {
     this.data = data;
