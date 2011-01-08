@@ -21,6 +21,7 @@ package edu.cuny.qc.speech.AuToBI;
 
 import edu.cuny.qc.speech.AuToBI.classifier.AuToBIClassifier;
 import edu.cuny.qc.speech.AuToBI.classifier.WekaClassifier;
+import edu.cuny.qc.speech.AuToBI.featureset.PhraseAccentClassificationFeatureSet;
 import edu.cuny.qc.speech.AuToBI.featureset.PitchAccentDetectionFeatureSet;
 import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
 import weka.classifiers.functions.SMO;
@@ -56,7 +57,7 @@ public class PhraseAccentClassificationTrainer extends AuToBITrainer {
    * @throws Exception if there is a problem with the classifier training.
    */
   public AuToBIClassifier trainClassifier(Collection<String> filenames) throws Exception {
-    PitchAccentDetectionFeatureSet padfs = new PitchAccentDetectionFeatureSet();
+    PhraseAccentClassificationFeatureSet padfs = new PhraseAccentClassificationFeatureSet();
     AuToBIClassifier classifier = new WekaClassifier(new SMO());
 
     trainClassifier(filenames, padfs, classifier);

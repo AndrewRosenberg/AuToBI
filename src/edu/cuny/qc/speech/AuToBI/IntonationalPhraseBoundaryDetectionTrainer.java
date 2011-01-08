@@ -21,6 +21,7 @@ package edu.cuny.qc.speech.AuToBI;
 
 import edu.cuny.qc.speech.AuToBI.classifier.AuToBIClassifier;
 import edu.cuny.qc.speech.AuToBI.classifier.WekaClassifier;
+import edu.cuny.qc.speech.AuToBI.featureset.IntonationalPhraseBoundaryDetectionFeatureSet;
 import edu.cuny.qc.speech.AuToBI.featureset.PitchAccentDetectionFeatureSet;
 import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
 
@@ -56,7 +57,7 @@ public class IntonationalPhraseBoundaryDetectionTrainer extends AuToBITrainer {
    * @throws Exception if there is a problem with the classifier training.
    */
   public AuToBIClassifier trainClassifier(Collection<String> filenames) throws Exception {
-    PitchAccentDetectionFeatureSet padfs = new PitchAccentDetectionFeatureSet();
+    IntonationalPhraseBoundaryDetectionFeatureSet padfs = new IntonationalPhraseBoundaryDetectionFeatureSet();
     AuToBIClassifier classifier = new WekaClassifier(new AdaBoostM1());
 
     trainClassifier(filenames, padfs, classifier);
