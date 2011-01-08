@@ -93,7 +93,7 @@ public class AuToBITrainer {
             AuToBIUtils.glob(autobi.getOptionalParameter("normalization_parameters"))));
         autobi.registerNullFeatureExtractor("speaker_id");
 
-        PitchAccentDetectionFeatureSet current_fs = new PitchAccentDetectionFeatureSet();
+        FeatureSet current_fs = fs.newInstance();
         current_fs.setDataPoints(words);
 
         autobi.extractFeatures(current_fs);
