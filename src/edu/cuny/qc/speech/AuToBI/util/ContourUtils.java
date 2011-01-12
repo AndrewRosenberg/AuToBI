@@ -300,15 +300,21 @@ public class ContourUtils {
    * @return The delta values
    */
   public static Contour generateDeltaContour(Contour values) {
-    Contour d_contour = new Contour(values.getStep() / 2, values.getStep(), values.size() - 1);
-    for (int i = 0; i < values.size() - 1; ++i) {
-      if (values.isEmpty(i) || values.isEmpty(i + 1)) {
-        d_contour.setEmpty(i);
-      } else {
-        double value = (values.get(i + 1) - values.get(i)) / values.getStep();
-        d_contour.set(i, value);
+    Contour d_contour;
+    if (values.size() > 0) {
+      d_contour = new Contour(values.getStep() / 2, values.getStep(), values.size() - 1);
+      for (int i = 0; i < values.size() - 1; ++i) {
+        if (values.isEmpty(i) || values.isEmpty(i + 1)) {
+          d_contour.setEmpty(i);
+        } else {
+          double value = (values.get(i + 1) - values.get(i)) / values.getStep();
+          d_contour.set(i, value);
+        }
       }
+    } else {
+      d_contour = new Contour(values.getStep() / 2, values.getStep(), 0);
     }
+
     return d_contour;
   }
 }
