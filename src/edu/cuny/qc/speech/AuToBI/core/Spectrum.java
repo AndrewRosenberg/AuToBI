@@ -104,6 +104,9 @@ public class Spectrum {
     int index_1 = (int) Math.floor((time_1 - starting_time) / frame_size);
     int index_2 = (int) Math.ceil((time_2 - starting_time) / frame_size);
 
+    index_1 = Math.max(0, index_1);
+    index_2 = Math.min(data.length - 1, index_2);
+
     double[][] slice_data = new double[index_2 - index_1][data[0].length];
 
     for (int i = index_1; i < index_2; ++i) {
