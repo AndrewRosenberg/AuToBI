@@ -19,6 +19,8 @@
  */
 package edu.cuny.qc.speech.AuToBI.core;
 
+import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
+
 /**
  * Spectrum objects contain acoustic spectrum information.
  * <p/>
@@ -104,8 +106,15 @@ public class Spectrum {
     int index_1 = (int) Math.floor((time_1 - starting_time) / frame_size);
     int index_2 = (int) Math.ceil((time_2 - starting_time) / frame_size);
 
-    index_1 = Math.max(0, index_1);
-    index_2 = Math.min(data.length - 1, index_2);
+    index_1 = Math.max(0, Math.min(data.length -1, index_1));
+    index_2 = Math.max(0, Math.min(data.length -1, index_2));
+
+    if (index_1 > index_2) {
+      AuToBIUtils.error("this is a mess");
+      AuToBIUtils.error("max index: " + (data.length -1) );
+      AuToBIUtils.error("index_1: " + index_1 + " time: " + time_1);
+      AuToBIUtils.error("index_2: " + index_2 + " time: " + time_2);
+    }
 
     double[][] slice_data = new double[index_2 - index_1][data[0].length];
 

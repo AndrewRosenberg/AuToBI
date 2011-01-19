@@ -59,6 +59,10 @@ public class SubregionUtils {
 
       while (current_pseudosyllable.getEnd() < w.getStart()) {
         ++i;
+        if (i == subregions.size()) {
+          w.setAttribute(feature_name, null);
+          break;
+        }
         current_pseudosyllable = subregions.get(i);
       }
 
