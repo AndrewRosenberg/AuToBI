@@ -706,7 +706,7 @@ public class AuToBI {
 
     List<String> difference_features = new ArrayList<String>();
     difference_features.add("duration__duration");
-    for (String acoustic : new String[]{"f0", "I"}) {
+    for (String acoustic : new String[]{"f0", "log_f0", "I"}) {
       for (String norm : new String[]{"", "norm_"}) {
         for (String slope : new String[]{"", "delta_"}) {
           for (String agg : new String[]{"max", "mean", "stdev", "zMax"}) {
@@ -823,12 +823,7 @@ public class AuToBI {
       Contour intensity_values = intensity_extractor.soundToIntensity();
       AuToBIUtils.debug("Extracted Intensity");
 
-      Syllabifier syllabifier = new Syllabifier();
-      List<Region> pseudosyllables = syllabifier.generatePseudosyllableRegions(wav);
-
-      SubregionUtils.alignLongestSubregionsToWords(words, pseudosyllables, "pseudosyllable");
-
-      /** TODO move this normalization parameter generation or loading into a feature extractor **/
+      /** TODO move this normalization parameter generation or loading switch into a feature extractor **/
       SpeakerNormalizationParameter norm_params = null;
 
       if (norm_param_filename != null) {
