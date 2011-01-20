@@ -18,7 +18,7 @@
     along with AuToBI.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package edu.cuny.qc.speech.AuToBI.featureextractor.polyfit;
+package edu.cuny.qc.speech.AuToBI.featureextractor.shapemodeling;
 
 import edu.cuny.qc.speech.AuToBI.core.Contour;
 import org.junit.Test;
