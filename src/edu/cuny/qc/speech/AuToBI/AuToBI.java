@@ -1,6 +1,6 @@
 /*  AuToBI.java
 
-    Copyright (c) 2009-2010 Andrew Rosenberg
+    Copyright (c) 2009-2011 Andrew Rosenberg
 
     This file is part of the AuToBI prosodic analysis package.
 
