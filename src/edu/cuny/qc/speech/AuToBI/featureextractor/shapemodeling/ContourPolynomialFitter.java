@@ -49,21 +49,74 @@ public class ContourPolynomialFitter {
    */
   public double[] fitContour(Contour c) {
 
-    Matrix t = new Matrix(c.size(), 1);
-    Matrix x = new Matrix(c.size(), n + 1);
-
-    int i = 0;
-    for (Pair<Double, Double> p : c) {
-      t.set(i, 0, p.second);
-      for (int j = 0; j <=n; ++j) {
-        x.set(i, j, Math.pow(p.first, j));
-      }
-      ++i;
-    }
+    Pair<Matrix, Matrix> tx = constructTargetAndDataMatrix(c);
+    Matrix t = tx.first;
+    Matrix x = tx.second;
 
     Matrix w = x.transpose().times(x).inverse().times(x.transpose()).times(t);
 
     return w.transpose().getArray()[0];
   }
 
+  /**
+   * Calculates the mean squared error (MSE) between a contour c, and the polynomial weights given by weights.
+   *
+   * @param c       the contour
+   * @param weights the weights
+   * @return the mean squared error
+   */
+  public double getMSE(Contour c, double[] weights) {
+
+    Pair<Matrix, Matrix> tx = constructTargetAndDataMatrix(c);
+    Matrix t = tx.first;
+    Matrix x = tx.second;
+
+    Matrix w = new Matrix(weights.length,1);
+    for (int i = 0; i < weights.length; ++i) {
+      w.set(i, 0, weights[i]);
+    }
+    Matrix y = x.times(w);
+    double error = 0.0;
+    for (int i = 0; i < y.getRowDimension(); ++i) {
+      error += (y.get(i, 0) - t.get(i, 0)) * (y.get(i, 0) - t.get(i, 0));
+    }
+
+    return error;
+  }
+
+  /**
+   * Constructs two matrices from a contour.
+   * <p/>
+   * The first is the target values, the second is the exponentiated x values.
+   *
+   * @param c the contour
+   * @return a pair of matrices.
+   */
+  private Pair<Matrix, Matrix> constructTargetAndDataMatrix(Contour c) {
+    Pair<Matrix, Matrix> retval = new Pair<Matrix, Matrix>();
+
+    Matrix t = new Matrix(c.size(), 1);
+    Matrix x = new Matrix(c.size(), n + 1);
+
+    int i = 0;
+    for (Pair<Double, Double> p : c) {
+      t.set(i, 0, p.second);
+      for (int j = 0; j <= n; ++j) {
+        x.set(i, j, Math.pow(p.first, j));
+      }
+      ++i;
+    }
+    retval.first = t;
+    retval.second = x;
+    return retval;
+  }
+
+  /**
+   * Returns the order of the polynomial that will be fit.
+   *
+   * @return the order
+   */
+  public int getOrder() {
+    return n;
+  }
 }

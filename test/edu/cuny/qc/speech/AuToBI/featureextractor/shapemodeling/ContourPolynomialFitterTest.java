@@ -86,4 +86,41 @@ public class ContourPolynomialFitterTest {
     assertEquals(-2.0, results[1], 0.00001);
     assertEquals(3.0, results[2], 0.00001);
   }
+
+  @Test
+  public void testFitterGetsMSE() {
+    Contour c = new Contour(1, 1, 5);
+
+    c.set(0, 1);
+    c.set(1, 2);
+    c.set(2, 2);
+    c.set(3, 3);
+    c.set(4, 3);
+
+    ContourPolynomialFitter fitter = new ContourPolynomialFitter(2);
+    double[] w = fitter.fitContour(c);
+    double mse = fitter.getMSE(c, w);
+
+    assertEquals(0.22857142857142837, mse, 0.00001);
+  }
+
+  @Test
+  public void testFitterGetsMSEWithEmptyEntries() {
+
+    Contour c = new Contour(1, 1, 6);
+
+    c.set(0, 1);
+    c.set(1, 2);
+    c.set(2, 2);
+    c.set(3, 3);
+    c.set(4, 3);
+    c.set(5, 1000000);
+    c.setEmpty(5);
+
+    ContourPolynomialFitter fitter = new ContourPolynomialFitter(2);
+    double[] w = fitter.fitContour(c);
+    double mse = fitter.getMSE(c, w);
+
+    assertEquals(0.22857142857142837, mse, 0.00001);
+  }
 }

@@ -23,7 +23,7 @@ import edu.cuny.qc.speech.AuToBI.core.ConditionalDistribution;
 import edu.cuny.qc.speech.AuToBI.core.Contour;
 
 /**
- * QuantizedContourModel is a sequential multinomial model of
+ * QuantizedContourModel is a sequential multinomial model of a quantized contour.
  */
 public class QuantizedContourModel {
   public ContourQuantizer cq;  // A quantizer.
