@@ -30,6 +30,7 @@ import edu.cuny.qc.speech.AuToBI.io.TextGridReader;
 import edu.cuny.qc.speech.AuToBI.io.WavReader;
 import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
 
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
@@ -67,49 +68,9 @@ public class AuToBITrainer {
    */
   public void trainClassifier(Collection<String> filenames, FeatureSet fs, AuToBIClassifier classifier)
       throws Exception {
-    for (String filename : filenames) {
-
-      String file_stem = filename.substring(0, filename.lastIndexOf('.'));
-
-      String wav_filename = file_stem + ".wav";
-
-      AuToBIWordReader reader = null;
-      if (filename.endsWith("TextGrid")) {
-        reader = new TextGridReader(filename);
-      } else if (filename.endsWith("ala")) {
-        reader = new BURNCReader(filename.replace(".ala", ""));
-      }
-
-      WavReader wav_reader = new WavReader();
-      try {
-        WavData wav = wav_reader.read(wav_filename);
-        SpectrumExtractor spectrum_extractor = new SpectrumExtractor(wav);
-        AuToBIUtils.log("Reading words from: " + filename);
-        List<Word> words = reader.readWords();
-
-        autobi.unregisterAllFeatureExtractors();
-        autobi.registerAllFeatureExtractors(wav);
-        autobi.registerFeatureExtractor(new SNPAssignmentFeatureExtractor("normalization_parameters", "speaker_id",
-            AuToBIUtils.glob(autobi.getOptionalParameter("normalization_parameters"))));
-        autobi.registerNullFeatureExtractor("speaker_id");
-
-        FeatureSet current_fs = fs.newInstance();
-        current_fs.setDataPoints(words);
-
-        autobi.extractFeatures(current_fs);
-
-        fs.getDataPoints().addAll(words);
-      } catch (AuToBIException e) {
-        e.printStackTrace();
-      } catch (IOException e) {
-        e.printStackTrace();
-      } catch (FeatureExtractorException e) {
-        e.printStackTrace();
-      }
-    }
+    autobi.propagateFeatureSet(filenames, fs);
 
     AuToBIUtils.log("training classifier");
-    fs.constructFeatures();
     classifier.train(fs);
   }
 

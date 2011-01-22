@@ -23,10 +23,7 @@ import edu.cuny.qc.speech.AuToBI.classifier.AuToBIClassifier;
 import edu.cuny.qc.speech.AuToBI.core.*;
 import edu.cuny.qc.speech.AuToBI.featureextractor.*;
 import edu.cuny.qc.speech.AuToBI.featureset.*;
-import edu.cuny.qc.speech.AuToBI.io.AuToBIFileReader;
-import edu.cuny.qc.speech.AuToBI.io.AuToBIFileWriter;
-import edu.cuny.qc.speech.AuToBI.io.TextGridReader;
-import edu.cuny.qc.speech.AuToBI.io.WavReader;
+import edu.cuny.qc.speech.AuToBI.io.*;
 import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
 import edu.cuny.qc.speech.AuToBI.util.ClassifierUtils;
 import edu.cuny.qc.speech.AuToBI.util.SubregionUtils;
@@ -434,6 +431,59 @@ public class AuToBI {
     if (task.equals("phrase_accent_classification"))
       return new PhraseAccentClassificationFeatureSet();
     throw new AuToBIException("No defined feature set for task: " + task);
+  }
+
+  /**
+   * Constructs a FeatureSet from a collection of filenames.
+   *
+   * This function handles both the file io of loading the set of data points and wav data,
+   * and the feature extraction routine.
+   *
+   * @param filenames the filenames containing data points.
+   * @param fs an empty feature set to propagate
+   * @throws UnsupportedAudioFileException if the wav file doesn't work out
+   */
+  public void propagateFeatureSet(Collection<String> filenames, FeatureSet fs) throws UnsupportedAudioFileException {
+    for (String filename : filenames) {
+
+      String file_stem = filename.substring(0, filename.lastIndexOf('.'));
+
+      String wav_filename = file_stem + ".wav";
+
+      AuToBIWordReader reader = null;
+      if (filename.endsWith("TextGrid")) {
+        reader = new TextGridReader(filename);
+      } else if (filename.endsWith("ala")) {
+        reader = new BURNCReader(filename.replace(".ala", ""));
+      }
+
+      WavReader wav_reader = new WavReader();
+      try {
+        WavData wav = wav_reader.read(wav_filename);
+        AuToBIUtils.log("Reading words from: " + filename);
+        List<Word> words = reader.readWords();
+
+        unregisterAllFeatureExtractors();
+        registerAllFeatureExtractors(wav);
+        registerFeatureExtractor(new SNPAssignmentFeatureExtractor("normalization_parameters", "speaker_id",
+            AuToBIUtils.glob(getOptionalParameter("normalization_parameters"))));
+        registerNullFeatureExtractor("speaker_id");
+
+        FeatureSet current_fs = fs.newInstance();
+        current_fs.setDataPoints(words);
+
+        extractFeatures(current_fs);
+
+        fs.getDataPoints().addAll(words);
+      } catch (AuToBIException e) {
+        e.printStackTrace();
+      } catch (IOException e) {
+        e.printStackTrace();
+      } catch (FeatureExtractorException e) {
+        e.printStackTrace();
+      }
+    }
+    fs.constructFeatures();
   }
 
   /**
