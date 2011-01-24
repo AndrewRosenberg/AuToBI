@@ -236,6 +236,24 @@ public class ClassifierUtils {
    */
   public static String evaluateClassification(String hyp_feature, String true_feature, FeatureSet fs)
       throws AuToBIException {
+    EvaluationResults eval = generateEvaluationResults(hyp_feature, true_feature, fs);
+    return eval.toString();
+  }
+
+  /**
+   * Generates an EvaluationResults object by comparing the values of the hypothesized and true features.
+   *
+   * EvaluationResults objects store contingency tables for the classification.
+   *
+   * @param hyp_feature  The hypothesized feature name
+   * @param true_feature The true feature name
+   * @param fs           The feature set to be evaluated
+   * @return a string representation of the evaluation
+   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException
+   *          IF there is an inconsistency in the evalution
+   */
+  public static EvaluationResults generateEvaluationResults(String hyp_feature, String true_feature, FeatureSet fs)
+      throws AuToBIException {
     Feature class_attribute = new Feature(true_feature);
     class_attribute.generateNominalValues(fs.getDataPoints());
 
@@ -251,7 +269,7 @@ public class ClassifierUtils {
     for (Word w : fs.getDataPoints()) {
       eval.addInstance(w.getAttribute(hyp_feature).toString(), w.getAttribute(true_feature).toString());
     }
-    return eval.toString();
+    return eval;
   }
 
   /**
