@@ -29,8 +29,8 @@ import java.util.*;
 /**
  * PartitionUtils is a set of static functions used for constructing partitions of data points.
  * <p/>
- * This contains the methods that are used in the construction of cross validation folds, and selecting data points
- * that match a particular attribute.  This latter functionality is useful for calculating corpus statistics.
+ * This contains the methods that are used in the construction of cross validation folds, and selecting data points that
+ * match a particular attribute.  This latter functionality is useful for calculating corpus statistics.
  */
 public class PartitionUtils {
   private static Random rng = new Random();  // a random number generator.
@@ -52,16 +52,38 @@ public class PartitionUtils {
   }
 
   /**
+   * Randomly assigns a fold number to each label in strings for cross validation.
+   * <p/>
+   * This is commonly used for cross validation over filenames rather than sets of words.
+   * <p/>
+   * The assignment is returns as a mapping between the string and the fold assignment which ranges between 0 and
+   * num_folds-1.
+   *
+   * @param strings   the strings
+   * @param num_folds the number of generated folds
+   * @return a map from strings to fold numbers
+   */
+  public static HashMap<String, Integer> generateXValFoldAssignment(List<String> strings, int num_folds) {
+    HashMap<String, Integer> h = new HashMap<String, Integer>();
+    for (String string : strings) {
+      int j = rng.nextInt(num_folds);
+      h.put(string, j);
+    }
+    return h;
+  }
+
+  /**
    * Assigns stratified cross validation fold numbers to the data points.
    * <p/>
-   * In stratified cross validation the class attribute distribution is (as closely as possible) reflected in each
-   * cross validation fold.
+   * In stratified cross validation the class attribute distribution is (as closely as possible) reflected in each cross
+   * validation fold.
    *
    * @param data_points     The data points.
    * @param feature_name    The feature to store the fold assignment on
    * @param num_folds       the numer of folds to construct
    * @param class_attribute the class attribute
-   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException If there is a region that does not have an associated class attribute
+   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException
+   *          If there is a region that does not have an associated class attribute
    */
   public static void assignStratifiedFoldNum(List<Word> data_points, String feature_name, Integer num_folds,
                                              String class_attribute) throws AuToBIException {
@@ -88,9 +110,9 @@ public class PartitionUtils {
   }
 
   /**
-   * Divides a list of data points into mutually exclusive lists of training and testing points The division is based on a fold
-   * feature indicating the test set assignment of the data point Those points whose fold assignment is equal to foldNum are
-   * placed in the testing set.
+   * Divides a list of data points into mutually exclusive lists of training and testing points The division is based on
+   * a fold feature indicating the test set assignment of the data point Those points whose fold assignment is equal to
+   * foldNum are placed in the testing set.
    *
    * @param dataPoints      The set of data points to be split
    * @param trainingPoints  The destination list for the training data
@@ -111,8 +133,35 @@ public class PartitionUtils {
         trainingPoints.add(word);
       }
     }
+  }
 
+  /**
+   * Splits a list of strings into training and testing sets based on a previously generated fold assignment hash.
+   * <p/>
+   * Each string that has been assigned to the specified fold is included in the testing set, every other string is used
+   * in the training set.
+   * <p/>
+   * If fold_num is outside of the range used in the fold_assignment hash, every string will be assigned to the training
+   * set.
+   *
+   * @param strings          the initial set of strings
+   * @param training_strings the strings assigned to the training set
+   * @param testing_strings  the strings assigned to the testing set
+   * @param fold_assignment  the mapping from strings to folds
+   * @param fold_num         the specified fold.
+   */
+  public static void splitData(List<String> strings, List<String> training_strings, List<String> testing_strings,
+                               HashMap<String, Integer> fold_assignment, int fold_num) {
+    training_strings.clear();
+    testing_strings.clear();
 
+    for (String string : strings) {
+      if (fold_assignment.get(string) == fold_num) {
+        testing_strings.add(string);
+      } else {
+        training_strings.add(string);
+      }
+    }
   }
 
   /**
