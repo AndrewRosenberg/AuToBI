@@ -435,12 +435,12 @@ public class AuToBI {
 
   /**
    * Constructs a FeatureSet from a collection of filenames.
-   *
-   * This function handles both the file io of loading the set of data points and wav data,
-   * and the feature extraction routine.
+   * <p/>
+   * This function handles both the file io of loading the set of data points and wav data, and the feature extraction
+   * routine.
    *
    * @param filenames the filenames containing data points.
-   * @param fs an empty feature set to propagate
+   * @param fs        an empty feature set to propagate
    * @throws UnsupportedAudioFileException if the wav file doesn't work out
    */
   public void propagateFeatureSet(Collection<String> filenames, FeatureSet fs) throws UnsupportedAudioFileException {
@@ -474,7 +474,26 @@ public class AuToBI {
 
         extractFeatures(current_fs);
 
-        fs.getDataPoints().addAll(words);
+        // Attribute omission by attribute values.
+        // This allows a user to omit data points with particular attributes, for
+        // example, to classify only phrase ending words.
+        if (hasParameter("attribute_omit")) {
+          String[] omission = getParameter("attribute_omit").split(",");
+          for (Word w : words) {
+            boolean include = true;
+            for (String pair : omission) {
+              String[] av_pair = pair.split(":");
+              if (w.hasAttribute(av_pair[0]) && w.getAttribute(av_pair[0]).equals(av_pair[1])) {
+                include = false;
+              }
+            }
+            if (include) {
+              fs.getDataPoints().add(w);
+            }
+          }
+        } else {
+          fs.getDataPoints().addAll(words);
+        }
       } catch (AuToBIException e) {
         e.printStackTrace();
       } catch (IOException e) {
@@ -643,6 +662,7 @@ public class AuToBI {
    */
   public void registerAllFeatureExtractors(WavData wav_data)
       throws FeatureExtractorException {
+    String[] acoustic_features = new String[]{"f0", "log_f0", "I"};
 
     registerFeatureExtractor(new PitchAccentFeatureExtractor("nominal_PitchAccent"));
     registerFeatureExtractor(new PitchAccentTypeFeatureExtractor("nominal_PitchAccentType"));
@@ -654,31 +674,42 @@ public class AuToBI {
     registerFeatureExtractor(new PitchFeatureExtractor(wav_data, "f0"));
     registerFeatureExtractor(new LogContourFeatureExtractor("f0", "log_f0"));
     registerFeatureExtractor(new IntensityFeatureExtractor(wav_data, "I"));
-    registerFeatureExtractor(new NormalizedContourFeatureExtractor("f0", "normalization_parameters"));
-    registerFeatureExtractor(new NormalizedContourFeatureExtractor("log_f0", "normalization_parameters"));
-    registerFeatureExtractor(new NormalizedContourFeatureExtractor("I", "normalization_parameters"));
+    for (String acoustic : acoustic_features) {
+      registerFeatureExtractor(new NormalizedContourFeatureExtractor(acoustic, "normalization_parameters"));
+    }
 
-    registerFeatureExtractor(new DeltaContourFeatureExtractor("f0"));
-    registerFeatureExtractor(new DeltaContourFeatureExtractor("log_f0"));
-    registerFeatureExtractor(new DeltaContourFeatureExtractor("I"));
-    registerFeatureExtractor(new DeltaContourFeatureExtractor("norm_f0"));
-    registerFeatureExtractor(new DeltaContourFeatureExtractor("norm_log_f0"));
-    registerFeatureExtractor(new DeltaContourFeatureExtractor("norm_I"));
+    // Register Subregion feature extractors
+    registerFeatureExtractor(new PseudosyllableFeatureExtractor("pseudosyllable", wav_data));
+    registerFeatureExtractor(new SubregionFeatureExtractor("200ms"));
 
-    registerFeatureExtractor(new ContourFeatureExtractor("f0"));
-    registerFeatureExtractor(new ContourFeatureExtractor("norm_f0"));
-    registerFeatureExtractor(new ContourFeatureExtractor("delta_f0"));
-    registerFeatureExtractor(new ContourFeatureExtractor("delta_norm_f0"));
+    // Register Delta Contour Extractors
+    for (String acoustic : acoustic_features) {
+      for (String norm : new String[]{"", "norm_"}) {
+        registerFeatureExtractor(new DeltaContourFeatureExtractor(norm + acoustic));
+      }
+    }
 
-    registerFeatureExtractor(new ContourFeatureExtractor("log_f0"));
-    registerFeatureExtractor(new ContourFeatureExtractor("norm_log_f0"));
-    registerFeatureExtractor(new ContourFeatureExtractor("delta_log_f0"));
-    registerFeatureExtractor(new ContourFeatureExtractor("delta_norm_log_f0"));
+    // Register subregion contour extractors
+    for (String acoustic : acoustic_features) {
+      for (String norm : new String[]{"", "norm_"}) {
+        for (String slope : new String[]{"", "delta_"}) {
+          for (String subregion : new String[]{"pseudosyllable", "200ms"}) {
+            registerFeatureExtractor(new SubregionContourExtractor(slope + norm + acoustic, subregion));
+          }
+        }
+      }
+    }
 
-    registerFeatureExtractor(new ContourFeatureExtractor("I"));
-    registerFeatureExtractor(new ContourFeatureExtractor("norm_I"));
-    registerFeatureExtractor(new ContourFeatureExtractor("delta_I"));
-    registerFeatureExtractor(new ContourFeatureExtractor("delta_norm_I"));
+    // Register Contour Feature Extractors
+    for (String acoustic : acoustic_features) {
+      for (String norm : new String[]{"", "norm_"}) {
+        for (String slope : new String[]{"", "delta_"}) {
+          for (String subregion : new String[]{"", "_pseudosyllable", "_200ms"}) {
+            registerFeatureExtractor(new ContourFeatureExtractor(slope + norm + acoustic + subregion));
+          }
+        }
+      }
+    }
 
     registerFeatureExtractor(new SpectrumFeatureExtractor(wav_data, "spectrum"));
 
@@ -717,43 +748,7 @@ public class AuToBI {
     registerFeatureExtractor(new ResetContourFeatureExtractor("norm_log_f0", "400ms"));
     registerFeatureExtractor(new ResetContourFeatureExtractor("norm_I", "400ms"));
 
-    ////////////////////////
-    // Subregion Features //
-    ////////////////////////
-    registerFeatureExtractor(new PseudosyllableFeatureExtractor("pseudosyllable", wav_data));
-
-    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("f0", "pseudosyllable"));
-    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("delta_f0", "pseudosyllable"));
-    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("norm_f0", "pseudosyllable"));
-    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("delta_norm_f0", "pseudosyllable"));
-
-    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("log_f0", "pseudosyllable"));
-    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("delta_log_f0", "pseudosyllable"));
-    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("norm_log_f0", "pseudosyllable"));
-    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("delta_norm_log_f0", "pseudosyllable"));
-
-    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("I", "pseudosyllable"));
-    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("delta_I", "pseudosyllable"));
-    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("norm_I", "pseudosyllable"));
-    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("delta_norm_I", "pseudosyllable"));
-
-    registerFeatureExtractor(new SubregionFeatureExtractor("200ms"));
-
-    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("f0", "200ms"));
-    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("delta_f0", "200ms"));
-    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("norm_f0", "200ms"));
-    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("delta_norm_f0", "200ms"));
-
-    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("log_f0", "200ms"));
-    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("delta_log_f0", "200ms"));
-    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("norm_log_f0", "200ms"));
-    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("delta_norm_log_f0", "200ms"));
-
-    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("I", "200ms"));
-    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("delta_I", "200ms"));
-    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("norm_I", "200ms"));
-    registerFeatureExtractor(new SubregionTimeValuePairFeatureExtractor("delta_norm_I", "200ms"));
-
+    // Difference Features
     List<String> difference_features = new ArrayList<String>();
     difference_features.add("duration__duration");
     for (String acoustic : new String[]{"f0", "log_f0", "I"}) {
@@ -819,6 +814,7 @@ public class AuToBI {
    * @throws IOException     If there is a problem reading the file
    * @throws AuToBIException If there is a problem with the formatting of the file
    */
+
   public void loadSpeakerNormalizationMapping(String speaker_normalization_file) throws IOException, AuToBIException {
     AuToBIFileReader reader = new AuToBIFileReader(speaker_normalization_file);
 

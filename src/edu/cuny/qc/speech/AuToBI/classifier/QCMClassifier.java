@@ -61,14 +61,17 @@ public class QCMClassifier extends AuToBIClassifier {
    * @throws Exception
    */
   @Override
-  public Distribution distributionForInstance(Word testing_point) throws Exception{
+  public Distribution distributionForInstance(Word testing_point) throws Exception {
     Distribution results = new Distribution();
 
-    for (String key: models.keySet()) {
-      Contour c = (Contour) testing_point.getAttribute(contour_attribute);
+    Contour c = (Contour) testing_point.getAttribute(contour_attribute);
+
+    for (String key : models.keySet()) {
       double likelihood = prior.get(key);
       try {
-        likelihood += Math.exp(models.get(key).evaluateContour(c));
+        if (c != null) {
+          likelihood += Math.exp(models.get(key).evaluateContour(c));
+        }
       } catch (ContourQuantizerException e) {
         e.printStackTrace();
       }
@@ -97,7 +100,9 @@ public class QCMClassifier extends AuToBIClassifier {
       if (!data.containsKey(w.getAttribute(class_attribute))) {
         data.put((String) w.getAttribute(class_attribute), new ArrayList<Contour>());
       }
-      data.get(w.getAttribute(class_attribute)).add((Contour) w.getAttribute(contour_attribute));
+      if (w.hasAttribute(contour_attribute)) {
+        data.get(w.getAttribute(class_attribute)).add((Contour) w.getAttribute(contour_attribute));
+      }
     }
 
     prior.normalize();
@@ -111,6 +116,7 @@ public class QCMClassifier extends AuToBIClassifier {
 
   /**
    * Constructs a new untrained copy of the classifier with the same parameters.
+   *
    * @return
    */
   @Override

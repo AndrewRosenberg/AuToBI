@@ -144,7 +144,7 @@ public class ContourUtils {
    * @return the subcontour of contour containing all values with time greater than start and less than end
    * @throws AuToBIException if start is greater than end
    */
-  static Contour getSubContour(Contour contour, double start, double end)
+  public static Contour getSubContour(Contour contour, double start, double end)
       throws AuToBIException {
     if (start > end) {
       throw new AuToBIException("start (" + start + ") greater than end (" + end + ")");
