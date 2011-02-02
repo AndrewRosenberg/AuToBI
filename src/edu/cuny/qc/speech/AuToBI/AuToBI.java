@@ -26,7 +26,6 @@ import edu.cuny.qc.speech.AuToBI.featureset.*;
 import edu.cuny.qc.speech.AuToBI.io.*;
 import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
 import edu.cuny.qc.speech.AuToBI.util.ClassifierUtils;
-import edu.cuny.qc.speech.AuToBI.util.SubregionUtils;
 import org.apache.log4j.PropertyConfigurator;
 import org.apache.log4j.BasicConfigurator;
 
@@ -35,6 +34,11 @@ import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
+
+import static java.util.concurrent.Executors.newFixedThreadPool;
 
 /**
  * This is the main class for the AuToBI system.
@@ -444,64 +448,52 @@ public class AuToBI {
    * @throws UnsupportedAudioFileException if the wav file doesn't work out
    */
   public void propagateFeatureSet(Collection<String> filenames, FeatureSet fs) throws UnsupportedAudioFileException {
+
+    ExecutorService threadpool = newFixedThreadPool(Integer.parseInt(getOptionalParameter("num_threads", "1")));
+    List<Future<FeatureSet>> results = new ArrayList<Future<FeatureSet>>();
     for (String filename : filenames) {
+      results.add(threadpool.submit(new FeatureSetPropagator(this, filename, fs)));
+    }
 
-      String file_stem = filename.substring(0, filename.lastIndexOf('.'));
+    for (Future<FeatureSet> new_fs : results) {
+      if (new_fs != null) {
 
-      String wav_filename = file_stem + ".wav";
+        List<Word> words = null;
+        try {
+          words = new_fs.get().getDataPoints();
 
-      AuToBIWordReader reader = null;
-      if (filename.endsWith("TextGrid")) {
-        reader = new TextGridReader(filename);
-      } else if (filename.endsWith("ala")) {
-        reader = new BURNCReader(filename.replace(".ala", ""));
-      }
-
-      WavReader wav_reader = new WavReader();
-      try {
-        WavData wav = wav_reader.read(wav_filename);
-        AuToBIUtils.log("Reading words from: " + filename);
-        List<Word> words = reader.readWords();
-
-        unregisterAllFeatureExtractors();
-        registerAllFeatureExtractors(wav);
-        registerFeatureExtractor(new SNPAssignmentFeatureExtractor("normalization_parameters", "speaker_id",
-            AuToBIUtils.glob(getOptionalParameter("normalization_parameters"))));
-        registerNullFeatureExtractor("speaker_id");
-
-        FeatureSet current_fs = fs.newInstance();
-        current_fs.setDataPoints(words);
-
-        extractFeatures(current_fs);
-
-        // Attribute omission by attribute values.
-        // This allows a user to omit data points with particular attributes, for
-        // example, to classify only phrase ending words.
-        if (hasParameter("attribute_omit")) {
-          String[] omission = getParameter("attribute_omit").split(",");
-          for (Word w : words) {
-            boolean include = true;
-            for (String pair : omission) {
-              String[] av_pair = pair.split(":");
-              if (w.hasAttribute(av_pair[0]) && w.getAttribute(av_pair[0]).equals(av_pair[1])) {
-                include = false;
+          // Attribute omission by attribute values.
+          // This allows a user to omit data points with particular attributes, for
+          // example, to classify only phrase ending words.
+          if (hasParameter("attribute_omit")) {
+            String[] omission = getParameter("attribute_omit").split(",");
+            for (Word w : words) {
+              boolean include = true;
+              for (String pair : omission) {
+                String[] av_pair = pair.split(":");
+                if (w.hasAttribute(av_pair[0]) && w.getAttribute(av_pair[0]).equals(av_pair[1])) {
+                  include = false;
+                }
+              }
+              if (include) {
+                fs.getDataPoints().add(w);
               }
             }
-            if (include) {
-              fs.getDataPoints().add(w);
-            }
+          } else {
+            fs.getDataPoints().addAll(words);
           }
-        } else {
-          fs.getDataPoints().addAll(words);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        } catch (ExecutionException e) {
+          e.printStackTrace();
+        } catch (AuToBIException e) {
+          e.printStackTrace();
         }
-      } catch (AuToBIException e) {
-        e.printStackTrace();
-      } catch (IOException e) {
-        e.printStackTrace();
-      } catch (FeatureExtractorException e) {
-        e.printStackTrace();
       }
     }
+
+    threadpool.shutdown();
+
     fs.constructFeatures();
   }
 
@@ -942,5 +934,23 @@ public class AuToBI {
    */
   public void registerNullFeatureExtractor(String s) {
     this.feature_registry.put(s, null);
+  }
+
+  /**
+   * Gets command line parameters.
+   *
+   * @return an AuToBIParameters object
+   */
+  public AuToBIParameters getParameters() {
+    return params;
+  }
+
+  /**
+   * Sets AuToBIParameters.
+   *
+   * @param params the parameters.
+   */
+  public void setParameters(AuToBIParameters params) {
+    this.params = params;
   }
 }
