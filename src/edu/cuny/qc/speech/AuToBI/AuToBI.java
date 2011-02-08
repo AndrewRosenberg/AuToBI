@@ -666,6 +666,14 @@ public class AuToBI {
     registerFeatureExtractor(new PitchFeatureExtractor(wav_data, "f0"));
     registerFeatureExtractor(new LogContourFeatureExtractor("f0", "log_f0"));
     registerFeatureExtractor(new IntensityFeatureExtractor(wav_data, "I"));
+
+    if (hasParameter("normalization_parameters")) {
+      registerFeatureExtractor(new SNPAssignmentFeatureExtractor("normalization_parameters", "speaker_id",
+          AuToBIUtils.glob(getOptionalParameter("normalization_parameters"))));
+    } else {
+      registerFeatureExtractor(new NormalizationParameterFeatureExtractor("normalization_parameters"));
+    }
+
     for (String acoustic : acoustic_features) {
       registerFeatureExtractor(new NormalizedContourFeatureExtractor(acoustic, "normalization_parameters"));
     }
@@ -847,46 +855,15 @@ public class AuToBI {
       }
 
       WavData wav = reader.read(wav_filename);
-      PitchExtractor pitch_extractor = new PitchExtractor(wav);
-      IntensityExtractor intensity_extractor = new IntensityExtractor(wav);
-      SpectrumExtractor spectrum_extractor = new SpectrumExtractor(wav);
-
 
       AuToBIUtils.log("Reading words from: " + tg_filename);
       List<Word> words = tg_reader.readWords();
-
-      AuToBIUtils.log("Extracting acoustic information.");
-      Contour pitch_values = pitch_extractor.soundToPitch();
-      AuToBIUtils.debug("Extracted Pitch");
-      Contour intensity_values = intensity_extractor.soundToIntensity();
-      AuToBIUtils.debug("Extracted Intensity");
-
-      /** TODO move this normalization parameter generation or loading switch into a feature extractor **/
-      SpeakerNormalizationParameter norm_params = null;
-
-      if (norm_param_filename != null) {
-        norm_params =
-            SpeakerNormalizationParameterGenerator.readSerializedParameters(norm_param_filename);
-      }
-
-      // If stored normalization data is unavailable generate normalization data from the input file.
-      if (norm_params == null) {
-        norm_params = new SpeakerNormalizationParameter();
-
-        norm_params.insertPitch(pitch_values);
-        norm_params.insertIntensity(intensity_values);
-      }
-
-      for (Region r : words) {
-        r.setAttribute("normalization_parameters", norm_params);
-      }
 
       autobi.loadClassifiers();
 
       AuToBIUtils.log("Registering Feature Extractors");
       autobi.registerAllFeatureExtractors(wav);
       autobi.registerNullFeatureExtractor("speaker_id");
-      autobi.registerNullFeatureExtractor("normalization_parameters");
 
       for (String task : autobi.getClassificationTasks()) {
         AuToBIUtils.log("Running Hypothesis task -- " + task);
