@@ -41,7 +41,7 @@ public class SubregionContourExtractor extends FeatureExtractor {
    * Extracts a new subcontour feature called "feature_name"_"subregion_feature" which is a subcontour of the feature
    * name extracted from the region defined by subregion.
    *
-   * @param contour_feature      the acoustic feature name
+   * @param contour_feature   the acoustic feature name
    * @param subregion_feature the subregion
    */
   public SubregionContourExtractor(String contour_feature, String subregion_feature) {
@@ -54,17 +54,19 @@ public class SubregionContourExtractor extends FeatureExtractor {
   }
 
   @Override
-  public void extractFeatures(List regions) throws FeatureExtractorException{
+  public void extractFeatures(List regions) throws FeatureExtractorException {
 
     for (Region r : (List<Region>) regions) {
       Contour c = (Contour) r.getAttribute(contour_feature);
-      Region subregion = (Region) r.getAttribute(subregion_feature);
+      if (c != null) {
+        Region subregion = (Region) r.getAttribute(subregion_feature);
 
-      try {
-        Contour subcontour = ContourUtils.getSubContour(c, subregion.getStart(), subregion.getEnd());
-        r.setAttribute(contour_feature + "_" + subregion_feature, subcontour);
-      } catch (AuToBIException e) {
-        throw new FeatureExtractorException(e.getMessage());
+        try {
+          Contour subcontour = ContourUtils.getSubContour(c, subregion.getStart(), subregion.getEnd());
+          r.setAttribute(contour_feature + "_" + subregion_feature, subcontour);
+        } catch (AuToBIException e) {
+          throw new FeatureExtractorException(e.getMessage());
+        }
       }
     }
   }
