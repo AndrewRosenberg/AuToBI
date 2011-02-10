@@ -190,7 +190,8 @@ public class AuToBI {
    */
   public void extractFeatures(FeatureSet fs) throws FeatureExtractorException, AuToBIException {
     initializeReferenceCounting(fs);
-    extractFeature(fs.getClassAttribute(), fs);
+    if (fs.getClassAttribute() != null)
+      extractFeature(fs.getClassAttribute(), fs);
     extractFeatures(fs.getRequiredFeatures(), fs);
   }
 
@@ -449,6 +450,9 @@ public class AuToBI {
    */
   public void propagateFeatureSet(Collection<String> filenames, FeatureSet fs) throws UnsupportedAudioFileException {
 
+    if (fs.getClassAttribute() == null) {
+      AuToBIUtils.warn("FeatureSet has null class attribute.  Classification experiments will generate errors.");
+    }
     ExecutorService threadpool = newFixedThreadPool(Integer.parseInt(getOptionalParameter("num_threads", "1")));
     List<Future<FeatureSet>> results = new ArrayList<Future<FeatureSet>>();
     for (String filename : filenames) {

@@ -68,7 +68,6 @@ public class FeatureSetPropagator implements Callable<FeatureSet> {
       List<Word> words = reader.readWords();
 
       autobi.registerAllFeatureExtractors(wav);
-      // TODO Move this into registerAllFeatureExtractors
       autobi.registerNullFeatureExtractor("speaker_id");
 
       FeatureSet current_fs = target_fs.newInstance();
