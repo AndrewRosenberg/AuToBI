@@ -192,9 +192,11 @@ public class FeatureSet implements Serializable {
       features.add(f);
     }
 
-    Feature class_feature = new Feature(class_attribute);
-    class_feature.generateNominalValues(data_points);
-    features.add(class_feature);
+    if (class_attribute != null) {
+      Feature class_feature = new Feature(class_attribute);
+      class_feature.generateNominalValues(data_points);
+      features.add(class_feature);
+    }
   }
 
   /**
