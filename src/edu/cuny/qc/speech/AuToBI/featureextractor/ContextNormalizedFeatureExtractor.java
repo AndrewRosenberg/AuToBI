@@ -91,11 +91,7 @@ public class ContextNormalizedFeatureExtractor extends FeatureExtractor {
     for (Object o : regions) {
       Region r = (Region) o;
       extractContextNormAttributes(r, window);
-      try {
-        window.increment();
-      } catch (AuToBIException e) {
-        throw new FeatureExtractorException(e.getMessage());
-      }
+      window.increment();
     }
   }
 

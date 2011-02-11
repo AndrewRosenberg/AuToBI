@@ -99,11 +99,8 @@ public class ContextFrame {
 
   /**
    * Slides the window forward one region.
-   *
-   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException
-   *          if a region does not have an attribute associated with feature_name
    */
-  public void increment() throws AuToBIException {
+  public void increment()  {
     current++;
 
     if (current > data.size() - 1) {
@@ -139,12 +136,13 @@ public class ContextFrame {
       if (current + front < data.size()) {
         if (data.get(current + front).getAttribute(feature_name) == null) {
           AuToBIUtils.debug("null feature: " + feature_name);
-        }
-        for (Pair<Double, Double> tvp : (Contour) data.get(current + front).getAttribute(feature_name)) {
-          Double d = tvp.second;
+        } else {
+          for (Pair<Double, Double> tvp : (Contour) data.get(current + front).getAttribute(feature_name)) {
+            Double d = tvp.second;
 
-          window.add(d);
-          agg.insert(d);
+            window.add(d);
+            agg.insert(d);
+          }
         }
       }
     }
