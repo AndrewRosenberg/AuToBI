@@ -39,7 +39,7 @@ public class PitchAccentClassificationFeatureSet extends FeatureSet {
       for (String norm : new String[]{"", "norm_"}) {
         for (String slope : new String[]{"", "delta_"}) {
           for (String agg : new String[]{"max", "mean", "stdev", "zMax"}) {
-            required_features.add(slope + norm + acoustic + "__" + agg + "_pseudosyllable");
+            required_features.add(slope + norm + acoustic + "_pseudosyllable" + "__" + agg);
           }
         }
       }

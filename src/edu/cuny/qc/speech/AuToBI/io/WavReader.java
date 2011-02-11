@@ -48,6 +48,9 @@ public class WavReader {
   public WavData read(String filename)
       throws UnsupportedAudioFileException, IOException, AuToBIException {
     File file = new File(filename);
+    if (!file.exists()) {
+      throw new AuToBIException("Wav file does not exist: " + filename);
+    }
     AudioInputStream soundIn = AudioSystem.getAudioInputStream(new BufferedInputStream(new FileInputStream(file)));
 
     return read(soundIn);

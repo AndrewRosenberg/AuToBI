@@ -62,8 +62,17 @@ public class FeatureSetPropagator implements Callable<FeatureSet> {
     }
 
     WavReader wav_reader = new WavReader();
+    WavData wav = null;
     try {
-      WavData wav = wav_reader.read(wav_filename);
+      wav = wav_reader.read(wav_filename);
+    } catch (UnsupportedAudioFileException e1) {
+      e1.printStackTrace();
+    } catch (AuToBIException e1) {
+      e1.printStackTrace();
+    } catch (IOException e1) {
+      e1.printStackTrace();
+    }
+    try {
       AuToBIUtils.log("Reading words from: " + filename);
       List<Word> words = reader.readWords();
 
@@ -74,9 +83,10 @@ public class FeatureSetPropagator implements Callable<FeatureSet> {
       current_fs.setDataPoints(words);
 
       autobi.extractFeatures(current_fs);
+
+      // Frees the autobi object for garbage collection.
+      autobi = null;
       return current_fs;
-    } catch (UnsupportedAudioFileException e) {
-      e.printStackTrace();
     } catch (AuToBIException e) {
       e.printStackTrace();
     } catch (IOException e) {
@@ -84,6 +94,7 @@ public class FeatureSetPropagator implements Callable<FeatureSet> {
     } catch (FeatureExtractorException e) {
       e.printStackTrace();
     }
+
     return null;
   }
 }

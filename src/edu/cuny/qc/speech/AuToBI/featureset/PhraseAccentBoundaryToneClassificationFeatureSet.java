@@ -39,7 +39,7 @@ public class PhraseAccentBoundaryToneClassificationFeatureSet extends FeatureSet
        for (String norm : new String[]{"", "norm_"}) {
          for (String slope : new String[]{"", "delta_"}) {
            for (String agg : new String[]{"max", "mean", "stdev", "zMax"}) {
-             required_features.add(slope + norm + acoustic + "__" + agg + "_200ms");
+             required_features.add(slope + norm + acoustic + "_200ms"+ "__" + agg);
            }
          }
        }
