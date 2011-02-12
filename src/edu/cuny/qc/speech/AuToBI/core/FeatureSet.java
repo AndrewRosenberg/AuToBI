@@ -41,6 +41,8 @@ import java.io.IOException;
 public class FeatureSet implements Serializable {
   private static final long serialVersionUID = 20100324L;
 
+  // TODO clean up the relationship between required features and features and feature names.
+
   protected Set<String> required_features;  // The required feature names
   protected Set<Feature> features;          // The extracted feature objects
   protected List<Word> data_points;         // Associated data points

@@ -439,6 +439,52 @@ public class AuToBI {
   }
 
   /**
+   * Retrieves a default hypothesized feature name set for the given task.
+   *
+   * @param task a task identifier.
+   * @return a string for the hypothesized name
+   * @throws AuToBIException If there is no FeatureSet defined for the task identifier
+   */
+  public String getHypotheizedFeature(String task) throws AuToBIException {
+    if (task.equals("pitch_accent_detection"))
+      return "hyp_pitch_accent_location";
+    if (task.equals("pitch_accent_classification"))
+      return "hyp_pitch_accent_type";
+    if (task.equals("intonational_phrase_boundary_detection"))
+      return "hyp_IP_location";
+    if (task.equals("intermediate_phrase_boundary_detection"))
+      return "hyp_ip_location";
+    if (task.equals("boundary_tone_classification"))
+      return "hyp_boundary_tone";
+    if (task.equals("phrase_accent_classification"))
+      return "hyp_phrase_accent";
+    throw new AuToBIException("No defined hypothesized feature for task: " + task);
+  }
+
+  /**
+   * Retrieves a previously loaded AuToBIClassifier for the given task.
+   *
+   * @param task a task identifier.
+   * @return a corresponding FeatureSet object
+   * @throws AuToBIException If there is no FeatureSet defined for the task identifier
+   */
+  public AuToBIClassifier getTaskClassifier(String task) throws AuToBIException {
+    if (task.equals("pitch_accent_detection"))
+      return pitch_accent_detector;
+    if (task.equals("pitch_accent_classification"))
+      return pitch_accent_classifier;
+    if (task.equals("intonational_phrase_boundary_detection"))
+      return intonational_phrase_boundary_detector;
+    if (task.equals("intermediate_phrase_boundary_detection"))
+      return intermediate_phrase_boundary_detector;
+    if (task.equals("boundary_tone_classification"))
+      return boundary_tone_classifier;
+    if (task.equals("phrase_accent_classification"))
+      return phrase_accent_classifier;
+    throw new AuToBIException("No defined classifier for task: " + task);
+  }
+
+  /**
    * Constructs a FeatureSet from a collection of filenames.
    * <p/>
    * This function handles both the file io of loading the set of data points and wav data, and the feature extraction
@@ -849,7 +895,6 @@ public class AuToBI {
     try {
       String wav_filename = autobi.getParameter("wav_file");
       String tg_filename = autobi.getParameter("text_grid_file");
-      String norm_param_filename = autobi.getOptionalParameter("normalization_parameters");
       WavReader reader = new WavReader();
       TextGridReader tg_reader = new TextGridReader(tg_filename, autobi.getOptionalParameter("words_tier_name"),
           autobi.getOptionalParameter("tones_tier_name"), autobi.getOptionalParameter("breaks_tier_name"));
@@ -863,6 +908,8 @@ public class AuToBI {
       AuToBIUtils.log("Reading words from: " + tg_filename);
       List<Word> words = tg_reader.readWords();
 
+      FeatureSet autobi_fs = new FeatureSet();
+      autobi_fs.setDataPoints(words);
       autobi.loadClassifiers();
 
       AuToBIUtils.log("Registering Feature Extractors");
@@ -870,20 +917,21 @@ public class AuToBI {
       autobi.registerNullFeatureExtractor("speaker_id");
 
       for (String task : autobi.getClassificationTasks()) {
-        AuToBIUtils.log("Running Hypothesis task -- " + task);
-
         FeatureSet fs = autobi.getTaskFeatureSet(task);
-        fs.setDataPoints(words);
-        autobi.extractFeatures(fs);
+        AuToBIClassifier classifier = autobi.getTaskClassifier(task);
+        String hyp_feature = autobi.getHypotheizedFeature(task);
 
-        fs.constructFeatures();
+        autobi.registerFeatureExtractor(new HypothesizedEventFeatureExtractor(hyp_feature, classifier, fs));
 
-        autobi.generatePredictions(task, fs);
-        AuToBIUtils.info(autobi.evaluateTaskPerformance(task, fs));
+        autobi_fs.getRequiredFeatures().add(fs.getClassAttribute());
+        autobi_fs.getRequiredFeatures().add(hyp_feature);
+      }
 
-        if (autobi.hasParameter("arff_file")) {
-          fs.writeArff(autobi.getParameter("arff_file"), "test");
-        }
+      autobi.extractFeatures(autobi_fs);
+      autobi_fs.constructFeatures();
+
+      for (String task : autobi.getClassificationTasks()) {
+        AuToBIUtils.info(autobi.evaluateTaskPerformance(task, autobi_fs));
       }
 
       if (autobi.hasParameter("out_file")) {

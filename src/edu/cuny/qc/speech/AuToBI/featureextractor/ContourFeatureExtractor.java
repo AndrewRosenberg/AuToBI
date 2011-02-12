@@ -135,7 +135,7 @@ public class ContourFeatureExtractor extends FeatureExtractor {
    */
   private void extractFeatures(Region region) {
     if (!region.hasAttribute(attribute_name)) {
-      AuToBIUtils.error("region doesn't have attribute: " + attribute_name);
+      AuToBIUtils.warn("region doesn't have attribute: " + attribute_name);
       return;
     }
     Contour contour = (Contour) region.getAttribute(attribute_name);
