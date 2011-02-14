@@ -894,19 +894,25 @@ public class AuToBI {
 
     try {
       String wav_filename = autobi.getParameter("wav_file");
-      String tg_filename = autobi.getParameter("text_grid_file");
+      String filename = autobi.getParameter("input_file");
       WavReader reader = new WavReader();
-      TextGridReader tg_reader = new TextGridReader(tg_filename, autobi.getOptionalParameter("words_tier_name"),
-          autobi.getOptionalParameter("tones_tier_name"), autobi.getOptionalParameter("breaks_tier_name"));
+
+      AuToBIWordReader word_reader = null;
+      if (filename.endsWith("TextGrid")) {
+        word_reader = new TextGridReader(filename,autobi.getOptionalParameter("words_tier_name"),
+          autobi.getOptionalParameter("tones_tier_name"), autobi.getOptionalParameter("breaks_tier_name"));;
+      } else if (filename.endsWith("ala")) {
+        word_reader = new BURNCReader(filename.replace(".ala", ""));
+      }
 
       if (autobi.hasParameter("silence_regex")) {
-        tg_reader.setSilenceRegex(autobi.getParameter("silence_regex"));
+        word_reader.setSilenceRegex(autobi.getParameter("silence_regex"));
       }
 
       WavData wav = reader.read(wav_filename);
 
-      AuToBIUtils.log("Reading words from: " + tg_filename);
-      List<Word> words = tg_reader.readWords();
+      AuToBIUtils.log("Reading words from: " + filename);
+      List<Word> words = word_reader.readWords();
 
       FeatureSet autobi_fs = new FeatureSet();
       autobi_fs.setDataPoints(words);

@@ -72,6 +72,7 @@ public class PhraseAccentClassificationTrainer extends AuToBITrainer {
 
     try {
       String model_file = autobi.getParameter("model_file");
+      autobi.getParameters().setParameter("attribute_omit", "nominal_PhraseAccentType:NOTONE");
       AuToBIClassifier classifier =
           trainer.trainClassifier(AuToBIUtils.glob(autobi.getParameter("training_filenames")));
 
