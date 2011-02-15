@@ -167,4 +167,14 @@ public class SpeakerNormalizationParameter implements Serializable {
   public boolean canNormalize(String feature_name) {
     return params.containsKey(feature_name);
   }
+
+  /**
+   * Generates a string representation of the normalization parameters.
+   */
+  public String toString() {
+    String s = "";
+    s += "f0: mean " + params.get("f0").getMean() + " - stdev:" + params.get("f0").getMean();
+    s += "I: mean " + params.get("I").getMean() + " - stdev:" + params.get("I").getMean();
+    return s;
+  }
 }

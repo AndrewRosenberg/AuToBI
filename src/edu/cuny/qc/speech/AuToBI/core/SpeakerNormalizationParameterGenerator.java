@@ -139,6 +139,10 @@ public class SpeakerNormalizationParameterGenerator {
         norm_param.insertIntensity(intensity_values);
       }
 
+      AuToBIUtils.info("Successfully generated normalization parameters.");
+
+      AuToBIUtils.info("Generated Parameters: " + norm_param);
+
       // Serialize parameters
       FileOutputStream fos;
       ObjectOutputStream out;
