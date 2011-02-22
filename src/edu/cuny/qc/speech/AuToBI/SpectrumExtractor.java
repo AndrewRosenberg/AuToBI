@@ -88,7 +88,7 @@ public class SpectrumExtractor extends SampledDataAnalyzer {
       spectrogram[frame] = spectrum;
     }
 
-    double starting_time = starting_sample * wav.getFrameSize();
+    double starting_time = starting_sample * wav.getFrameSize() + wav.t0;
     Spectrum return_value = new Spectrum(spectrogram, starting_time, frame_size, wav.getSampleRate() / (2 * nfft));
     return return_value;
   }

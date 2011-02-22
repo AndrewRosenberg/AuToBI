@@ -21,6 +21,8 @@ package edu.cuny.qc.speech.AuToBI.featureextractor;
 
 import edu.cuny.qc.speech.AuToBI.SpectrumExtractor;
 import edu.cuny.qc.speech.AuToBI.core.*;
+import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
+import edu.cuny.qc.speech.AuToBI.util.SubregionUtils;
 
 import java.util.List;
 
@@ -63,16 +65,19 @@ public class SpectrumFeatureExtractor extends FeatureExtractor {
    */
   @Override
   public void extractFeatures(List regions) throws FeatureExtractorException {
-    SpectrumExtractor extractor = new SpectrumExtractor(wav_data);
-    try {
+
+    for (Region r : (List<Region>) regions) {
+      Double epsilon = frame_size + hamming_window;
+      try {
+      WavData subwav = SubregionUtils.getSlice(wav_data, r.getStart() - epsilon, r.getEnd() + epsilon);
+      SpectrumExtractor extractor = new SpectrumExtractor(subwav);
       Spectrum spectrum = extractor.getSpectrum(frame_size, hamming_window);
 
-      for (Region r : (List<Region>) regions) {
-        Spectrum sub_spectrum = spectrum.getSlice(r.getStart(), r.getEnd());
-        r.setAttribute(feature_name, sub_spectrum);
+      Spectrum sub_spectrum = spectrum.getSlice(r.getStart(), r.getEnd());
+      r.setAttribute(feature_name, sub_spectrum);
+      } catch (AuToBIException e) {
+        AuToBIUtils.warn(e.getMessage());
       }
-    } catch (AuToBIException e) {
-      throw new FeatureExtractorException(e.getMessage());
     }
   }
 }

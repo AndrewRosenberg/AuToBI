@@ -19,7 +19,9 @@
  */
 package edu.cuny.qc.speech.AuToBI.util;
 
+import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
 import edu.cuny.qc.speech.AuToBI.core.Region;
+import edu.cuny.qc.speech.AuToBI.core.WavData;
 import edu.cuny.qc.speech.AuToBI.core.Word;
 import edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException;
 
@@ -149,5 +151,46 @@ public class SubregionUtils {
         }
       }
     }
+  }
+
+  /**
+   * Extracts a subregion from a wave file.  Creating a new WavData object containing a subset of the original wav
+   * file.
+   * <p/>
+   * The frame rate and sample size are unchanged from the original.
+   *
+   * @param wav_data the input WavData object
+   * @param start    the start time
+   * @param end      the end time
+   * @return a new WavData object
+   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException if the sizes are inappropriate
+   */
+  public static WavData getSlice(WavData wav_data, double start, double end) throws AuToBIException {
+    if (start >= end) {
+      throw new AuToBIException("Negative Sized Slice requested.");
+    }
+    WavData sub_wav = new WavData();
+    sub_wav.setNumberOfChannels(wav_data.getNumberOfChannels());
+    sub_wav.setSampleRate(wav_data.getSampleRate());
+    sub_wav.setSampleSize(wav_data.getSampleSize());
+    sub_wav.t0 = start;
+
+    int start_idx = Math.max(0, (int) Math.floor((start - wav_data.t0) * sub_wav.getSampleRate()));
+    int end_idx = Math.min(wav_data.samples[0].length-1,(int) Math.ceil((end - wav_data.t0) * sub_wav.getSampleRate()));
+
+    int num_frames = end_idx - start_idx + 1;
+    sub_wav.raw_samples = new int[wav_data.getNumberOfChannels()][num_frames];
+    sub_wav.samples = new double[wav_data.getNumberOfChannels()][num_frames];
+
+    for (int channel = 0; channel < wav_data.getNumberOfChannels(); ++channel) {
+      int[] raw = wav_data.getRawData(channel);
+      double[] norm = wav_data.getNormalizedData(channel);
+      for (int i = start_idx; i < end_idx; ++i) {
+        sub_wav.raw_samples[channel][i - start_idx] = raw[i];
+        sub_wav.samples[channel][i - start_idx] = norm[i];
+      }
+    }
+
+    return sub_wav;
   }
 }

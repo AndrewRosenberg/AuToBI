@@ -35,14 +35,34 @@ public class WavData {
   // Number of raw_samples per second.
   public float sampleRate;
 
+  // The time of the first sample.
+  public double t0;
+
+  /**
+   * Constructs a new WavData object with no data.
+   */
+  public WavData() {
+    this.t0 = 0.0;
+  }
+
   /**
    * Return the raw audio samples on a given channel.
    *
    * @param channel The requested channel.
    * @return An array of raw audio samples.
    */
-  public int[] getAudioData(int channel) {
+  public int[] getRawData(int channel) {
     return raw_samples[channel];
+  }
+
+  /**
+   * Return the normalized audio samples on a given channel.
+   *
+   * @param channel The requested channel.
+   * @return An array of raw audio samples.
+   */
+  public double[] getNormalizedData(int channel) {
+    return samples[channel];
   }
 
   /**

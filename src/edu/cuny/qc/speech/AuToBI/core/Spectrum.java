@@ -109,13 +109,6 @@ public class Spectrum {
     index_1 = Math.max(0, Math.min(data.length -1, index_1));
     index_2 = Math.max(0, Math.min(data.length -1, index_2));
 
-    if (index_1 > index_2) {
-      AuToBIUtils.error("this is a mess");
-      AuToBIUtils.error("max index: " + (data.length -1) );
-      AuToBIUtils.error("index_1: " + index_1 + " time: " + time_1);
-      AuToBIUtils.error("index_2: " + index_2 + " time: " + time_2);
-    }
-
     double[][] slice_data = new double[index_2 - index_1][data[0].length];
 
     for (int i = index_1; i < index_2; ++i) {
