@@ -19,9 +19,9 @@
  */
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
+import edu.cuny.qc.speech.AuToBI.SpeakerNormalizationParameterGenerator;
 import edu.cuny.qc.speech.AuToBI.core.Region;
 import edu.cuny.qc.speech.AuToBI.core.SpeakerNormalizationParameter;
-import edu.cuny.qc.speech.AuToBI.core.SpeakerNormalizationParameterGenerator;
 import edu.cuny.qc.speech.AuToBI.core.FeatureExtractor;
 
 import java.util.HashMap;

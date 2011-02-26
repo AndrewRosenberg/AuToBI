@@ -17,9 +17,10 @@
     You should have received a copy of the GNU General Public License
     along with AuToBI.  If not, see <http://www.gnu.org/licenses/>.
  */
-package edu.cuny.qc.speech.AuToBI.core;
+package edu.cuny.qc.speech.AuToBI;
 
 import edu.cuny.qc.speech.AuToBI.*;
+import edu.cuny.qc.speech.AuToBI.core.*;
 import edu.cuny.qc.speech.AuToBI.io.WavReader;
 import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
 

@@ -241,7 +241,7 @@ public class ToBIUtils {
    * @param label the tone label to parse
    * @return an array with three pottential tone elements
    */
-  static String[] parseToneString(String label) {
+  public static String[] parseToneString(String label) {
     String[] tones = new String[3];
 
     Pattern accent_pattern = Pattern.compile("(L\\+H\\*|L\\*\\+H|L\\*|H\\*|!H\\*|L\\+!H\\*|L\\*\\+!H|H\\+!H\\*|X\\*)");
