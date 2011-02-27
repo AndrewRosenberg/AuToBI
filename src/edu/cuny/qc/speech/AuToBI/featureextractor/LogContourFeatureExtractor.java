@@ -35,7 +35,9 @@ public class LogContourFeatureExtractor extends FeatureExtractor {
         Contour src_contour = (Contour) r.getAttribute(src);
         Contour tgt_contour = new Contour(src_contour.getStart(), src_contour.getStep(), src_contour.size());
         for (int i = 0; i < src_contour.size(); ++i) {
-          tgt_contour.set(i, Math.log(src_contour.get(i)));
+          if (!src_contour.isEmpty(i)) {
+            tgt_contour.set(i, Math.log(src_contour.get(i)));
+          }
         }
         r.setAttribute(tgt, tgt_contour);
       }
