@@ -71,6 +71,10 @@ public class SpectrumExtractor extends SampledDataAnalyzer {
     while (nfft < window.length)
       nfft *= 2;
 
+    if (n_frames < 1) {
+      return null;
+    }
+
     double[][] spectrogram = new double[n_frames][nfft];
 
     for (int frame = 0; frame < n_frames; ++frame) {

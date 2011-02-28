@@ -38,11 +38,12 @@ public class SpectrumFeatureExtractor extends FeatureExtractor {
 
 
   /**
-   * Constructs a new SpectrumFeatureExtractor to process wav_data and store the resulting Spectrum objects on feature_name
-   *
+   * Constructs a new SpectrumFeatureExtractor to process wav_data and store the resulting Spectrum objects on
+   * feature_name
+   * <p/>
    * This uses a default frame size of 0.01s, and a hamming window of 0.02s.
    *
-   * @param wav_data the wave data to analyse
+   * @param wav_data     the wave data to analyse
    * @param feature_name the feature name
    */
   public SpectrumFeatureExtractor(WavData wav_data, String feature_name) {
@@ -57,6 +58,7 @@ public class SpectrumFeatureExtractor extends FeatureExtractor {
 
     this.extracted_features.add(feature_name);
   }
+
   /**
    * Extracts the spectrum and aligns information to regions.
    *
@@ -69,12 +71,18 @@ public class SpectrumFeatureExtractor extends FeatureExtractor {
     for (Region r : (List<Region>) regions) {
       Double epsilon = frame_size + hamming_window;
       try {
-      WavData subwav = SubregionUtils.getSlice(wav_data, r.getStart() - epsilon, r.getEnd() + epsilon);
-      SpectrumExtractor extractor = new SpectrumExtractor(subwav);
-      Spectrum spectrum = extractor.getSpectrum(frame_size, hamming_window);
+        WavData subwav = SubregionUtils.getSlice(wav_data, r.getStart() - epsilon, r.getEnd() + epsilon);
+        SpectrumExtractor extractor = new SpectrumExtractor(subwav);
+        Spectrum spectrum = extractor.getSpectrum(frame_size, hamming_window);
 
-      Spectrum sub_spectrum = spectrum.getSlice(r.getStart(), r.getEnd());
-      r.setAttribute(feature_name, sub_spectrum);
+        if (spectrum == null) {
+          throw new AuToBIException(
+              "Tried to extract the spectrum from segment with too few frames: " + r.getDuration() + " seconds. (" +
+                  subwav.getNumSamples() + " frames)");
+        }
+        Spectrum sub_spectrum = spectrum.getSlice(r.getStart(), r.getEnd());
+        r.setAttribute(feature_name, sub_spectrum);
+
       } catch (AuToBIException e) {
         AuToBIUtils.warn(e.getMessage());
       }
