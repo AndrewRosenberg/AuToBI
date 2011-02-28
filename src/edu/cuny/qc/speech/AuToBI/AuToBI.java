@@ -139,6 +139,17 @@ public class AuToBI {
   }
 
   /**
+   * Gets the requested boolean parameter with default value if the parameter is not set.
+   *
+   * @param parameter     the parameter name
+   * @param default_value the default boolean value if not explicitly set.
+   * @return the parameter value or null if the parameter was not set
+   */
+  public Boolean getBooleanParameter(String parameter, boolean default_value) {
+    return params.booleanParameter(parameter, default_value);
+  }
+
+  /**
    * Gets the requested parameter with a default value if the parameter has not been set.
    *
    * @param parameter     the parameter name
@@ -718,8 +729,16 @@ public class AuToBI {
     registerFeatureExtractor(new IntensityFeatureExtractor(wav_data, "I"));
 
     if (hasParameter("normalization_parameters")) {
-      registerFeatureExtractor(new SNPAssignmentFeatureExtractor("normalization_parameters", "speaker_id",
-          AuToBIUtils.glob(getOptionalParameter("normalization_parameters"))));
+      String known_speaker = null;
+      if (getBooleanParameter("known_speaker", false)) {
+        known_speaker = "speaker_id";
+      }
+      try {
+        registerFeatureExtractor(new SNPAssignmentFeatureExtractor("normalization_parameters", known_speaker,
+              AuToBIUtils.glob(getOptionalParameter("normalization_parameters"))));
+      } catch (AuToBIException e) {
+        AuToBIUtils.error(e.getMessage());
+      }
     } else {
       registerFeatureExtractor(new NormalizationParameterFeatureExtractor("normalization_parameters"));
     }
@@ -899,8 +918,9 @@ public class AuToBI {
 
       AuToBIWordReader word_reader = null;
       if (filename.endsWith("TextGrid")) {
-        word_reader = new TextGridReader(filename,autobi.getOptionalParameter("words_tier_name"),
-          autobi.getOptionalParameter("tones_tier_name"), autobi.getOptionalParameter("breaks_tier_name"));;
+        word_reader = new TextGridReader(filename, autobi.getOptionalParameter("words_tier_name"),
+            autobi.getOptionalParameter("tones_tier_name"), autobi.getOptionalParameter("breaks_tier_name"));
+        ;
       } else if (filename.endsWith("ala")) {
         word_reader = new BURNCReader(filename.replace(".ala", ""));
       }
