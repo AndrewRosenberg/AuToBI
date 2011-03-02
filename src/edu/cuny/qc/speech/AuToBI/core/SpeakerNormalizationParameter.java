@@ -174,7 +174,7 @@ public class SpeakerNormalizationParameter implements Serializable {
   public String toString() {
     String s = "";
     s += "f0: mean " + params.get("f0").getMean() + " - stdev:" + params.get("f0").getStdev();
-    s += "I: mean " + params.get("I").getMean() + " - stdev:" + params.get("I").getStdev();
+    s += "\nI: mean " + params.get("I").getMean() + " - stdev:" + params.get("I").getStdev();
     return s;
   }
 }

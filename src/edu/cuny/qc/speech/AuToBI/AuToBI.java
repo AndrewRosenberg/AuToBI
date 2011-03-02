@@ -920,7 +920,6 @@ public class AuToBI {
       if (filename.endsWith("TextGrid")) {
         word_reader = new TextGridReader(filename, autobi.getOptionalParameter("words_tier_name"),
             autobi.getOptionalParameter("tones_tier_name"), autobi.getOptionalParameter("breaks_tier_name"));
-        ;
       } else if (filename.endsWith("ala")) {
         word_reader = new BURNCReader(filename.replace(".ala", ""));
       }

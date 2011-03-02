@@ -69,7 +69,6 @@ public class SNPAssignmentFeatureExtractor extends FeatureExtractor {
 
     this.speaker_id_feature = speaker_id_feature;
     this.destination_feature = destination_feature;
-    this.required_features.add(speaker_id_feature);
     this.extracted_features.add(destination_feature);
 
     if (speaker_id_feature == null) {
@@ -79,6 +78,7 @@ public class SNPAssignmentFeatureExtractor extends FeatureExtractor {
       this.default_snp = null;
       this.snp_map = new HashMap<String, SpeakerNormalizationParameter>();
       loadSNPList(snp_files);
+      this.required_features.add(speaker_id_feature);
     }
   }
 
