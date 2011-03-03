@@ -145,7 +145,7 @@ public class TextGridReader extends AuToBIWordReader {
     do {
       tier = readTextGridTier(file_reader);
 
-      if (words_tier_name != null) {
+      if (tier.name != null && words_tier_name != null) {
         if (tier.name.equals(words_tier_name)) {
           words_tier = tier;
         }
@@ -153,7 +153,7 @@ public class TextGridReader extends AuToBIWordReader {
         words_tier = tier;
       }
 
-      if (tones_tier_name != null) {
+      if (tier.name != null && tones_tier_name != null) {
         if (tier.name.equals(tones_tier_name)) {
           tones_tier = tier;
         }
@@ -161,7 +161,7 @@ public class TextGridReader extends AuToBIWordReader {
         tones_tier = tier;
       }
 
-      if (breaks_tier_name != null) {
+      if (tier.name != null && breaks_tier_name != null) {
         if (tier.name.equals(breaks_tier_name)) {
           tones_tier = tier;
         }

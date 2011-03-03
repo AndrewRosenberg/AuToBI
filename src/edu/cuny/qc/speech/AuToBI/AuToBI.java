@@ -735,7 +735,7 @@ public class AuToBI {
       }
       try {
         registerFeatureExtractor(new SNPAssignmentFeatureExtractor("normalization_parameters", known_speaker,
-              AuToBIUtils.glob(getOptionalParameter("normalization_parameters"))));
+            AuToBIUtils.glob(getOptionalParameter("normalization_parameters"))));
       } catch (AuToBIException e) {
         AuToBIUtils.error(e.getMessage());
       }
@@ -918,8 +918,14 @@ public class AuToBI {
 
       AuToBIWordReader word_reader = null;
       if (filename.endsWith("TextGrid")) {
-        word_reader = new TextGridReader(filename, autobi.getOptionalParameter("words_tier_name"),
-            autobi.getOptionalParameter("tones_tier_name"), autobi.getOptionalParameter("breaks_tier_name"));
+        if (autobi.hasParameter("charset")) {
+          word_reader = new TextGridReader(filename, autobi.getOptionalParameter("words_tier_name"),
+              autobi.getOptionalParameter("tones_tier_name"), autobi.getOptionalParameter("breaks_tier_name"),
+              autobi.getParameter("charset"));
+        } else {
+          word_reader = new TextGridReader(filename, autobi.getOptionalParameter("words_tier_name"),
+              autobi.getOptionalParameter("tones_tier_name"), autobi.getOptionalParameter("breaks_tier_name"));
+        }
       } else if (filename.endsWith("ala")) {
         word_reader = new BURNCReader(filename.replace(".ala", ""));
       }
