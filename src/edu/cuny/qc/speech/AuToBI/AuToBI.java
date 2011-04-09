@@ -928,6 +928,8 @@ public class AuToBI {
         }
       } else if (filename.endsWith("ala")) {
         word_reader = new BURNCReader(filename.replace(".ala", ""));
+      } else if (filename.endsWith("words")) {
+        word_reader = new SimpleWordReader(filename);
       }
 
       if (autobi.hasParameter("silence_regex")) {

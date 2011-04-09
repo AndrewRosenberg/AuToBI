@@ -256,8 +256,10 @@ public class Syllabifier {
     }
     if (in_peak) {
       onset_ends.add(onset_vel.length - 1);
-      assert max_idx != -1;
-      onset_peaks.add(max_idx);
+      if (max_idx == -1)
+        onset_peaks.add(onset_vel.length - 1);
+      else
+        onset_peaks.add(max_idx);
     }
   }
 

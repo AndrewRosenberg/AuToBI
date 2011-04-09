@@ -23,10 +23,7 @@ package edu.cuny.qc.speech.AuToBI.core;
 import edu.cuny.qc.speech.AuToBI.AuToBI;
 import edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException;
 import edu.cuny.qc.speech.AuToBI.featureextractor.SNPAssignmentFeatureExtractor;
-import edu.cuny.qc.speech.AuToBI.io.AuToBIWordReader;
-import edu.cuny.qc.speech.AuToBI.io.BURNCReader;
-import edu.cuny.qc.speech.AuToBI.io.TextGridReader;
-import edu.cuny.qc.speech.AuToBI.io.WavReader;
+import edu.cuny.qc.speech.AuToBI.io.*;
 import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
 
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -59,6 +56,8 @@ public class FeatureSetPropagator implements Callable<FeatureSet> {
       reader = new TextGridReader(filename);
     } else if (filename.endsWith("ala")) {
       reader = new BURNCReader(filename.replace(".ala", ""));
+    } else if (filename.endsWith("words")) {
+      reader = new SimpleWordReader(filename);
     }
 
     WavReader wav_reader = new WavReader();
