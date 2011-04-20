@@ -53,7 +53,12 @@ public class FeatureSetPropagator implements Callable<FeatureSet> {
 
     AuToBIWordReader reader = null;
     if (filename.endsWith("TextGrid")) {
-      reader = new TextGridReader(filename);
+      if (autobi.getBooleanParameter("cprom_textgrid", false)) {
+        reader = new CPromTextGridReader(filename, "words", "delivery", "UTF16",
+            autobi.getBooleanParameter("cprom_include_secondary", true));
+      } else {
+        reader = new TextGridReader(filename);
+      }
     } else if (filename.endsWith("ala")) {
       reader = new BURNCReader(filename.replace(".ala", ""));
     } else if (filename.endsWith("words")) {
