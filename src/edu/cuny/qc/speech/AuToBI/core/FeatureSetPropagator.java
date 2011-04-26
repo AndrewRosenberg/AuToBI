@@ -22,7 +22,6 @@ package edu.cuny.qc.speech.AuToBI.core;
 
 import edu.cuny.qc.speech.AuToBI.AuToBI;
 import edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException;
-import edu.cuny.qc.speech.AuToBI.featureextractor.SNPAssignmentFeatureExtractor;
 import edu.cuny.qc.speech.AuToBI.io.*;
 import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
 
@@ -36,33 +35,40 @@ import java.util.concurrent.Callable;
  */
 public class FeatureSetPropagator implements Callable<FeatureSet> {
   private AuToBI autobi;
-  private String filename;
+  private FormattedFile file;
   private final FeatureSet target_fs;
 
-  public FeatureSetPropagator(AuToBI autobi, String filename, FeatureSet fs) {
+  public FeatureSetPropagator(AuToBI autobi, FormattedFile file, FeatureSet fs) {
     this.autobi = new AuToBI();
     this.autobi.setParameters(autobi.getParameters());
-    this.filename = filename;
+    this.file = file;
     this.target_fs = fs;
   }
 
   public FeatureSet call() {
+    String filename = file.getFilename();
+
     String file_stem = filename.substring(0, filename.lastIndexOf('.'));
 
     String wav_filename = file_stem + ".wav";
 
     AuToBIWordReader reader = null;
-    if (filename.endsWith("TextGrid")) {
-      if (autobi.getBooleanParameter("cprom_textgrid", false)) {
+    switch (file.getFormat()) {
+      case TEXTGRID:
+        reader = new TextGridReader(filename);
+        break;
+      case CPROM:
         reader = new CPromTextGridReader(filename, "words", "delivery", "UTF16",
             autobi.getBooleanParameter("cprom_include_secondary", true));
-      } else {
+        break;
+      case BURNC:
+        reader = new BURNCReader(filename.replace(".ala", ""));
+        break;
+      case SIMPLE_WORD:
+        reader = new SimpleWordReader(filename);
+        break;
+      default:
         reader = new TextGridReader(filename);
-      }
-    } else if (filename.endsWith("ala")) {
-      reader = new BURNCReader(filename.replace(".ala", ""));
-    } else if (filename.endsWith("words")) {
-      reader = new SimpleWordReader(filename);
     }
 
     WavReader wav_reader = new WavReader();
@@ -88,7 +94,7 @@ public class FeatureSetPropagator implements Callable<FeatureSet> {
 
       autobi.extractFeatures(current_fs);
 
-      // Frees the autobi object for garbage collection.
+      // Free the autobi object for garbage collection.
       autobi = null;
       return current_fs;
     } catch (AuToBIException e) {

@@ -505,14 +505,15 @@ public class AuToBI {
    * @param fs        an empty feature set to propagate
    * @throws UnsupportedAudioFileException if the wav file doesn't work out
    */
-  public void propagateFeatureSet(Collection<String> filenames, FeatureSet fs) throws UnsupportedAudioFileException {
+  public void propagateFeatureSet(Collection<FormattedFile> filenames, FeatureSet fs)
+      throws UnsupportedAudioFileException {
 
     if (fs.getClassAttribute() == null) {
       AuToBIUtils.warn("FeatureSet has null class attribute.  Classification experiments will generate errors.");
     }
     ExecutorService threadpool = newFixedThreadPool(Integer.parseInt(getOptionalParameter("num_threads", "1")));
     List<Future<FeatureSet>> results = new ArrayList<Future<FeatureSet>>();
-    for (String filename : filenames) {
+    for (FormattedFile filename : filenames) {
       results.add(threadpool.submit(new FeatureSetPropagator(this, filename, fs)));
     }
 
@@ -913,18 +914,35 @@ public class AuToBI {
 
     try {
       String wav_filename = autobi.getParameter("wav_file");
-      String filename = autobi.getParameter("input_file");
+      String filename = autobi.getOptionalParameter("input_file");
+      Boolean cprom = false;
+      if (filename == null) {
+        cprom = true;
+        filename = autobi.getOptionalParameter("cprom_file");
+      } else if (autobi.hasParameter("cprom_file")) {
+        throw new AuToBIException(
+            "Both -input_file and -cprom_file are entered.  Only one input file may be specified.");
+      }
+
+      if (filename == null) {
+        throw new AuToBIException("No -input_file or -cprom_file filename specified.");
+      }
       WavReader reader = new WavReader();
 
       AuToBIWordReader word_reader = null;
       if (filename.endsWith("TextGrid")) {
-        if (autobi.hasParameter("charset")) {
-          word_reader = new TextGridReader(filename, autobi.getOptionalParameter("words_tier_name"),
-              autobi.getOptionalParameter("tones_tier_name"), autobi.getOptionalParameter("breaks_tier_name"),
-              autobi.getParameter("charset"));
+        if (cprom) {
+          word_reader = new CPromTextGridReader(filename, "words", "delivery", "UTF16",
+              autobi.getBooleanParameter("cprom_include_secondary", true));
         } else {
-          word_reader = new TextGridReader(filename, autobi.getOptionalParameter("words_tier_name"),
-              autobi.getOptionalParameter("tones_tier_name"), autobi.getOptionalParameter("breaks_tier_name"));
+          if (autobi.hasParameter("charset")) {
+            word_reader = new TextGridReader(filename, autobi.getOptionalParameter("words_tier_name"),
+                autobi.getOptionalParameter("tones_tier_name"), autobi.getOptionalParameter("breaks_tier_name"),
+                autobi.getParameter("charset"));
+          } else {
+            word_reader = new TextGridReader(filename, autobi.getOptionalParameter("words_tier_name"),
+                autobi.getOptionalParameter("tones_tier_name"), autobi.getOptionalParameter("breaks_tier_name"));
+          }
         }
       } else if (filename.endsWith("ala")) {
         word_reader = new BURNCReader(filename.replace(".ala", ""));

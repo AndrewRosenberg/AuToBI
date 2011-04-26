@@ -24,10 +24,7 @@ import edu.cuny.qc.speech.AuToBI.core.*;
 import edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException;
 import edu.cuny.qc.speech.AuToBI.featureextractor.SNPAssignmentFeatureExtractor;
 import edu.cuny.qc.speech.AuToBI.featureset.PitchAccentDetectionFeatureSet;
-import edu.cuny.qc.speech.AuToBI.io.AuToBIWordReader;
-import edu.cuny.qc.speech.AuToBI.io.BURNCReader;
-import edu.cuny.qc.speech.AuToBI.io.TextGridReader;
-import edu.cuny.qc.speech.AuToBI.io.WavReader;
+import edu.cuny.qc.speech.AuToBI.io.*;
 import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
 
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -66,8 +63,10 @@ public class AuToBITrainer {
    * @param classifier The classifier to train
    * @throws Exception If there is a problem with the classifier.train function.
    */
-  public void trainClassifier(Collection<String> filenames, FeatureSet fs, AuToBIClassifier classifier)
+  public void trainClassifier(Collection<FormattedFile> filenames, FeatureSet fs, AuToBIClassifier classifier)
       throws Exception {
+    if (filenames.size() == 0)
+      throw new AuToBIException("No filenames specified for training. Aborting.");
     autobi.propagateFeatureSet(filenames, fs);
 
     AuToBIUtils.log("training classifier");

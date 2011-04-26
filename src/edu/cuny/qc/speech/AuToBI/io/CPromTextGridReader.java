@@ -56,7 +56,7 @@ public class CPromTextGridReader extends TextGridReader {
         if (tier.getName().equals(words_tier_name)) {
           words_tier = tier;
         }
-      } else if (tier.getName() != null && tier.getName().equals("syll")) {
+      } else if (tier.getName() != null && tier.getName().equals("words")) {
         words_tier = tier;
       }
 

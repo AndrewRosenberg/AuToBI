@@ -175,7 +175,7 @@ public class TextGridReader extends AuToBIWordReader {
 
     if (words_tier == null) {
       String tier_name = words_tier_name == null ? "'words' or 'orthographic'" : words_tier_name;
-      throw new AuToBIException("No words tier found with name, " + tier_name);
+      throw new TextGridSyntaxErrorException("No words tier found with name, " + tier_name);
     }
 
     if (tones_tier != null) {
@@ -239,7 +239,7 @@ public class TextGridReader extends AuToBIWordReader {
    * @return the Tier
    * @throws IOException if there is no tier to be read or if there is a problem with the reader
    */
-  public Tier readTextGridTier(AuToBIFileReader reader) throws IOException {
+  public Tier readTextGridTier(AuToBIFileReader reader) throws IOException, TextGridSyntaxErrorException {
     TextGridTier tier = new TextGridTier();
     tier.readTier(reader);
     return tier;

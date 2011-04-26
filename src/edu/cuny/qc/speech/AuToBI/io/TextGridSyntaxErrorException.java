@@ -19,12 +19,12 @@
  */
 package edu.cuny.qc.speech.AuToBI.io;
 
-import java.io.IOException;
+import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
 
 /**
- * TextGridSyntaxErrorException is a wrapper over IOException to identify problems in TextGrid syntax.
+ * TextGridSyntaxErrorException is a wrapper over AuToBIException to identify problems in TextGrid syntax.
  */
-public class TextGridSyntaxErrorException extends IOException {
+public class TextGridSyntaxErrorException extends AuToBIException {
   /**
    * Constructs a new TextGridSyntaxErrorException with an associated message.
    *

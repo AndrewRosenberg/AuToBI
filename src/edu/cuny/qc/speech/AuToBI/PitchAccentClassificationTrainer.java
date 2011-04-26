@@ -24,6 +24,8 @@ import edu.cuny.qc.speech.AuToBI.classifier.EnsembleSampledClassifier;
 import edu.cuny.qc.speech.AuToBI.classifier.WekaClassifier;
 import edu.cuny.qc.speech.AuToBI.featureset.PitchAccentClassificationFeatureSet;
 import edu.cuny.qc.speech.AuToBI.featureset.PitchAccentDetectionFeatureSet;
+import edu.cuny.qc.speech.AuToBI.io.FormattedFile;
+import edu.cuny.qc.speech.AuToBI.util.AuToBIReaderUtils;
 import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
 import weka.classifiers.functions.SMO;
 
@@ -32,6 +34,7 @@ import java.io.IOException;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.io.FileNotFoundException;
+import java.util.List;
 
 /**
  * PitchAccentClassificationTrainer trains and serializes a pitch accent classification model.
@@ -53,7 +56,7 @@ public class PitchAccentClassificationTrainer extends AuToBITrainer {
    * @return A classifier to detect pitch accents
    * @throws Exception if there is a problem with the classifier training.
    */
-  public AuToBIClassifier trainClassifier(Collection<String> filenames) throws Exception {
+  public AuToBIClassifier trainClassifier(Collection<FormattedFile> filenames) throws Exception {
     PitchAccentClassificationFeatureSet padfs = new PitchAccentClassificationFeatureSet();
     AuToBIClassifier classifier = new EnsembleSampledClassifier(new WekaClassifier(new SMO()));
 
@@ -70,8 +73,13 @@ public class PitchAccentClassificationTrainer extends AuToBITrainer {
     try {
       String model_file = autobi.getParameter("model_file");
       autobi.getParameters().setParameter("attribute_omit", "nominal_PitchAccentType:NOACCENT");
-      AuToBIClassifier classifier =
-          trainer.trainClassifier(AuToBIUtils.glob(autobi.getParameter("training_filenames")));
+
+      List<FormattedFile> files =
+          AuToBIReaderUtils.globFormattedFiles(autobi.getOptionalParameter("training_filenames"));
+      files.addAll(
+          AuToBIReaderUtils
+              .globFormattedFiles(autobi.getOptionalParameter("cprom_filenames"), FormattedFile.Format.CPROM));
+      AuToBIClassifier classifier = trainer.trainClassifier(files);
 
       AuToBIUtils.log("writing model to: " + model_file);
       FileOutputStream fos;

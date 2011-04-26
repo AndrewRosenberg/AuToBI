@@ -39,9 +39,10 @@ public class TextGridTier extends Tier {
    *
    * @param reader the reader to read from
    * @return true if there are more items.
-   * @throws IOException if there is a problem
+   * @throws IOException                  if there is an input output problem
+   * @throws TextGridSyntaxErrorException If there is a formatting problem
    */
-  public boolean readTier(AuToBIFileReader reader) throws IOException {
+  public boolean readTier(AuToBIFileReader reader) throws TextGridSyntaxErrorException, IOException {
     String line;
     while ((line = reader.readLine()) != null) {
       line = AuToBIReaderUtils.removeTabsAndTrim(line);
@@ -75,10 +76,11 @@ public class TextGridTier extends Tier {
    * Reads a point region from the AuToBIFileReader.
    *
    * @param reader the active AuToBIFileReader
-   * @throws IOException If there is a problem reading the file
+   * @throws IOException                  If there is a problem reading the file
+   * @throws TextGridSyntaxErrorException If there is a formatting problem
    */
   private void addPoint(AuToBIFileReader reader)
-      throws IOException {
+      throws IOException, TextGridSyntaxErrorException {
     String time = AuToBIReaderUtils.removeTabsAndTrim(reader.readLine());
     if (time == null || !time.contains("time ="))
       throw new TextGridSyntaxErrorException("missing point at line: " + reader.getLineNumber());
@@ -100,10 +102,11 @@ public class TextGridTier extends Tier {
    * Reads an interval region from the AuToBIFileReader.
    *
    * @param reader the active AuToBIFileReader
-   * @throws IOException If there is a problem reading the file
+   * @throws IOException                  If there is a problem reading the file
+   * @throws TextGridSyntaxErrorException If there is a formatting problem
    */
   private void addInterval(AuToBIFileReader reader)
-      throws IOException {
+      throws IOException, TextGridSyntaxErrorException {
     String xmin = AuToBIReaderUtils.removeTabsAndTrim(reader.readLine());
     if (xmin == null || !xmin.contains("xmin ="))
       throw new TextGridSyntaxErrorException("missing xmin at line: " + reader.getLineNumber());

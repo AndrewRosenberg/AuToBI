@@ -93,17 +93,18 @@ public class AuToBIUtils {
     File dir;
 
     ArrayList<String> filenames = new ArrayList<String>();
-    for (String file_pattern : pattern.split(",")) {
-      file_pattern = file_pattern.replaceAll("~", System.getProperty("user.home"));
-      if (!file_pattern.startsWith("/")) {
-        file_pattern = System.getProperty("user.dir") + "/" + file_pattern;
-      }
-      file_pattern = file_pattern.substring(1, file_pattern.length());
-      dir = new File("/");
+    if (pattern != null)
+      for (String file_pattern : pattern.split(",")) {
+        file_pattern = file_pattern.replaceAll("~", System.getProperty("user.home"));
+        if (!file_pattern.startsWith("/")) {
+          file_pattern = System.getProperty("user.dir") + "/" + file_pattern;
+        }
+        file_pattern = file_pattern.substring(1, file_pattern.length());
+        dir = new File("/");
 
-      for (String file_name : getFileList(dir, file_pattern))
-        filenames.add(file_name);
-    }
+        for (String file_name : getFileList(dir, file_pattern))
+          filenames.add(file_name);
+      }
     return filenames;
   }
 
@@ -114,7 +115,8 @@ public class AuToBIUtils {
    *
    * @param pattern The file pattern.
    * @return the matching file
-   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException if the pattern matches multiple files
+   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException
+   *          if the pattern matches multiple files
    */
   public static String globSingleFile(String pattern) throws AuToBIException {
     if (pattern.contains(",")) {
