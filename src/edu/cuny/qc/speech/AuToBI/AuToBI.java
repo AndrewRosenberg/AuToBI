@@ -179,6 +179,7 @@ public class AuToBI {
    */
   public void registerFeatureExtractor(FeatureExtractor fe) {
     for (String feature_name : fe.getExtractedFeatures()) {
+      // TODO: check if there is already a registered FE for this name.
       feature_registry.put(feature_name, fe);
     }
   }
@@ -318,6 +319,7 @@ public class AuToBI {
     FeatureExtractor extractor = feature_registry.get(feature);
     AuToBIUtils.debug("Start Feature Extraction for: " + feature);
     if (extractor != null) {
+      // Recursively extract the features required by the current FeatureExtractor.
       extractFeatures(extractor.getRequiredFeatures(), fs);
 
       if (!executed_feature_extractors.contains(extractor)) {

@@ -236,7 +236,7 @@ public class ClassifierUtils {
    */
   public static String evaluateClassification(String hyp_feature, String true_feature, FeatureSet fs)
       throws AuToBIException {
-    EvaluationResults eval = generateEvaluationResults(hyp_feature, true_feature, fs);
+    EvaluationSummary eval = new EvaluationSummary(generateEvaluationResults(hyp_feature, true_feature, fs));
     return eval.toString();
   }
 
