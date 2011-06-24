@@ -914,14 +914,18 @@ public class AuToBI {
     AuToBI autobi = new AuToBI();
     autobi.init(args);
 
+    autobi.run();
+  }
+
+  public void run() {
     try {
-      String wav_filename = autobi.getParameter("wav_file");
-      String filename = autobi.getOptionalParameter("input_file");
+      String wav_filename = getParameter("wav_file");
+      String filename = getOptionalParameter("input_file");
       Boolean cprom = false;
       if (filename == null) {
         cprom = true;
-        filename = autobi.getOptionalParameter("cprom_file");
-      } else if (autobi.hasParameter("cprom_file")) {
+        filename = getOptionalParameter("cprom_file");
+      } else if (hasParameter("cprom_file")) {
         throw new AuToBIException(
             "Both -input_file and -cprom_file are entered.  Only one input file may be specified.");
       }
@@ -935,15 +939,15 @@ public class AuToBI {
       if (filename.endsWith("TextGrid")) {
         if (cprom) {
           word_reader = new CPromTextGridReader(filename, "words", "delivery", "UTF16",
-              autobi.getBooleanParameter("cprom_include_secondary", true));
+              getBooleanParameter("cprom_include_secondary", true));
         } else {
-          if (autobi.hasParameter("charset")) {
-            word_reader = new TextGridReader(filename, autobi.getOptionalParameter("words_tier_name"),
-                autobi.getOptionalParameter("tones_tier_name"), autobi.getOptionalParameter("breaks_tier_name"),
-                autobi.getParameter("charset"));
+          if (hasParameter("charset")) {
+            word_reader = new TextGridReader(filename, getOptionalParameter("words_tier_name"),
+                getOptionalParameter("tones_tier_name"), getOptionalParameter("breaks_tier_name"),
+                getParameter("charset"));
           } else {
-            word_reader = new TextGridReader(filename, autobi.getOptionalParameter("words_tier_name"),
-                autobi.getOptionalParameter("tones_tier_name"), autobi.getOptionalParameter("breaks_tier_name"));
+            word_reader = new TextGridReader(filename, getOptionalParameter("words_tier_name"),
+                getOptionalParameter("tones_tier_name"), getOptionalParameter("breaks_tier_name"));
           }
         }
       } else if (filename.endsWith("ala")) {
@@ -952,8 +956,8 @@ public class AuToBI {
         word_reader = new SimpleWordReader(filename);
       }
 
-      if (autobi.hasParameter("silence_regex")) {
-        word_reader.setSilenceRegex(autobi.getParameter("silence_regex"));
+      if (hasParameter("silence_regex")) {
+        word_reader.setSilenceRegex(getParameter("silence_regex"));
       }
 
       WavData wav = reader.read(wav_filename);
@@ -963,35 +967,35 @@ public class AuToBI {
 
       FeatureSet autobi_fs = new FeatureSet();
       autobi_fs.setDataPoints(words);
-      autobi.loadClassifiers();
+      loadClassifiers();
 
       AuToBIUtils.log("Registering Feature Extractors");
-      autobi.registerAllFeatureExtractors(wav);
-      autobi.registerNullFeatureExtractor("speaker_id");
+      registerAllFeatureExtractors(wav);
+      registerNullFeatureExtractor("speaker_id");
 
-      for (String task : autobi.getClassificationTasks()) {
-        FeatureSet fs = autobi.getTaskFeatureSet(task);
-        AuToBIClassifier classifier = autobi.getTaskClassifier(task);
-        String hyp_feature = autobi.getHypotheizedFeature(task);
+      for (String task : getClassificationTasks()) {
+        FeatureSet fs = getTaskFeatureSet(task);
+        AuToBIClassifier classifier = getTaskClassifier(task);
+        String hyp_feature = getHypotheizedFeature(task);
 
-        autobi.registerFeatureExtractor(new HypothesizedEventFeatureExtractor(hyp_feature, classifier, fs));
+        registerFeatureExtractor(new HypothesizedEventFeatureExtractor(hyp_feature, classifier, fs));
 
         autobi_fs.getRequiredFeatures().add(fs.getClassAttribute());
         autobi_fs.getRequiredFeatures().add(hyp_feature);
       }
 
-      autobi.extractFeatures(autobi_fs);
+      extractFeatures(autobi_fs);
       autobi_fs.constructFeatures();
 
-      for (String task : autobi.getClassificationTasks()) {
-        AuToBIUtils.info(autobi.evaluateTaskPerformance(task, autobi_fs));
+      for (String task : getClassificationTasks()) {
+        AuToBIUtils.info(evaluateTaskPerformance(task, autobi_fs));
       }
 
-      if (autobi.hasParameter("out_file")) {
+      if (hasParameter("out_file")) {
         AuToBIUtils.mergeAuToBIHypotheses(words);
-        String hypothesis_file = autobi.getParameter("out_file");
+        String hypothesis_file = getParameter("out_file");
         AuToBIUtils.info("Writing hypotheses to " + hypothesis_file);
-        autobi.writeTextGrid(words, hypothesis_file);
+        writeTextGrid(words, hypothesis_file);
       }
     } catch (AuToBIException e) {
       e.printStackTrace();
@@ -1014,6 +1018,7 @@ public class AuToBI {
    *
    * @param s the feature name
    */
+
   public void registerNullFeatureExtractor(String s) {
     this.feature_registry.put(s, null);
   }
