@@ -179,7 +179,9 @@ public class AuToBI {
    */
   public void registerFeatureExtractor(FeatureExtractor fe) {
     for (String feature_name : fe.getExtractedFeatures()) {
-      // TODO: check if there is already a registered FE for this name.
+      if (feature_registry.containsKey(feature_name)) {
+        AuToBIUtils.warn("Feature Registry already contains feature: " + feature_name);
+      }
       feature_registry.put(feature_name, fe);
     }
   }

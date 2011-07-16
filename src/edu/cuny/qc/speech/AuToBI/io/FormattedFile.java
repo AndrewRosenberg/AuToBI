@@ -34,7 +34,7 @@ public class FormattedFile {
   /**
    * Constructs a new formatted file based on the given filename.
    * <p/>
-   * The file format is extracted from the extension of the filename.
+   * The file format is determined by the extension of the filename.
    * <p/>
    * Note, however, that multiple formats can use the same extension.  For example, there are many ways to use a
    * TextGrid to encode information.
