@@ -21,6 +21,7 @@ package edu.cuny.qc.speech.AuToBI.io;
 
 import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
 import edu.cuny.qc.speech.AuToBI.core.Word;
+import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
 import sun.java2d.pipe.SpanShapeRenderer;
 
 import java.io.IOException;
@@ -31,7 +32,8 @@ import java.util.List;
  * SimpleWordReader reads orthographic information from a text file containing start times, end times, and the lexical
  * item.
  * <p/>
- * Format:
+ * A user may specify the order of the three fields, orthography, start time and end time.  The time is assumed to be in
+ * seconds. Default Format:
  * <p/>
  * <Orthography> <Start> <End>
  */
@@ -39,13 +41,17 @@ public class SimpleWordReader extends AuToBIWordReader {
   private String filename;
   private String charset_name;
 
+  private int ortho_idx;  // the index of the orthographic label
+  private int start_idx;  // the index of the start time
+  private int end_idx;    // the index of the end time
+
   /**
    * Constructs a new SimpleWordReader for a given file.
    *
    * @param filename the filename
    */
   public SimpleWordReader(String filename) {
-    this(filename, null);
+    this(filename, null, 0, 1, 2);
   }
 
   /**
@@ -57,8 +63,34 @@ public class SimpleWordReader extends AuToBIWordReader {
    * @param charset_name the character set identifier
    */
   public SimpleWordReader(String filename, String charset_name) {
+    this(filename, charset_name, 0, 1, 2);
+  }
+
+  /**
+   * Constructs a new SimpleWordReader for a given filename and character set.
+   * <p/>
+   * This allows a user to specify a non-ascii encoding for the file.
+   *
+   * @param filename     the filename
+   * @param charset_name the character set identifier
+   * @param ortho_idx    the index of the orthographic field
+   * @param start_idx    the index of the start time field
+   * @param end_idx      the index of the end time field
+   */
+  public SimpleWordReader(String filename, String charset_name, int ortho_idx, int start_idx, int end_idx) {
     this.filename = filename;
     this.charset_name = charset_name;
+    this.ortho_idx = ortho_idx;
+    this.start_idx = start_idx;
+    this.end_idx = end_idx;
+
+    if (ortho_idx == start_idx || ortho_idx == end_idx || start_idx == end_idx) {
+      AuToBIUtils.error(
+          "Orthographic, Start and End indices should be unique in SimpleWordReader.  Using defaults, ortho: 0, start: 1, end: 2");
+      this.ortho_idx = 0;
+      this.start_idx = 1;
+      this.end_idx = 2;
+    }
   }
 
   /**
@@ -86,14 +118,14 @@ public class SimpleWordReader extends AuToBIWordReader {
         throw new AuToBIException("Line " + file_reader.getLineNumber() + " has too few fields - " + line);
       }
 
-      Double start = Double.parseDouble(data[1]);
-      Double end = Double.parseDouble(data[2]);
+      Double start = Double.parseDouble(data[start_idx]);
+      Double end = Double.parseDouble(data[end_idx]);
 
       if (end <= start) {
         throw new AuToBIException("End time before start time on line " + file_reader.getLineNumber() + " - " + line);
       }
 
-      words.add(new Word(start, end, data[0]));
+      words.add(new Word(start, end, data[ortho_idx]));
     }
 
     return words;

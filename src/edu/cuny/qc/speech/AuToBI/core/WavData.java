@@ -38,6 +38,9 @@ public class WavData {
   // The time of the first sample.
   public double t0;
 
+  // The filename containing the this audio data.
+  private String filename;
+
   /**
    * Constructs a new WavData object with no data.
    */
@@ -176,5 +179,23 @@ public class WavData {
    */
   public double[] getSamples(int channel) {
     return samples[channel];
+  }
+
+  /**
+   * Get the filename where the data was found.
+   *
+   * @return the filename
+   */
+  public String getFilename() {
+    return filename;
+  }
+
+  /**
+   * Sets the filename.
+   *
+   * @param filename the filename
+   */
+  public void setFilename(String filename) {
+    this.filename = filename;
   }
 }

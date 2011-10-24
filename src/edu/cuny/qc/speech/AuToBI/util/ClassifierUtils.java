@@ -242,7 +242,7 @@ public class ClassifierUtils {
 
   /**
    * Generates an EvaluationResults object by comparing the values of the hypothesized and true features.
-   *
+   * <p/>
    * EvaluationResults objects store contingency tables for the classification.
    *
    * @param hyp_feature  The hypothesized feature name
@@ -322,6 +322,31 @@ public class ClassifierUtils {
         w.setAttribute(conf_attribute, conf);
       } catch (Exception e) {
         w.setAttribute(hyp_attribute, default_value);
+        e.printStackTrace();
+      }
+    }
+  }
+
+  /**
+   * Generates a prediction distribution for a set of words using the supplied classifier.
+   * <p/>
+   * Results are stored in dist_attribute. If the classifier throws an error, the default_value is assigned as the
+   * hypothesis.
+   * <p/>
+   * Confidence scores are stored in a separate attribute.
+   *
+   * @param classifier     the classifier to generate predictions
+   * @param dist_attribute the destination attribute for the hypotheses
+   * @param fs             the featureset to generate predictions for.
+   */
+  public static void generatePredictionDistribution(AuToBIClassifier classifier, String dist_attribute,
+                                                    String default_value, FeatureSet fs) {
+    for (Word w : fs.getDataPoints()) {
+      try {
+        Distribution dist = classifier.distributionForInstance(w);
+        w.setAttribute(dist_attribute, dist);
+      } catch (Exception e) {
+        w.setAttribute(dist_attribute, default_value);
         e.printStackTrace();
       }
     }

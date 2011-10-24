@@ -477,6 +477,29 @@ public class AuToBI {
   }
 
   /**
+   * Retrieves a default feature distribution name set for the given task.
+   *
+   * @param task a task identifier.
+   * @return a string for the hypothesized name
+   * @throws AuToBIException If there is no FeatureSet defined for the task identifier
+   */
+  public String getDistributionFeature(String task) throws AuToBIException {
+    if (task.equals("pitch_accent_detection"))
+      return "pitch_accent_location_dist";
+    if (task.equals("pitch_accent_classification"))
+      return "pitch_accent_type_dist";
+    if (task.equals("intonational_phrase_boundary_detection"))
+      return "IP_location_dist";
+    if (task.equals("intermediate_phrase_boundary_detection"))
+      return "ip_location_dist";
+    if (task.equals("boundary_tone_classification"))
+      return "boundary_tone_dist";
+    if (task.equals("phrase_accent_classification"))
+      return "phrase_accent_dist";
+    throw new AuToBIException("No defined hypothesized feature for task: " + task);
+  }
+
+  /**
    * Retrieves a previously loaded AuToBIClassifier for the given task.
    *
    * @param task a task identifier.
@@ -677,8 +700,17 @@ public class AuToBI {
     for (int i = 0; i < words.size(); ++i) {
       Word w = words.get(i);
       String text = "";
-      if (w.hasAttribute("hyp_pitch_accent")) {
-        text = w.getAttribute("hyp_pitch_accent").toString();
+      if (getBooleanParameter("distributions", false)) {
+        if (w.hasAttribute("pitch_accent_location_dist")) {
+          text = w.getAttribute("pitch_accent_location_dist").toString();
+        }
+        if (w.hasAttribute("pitch_accent_type_dist")) {
+          text += w.getAttribute("pitch_accent_type_dist").toString();
+        }
+      } else {
+        if (w.hasAttribute("hyp_pitch_accent")) {
+          text = w.getAttribute("hyp_pitch_accent").toString();
+        }
       }
 
       text_grid += "intervals [" + i + "]:\n";
@@ -697,8 +729,23 @@ public class AuToBI {
       Word w = words.get(i);
 
       String text = "";
-      if (w.hasAttribute("hyp_phrase_boundary")) {
-        text = w.getAttribute("hyp_phrase_boundary").toString();
+      if (getBooleanParameter("distributions", false)) {
+        if (w.hasAttribute("IP_location_dist")) {
+          text = w.getAttribute("IP_location_dist").toString();
+        }
+        if (w.hasAttribute("ip_location_dist")) {
+          text = w.getAttribute("ip_location_dist").toString();
+        }
+        if (w.hasAttribute("boundary_tone_dist")) {
+          text += w.getAttribute("boundary_tone_dist").toString();
+        }
+        if (w.hasAttribute("phrase_accent_dist")) {
+          text += w.getAttribute("phrase_accent_dist").toString();
+        }
+      } else {
+        if (w.hasAttribute("hyp_phrase_boundary")) {
+          text = w.getAttribute("hyp_phrase_boundary").toString();
+        }
       }
 
       text_grid += "intervals [" + i + "]:\n";
@@ -932,13 +979,22 @@ public class AuToBI {
             "Both -input_file and -cprom_file are entered.  Only one input file may be specified.");
       }
 
-      if (filename == null) {
-        throw new AuToBIException("No -input_file or -cprom_file filename specified.");
-      }
+      AuToBIWordReader word_reader = null;
       WavReader reader = new WavReader();
 
-      AuToBIWordReader word_reader = null;
-      if (filename.endsWith("TextGrid")) {
+      WavData wav = reader.read(wav_filename);
+
+      if (filename == null) {
+        AuToBIUtils.info(
+            "No -input_file or -cprom_file filename specified.  Generating segmentation based on acoustic pseudosyllabification.");
+        wav.setFilename(wav_filename);
+        if (hasParameter("silence_threshold")) {
+          Double threshold = Double.parseDouble(getParameter("silence_threshold"));
+          word_reader = new PseudosyllableWordReader(wav, threshold);
+        } else {
+          word_reader = new PseudosyllableWordReader(wav);
+        }
+      } else if (filename.endsWith("TextGrid")) {
         if (cprom) {
           word_reader = new CPromTextGridReader(filename, "words", "delivery", "UTF16",
               getBooleanParameter("cprom_include_secondary", true));
@@ -962,8 +1018,6 @@ public class AuToBI {
         word_reader.setSilenceRegex(getParameter("silence_regex"));
       }
 
-      WavData wav = reader.read(wav_filename);
-
       AuToBIUtils.log("Reading words from: " + filename);
       List<Word> words = word_reader.readWords();
 
@@ -978,12 +1032,19 @@ public class AuToBI {
       for (String task : getClassificationTasks()) {
         FeatureSet fs = getTaskFeatureSet(task);
         AuToBIClassifier classifier = getTaskClassifier(task);
-        String hyp_feature = getHypotheizedFeature(task);
 
+        String hyp_feature = getHypotheizedFeature(task);
         registerFeatureExtractor(new HypothesizedEventFeatureExtractor(hyp_feature, classifier, fs));
+        autobi_fs.getRequiredFeatures().add(hyp_feature);
+
+        if (getBooleanParameter("distributions", false)) {
+          String dist_feature = getDistributionFeature(task);
+          registerFeatureExtractor(new HypothesizedDistributionFeatureExtractor(dist_feature, classifier, fs));
+          autobi_fs.getRequiredFeatures().add(dist_feature);
+        }
 
         autobi_fs.getRequiredFeatures().add(fs.getClassAttribute());
-        autobi_fs.getRequiredFeatures().add(hyp_feature);
+
       }
 
       extractFeatures(autobi_fs);

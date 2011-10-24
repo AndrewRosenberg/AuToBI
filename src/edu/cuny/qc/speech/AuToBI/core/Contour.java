@@ -20,6 +20,7 @@
 
 package edu.cuny.qc.speech.AuToBI.core;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -195,16 +196,34 @@ public class Contour implements Iterable<Pair<Double, Double>> {
   /**
    * Sets the value for a given index.
    *
+   * Will resize the contour array if necessary.
+   *
    * @param index the index
    * @param value the value
    */
   public void set(int index, double value) {
+    if (index > values.length) {
+      // Resize the array
+      int origlen = values.length;
+      values = Arrays.copyOf(values, index + 1);
+      for (int i = origlen; i < values.length; ++i) {
+        setEmpty(i);
+      }
+    }
     values[index] = value;
     if (isEmpty(index)) {
       setEmpty(index, false);
     }
   }
 
+  /**
+   * Sets an index to the desired empty state.
+   *
+   * Also maintains the num_empty variable.
+   *
+   * @param index the index to assign
+   * @param b the boolean value to set
+   */
   private void setEmpty(int index, boolean b) {
     if (empty_values[index] && !b)
       --num_empty;
