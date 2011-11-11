@@ -253,6 +253,7 @@ public class Spectrum {
    * Used in the calculation of spectral tilt.
    *
    * @param frame the array of doubles
+   * @param log if true, calculate tilt using log power
    * @return the slope of the array.
    */
   private double calculateTilt(double[] frame, boolean log) {
