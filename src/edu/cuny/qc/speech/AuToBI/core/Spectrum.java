@@ -19,8 +19,6 @@
  */
 package edu.cuny.qc.speech.AuToBI.core;
 
-import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
-
 /**
  * Spectrum objects contain acoustic spectrum information.
  * <p/>
@@ -211,10 +209,9 @@ public class Spectrum {
   }
 
   /**
-   * Retrieves a list of powers in a band as a List.
+   * Retrieves a list of power tilts in a band as a List.
    * <p/>
-   * Note: this is total power, not power density.  To construct power density from this list normalize the power by
-   * Math.ceil(freq_2) - Math.floor(freq_1)
+   * Power tilt is calculated as the power within a particular frequency divided by the power in the whole frame
    *
    * @param freq_1     The bottom frequency
    * @param freq_2     The top frequency
@@ -231,5 +228,51 @@ public class Spectrum {
       power_list.set(i, power_band[i] / power[i]);
     }
     return power_list;
+  }
+
+  /**
+   * Generates the spectral balance from a spectrum object.
+   *
+   * The spectral balance contour is comprised of the slope of the spectrum at each frame.
+   *
+   * @return a contour containing the spectral balance for each frame.
+   */
+  public Contour getSpectralTiltContour() {
+    double[] spectral_tilt = new double[numFrames()];
+
+    for (int i = 0; i < numFrames(); ++i) {
+      spectral_tilt[i] = calculateTilt(data[i], true);
+    }
+
+    return new Contour(starting_time, frame_size, spectral_tilt);
+  }
+
+  /**
+   * Calculates the slope of an array of doubles.
+   *
+   * Used in the calculation of spectral tilt.
+   *
+   * @param frame the array of doubles
+   * @return the slope of the array.
+   */
+  private double calculateTilt(double[] frame, boolean log) {
+    double n = frame.length;
+    double s_x = 0.0;
+    double s_y = 0.0;
+    double s_xy = 0.0;
+    double s_xx = 0.0;
+
+    for (int i = 0; i < n; ++i) {
+      double x = i * freq_resolution;
+      double y = frame[i];
+      if (log)
+        y = Math.log(y);
+      s_x += x;
+      s_y += y;
+      s_xx += x * x;
+      s_xy += x*y;
+    }
+
+    return (s_xy - (s_x * s_y) / n) / (s_xx - s_x * s_x / n);
   }
 }
