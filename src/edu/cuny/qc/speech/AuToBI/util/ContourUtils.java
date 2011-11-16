@@ -31,6 +31,11 @@ import java.util.ArrayList;
  */
 public class ContourUtils {
 
+  // Utility classes cannot be constructed.
+  private ContourUtils() {
+    throw new AssertionError();
+  }
+
   /**
    * Aligns a list of contour to regions.
    * <p/>

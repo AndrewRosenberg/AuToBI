@@ -34,6 +34,12 @@ import org.apache.log4j.Logger;
  * Currently handles the resolution of filenames, an interface to log4j logging and string manipulation functions.
  */
 public class AuToBIUtils {
+
+  // Utility classes cannot be constructed.
+  private AuToBIUtils() {
+    throw new AssertionError();
+  }
+
   // A log4j logger
   private static Logger logger = Logger.getLogger(AuToBIUtils.class);
 
@@ -140,7 +146,7 @@ public class AuToBIUtils {
     if (filenames.size() == 0) {
       throw new AuToBIException("Pattern, " + pattern + ", does not match any files");
     }
-    return filenames.get(1);
+    return filenames.get(0);
   }
 
   /**
