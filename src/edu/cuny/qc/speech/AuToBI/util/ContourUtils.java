@@ -302,7 +302,7 @@ public class ContourUtils {
   public static Contour generateDeltaContour(Contour values) {
     Contour d_contour;
     if (values.size() > 0) {
-      d_contour = new Contour(values.getStep() / 2, values.getStep(), values.size() - 1);
+      d_contour = new Contour(values.getStart() + values.getStep() / 2, values.getStep(), values.size() - 1);
       for (int i = 0; i < values.size() - 1; ++i) {
         if (values.isEmpty(i) || values.isEmpty(i + 1)) {
           d_contour.setEmpty(i);
@@ -312,7 +312,7 @@ public class ContourUtils {
         }
       }
     } else {
-      d_contour = new Contour(values.getStep() / 2, values.getStep(), 0);
+      d_contour = new Contour(values.getStart() + values.getStep() / 2, values.getStep(), 0);
     }
 
     return d_contour;

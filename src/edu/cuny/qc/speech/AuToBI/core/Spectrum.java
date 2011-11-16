@@ -65,6 +65,25 @@ public class Spectrum {
   }
 
   /**
+   * Returns the starting time of the Spectrum
+   *
+   * @return the starting time
+   */
+  public double getStartingTime() {
+    return starting_time;
+  }
+
+  /**
+   * Returns the frame size of the Spectrum
+   *
+   * @return the frame size
+   */
+  public double getFrameSize() {
+    return frame_size;
+  }
+
+
+  /**
    * Returns a specific power value in the Spectrum
    *
    * @param time_idx the time index to retrieve
@@ -267,6 +286,7 @@ public class Spectrum {
       double x = i * freq_resolution;
       double y = frame[i];
       if (log)
+        if (y == 0) continue;
         y = Math.log(y);
       s_x += x;
       s_y += y;
