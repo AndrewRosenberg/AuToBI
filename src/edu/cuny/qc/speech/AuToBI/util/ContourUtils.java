@@ -119,19 +119,20 @@ public class ContourUtils {
       }
     }
 
-    Contour contour = new Contour(x0, time_step, (int) Math.ceil((max_time - x0) / time_step));
-    for (Region r : (List<Region>) regions) {
-      if (r.hasAttribute(feature_name)) {
+    // Only bother with the assignment if there is a contour to process
+    if (max_time - x0 > 0) {
+      Contour contour = new Contour(x0, time_step, (int) Math.ceil((max_time - x0) / time_step));
+      for (Region r : (List<Region>) regions) {
         Contour c = (Contour) r.getAttribute(feature_name);
         for (Pair<Double, Double> tvp : c) {
           contour.set(tvp.first, tvp.second);
         }
       }
-    }
 
-    for (Region r : subregions) {
-      Contour values_subset = ContourUtils.getSubContour(contour, r.getStart(), r.getEnd());
-      r.setAttribute(feature_name, values_subset);
+      for (Region r : subregions) {
+        Contour values_subset = ContourUtils.getSubContour(contour, r.getStart(), r.getEnd());
+        r.setAttribute(feature_name, values_subset);
+      }
     }
   }
 
@@ -179,7 +180,7 @@ public class ContourUtils {
     double previous_value = contour.get(idx);
     double maximum_value = contour.get(idx);
     boolean rising = false;
-    for (int i = idx - 1; i > 0; --i) {
+    for (int i = idx - 1; i >= 0; --i) {
       maximum_value = Math.max(previous_value, maximum_value);
 
       if (contour.get(i) > previous_value) {
