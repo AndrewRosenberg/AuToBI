@@ -27,11 +27,22 @@ import java.util.regex.Pattern;
  */
 public class PhoneUtils {
 
+  // Utility classes cannot be constructed.
+  private PhoneUtils() {
+    throw new AssertionError();
+  }
+
+  /**
+   * Return true if the phone represents a vowel.
+   *
+   * @param phone_label the phone label to evaluateGaussianPDF.
+   * @return true if the phone is a vowel
+   */
   public static boolean isVowel(String phone_label) {
-    /* Return true if the phone represents a vowel.
-     *
-     * @param phone_label the phone label to evaluateGaussianPDF.
-     */
+
+    if (phone_label == null) {
+      return false;
+    }
     Pattern vowel_p = Pattern.compile("[AIEOUaeiou]");
     Matcher vowel_m = vowel_p.matcher(phone_label);
     return vowel_m.find();
