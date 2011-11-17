@@ -19,6 +19,7 @@
  */
 package edu.cuny.qc.speech.AuToBI.classifier;
 
+import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
 import edu.cuny.qc.speech.AuToBI.core.Distribution;
 import edu.cuny.qc.speech.AuToBI.core.FeatureSet;
 import edu.cuny.qc.speech.AuToBI.core.Word;
@@ -28,8 +29,8 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * Ensemble Sampling Classifiers divide the training data into k samples.  Then k classifiers are trained.
- * During evaluation, each of the k classifiers generate hypohteses, which are combined using weighted majority voting.
+ * Ensemble Sampling Classifiers divide the training data into k samples.  Then k classifiers are trained. During
+ * evaluation, each of the k classifiers generate hypohteses, which are combined using weighted majority voting.
  * <p/>
  * The k training samples are constructed such that each majority class token appears in one sample, while the remaining
  * minority class tokens appear in every sample.  Thus k is equal to the size of the majority class divided by the size
@@ -100,7 +101,7 @@ public class EnsembleSampledClassifier extends AuToBIClassifier {
     return new EnsembleSampledClassifier(classifier);
   }
 
-  public List<FeatureSet> constructEnsembleFeatureSets(FeatureSet training_set) {
+  public List<FeatureSet> constructEnsembleFeatureSets(FeatureSet training_set) throws AuToBIException {
     List<FeatureSet> training_sets = new ArrayList<FeatureSet>();
 
     // Identify the majority class.

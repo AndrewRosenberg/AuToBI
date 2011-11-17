@@ -35,6 +35,11 @@ import java.util.*;
 public class PartitionUtils {
   private static Random rng = new Random();  // a random number generator.
 
+  // Utility functions cannot be constructed.
+  private PartitionUtils() {
+    throw new AssertionError();
+  }
+
   /**
    * Randomly assigns a fold number to each point in data_points for cross validation
    * <p/>
@@ -43,8 +48,14 @@ public class PartitionUtils {
    * @param data_points  The data points to assign numbers to
    * @param feature_name The feature that will store the fold assignment
    * @param num_folds    The total number of folds to assign
+   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException
+   *          if the number of folds is invalid
    */
-  public static void assignFoldNum(List<Word> data_points, String feature_name, Integer num_folds) {
+  public static void assignFoldNum(List<Word> data_points, String feature_name, Integer num_folds)
+      throws AuToBIException {
+    if (num_folds < 1) {
+      throw new AuToBIException("The number of folds must be positive.");
+    }
     for (Region r : data_points) {
       int j = rng.nextInt(num_folds);
       r.setAttribute(feature_name, j);
@@ -121,12 +132,13 @@ public class PartitionUtils {
    * @param foldFeatureName The attribute name specifying the xval assignment of the data point
    */
   public static void splitData(List<Word> dataPoints, List<Word> trainingPoints, List<Word> testingPoints,
-                               Integer foldNum,
-                               String foldFeatureName) {
+                               Integer foldNum, String foldFeatureName) throws AuToBIException {
     trainingPoints.clear();
     testingPoints.clear();
 
     for (Word word : dataPoints) {
+      if (!word.hasAttribute(foldFeatureName))
+        throw new AuToBIException("Word does not have a fold assignment stored in feature: " + foldFeatureName);
       if ((word.getAttribute(foldFeatureName)).equals(foldNum)) {
         testingPoints.add(word);
       } else {

@@ -34,8 +34,8 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * The XValSpectrumPADFeatureExtractor is used to generate cross vaidated predictions of spectral pitch accent
- * detection (PAD) hypotheses.  These xval hypotheses are used in training correction classfiers.
+ * The XValSpectrumPADFeatureExtractor is used to generate cross vaidated predictions of spectral pitch accent detection
+ * (PAD) hypotheses.  These xval hypotheses are used in training correction classfiers.
  */
 public class XValSpectrumPADFeatureExtractor extends FeatureExtractor {
   private final String ACCENTED_VALUE = "ACCENTED";  // the accented value
@@ -95,8 +95,12 @@ public class XValSpectrumPADFeatureExtractor extends FeatureExtractor {
 
       List<Word> training_regions = new ArrayList<Word>();
       List<Word> testing_regions = new ArrayList<Word>();
-      PartitionUtils
-          .splitData((List<Word>) regions, training_regions, testing_regions, fold_num, FOLD_ASSIGNMENT_FEATURE);
+      try {
+        PartitionUtils
+            .splitData((List<Word>) regions, training_regions, testing_regions, fold_num, FOLD_ASSIGNMENT_FEATURE);
+      } catch (AuToBIException e) {
+        throw new FeatureExtractorException(e.getMessage());
+      }
       training_fs.setDataPoints(training_regions);
       training_fs.constructFeatures();
       try {
@@ -111,7 +115,7 @@ public class XValSpectrumPADFeatureExtractor extends FeatureExtractor {
 
           w.setAttribute("nominal_bark_" + low + "_" + high + "__prediction", result.getKeyWithMaximumValue());
           w.setAttribute("bark_" + low + "_" + high + "__prediction_confidence",
-                         result.get(result.getKeyWithMaximumValue()));
+              result.get(result.getKeyWithMaximumValue()));
           w.setAttribute("bark_" + low + "_" + high + "__prediction_confidence_accented", result.get(ACCENTED_VALUE));
         } catch (Exception e) {
           throw new FeatureExtractorException(e.getMessage());
