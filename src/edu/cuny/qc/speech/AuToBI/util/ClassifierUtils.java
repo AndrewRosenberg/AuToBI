@@ -296,7 +296,9 @@ public class ClassifierUtils {
         w.setAttribute(hyp_attribute, result);
       } catch (Exception e) {
         w.setAttribute(hyp_attribute, default_value);
-        e.printStackTrace();
+        AuToBIUtils.warn(
+            "Classifier threw an exception. Assigning default value, " + default_value + ", to word, " + w.toString() +
+                "\n" + e.getMessage());
       }
     }
   }
@@ -327,7 +329,11 @@ public class ClassifierUtils {
         w.setAttribute(conf_attribute, conf);
       } catch (Exception e) {
         w.setAttribute(hyp_attribute, default_value);
-        e.printStackTrace();
+        w.setAttribute(conf_attribute, 0.5);
+        AuToBIUtils.warn(
+            "Classifier threw an exception. Assigning default value, " + default_value + ", to word, " + w.toString() +
+                "\n" + e.getMessage());
+
       }
     }
   }
@@ -342,6 +348,7 @@ public class ClassifierUtils {
    *
    * @param classifier     the classifier to generate predictions
    * @param dist_attribute the destination attribute for the hypotheses
+   * @param default_value  the default value to return if the classifier throws an exception
    * @param fs             the featureset to generate predictions for.
    */
   public static void generatePredictionDistribution(AuToBIClassifier classifier, String dist_attribute,
@@ -352,7 +359,9 @@ public class ClassifierUtils {
         w.setAttribute(dist_attribute, dist);
       } catch (Exception e) {
         w.setAttribute(dist_attribute, default_value);
-        e.printStackTrace();
+        AuToBIUtils.warn(
+            "Classifier threw an exception. Assigning default value, " + default_value + ", to word, " + w.toString() +
+                "\n" + e.getMessage());
       }
     }
   }

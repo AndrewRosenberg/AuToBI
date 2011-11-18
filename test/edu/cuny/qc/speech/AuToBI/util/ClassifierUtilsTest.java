@@ -204,4 +204,185 @@ public class ClassifierUtilsTest {
     }
   }
 
+  @Test
+  public void testGeneratePredictions() {
+    AuToBIClassifier c = new AuToBIClassifier() {
+      @Override
+      public Distribution distributionForInstance(Word testing_point) throws Exception {
+        Distribution d = new Distribution();
+        d.add("one", 0.51);
+        d.add("two", 0.49);
+        return d;
+      }
+
+      @Override
+      public void train(FeatureSet feature_set) throws Exception {
+      }
+
+      @Override
+      public AuToBIClassifier newInstance() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+      }
+    };
+
+    Word w1 = new Word(0, 1, "one");
+    FeatureSet fs = new FeatureSet();
+    fs.getDataPoints().add(w1);
+
+    ClassifierUtils.generatePredictions(c, "hyp", "default", fs);
+
+    assertTrue(w1.hasAttribute("hyp"));
+    assertEquals("one", w1.getAttribute("hyp"));
+  }
+
+  @Test
+  public void testGeneratePredictionsAssignsDefaultOnClassifierException() {
+    AuToBIClassifier c = new AuToBIClassifier() {
+      @Override
+      public Distribution distributionForInstance(Word testing_point) throws Exception {
+        throw new AuToBIException("testing");
+      }
+
+      @Override
+      public void train(FeatureSet feature_set) throws Exception {
+      }
+
+      @Override
+      public AuToBIClassifier newInstance() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+      }
+    };
+
+    Word w1 = new Word(0, 1, "one");
+    FeatureSet fs = new FeatureSet();
+    fs.getDataPoints().add(w1);
+
+    ClassifierUtils.generatePredictions(c, "hyp", "default", fs);
+
+    assertTrue(w1.hasAttribute("hyp"));
+    assertEquals("default", w1.getAttribute("hyp"));
+  }
+
+
+  @Test
+  public void testGeneratePredictionsWithConfidence() {
+    AuToBIClassifier c = new AuToBIClassifier() {
+      @Override
+      public Distribution distributionForInstance(Word testing_point) throws Exception {
+        Distribution d = new Distribution();
+        d.add("one", 0.51);
+        d.add("two", 0.49);
+        return d;
+      }
+
+      @Override
+      public void train(FeatureSet feature_set) throws Exception {
+      }
+
+      @Override
+      public AuToBIClassifier newInstance() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+      }
+    };
+
+    Word w1 = new Word(0, 1, "one");
+    FeatureSet fs = new FeatureSet();
+    fs.getDataPoints().add(w1);
+
+    ClassifierUtils.generatePredictionsWithConfidenceScores(c, "hyp", "conf", "default", fs);
+
+    assertTrue(w1.hasAttribute("hyp"));
+    assertEquals("one", w1.getAttribute("hyp"));
+    assertTrue(w1.hasAttribute("conf"));
+    assertEquals(0.51, w1.getAttribute("conf"));
+  }
+
+  @Test
+  public void testGeneratePredictionsWithConfidenceAssignsDefaultOnException() {
+    AuToBIClassifier c = new AuToBIClassifier() {
+      @Override
+      public Distribution distributionForInstance(Word testing_point) throws Exception {
+        throw new AuToBIException("testing");
+      }
+
+      @Override
+      public void train(FeatureSet feature_set) throws Exception {
+      }
+
+      @Override
+      public AuToBIClassifier newInstance() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+      }
+    };
+
+    Word w1 = new Word(0, 1, "one");
+    FeatureSet fs = new FeatureSet();
+    fs.getDataPoints().add(w1);
+
+    ClassifierUtils.generatePredictionsWithConfidenceScores(c, "hyp", "conf", "default", fs);
+
+    assertTrue(w1.hasAttribute("hyp"));
+    assertEquals("default", w1.getAttribute("hyp"));
+    assertTrue(w1.hasAttribute("conf"));
+    assertEquals(0.5, w1.getAttribute("conf"));
+  }
+
+  @Test
+  public void testGeneratePredictionDistribution() {
+    AuToBIClassifier c = new AuToBIClassifier() {
+      @Override
+      public Distribution distributionForInstance(Word testing_point) throws Exception {
+        Distribution d = new Distribution();
+        d.add("one", 0.51);
+        d.add("two", 0.49);
+        return d;
+      }
+
+      @Override
+      public void train(FeatureSet feature_set) throws Exception {
+      }
+
+      @Override
+      public AuToBIClassifier newInstance() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+      }
+    };
+
+    Word w1 = new Word(0, 1, "one");
+    FeatureSet fs = new FeatureSet();
+    fs.getDataPoints().add(w1);
+
+    ClassifierUtils.generatePredictionDistribution(c, "dist", "default", fs);
+
+    assertTrue(w1.hasAttribute("dist"));
+    assertEquals(0.51, ((Distribution) w1.getAttribute("dist")).get("one"), 0.01);
+  }
+
+  @Test
+  public void testGeneratePredictionDistributionAssignsDefaultOnClassifierException() {
+    AuToBIClassifier c = new AuToBIClassifier() {
+      @Override
+      public Distribution distributionForInstance(Word testing_point) throws Exception {
+        throw new AuToBIException("testing");
+      }
+
+      @Override
+      public void train(FeatureSet feature_set) throws Exception {
+      }
+
+      @Override
+      public AuToBIClassifier newInstance() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+      }
+    };
+
+    Word w1 = new Word(0, 1, "one");
+    FeatureSet fs = new FeatureSet();
+    fs.getDataPoints().add(w1);
+
+    ClassifierUtils.generatePredictionDistribution(c, "dist", "default", fs);
+
+    assertTrue(w1.hasAttribute("dist"));
+    assertEquals("default", w1.getAttribute("dist"));
+  }
 }
