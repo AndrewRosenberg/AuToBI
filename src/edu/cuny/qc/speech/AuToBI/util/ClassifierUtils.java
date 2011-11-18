@@ -35,6 +35,11 @@ import java.io.*;
  */
 public class ClassifierUtils {
 
+  // Utility classes cannot be initialized.
+  private ClassifierUtils() {
+    throw new AssertionError();
+  }
+
   /**
    * Loads a serialized AuToBIClassifier from a file.
    *
@@ -52,9 +57,9 @@ public class ClassifierUtils {
         return (AuToBIClassifier) o;
       }
     } catch (IOException e) {
-      e.printStackTrace();
+      AuToBIUtils.error(e.getMessage());
     } catch (ClassNotFoundException e) {
-      e.printStackTrace();
+      AuToBIUtils.error(e.getMessage());
     }
     return null;
   }
