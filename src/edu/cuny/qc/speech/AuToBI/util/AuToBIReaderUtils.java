@@ -28,6 +28,12 @@ import java.util.List;
  * AuToBIReaderUtils is a utility class to store static methods to support reading files in AuToBI.
  */
 public class AuToBIReaderUtils {
+
+  // Utility Classes cannot be initialized.
+  private AuToBIReaderUtils() {
+    throw new AssertionError();
+  }
+
   /**
    * Replaces all tabs with spaces and trims left and right whitespace from a string.
    *
