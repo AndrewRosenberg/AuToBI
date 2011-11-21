@@ -99,7 +99,8 @@ public class AlignmentUtils {
    *
    * @param words  The list of words
    * @param breaks The list of breaks
-   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException If there is an unqual number of breaks and words
+   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException
+   *          If there is an unqual number of breaks and words
    */
   public static void copyToBIBreaks(List<Word> words, List<Region> breaks) throws AuToBIException {
     String previous_break = null;
@@ -133,7 +134,8 @@ public class AlignmentUtils {
 
     ListIterator<Region> toneIter = tones.listIterator();
     for (Word word : words) {
-      Region toneRegion = getNextRegion(word.getEnd(), toneIter);
+      // Gets the next tone region within the end point of the word.
+      Region toneRegion = getNextRegionBeforeTime(word.getEnd(), toneIter);
 
       while (toneRegion != null) {
         if (toneRegion.getLabel().equals(""))
@@ -163,7 +165,7 @@ public class AlignmentUtils {
           word.setAccentTime(toneRegion.getStart());
         }
 
-        toneRegion = getNextRegion(word.getEnd(), toneIter);
+        toneRegion = getNextRegionBeforeTime(word.getEnd(), toneIter);
       }
     }
 
@@ -206,15 +208,16 @@ public class AlignmentUtils {
   }
 
 
-
   /**
    * Retrieves the next region in the list following a particular time.
+   * <p/>
+   * Returns null if there is no additional region before the time.
    *
    * @param time the time
    * @param iter the list iterator
    * @return the first region that starts after the time.
    */
-  protected static Region getNextRegion(double time, ListIterator<Region> iter) {
+  protected static Region getNextRegionBeforeTime(double time, ListIterator<Region> iter) {
     if (!iter.hasNext()) return null;
 
     Double epsilon = 0.005;// To deal with Double precision errors.
