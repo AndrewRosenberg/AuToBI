@@ -164,7 +164,7 @@ public class WavData {
    * Retries a specific sample indexed by channel and index number.
    *
    * @param channel the desired channel
-   * @param index the desired index
+   * @param index   the desired index
    * @return the sample stored at the specified channel and index
    */
   public double getSample(int channel, int index) {
@@ -197,5 +197,14 @@ public class WavData {
    */
   public void setFilename(String filename) {
     this.filename = filename;
+  }
+
+  /**
+   * Sets the start time of the file.
+   *
+   * @param t0 the start time
+   */
+  public void setStartTime(int t0) {
+    this.t0 = t0;
   }
 }

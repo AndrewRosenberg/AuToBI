@@ -32,6 +32,11 @@ import java.util.List;
  */
 public class SubregionUtils {
 
+  // Utility classes cannot be constructed.
+  private void SubregionUtils() {
+    throw new AssertionError();
+  }
+
   /**
    * Aligns the subregion that is identified within a word to be the representative pseudosyllable.
    * <p/>
@@ -52,37 +57,43 @@ public class SubregionUtils {
                                                    String feature_name) {
     int i = 0;
     for (Word w : words) {
-      if (i >= subregions.size())
-        i = subregions.size() - 1;
-      Region current_pseudosyllable = subregions.get(i);
-      if (current_pseudosyllable.getStart() > w.getStart() && i > 0) {
-        current_pseudosyllable = subregions.get(--i);
+
+      // Always try the last subregionregion.
+      while (i >= subregions.size() && i > 0) {
+        --i;
+      }
+      Region current_subregion = subregions.get(i);
+      while (current_subregion.getStart() > w.getStart() && i > 0) {
+        current_subregion = subregions.get(--i);
       }
 
-      while (current_pseudosyllable.getEnd() < w.getStart()) {
+      while (current_subregion != null && current_subregion.getEnd() <= w.getStart()) {
         ++i;
         if (i == subregions.size()) {
-          w.setAttribute(feature_name, null);
-          break;
+          // There are no subregions that are within the current word.
+          current_subregion = null;
+        } else {
+          current_subregion = subregions.get(i);
         }
-        current_pseudosyllable = subregions.get(i);
       }
 
-      Region best_pseudosyllable = current_pseudosyllable;
-      double max_overlap = -Double.MAX_VALUE;
-      while (current_pseudosyllable.getStart() < w.getEnd() && i < subregions.size()) {
-        // Calculate the amount of overlapping material
-        double overlap = Math.min(w.getEnd(), current_pseudosyllable.getEnd()) -
-            Math.max(w.getStart(), current_pseudosyllable.getStart());
-        if (overlap > max_overlap) {
-          max_overlap = overlap;
-          best_pseudosyllable = current_pseudosyllable;
+      if (current_subregion != null) {
+        Region best_subregion = current_subregion;
+        double max_overlap = -Double.MAX_VALUE;
+        while (current_subregion.getStart() < w.getEnd() && i < subregions.size()) {
+          // Calculate the amount of overlapping material
+          double overlap = Math.min(w.getEnd(), current_subregion.getEnd()) -
+              Math.max(w.getStart(), current_subregion.getStart());
+          if (overlap > max_overlap) {
+            max_overlap = overlap;
+            best_subregion = current_subregion;
+          }
+          ++i;
+          if (i < subregions.size())
+            current_subregion = subregions.get(i);
         }
-        ++i;
-        if (i < subregions.size())
-          current_pseudosyllable = subregions.get(i);
+        w.setAttribute(feature_name, best_subregion);
       }
-      w.setAttribute(feature_name, best_pseudosyllable);
     }
   }
 
@@ -163,7 +174,8 @@ public class SubregionUtils {
    * @param start    the start time
    * @param end      the end time
    * @return a new WavData object
-   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException if the sizes are inappropriate
+   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException
+   *          if the sizes are inappropriate
    */
   public static WavData getSlice(WavData wav_data, double start, double end) throws AuToBIException {
     if (start >= end) {
@@ -175,8 +187,9 @@ public class SubregionUtils {
     sub_wav.setSampleSize(wav_data.getSampleSize());
     sub_wav.t0 = start;
 
-    int start_idx = Math.max(0, (int) Math.floor((start - wav_data.t0) * sub_wav.getSampleRate()));
-    int end_idx = Math.min(wav_data.samples[0].length-1,(int) Math.ceil((end - wav_data.t0) * sub_wav.getSampleRate()));
+    int start_idx = Math.max(0, (int) Math.ceil((start - wav_data.t0) * sub_wav.getSampleRate()));
+    int end_idx =
+        Math.min(wav_data.samples[0].length - 1, (int) Math.floor((end - wav_data.t0) * sub_wav.getSampleRate()));
 
     int num_frames = end_idx - start_idx + 1;
     sub_wav.raw_samples = new int[wav_data.getNumberOfChannels()][num_frames];
@@ -185,7 +198,7 @@ public class SubregionUtils {
     for (int channel = 0; channel < wav_data.getNumberOfChannels(); ++channel) {
       int[] raw = wav_data.getRawData(channel);
       double[] norm = wav_data.getNormalizedData(channel);
-      for (int i = start_idx; i < end_idx; ++i) {
+      for (int i = start_idx; i <= end_idx; ++i) {
         sub_wav.raw_samples[channel][i - start_idx] = raw[i];
         sub_wav.samples[channel][i - start_idx] = norm[i];
       }
