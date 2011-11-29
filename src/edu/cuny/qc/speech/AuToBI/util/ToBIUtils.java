@@ -51,7 +51,8 @@ public class ToBIUtils {
               word.getBreakAfter().equals("3-")))
         label = "INTERMEDIATE_BOUNDARY";
       if ((word.getBreakAfter() != null) && (
-          word.getBreakAfter().equals("4-") || word.getBreakAfter().equals("4"))) label = "INTONATIONAL_BOUNDARY";
+          word.getBreakAfter().equals("4-") || word.getBreakAfter().equals("4")))
+        label = "INTONATIONAL_BOUNDARY";
       word.setAttribute(attribute_name, label);
     }
   }
@@ -153,25 +154,6 @@ public class ToBIUtils {
     }
   }
 
-  /**
-   * Generates tone information from tones.
-   * <p/>
-   * Assumes that the breaks have aready been assigned.
-   * <p/>
-   * Since there is no tone type information, only X-? and X%? tones are assigned.
-   *
-   * @param words the set of words
-   */
-  public static void generateTonesFromBreaks(List<Word> words) {
-    for (Word word : words) {
-      if (word.isIntermediatePhraseFinal()) {
-        word.setPhraseAccent("X-?");
-      }
-      if (word.isIntonationalPhraseFinal()) {
-        word.setBoundaryTone("X%?");
-      }
-    }
-  }
 
   /**
    * Confirms that ToBI annotations are consistent with the ToBI standard.
@@ -180,7 +162,8 @@ public class ToBIUtils {
    * word. 3) every intonational phrase has a boundary tone
    *
    * @param words The words to check
-   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException when word annotations to not match the ToBI standard
+   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException
+   *          when word annotations to not match the ToBI standard
    */
   public static void checkToBIAnnotations(List<Word> words) throws AuToBIException {
     Word starting_word = null;
