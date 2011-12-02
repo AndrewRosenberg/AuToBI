@@ -23,6 +23,7 @@ import edu.cuny.qc.speech.AuToBI.core.Region;
 import edu.cuny.qc.speech.AuToBI.core.Word;
 import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
 import edu.cuny.qc.speech.AuToBI.util.AlignmentUtils;
+import edu.cuny.qc.speech.AuToBI.util.AuToBIReaderUtils;
 import edu.cuny.qc.speech.AuToBI.util.WordReaderUtils;
 
 import java.io.FileNotFoundException;
@@ -238,7 +239,7 @@ public class BURNCReader extends AuToBIWordReader {
       }
 
       while ((line = reader.readLine()) != null) {
-        line = WordReaderUtils.removeTabsAndTrim(line);
+        line = AuToBIReaderUtils.removeTabsAndTrim(line);
         String[] vars = line.split("\\s+");
         Double time;
         try {
