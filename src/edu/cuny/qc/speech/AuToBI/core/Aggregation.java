@@ -49,8 +49,8 @@ public class Aggregation implements Serializable {
    */
   public Aggregation() {
     this.label = "";
-    this.min = Double.MAX_VALUE;
-    this.max = -(Double.MAX_VALUE);
+    this.min = null;
+    this.max = null;
     this.sum = 0.0;
     this.ssq = 0.0;
     this.n = 0;
@@ -62,12 +62,8 @@ public class Aggregation implements Serializable {
    * @param label the label
    */
   public Aggregation(String label) {
+    this();
     this.label = label;
-    this.min = Double.MAX_VALUE;
-    this.max = -(Double.MAX_VALUE);
-    this.sum = 0.0;
-    this.ssq = 0.0;
-    this.n = 0;
   }
 
 
@@ -98,8 +94,8 @@ public class Aggregation implements Serializable {
   public void insert(Double v) {
     sum += v;
     ssq += (v * v);
-    max = (max == null) ? null : Math.max(max, v);
-    min = (min == null) ? null : Math.min(min, v);
+    max = (max == null) ? v : Math.max(max, v);
+    min = (min == null) ? v : Math.min(min, v);
     n++;
   }
 
@@ -117,9 +113,9 @@ public class Aggregation implements Serializable {
     sum -= v;
     ssq -= (v * v);
     if (v.equals(max))
-      max = null;  // no runnig max and min
+      max = Double.NaN;  // no runnig max and min
     if (v.equals(min))
-      min = null;
+      min = Double.NaN;
     n--;
   }
 
@@ -262,17 +258,15 @@ public class Aggregation implements Serializable {
    * The CDF is the probability of a value drawn from the distribution falling below f
    * <p/>
    * cdf(x) = 1/2 [1 + erf(x - mu/sqrt(2 * stdev^2))]
+   *
    * @param value the value
    * @return the CDF
+   * @throws org.apache.commons.math.MathException
+   *          if the erf function has a problem.
    */
-  public double evaluateGaussianCDF(double value) {
-    try {
-      double stdev = getStdev();
-      return .5 * (1 + erf((value - getMean()) / Math.sqrt(2 * stdev * stdev)));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    return 0;
+  public double evaluateGaussianCDF(double value) throws MathException {
+    double stdev = getStdev();
+    return .5 * (1 + erf((value - getMean()) / Math.sqrt(2 * stdev * stdev)));
   }
 
   /**
