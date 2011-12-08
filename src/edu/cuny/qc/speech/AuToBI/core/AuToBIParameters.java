@@ -36,11 +36,9 @@ public class AuToBIParameters {
   /**
    * Parses command line arguments into parameters.
    * <p/>
-   * parameters are of the form
-   * -parameter_name=parameter_value
+   * parameters are of the form -parameter_name=parameter_value
    * <p/>
-   * or for boolean parameters
-   * -boolean_parameter_name
+   * or for boolean parameters -boolean_parameter_name
    *
    * @param args command line parameters
    */
@@ -131,16 +129,12 @@ public class AuToBIParameters {
    * @return the value of the boolean parameter
    */
   public Boolean booleanParameter(String parameter_name, Boolean default_value) {
-    if (hasParameter(parameter_name)) {
-      try {
-        if (getParameter(parameter_name).equalsIgnoreCase("true")) return true;
-        if (getParameter(parameter_name).equalsIgnoreCase("false")) return false;
-      } catch (AuToBIException e) {
-        AuToBIUtils.warn("Parameter, " + parameter_name + ", interpreted as boolean with value neither true nor false");
-      }
-      return true;
-    } else {
+    try {
+      if (getParameter(parameter_name).equalsIgnoreCase("true")) return true;
+      if (getParameter(parameter_name).equalsIgnoreCase("false")) return false;
+    } catch (AuToBIException e) {
       return default_value;
     }
+    return default_value;
   }
 }
