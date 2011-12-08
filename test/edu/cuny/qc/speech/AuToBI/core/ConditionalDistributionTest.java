@@ -24,9 +24,9 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Test Class for Aggregation.
+ * Test Class for ConditionalDistribution.
  *
- * @see edu.cuny.qc.speech.AuToBI.core.Aggregation
+ * @see edu.cuny.qc.speech.AuToBI.core.ConditionalDistribution
  */
 public class ConditionalDistributionTest {
 
