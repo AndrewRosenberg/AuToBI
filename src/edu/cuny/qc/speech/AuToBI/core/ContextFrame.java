@@ -44,12 +44,6 @@ public class ContextFrame {
   private Aggregation agg;             // stores the aggregate values
 
   /**
-   * Constructs an empty ContextFrame
-   */
-  public ContextFrame() {
-  }
-
-  /**
    * Constructs a ContextFrame
    *
    * @param data         The words to analyze
@@ -63,7 +57,6 @@ public class ContextFrame {
     this.feature_name = feature_name;
     this.data = data;
     this.current = 0;
-    this.agg = new Aggregation();
     init();
   }
 
@@ -73,12 +66,12 @@ public class ContextFrame {
    * This sets intermediate values and initializes the windowed contour list.
    */
   public void init() {
-
+    this.agg = new Aggregation();
     window = new LinkedList<Double>();
     for (int i = current; i < Math.min(data.size(), current + front + 1); ++i) {
       // only include data read from the same file.
-      if (data.get(i).getAttribute(feature_name) instanceof Double) {
-        Double d = (Double) data.get(i).getAttribute(feature_name);
+      if (data.get(i).getAttribute(feature_name) instanceof Number) {
+        double d = ((Number) data.get(i).getAttribute(feature_name)).doubleValue();
         window.add(d);
         agg.insert(d);
       } else {
@@ -100,7 +93,7 @@ public class ContextFrame {
   /**
    * Slides the window forward one region.
    */
-  public void increment()  {
+  public void increment() {
     current++;
 
     if (current > data.size() - 1) {
@@ -109,22 +102,22 @@ public class ContextFrame {
       return;
     }
 
-    if (data.get(0).getAttribute(feature_name) instanceof Double) {// Remove trailing value
-      if (window.size() > 0) {
+    if (data.get(0).getAttribute(feature_name) instanceof Number) {// Remove trailing value
+      if (window.size() > front + back) {
         Double d = window.removeFirst();
         agg.remove(d);
       }
 
       // Add van value
       if (current + front < data.size()) {
-        Double d = (Double) data.get(current + front).getAttribute(feature_name);
+        double d = ((Number) data.get(current + front).getAttribute(feature_name)).doubleValue();
         window.add(d);
         agg.insert(d);
       }
     } else if (data.get(0).getAttribute(feature_name) instanceof Contour) {
       // remove trailing values
       Integer points_to_remove = 0;
-      if (current - back - 1 > 0 && data.get(current - back - 1).getAttribute(feature_name) instanceof Contour) {
+      if (current - back - 1 >= 0 && data.get(current - back - 1).getAttribute(feature_name) instanceof Contour) {
         points_to_remove = ((Contour) data.get(current - back - 1).getAttribute(feature_name)).contentSize();
       }
       for (int i = 0; i < Math.min(window.size(), points_to_remove); ++i) {
@@ -134,9 +127,7 @@ public class ContextFrame {
 
       // add van values
       if (current + front < data.size()) {
-        if (data.get(current + front).getAttribute(feature_name) == null) {
-          AuToBIUtils.debug("null feature: " + feature_name);
-        } else {
+        if (data.get(current + front).getAttribute(feature_name) != null) {
           for (Pair<Double, Double> tvp : (Contour) data.get(current + front).getAttribute(feature_name)) {
             Double d = tvp.second;
 
@@ -156,7 +147,7 @@ public class ContextFrame {
    * @return the maximum value
    */
   public Double getMax() {
-    if (agg.getMax() == null) {
+    if (agg.getMax() != null && Double.isNaN(agg.getMax())) {
       Double max = -(Double.MAX_VALUE);
 
       for (Double d : window)
@@ -175,7 +166,7 @@ public class ContextFrame {
    * @return the minimum value
    */
   public Double getMin() {
-    if (agg.getMin() == null) {
+    if (agg.getMax() != null && Double.isNaN(agg.getMin())) {
       Double min = Double.MAX_VALUE;
 
       for (Double d : window)

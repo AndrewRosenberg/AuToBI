@@ -113,7 +113,7 @@ public class Aggregation implements Serializable {
     sum -= v;
     ssq -= (v * v);
     if (v.equals(max))
-      max = Double.NaN;  // no runnig max and min
+      max = Double.NaN;  // no running max and min
     if (v.equals(min))
       min = Double.NaN;
     n--;
