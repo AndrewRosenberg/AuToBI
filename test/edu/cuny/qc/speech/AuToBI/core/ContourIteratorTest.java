@@ -37,7 +37,7 @@ public class ContourIteratorTest {
   }
 
   @Test
-  public void testIterationSkipsEmptyEntries() {
+  public void testHasNextSkipsEmptyEntries() {
     double[] values = new double[]{0.0, 0.1, 0.2, 0.3, 0.4, 0.5};
     Contour c = new Contour(2.0, 0.001, values);
     ContourIterator ci = new ContourIterator(c);
@@ -52,11 +52,49 @@ public class ContourIteratorTest {
         assertEquals(2.0 + 0.001 * i, tvp.first, 0.0001);
         assertEquals(0.1 * i, tvp.second, 0.0001);
       } else {
-        assertEquals(2.0 + 0.001 * (i+2), tvp.first, 0.0001);
-        assertEquals(0.1 * (i+2), tvp.second, 0.0001);
+        assertEquals(2.0 + 0.001 * (i + 2), tvp.first, 0.0001);
+        assertEquals(0.1 * (i + 2), tvp.second, 0.0001);
       }
       ++i;
     }
     assertEquals(4, i);
   }
+
+  @Test
+  public void testNextEmptyEntries() {
+    double[] values = new double[]{0.0, 0.1, 0.2, 0.3, 0.4, 0.5};
+    Contour c = new Contour(2.0, 0.001, values);
+    ContourIterator ci = new ContourIterator(c);
+
+    c.setEmpty(2);
+    c.setEmpty(3);
+
+    int i = 0;
+    while (i < 4) {
+      Pair<Double, Double> tvp = ci.next();
+      if (i < 2) {
+        assertEquals(2.0 + 0.001 * i, tvp.first, 0.0001);
+        assertEquals(0.1 * i, tvp.second, 0.0001);
+      } else {
+        assertEquals(2.0 + 0.001 * (i + 2), tvp.first, 0.0001);
+        assertEquals(0.1 * (i + 2), tvp.second, 0.0001);
+      }
+      ++i;
+    }
+    assertEquals(4, i);
+  }
+
+  @Test
+  public void testRemove() {
+    double[] values = new double[]{0.0, 0.1, 0.2, 0.3, 0.4, 0.5};
+    Contour c = new Contour(2.0, 0.001, values);
+    ContourIterator ci = new ContourIterator(c);
+
+    ci.next();
+    ci.next();
+    ci.remove();
+
+    assertTrue(c.isEmpty(2));
+  }
+
 }
