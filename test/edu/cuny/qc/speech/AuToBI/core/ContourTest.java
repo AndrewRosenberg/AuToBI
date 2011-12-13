@@ -4,6 +4,7 @@ import edu.cuny.qc.speech.AuToBI.featureextractor.NormalizedContourFeatureExtrac
 import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 import org.junit.Test;
 
+import static junit.framework.Assert.assertNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -44,11 +45,65 @@ public class ContourTest {
   }
 
   @Test
+  public void testGet() {
+    double[] values = new double[]{0.0, 0.1, 0.2, 0.3, 0.4, 0.5};
+
+    Contour c = new Contour(2.0, 0.001, values);
+    assertEquals(0.4, c.get(2.004), 0.0001);
+  }
+
+  @Test
+  public void testGetPair() {
+    double[] values = new double[]{0.0, 0.1, 0.2, 0.3, 0.4, 0.5};
+
+    Contour c = new Contour(2.0, 0.001, values);
+    Pair<Double, Double> pair = c.getPair(2);
+    assertEquals(2.002, pair.first, 0.0001);
+    assertEquals(0.2, pair.second, 0.0001);
+  }
+
+  @Test
+  public void testGetPairOutOfRange() {
+    double[] values = new double[]{0.0, 0.1, 0.2, 0.3, 0.4, 0.5};
+
+    Contour c = new Contour(2.0, 0.001, values);
+    Pair<Double, Double> pair = c.getPair(8);
+    assertNull(pair);
+  }
+
+  @Test
+  public void testGetOutOfRange() {
+    double[] values = new double[]{0.0, 0.1, 0.2, 0.3, 0.4, 0.5};
+
+    Contour c = new Contour(2.0, 0.001, values);
+    assertTrue(Double.isNaN(c.get(10)));
+  }
+
+  @Test
+  public void testSetAboveRange() {
+    double[] values = new double[]{0.0, 0.1, 0.2, 0.3, 0.4, 0.5};
+
+    Contour c = new Contour(2.0, 0.001, values);
+    c.set(7, 0.7);
+    assertTrue(c.isEmpty(6));
+    assertEquals(0.7, c.get(2.007), 0.0001);
+  }
+
+  @Test
   public void testSetEmpty() {
     double[] values = new double[]{0.0, 0.1, 0.2, 0.3, 0.4, 0.5};
 
     Contour c = new Contour(2.0, 0.001, values);
     c.setEmpty(2);
+    assertTrue(c.isEmpty(2));
+  }
+
+  @Test
+  public void testSetEmptyByTime() {
+    double[] values = new double[]{0.0, 0.1, 0.2, 0.3, 0.4, 0.5};
+
+    Contour c = new Contour(2.0, 0.001, values);
+    c.setEmpty(2.002);
     assertTrue(c.isEmpty(2));
   }
 

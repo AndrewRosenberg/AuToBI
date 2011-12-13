@@ -195,7 +195,7 @@ public class Contour implements Iterable<Pair<Double, Double>> {
 
   /**
    * Sets the value for a given index.
-   *
+   * <p/>
    * Will resize the contour array if necessary.
    *
    * @param index the index
@@ -206,7 +206,9 @@ public class Contour implements Iterable<Pair<Double, Double>> {
       // Resize the array
       int origlen = values.length;
       values = Arrays.copyOf(values, index + 1);
-      for (int i = origlen; i < values.length; ++i) {
+      empty_values = Arrays.copyOf(empty_values, index + 1);
+      n = values.length;
+      for (int i = origlen; i < n; ++i) {
         setEmpty(i);
       }
     }
@@ -218,11 +220,11 @@ public class Contour implements Iterable<Pair<Double, Double>> {
 
   /**
    * Sets an index to the desired empty state.
-   *
+   * <p/>
    * Also maintains the num_empty variable.
    *
    * @param index the index to assign
-   * @param b the boolean value to set
+   * @param b     the boolean value to set
    */
   private void setEmpty(int index, boolean b) {
     if (empty_values[index] && !b)
@@ -264,7 +266,7 @@ public class Contour implements Iterable<Pair<Double, Double>> {
 
   /**
    * Determines if an index is empty.
-   *
+   * <p/>
    * Will return true if i is out of bounds.
    *
    * @param i the index
