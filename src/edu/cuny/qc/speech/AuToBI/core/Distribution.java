@@ -58,9 +58,11 @@ public class Distribution extends HashMap<String, Double> {
   }
 
   /**
-   * Identify the key with the greatest value
+   * Identify the key with the greatest value.
+   * <p/>
+   * The behavior is undefined when there are multiple equal valued keys.
    *
-   * @return The key with the greatest associated value
+   * @return A key with the greatest associated value
    */
   public String getKeyWithMaximumValue() {
     String best_key = null;
@@ -80,8 +82,8 @@ public class Distribution extends HashMap<String, Double> {
 
   /**
    * Normalize the distribution such that it sums to 1.
-   *
-   * If there is no mass assigned to the distribution, this function will do nothing, and send a warning message. 
+   * <p/>
+   * If there is no mass assigned to the distribution, this function will do nothing, and send a warning message.
    * <p/>
    * Before normalization, the object represents a histogram rather than a multinomial distribution
    */
