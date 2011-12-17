@@ -161,10 +161,47 @@ public class Feature implements Comparable, Serializable {
   /**
    * Sets the nominal values.
    *
-   * @param nominalValues a set of nominal values
+   * @param values a set of nominal values
    */
-  public void setNominalValues(Collection<String> nominalValues) {
-    this.nominalValues.addAll(nominalValues);
+  public void setNominalValues(Collection<String> values) {
+    this.nominalValues = new LinkedHashSet<String>();
+    this.nominalValues.addAll(values);
+  }
+
+  /**
+   * Sets nominal values to to the current list.
+   *
+   * @param values the values
+   */
+  public void setNominalValues(String[] values) {
+    nominalValues = new LinkedHashSet<String>();
+    this.nominalValues.addAll(Arrays.asList(values));
+  }
+
+  /**
+   * Adds nominal values to to the current list.
+   *
+   * @param values the values
+   */
+  public void addNominalValues(Collection<String> values) {
+    if (nominalValues == null) {
+      nominalValues = new LinkedHashSet<String>();
+    }
+    for (String s : values) {
+      this.nominalValues.add(s);
+    }
+  }
+
+  /**
+   * Adds nominal values to to the current list.
+   *
+   * @param values the values
+   */
+  public void addNominalValues(String[] values) {
+    if (nominalValues == null) {
+      nominalValues = new LinkedHashSet<String>();
+    }
+    this.nominalValues.addAll(Arrays.asList(values));
   }
 
 
@@ -183,35 +220,5 @@ public class Feature implements Comparable, Serializable {
         addNominalValue(r.getAttribute(name).toString());
       }
     }
-  }
-
-  /**
-   * Adds nominal values to to the current list.
-   *
-   * @param values the values
-   */
-  public void addNominalValues(Collection<String> values) {
-    for (String s : values) {
-      this.nominalValues.add(s);
-    }
-  }
-
-  /**
-   * Adds nominal values to to the current list.
-   *
-   * @param values the values
-   */
-  public void addNominalValues(String[] values) {
-    this.nominalValues.addAll(Arrays.asList(values));
-  }
-
-  /**
-   * Sets nominal values to to the current list.
-   *
-   * @param values the values
-   */
-  public void setNominalValues(String[] values) {
-    nominalValues = new LinkedHashSet<String>();
-    this.nominalValues.addAll(Arrays.asList(values));
   }
 }
