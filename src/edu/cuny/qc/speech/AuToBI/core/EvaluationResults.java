@@ -19,8 +19,9 @@
  */
 package edu.cuny.qc.speech.AuToBI.core;
 
+import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
+
 import java.util.Collection;
-import java.util.Iterator;
 
 /**
  * The results from an evaluation -- without storing instances
@@ -41,8 +42,10 @@ public class EvaluationResults {
     if (classNames.length != confusionMatrix.length) {
       throw new AuToBIException("inconsistent lengths of class name and confusion matrix");
     }
-    if (classNames.length != confusionMatrix[0].length) {
-      throw new AuToBIException("inconsistent lengths of class name and confusion matrix");
+    for (int i = 0; i < confusionMatrix.length; ++i) {
+      if (confusionMatrix.length != confusionMatrix[i].length) {
+        throw new AuToBIException("confusion matrix must be square");
+      }
     }
 
     this.classNames = classNames;
@@ -50,17 +53,23 @@ public class EvaluationResults {
   }
 
   /**
-   * Constructs an empty EvalutionResults object with a confusion matrix set up to handle results
-   * for class names.
+   * Constructs an empty EvalutionResults object with a confusion matrix set up to handle results for class names.
    *
    * @param class_names the classes
    */
   public EvaluationResults(Collection<String> class_names) {
     this.classNames = new String[class_names.size()];
-    Iterator<String> iter = class_names.iterator();
+    class_names.toArray(this.classNames);
+
+    initializeContingencyMatrix();
+  }
+
+  /**
+   * Initializes the Contingency Matrix to be empty
+   */
+  private void initializeContingencyMatrix() {
     this.confusionMatrix = new double[classNames.length][classNames.length];
     for (int i = 0; i < classNames.length; ++i) {
-      classNames[i] = iter.next();
       for (int j = 0; j < classNames.length; ++j) {
         confusionMatrix[i][j] = 0;
       }
@@ -68,19 +77,13 @@ public class EvaluationResults {
   }
 
   /**
-   * Constructs an empty EvalutionResults object with a confusion matrix set up to handle results
-   * for class names.
+   * Constructs an empty EvalutionResults object with a confusion matrix set up to handle results for class names.
    *
    * @param class_names the classes
    */
   public EvaluationResults(String[] class_names) {
     this.classNames = class_names;
-    this.confusionMatrix = new double[classNames.length][classNames.length];
-    for (int i = 0; i < classNames.length; ++i) {
-      for (int j = 0; j < classNames.length; ++j) {
-        confusionMatrix[i][j] = 0;
-      }
-    }
+    initializeContingencyMatrix();
   }
 
   /**
@@ -113,10 +116,10 @@ public class EvaluationResults {
    * @param n          The number of instances to add
    * @throws AuToBIException if either class name is invalid
    */
-  public void addInstances(String hyp_class, String true_class, Integer n) throws AuToBIException {
+  public void addInstances(String hyp_class, String true_class, Number n) throws AuToBIException {
     int i = lookupClassName(true_class);
     int j = lookupClassName(hyp_class);
-    confusionMatrix[i][j] += n;
+    confusionMatrix[i][j] += n.doubleValue();
   }
 
   /**
@@ -133,6 +136,14 @@ public class EvaluationResults {
     }
   }
 
+  /**
+   * Retrieve all instances.
+   *
+   * @param hyp_class  Hypothesized class name
+   * @param true_class True class name
+   * @return the number of instances of the true class classified as the hypothesized class.
+   * @throws AuToBIException if one of the class names don't exist
+   */
   public Double getInstances(String hyp_class, String true_class) throws AuToBIException {
     int i = lookupClassName(true_class);
     int j = lookupClassName(hyp_class);
@@ -326,68 +337,24 @@ public class EvaluationResults {
   }
 
   /**
-   * Calculate the weighted mean of minority class f-measures
-   *
-   * @param majority_class the name of the majority class
-   * @return the weighted mean of minority class f-measures
-   * @throws AuToBIException if the majority class name doesn't exist
-   */
-  public Double getWeightedMeanOfMinorityClassFmeasure(String majority_class) throws AuToBIException {
-    int n = 0;
-    double fmeasure = 0.0;
-    for (String class_name : classNames) {
-      if (!class_name.equals(majority_class)) {
-        n += getNumClassInstances(class_name);
-        if (!Double.isNaN(getFMeasure(class_name))) {
-          fmeasure += getFMeasure(class_name) * getNumClassInstances(class_name);
-        }
-      }
-    }
-    return fmeasure / n;
-  }
-
-  /**
-   * Calculates the combined f-measure of an evaluation.
-   *
-   * The combined f-measure is a weighted f-measure between the majority class f-measure and the weighted mean
-   * of minority class f-measures.
-   *
-   * The two are combined using a weighted harmonic mean where the weight, beta, is N-maj/maj where maj is the size
-   * of the majority class.
-   *
-   * @param majority_class The label of the majority class
-   * @return the combined f-measure
-   * @throws AuToBIException if the majority class does not exist
-   */
-  public Double getCombinedFMeasure(String majority_class) throws AuToBIException {
-    Double maj_fmeasure = getFMeasure(majority_class);
-    Double min_fmeasure = getWeightedMeanOfMinorityClassFmeasure(majority_class);
-    Integer majority_size = getNumClassInstances(majority_class);
-    Double beta = (getNumInstances() - majority_size) / majority_size.doubleValue();
-
-    return (1 + beta) * maj_fmeasure * min_fmeasure / (beta * maj_fmeasure + min_fmeasure);
-  }
-
-  /**
    * Return the "balanced error rate" of the contingency matrix.
    * <p/>
-   * This is a little bit of a misnomer -- it's actually unweighted average recall.
-   * But that's the term coined in Read and Cox 2007
+   * This is a little bit of a misnomer -- it's actually unweighted average (inverse) recall. But that's the term coined
+   * in Read and Cox 2007
    *
    * @return BER value
    */
   public Double getBalancedErrorRate() {
     Double ber = 0.0;
-
-    for (String class_name : getClassNames()) {
-      try {
+    try {
+      for (String class_name : getClassNames()) {
         ber += 1 - getRecall(class_name);
-      } catch (AuToBIException e) {
-        ber += 0;
       }
-    }
 
-    ber /= getNumClasses();
+      ber /= getNumClasses();
+    } catch (AuToBIException e) {
+      AuToBIUtils.error("FATAL ERROR: EvaluationResult has become internally inconsistent.");
+    }
     return ber;
   }
 
@@ -409,7 +376,8 @@ public class EvaluationResults {
             mi += p_xy * Math.log(p_xy / (p_x * p_y));
           }
         } catch (AuToBIException e) {
-          e.printStackTrace();
+          AuToBIUtils.error("FATAL ERROR: EvaluationResult has become internally inconsistent.");
+          return 0.0;
         }
       }
     }
@@ -446,6 +414,7 @@ public class EvaluationResults {
 
   /**
    * Constructs a string representation of the object.
+   *
    * @return the string
    */
   public String toString() {
