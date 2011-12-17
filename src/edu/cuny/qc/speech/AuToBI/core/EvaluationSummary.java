@@ -22,6 +22,7 @@ package edu.cuny.qc.speech.AuToBI.core;
 import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * A class for storing Evaluation data from a set of classification experiments. This class serves as a wrapper around a
@@ -47,8 +48,7 @@ public class EvaluationSummary {
     try {
       add(eval);
     } catch (AuToBIException e) {
-      AuToBIUtils.error("Should never happen. Debug EvaluationSummary.");
-      e.printStackTrace();
+      AuToBIUtils.error("FATAL ERROR: EvaluationSummary Construction failed.");
     }
   }
 
@@ -63,7 +63,7 @@ public class EvaluationSummary {
       results.add(eval);
     } else {
       // check that the new results are consistent with the existing results
-      if (eval.getNumClasses() == results.get(0).getNumClasses()) {
+      if (consistentClasses(eval, results.get(0))) {
         results.add(eval);
       } else {
         throw new AuToBIException(
@@ -71,6 +71,28 @@ public class EvaluationSummary {
                 eval.getNumClasses() +
                 "\nexisting number of classes: " + results.get(0).getNumClasses());
       }
+    }
+  }
+
+  /**
+   * Returns true if the class labels of two EvaluationResults are consistent, false otherwise.
+   * <p/>
+   * Two arrays of class labels are consistent if they contain the same elements.
+   *
+   * @param eval_a first EvaluationResult
+   * @param eval_b second EvaluationResult
+   * @return true if consistent, false otherwise.
+   */
+  private boolean consistentClasses(EvaluationResults eval_a, EvaluationResults eval_b) {
+    if (eval_a.getNumClasses() == eval_b.getNumClasses()) {
+      for (String s : eval_a.getClassNames()) {
+        if (!Arrays.asList(eval_b.getClassNames()).contains(s)) {
+          return false;
+        }
+      }
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -185,7 +207,8 @@ public class EvaluationSummary {
             try {
               count += result.getInstances(c1, c2);
             } catch (AuToBIException e) {
-              e.printStackTrace();
+              AuToBIUtils.error("FATAL EROR: Inconsistent EvaluationSummary.");
+              return s;
             }
           }
           s += String.format("%1$6d ", count);
@@ -243,7 +266,7 @@ public class EvaluationSummary {
         }
       }
     }
-    s += "Mutual Information: " + getMeanMutualInformation() + "\n";
+    s += "Mutual Information: " + getMutualInformation() + "\n";
     return s;
   }
 
@@ -252,7 +275,7 @@ public class EvaluationSummary {
    *
    * @return the mean MI.
    */
-  private Double getMeanMutualInformation() {
+  public Double getMutualInformation() {
     Double mi = 0.0;
     for (EvaluationResults result : results) {
       mi += result.getMutualInformation();
@@ -268,7 +291,7 @@ public class EvaluationSummary {
    * @return the number of points with class equal to class_name
    * @throws AuToBIException if the class is not found in results.
    */
-  private Integer getNumClassInstances(String class_name) throws AuToBIException {
+  public Integer getNumClassInstances(String class_name) throws AuToBIException {
     Integer n = 0;
 
     for (EvaluationResults r : results) {
