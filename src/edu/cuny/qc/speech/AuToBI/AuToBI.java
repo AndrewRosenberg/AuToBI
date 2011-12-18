@@ -347,7 +347,7 @@ public class AuToBI {
   public void featureGarbageCollection(FeatureSet fs) {
     for (String feature : dead_features) {
       AuToBIUtils.debug("Removing feature: " + feature);
-      fs.removeFeature(feature);
+      fs.removeFeatureFromDataPoints(feature);
     }
     dead_features.clear();
   }

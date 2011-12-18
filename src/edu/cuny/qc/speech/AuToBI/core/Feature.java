@@ -211,6 +211,9 @@ public class Feature implements Comparable, Serializable {
    * @param data_points the data points.
    */
   public void generateNominalValues(List<Word> data_points) {
+    if (!isNominal()) {
+      setNominal();
+    }
     for (Region r : data_points) {
       if (r.getAttribute(name) == null) {
         AuToBIUtils.debug("Region " + r + " has no attribute: " + name);

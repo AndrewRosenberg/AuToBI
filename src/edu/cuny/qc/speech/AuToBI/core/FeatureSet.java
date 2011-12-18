@@ -41,8 +41,6 @@ import java.io.IOException;
 public class FeatureSet implements Serializable {
   private static final long serialVersionUID = 20100324L;
 
-  // TODO clean up the relationship between required features and features and feature names.
-
   protected Set<String> required_features;  // The required feature names
   protected Set<Feature> features;          // The extracted feature objects
   protected List<Word> data_points;         // Associated data points
@@ -170,7 +168,7 @@ public class FeatureSet implements Serializable {
    *
    * @param feature_name the attribute to remove.
    */
-  public void removeFeature(String feature_name) {
+  public void removeFeatureFromDataPoints(String feature_name) {
     for (Word w : data_points) {
       w.removeAttribute(feature_name);
     }
@@ -229,9 +227,23 @@ public class FeatureSet implements Serializable {
     writer.write(relation_name);
     writer.write("\n\n");
     writer.write(generateArffAttributes());
-    writer.write("\n@data\n");
-    writeCSVData(writer);
+    String data_section = generateArffData();
+    writer.write("\n");
+    writer.write(data_section);
     writer.close();
+  }
+
+  /**
+   * Generates a String representation of the ARFF @data section.
+   * <p/>
+   * This includes a line containing @data followed by the data in comma separated format
+   *
+   * @return a string containing the arff data section
+   */
+  protected String generateArffData() {
+    String data_section = "@data\n";
+    data_section += generateCSVData();
+    return data_section;
   }
 
   /**
@@ -265,7 +277,8 @@ public class FeatureSet implements Serializable {
       if (f.isNominal()) {
         if (f.getNominalValues().isEmpty())
           AuToBIUtils
-              .warn(" Warning: empty nominal values for feature:" + f.getName() + ". Generate Arff _Data_ first.");
+              .warn(
+                  " Warning: empty nominal values for feature:" + f.getName() + ". Try Generating Arff _Data_ first.");
 
         attrString.append(" {");
         attrString.append(f.getNominalValuesCSV());
@@ -287,11 +300,21 @@ public class FeatureSet implements Serializable {
    * @throws java.io.IOException on Write errors
    */
   protected void writeCSVData(AuToBIFileWriter writer) throws IOException {
+    writer.write(generateCSVData());
+  }
+
+  /**
+   * Generates a string representation of the contained data in comma separated values form.
+   *
+   * @return a string containing the values.
+   */
+  private String generateCSVData() {
+    StringBuilder sb = new StringBuilder();
     for (Region r : data_points) {
       boolean first = true;
       for (Feature f : this.features) {
         if (!first) {
-          writer.write(",");
+          sb.append(",");
         } else {
           first = false;
         }
@@ -300,22 +323,24 @@ public class FeatureSet implements Serializable {
               r.toString());
 
           // Weka's arff standard uses the question mark (?) to indicate missing values
-          writer.write("?");
+          sb.append("?");
         } else {
           String value = r.getAttribute(f.getName()).toString();
           if (value.length() == 0) {
             AuToBIUtils.warn("Empty value for attribute:" + f.getName() + " on " + r);
           }
-          writer.write(value);
+          sb.append(value);
         }
         if (f.isNominal() || (f.getNominalValues() != null && f.getNominalValues().size() > 0)) {
           f.addNominalValue(r.getAttribute(f.getName()).toString());
         }
       }
 
-      writer.write("\n");
+      sb.append("\n");
     }
+    return sb.toString();
   }
+
 
   /**
    * Writes a csv header line via the provided writer.
@@ -324,15 +349,16 @@ public class FeatureSet implements Serializable {
    * @throws IOException on Write errors
    */
   protected void writeCSVHeader(AuToBIFileWriter writer) throws IOException {
-    if (data_points.size() == 0) return;
+    writer.write(generateCSVHeader());
+  }
 
-    boolean first = true;
-    for (Feature f : this.features) {
-      if (!first) writer.write(",");
-      else first = false;
-      writer.write(f.getName());
-    }
-    writer.write("\n");
+  /**
+   * Generates the CSV header containing each of the feature names.
+   *
+   * @return the features.
+   */
+  protected String generateCSVHeader() {
+    return AuToBIUtils.join(getFeatureNames(), ",") + "\n";
   }
 
 

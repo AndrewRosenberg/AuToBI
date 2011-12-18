@@ -77,6 +77,7 @@ public class ClassifierUtilsTest {
 
     w.setAttribute("featureA", 3);
     w.setAttribute("class_attribute", "POSITIVE");
+    fs.getDataPoints().add(w);
 
     fs.constructFeatures();
 
