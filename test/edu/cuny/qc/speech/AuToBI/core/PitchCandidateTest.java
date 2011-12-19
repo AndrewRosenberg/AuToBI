@@ -1,6 +1,6 @@
-/*  PitchCandidate.java
+/*  PitchCandidateTest.java
 
-    Copyright (c) 2009-2010 Andrew Rosenberg
+    Copyright (c) 2011 Andrew Rosenberg
 
     This file is part of the AuToBI prosodic analysis package.
 
@@ -17,24 +17,32 @@
     You should have received a copy of the GNU General Public License
     along with AuToBI.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package edu.cuny.qc.speech.AuToBI.core;
 
-/**
- * A single hypothesized PitchCandidate stores the frequency and the strength of a hypothesis.  The strength can be
- * understood as the confidence of the pitch hypothesis.
- */
-public class PitchCandidate {
-  public double frequency;  // the frequency of the candidate
-  public double strength;   // the strength of the candidate
+import junit.framework.Assert;
+import org.junit.Test;
 
-  public PitchCandidate() {
-    frequency = 0.0;
-    strength = 0.0;
+import static junit.framework.Assert.assertNull;
+import static org.junit.Assert.assertEquals;
+
+/**
+ * Tests for PitchCandidate
+ */
+public class PitchCandidateTest {
+  @Test
+  public void testEmptyConstructor() {
+    PitchCandidate pc = new PitchCandidate();
+
+    Assert.assertEquals(0.0, pc.frequency);
+    Assert.assertEquals(0.0, pc.strength);
   }
 
-  public PitchCandidate(double frequency, double strength) {
-    this.frequency = frequency;
-    this.strength = strength;
+  @Test
+  public void testConstructor() {
+    PitchCandidate pc = new PitchCandidate(1.2, 3.4);
+
+    Assert.assertEquals(1.2, pc.frequency);
+    Assert.assertEquals(3.4, pc.strength);
   }
 }
+

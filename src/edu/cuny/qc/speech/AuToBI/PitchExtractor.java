@@ -372,8 +372,8 @@ public class PitchExtractor extends SampledDataAnalyzer {
       * Register the first candidate, which is always present: voicelessness.
       */
       pitchFrame.addCandidate();
-      pitchFrame.getCandidate(0).setFrequency(0.0);  // Voiceless: always present.
-      pitchFrame.getCandidate(0).setStrength(0.0);
+      pitchFrame.getCandidate(0).frequency = 0.0;  // Voiceless: always present.
+      pitchFrame.getCandidate(0).strength = 0.0;
 
       /*
       * Shortcut: absolute silence is always voiceless.
@@ -422,10 +422,10 @@ public class PitchExtractor extends SampledDataAnalyzer {
             for (iweak = 1; iweak < max_candidates; ++iweak) {
               /* High frequencies are to be favoured */
               /* if we want to analyze a perfectly periodic signal correctly. */
-              double localStrength = pitchFrame.getCandidate(iweak).getStrength() - octave_cost *
+              double localStrength = pitchFrame.getCandidate(iweak).strength - octave_cost *
                   Math.log(min_pitch / pitchFrame
                       .getCandidate(iweak)
-                      .getFrequency()) / Math.log(2);
+                      .frequency) / Math.log(2);
               if (localStrength < weakest) {
                 weakest = localStrength;
                 place = iweak;
@@ -437,8 +437,8 @@ public class PitchExtractor extends SampledDataAnalyzer {
           }
           /* Have we found a place for this candidate? */
           if (place >= 0) {
-            pitchFrame.getCandidate(place).setFrequency(frequencyOfMaximum);
-            pitchFrame.getCandidate(place).setStrength(strengthOfMaximum);
+            pitchFrame.getCandidate(place).frequency = frequencyOfMaximum;
+            pitchFrame.getCandidate(place).strength = strengthOfMaximum;
             imax[place] = i;
           }
         }
@@ -447,13 +447,13 @@ public class PitchExtractor extends SampledDataAnalyzer {
       * Second pass: for extra precision, maximize sin(x)/x interpolation ('sinc').
       */
       for (i = 1; i < pitchFrame.getNumCandidates(); i++) {
-        if (pitchFrame.getCandidate(i).getFrequency() > 0.0) {
+        if (pitchFrame.getCandidate(i).frequency > 0.0) {
           double xmid;
           double ymid;
           int offset = -brent_ixmax - 1;
 
           Pair<Double, Double> max_results = improveMaximum(r, offset, brent_ixmax - offset, imax[i] - offset,
-              pitchFrame.getCandidate(i).getFrequency() >
+              pitchFrame.getCandidate(i).frequency >
                   0.3 / wav.getFrameSize() ? NUM_PEAK_INTERPOLATE_SINC700 :
                   brent_depth);
 
@@ -461,10 +461,10 @@ public class PitchExtractor extends SampledDataAnalyzer {
           xmid = max_results.second;
 
           xmid += offset;
-          pitchFrame.getCandidate(i).setFrequency(1.0 / wav.getFrameSize() / xmid);
+          pitchFrame.getCandidate(i).frequency = 1.0 / wav.getFrameSize() / xmid;
 
           if (ymid > 1.0) ymid = 1.0 / ymid;
-          pitchFrame.getCandidate(i).setStrength(ymid);
+          pitchFrame.getCandidate(i).strength = ymid;
         }
       }
       pitchFrames.add(pitchFrame);
@@ -518,10 +518,10 @@ public class PitchExtractor extends SampledDataAnalyzer {
       unvoicedStrength = voicingThresh + (unvoicedStrength > 0 ? unvoicedStrength : 0);
       for (int icand = 0; icand < frame.getNumCandidates(); ++icand) {
         PitchCandidate candidate = frame.getCandidate(icand);
-        boolean voiceless = candidate.getFrequency() == 0 || candidate.getFrequency() > maxPitch;
+        boolean voiceless = candidate.frequency == 0 || candidate.frequency > maxPitch;
         delta[iframe][icand] = voiceless ? unvoicedStrength :
-            candidate.getStrength() -
-                octaveCost * Math.log(maxPitch / candidate.getFrequency()) / Math.log(2);
+            candidate.frequency -
+                octaveCost * Math.log(maxPitch / candidate.frequency) / Math.log(2);
       }
     }
 
@@ -536,11 +536,11 @@ public class PitchExtractor extends SampledDataAnalyzer {
       double curDelta[] = delta[iframe];
       int curPsi[] = psi[iframe];
       for (int icand2 = 0; icand2 < curFrame.getNumCandidates(); icand2++) {
-        double f2 = curFrame.getCandidate(icand2).getFrequency();
+        double f2 = curFrame.getCandidate(icand2).frequency;
         maximum = -1e30;
         place = 0;
         for (int icand1 = 0; icand1 < prevFrame.getNumCandidates(); icand1++) {
-          double f1 = prevFrame.getCandidate(icand1).getFrequency();
+          double f1 = prevFrame.getCandidate(icand1).frequency;
           double transitionCost;
           boolean previousVoiceless = f1 <= 0 || f1 >= maxPitch;
           boolean currentVoiceless = f2 <= 0 || f2 >= maxPitch;
@@ -595,11 +595,11 @@ public class PitchExtractor extends SampledDataAnalyzer {
       for (int iframe = pitchFrames.size() - 1; iframe >= 0; iframe--) {
         PitchFrame frame = pitchFrames.get(iframe);
         PitchCandidate winner = frame.getCandidate(0);
-        double f = winner.getFrequency();
+        double f = winner.frequency;
         if (f > maxPitch && f <= maxPitch) {
           for (int icand = 1; icand < frame.getNumCandidates(); icand++) {
             PitchCandidate loser = frame.getCandidate(icand);
-            if (loser.getFrequency() == 0.0) {
+            if (loser.frequency == 0.0) {
               frame.setCandidate(0, loser);
               frame.setCandidate(icand, winner);
               break;
@@ -610,8 +610,8 @@ public class PitchExtractor extends SampledDataAnalyzer {
     }
 
     for (int i = 0; i < pitchFrames.size(); ++i) {
-      if (pitchFrames.get(i).getCandidate(0).getFrequency() > 0) { // voiced
-        pitch.set(i, pitchFrames.get(i).getCandidate(0).getFrequency());
+      if (pitchFrames.get(i).getCandidate(0).frequency > 0) { // voiced
+        pitch.set(i, pitchFrames.get(i).getCandidate(0).frequency);
       }
     }
     return pitch;
@@ -870,56 +870,5 @@ public class PitchExtractor extends SampledDataAnalyzer {
       halfsina = -halfsina;
     }
     return result;
-  }
-
-  public static void main(String[] args) throws IOException, UnsupportedAudioFileException, AuToBIException {
-    File file = new File(args[0]);
-    AudioInputStream soundIn = AudioSystem.getAudioInputStream(new BufferedInputStream(new FileInputStream(file)));
-
-    WavReader reader = new WavReader();
-    WavData wav;
-    if (args.length > 1)
-      wav = reader.read(soundIn, Double.parseDouble(args[1]), Double.parseDouble(args[2]));
-    else
-      wav = reader.read(soundIn);
-
-
-    System.out.println(wav.sampleRate);
-    System.out.println(wav.sampleSize);
-    System.out.println(wav.getFrameSize());
-    System.out.println(wav.getDuration());
-
-    PitchExtractor pitchFactory = new PitchExtractor(wav);
-    Contour pitch = pitchFactory.soundToPitch();
-    System.out.println("wav length: " + wav.getDuration());
-
-    wav = null;
-
-    System.gc();
-    System.gc();
-    System.gc();
-    System.gc();
-    System.gc();
-    System.gc();
-    System.gc();
-    System.gc();
-    System.gc();
-    System.gc();
-    System.gc();
-    System.gc();
-    System.gc();
-    System.gc();
-    System.gc();
-    System.gc();
-    long memory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
-    System.out.println("Memory Used (Mb): " + (memory / 1024.0 /1024));
-
-    System.out.println("pitch points:" + pitch.contentSize());
-
-
-
-//    for (int i = 0; i < pitch.size(); ++i) {
-//      System.out.println("pitch point[" + i + "]: " + pitch.get(i) + " -- " + pitch.timeFromIndex(i));
-//    }
   }
 }
