@@ -42,8 +42,8 @@ public class AggregationTest {
     assertEquals(0.0, agg.getMean(), 0.0001);
     assertEquals(0.0, agg.getStdev(), 0.0001);
     assertEquals(0, agg.getSize());
-    assertNull(agg.getMax());
-    assertNull(agg.getMin());
+    assertEquals(-Double.MAX_VALUE, agg.getMax(), 0.0001);
+    assertEquals(Double.MAX_VALUE, agg.getMin(), 0.0001);
   }
 
   @Test

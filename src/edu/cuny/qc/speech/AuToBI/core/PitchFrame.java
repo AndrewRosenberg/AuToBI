@@ -35,6 +35,7 @@ public class PitchFrame {
    */
   public PitchFrame() {
     candidates = new ArrayList<PitchCandidate>();
+    intensity = 0.0;
   }
 
   /**
@@ -55,14 +56,6 @@ public class PitchFrame {
     return intensity;
   }
 
-  /**
-   * Sets the number of candidates for this frame.
-   *
-   * @param num the number of candidates.
-   */
-  public void setNumCandidates(int num) {
-    candidates = new ArrayList<PitchCandidate>(num);
-  }
 
   /**
    * Retrieves a single PitchCandidate.
@@ -100,5 +93,5 @@ public class PitchFrame {
    */
   public void setCandidate(int i, PitchCandidate candidate) {
     candidates.set(i, candidate);
-	}
+  }
 }

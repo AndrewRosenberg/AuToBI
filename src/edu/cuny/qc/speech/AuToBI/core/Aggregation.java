@@ -49,8 +49,8 @@ public class Aggregation implements Serializable {
    */
   public Aggregation() {
     this.label = "";
-    this.min = null;
-    this.max = null;
+    this.min = Double.MAX_VALUE;
+    this.max = -Double.MAX_VALUE;
     this.sum = 0.0;
     this.ssq = 0.0;
     this.n = 0;

@@ -19,12 +19,14 @@
  */
 package edu.cuny.qc.speech.AuToBI.core;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
@@ -508,7 +510,7 @@ public class ContextFrameTest {
     assertEquals(5.0, frame.getMax(), 0.0001);
     frame.increment();
     // centered on word 6
-    assertNull(frame.getMax());
+    assertEquals(-Double.MAX_VALUE, frame.getMax(), 0.0001);
   }
 
   @Test
@@ -548,7 +550,7 @@ public class ContextFrameTest {
     assertEquals(5.0, frame.getMax(), 0.0001);
     frame.increment();
     // centered on word 6
-    assertNull(frame.getMax());
+    assertEquals(-Double.MAX_VALUE, frame.getMax(), 0.0001);
   }
 
   @Test
@@ -588,7 +590,7 @@ public class ContextFrameTest {
     assertEquals(-1.0, frame.getMin(), 0.0001);
     frame.increment();
     // centered on word 6
-    assertNull(frame.getMin());
+    Assert.assertEquals(Double.MAX_VALUE, frame.getMin(), 0.0001);
   }
 
   @Test
@@ -628,7 +630,7 @@ public class ContextFrameTest {
     assertEquals(-1.0, frame.getMin(), 0.0001);
     frame.increment();
     // centered on word 6
-    assertNull(frame.getMin());
+    Assert.assertEquals(Double.MAX_VALUE, frame.getMin(), 0.0001);
   }
 
   @Test
