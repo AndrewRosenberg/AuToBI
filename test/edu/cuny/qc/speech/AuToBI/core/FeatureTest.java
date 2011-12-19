@@ -1,4 +1,4 @@
-/*  EvaluationSummaryTest.java
+/*  FeatureTest.java
 
     Copyright (c) 2011 Andrew Rosenberg
 

@@ -24,6 +24,7 @@ import edu.cuny.qc.speech.AuToBI.AuToBI;
 import edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException;
 import edu.cuny.qc.speech.AuToBI.io.*;
 import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
+import edu.cuny.qc.speech.AuToBI.util.WordReaderUtils;
 
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
@@ -47,42 +48,15 @@ public class FeatureSetPropagator implements Callable<FeatureSet> {
 
   public FeatureSet call() {
     String filename = file.getFilename();
-
     String file_stem = filename.substring(0, filename.lastIndexOf('.'));
-
     String wav_filename = file_stem + ".wav";
 
-    AuToBIWordReader reader = null;
-    switch (file.getFormat()) {
-      case TEXTGRID:
-        reader = new TextGridReader(filename);
-        break;
-      case CPROM:
-        reader = new CPromTextGridReader(filename, "words", "delivery", "UTF16",
-            autobi.getBooleanParameter("cprom_include_secondary", true));
-        break;
-      case BURNC:
-        reader = new BURNCReader(filename.replace(".ala", ""));
-        break;
-      case SIMPLE_WORD:
-        reader = new SimpleWordReader(filename);
-        break;
-      default:
-        reader = new TextGridReader(filename);
-    }
+    AuToBIWordReader reader = WordReaderUtils.getAppropriateReader(file);
 
     WavReader wav_reader = new WavReader();
-    WavData wav = null;
+    WavData wav;
     try {
       wav = wav_reader.read(wav_filename);
-    } catch (UnsupportedAudioFileException e1) {
-      e1.printStackTrace();
-    } catch (AuToBIException e1) {
-      e1.printStackTrace();
-    } catch (IOException e1) {
-      e1.printStackTrace();
-    }
-    try {
       AuToBIUtils.log("Reading words from: " + filename);
       List<Word> words = reader.readWords();
 
@@ -103,8 +77,11 @@ public class FeatureSetPropagator implements Callable<FeatureSet> {
       e.printStackTrace();
     } catch (FeatureExtractorException e) {
       e.printStackTrace();
+    } catch (UnsupportedAudioFileException e) {
+      e.printStackTrace();
     }
 
     return null;
   }
+
 }

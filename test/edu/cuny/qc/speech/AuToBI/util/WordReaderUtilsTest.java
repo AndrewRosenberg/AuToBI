@@ -21,6 +21,7 @@ package edu.cuny.qc.speech.AuToBI.util;
 
 import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
 import edu.cuny.qc.speech.AuToBI.core.Word;
+import edu.cuny.qc.speech.AuToBI.io.*;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -79,5 +80,37 @@ public class WordReaderUtilsTest {
   public void testIsSilentRegionWorksWithRegexFalse() {
     String label = "sil";
     assertFalse(WordReaderUtils.isSilentRegion(label, "^R.*"));
+  }
+
+  @Test
+  public void testGetWordReaderTextGrid() {
+    FormattedFile file = new FormattedFile("test.txt", FormattedFile.Format.TEXTGRID);
+
+    AuToBIWordReader reader = WordReaderUtils.getAppropriateReader(file);
+    assertTrue(reader instanceof TextGridReader);
+  }
+
+  @Test
+  public void testGetWordReaderCPROM() {
+    FormattedFile file = new FormattedFile("test.txt", FormattedFile.Format.CPROM);
+
+    AuToBIWordReader reader = WordReaderUtils.getAppropriateReader(file);
+    assertTrue(reader instanceof CPromTextGridReader);
+  }
+
+  @Test
+  public void testGetWordReaderBURNC() {
+    FormattedFile file = new FormattedFile("test.txt", FormattedFile.Format.BURNC);
+
+    AuToBIWordReader reader = WordReaderUtils.getAppropriateReader(file);
+    assertTrue(reader instanceof BURNCReader);
+  }
+
+  @Test
+  public void testGetWordReaderSimpleWord() {
+    FormattedFile file = new FormattedFile("test.txt", FormattedFile.Format.SIMPLE_WORD);
+
+    AuToBIWordReader reader = WordReaderUtils.getAppropriateReader(file);
+    assertTrue(reader instanceof SimpleWordReader);
   }
 }

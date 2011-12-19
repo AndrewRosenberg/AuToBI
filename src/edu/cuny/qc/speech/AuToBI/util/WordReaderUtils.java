@@ -19,6 +19,8 @@
  */
 package edu.cuny.qc.speech.AuToBI.util;
 
+import edu.cuny.qc.speech.AuToBI.io.*;
+
 /**
  * A Utility Class for functions used by AuToBIWordReaders.
  */
@@ -55,5 +57,33 @@ public class WordReaderUtils {
       return false;
     }
     return true;
+  }
+
+  /**
+   * Retrieves an appropriate AuToBIWordReader based on the format of the specified file.
+   *
+   * @param file The formatted file
+   * @return A reader capable of reading this file.
+   */
+  public static AuToBIWordReader getAppropriateReader(FormattedFile file) {
+    String filename = file.getFilename();
+    AuToBIWordReader reader;
+    switch (file.getFormat()) {
+      case TEXTGRID:
+        reader = new TextGridReader(filename);
+        break;
+      case CPROM:
+        reader = new CPromTextGridReader(filename, "words", "delivery", "UTF16", true);
+        break;
+      case BURNC:
+        reader = new BURNCReader(filename.replace(".ala", ""));
+        break;
+      case SIMPLE_WORD:
+        reader = new SimpleWordReader(filename);
+        break;
+      default:
+        reader = new TextGridReader(filename);
+    }
+    return reader;
   }
 }
