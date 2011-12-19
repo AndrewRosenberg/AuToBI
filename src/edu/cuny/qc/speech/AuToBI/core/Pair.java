@@ -44,5 +44,8 @@ public class Pair<T1, T2> {
   /**
    * Constructs a new empty pair.
    */
-  public Pair() {}
+  public Pair() {
+    first = null;
+    second = null;
+  }
 }
