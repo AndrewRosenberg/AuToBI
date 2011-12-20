@@ -95,7 +95,9 @@ public class Region implements Serializable {
     end = r.end;
     label = r.label;
     file = r.file;
-    attributes = new HashMap<String, Object>(r.attributes);
+    if (r.attributes != null) {
+      attributes = new HashMap<String, Object>(r.attributes);
+    }
   }
 
   /**
@@ -231,7 +233,13 @@ public class Region implements Serializable {
    */
   public Set<String> getAttributeNames() {
     checkMapUsage();
-    return this.attributes.keySet();
+    Set<String> names = new HashSet<String>();
+    for (String name : this.attributes.keySet()) {
+      if (getAttribute(name) != null) {
+        names.add(name);
+      }
+    }
+    return names;
   }
 
   /**
