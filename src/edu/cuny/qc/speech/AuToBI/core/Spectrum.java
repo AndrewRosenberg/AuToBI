@@ -87,7 +87,7 @@ public class Spectrum {
    * Returns a specific power value in the Spectrum
    *
    * @param time_idx the time index to retrieve
-   * @param freq     the frequency to retrieve
+   * @param freq     the frequency index to retrieve
    * @return the power in the spectrum
    */
   public double get(int time_idx, int freq) {
@@ -120,17 +120,20 @@ public class Spectrum {
     if (data.length == 0)
       return null;
 
-    int index_1 = (int) Math.floor((time_1 - starting_time) / frame_size);
+    int index_1 = (int) Math.ceil((time_1 - starting_time) / frame_size);
+    // index_2 will point one index position higher than necessary.
     int index_2 = (int) Math.ceil((time_2 - starting_time) / frame_size);
 
-    index_1 = Math.max(0, Math.min(data.length -1, index_1));
-    index_2 = Math.max(0, Math.min(data.length -1, index_2));
+    if (index_1 >= data.length) {
+      return new Spectrum(new double[][]{}, index_1 * frame_size + starting_time, frame_size, freq_resolution);
+    }
+
+    index_1 = Math.max(0, index_1);
+    index_2 = Math.max(0, Math.min(data.length, index_2));
 
     double[][] slice_data = new double[index_2 - index_1][data[0].length];
 
-    for (int i = index_1; i < index_2; ++i) {
-      slice_data[i - index_1] = data[i];
-    }
+    System.arraycopy(data, index_1, slice_data, 0, index_2 - index_1);
 
     return new Spectrum(slice_data, index_1 * frame_size + starting_time, frame_size, freq_resolution);
   }
@@ -157,7 +160,7 @@ public class Spectrum {
     }
     double[] power_spectrum = new double[data.length];
     for (int i = 0; i < data.length; ++i) {
-      for (int j = (int) Math.max(0, Math.floor(toFreqBin(low_freq)));
+      for (int j = (int) Math.max(0, Math.ceil(toFreqBin(low_freq)));
            j < (int) Math.min(data[i].length, Math.ceil(toFreqBin(high_freq))); ++j) {
         power_spectrum[i] += data[i][j];
       }
@@ -208,7 +211,7 @@ public class Spectrum {
   }
 
   /**
-   * Retrieves a list of powers in a band as a List.
+   * Retrieves a list of powers in a band as a Contour.
    * <p/>
    * Note: this is total power, not power density.  To construct power density from this list normalize the power by
    * Math.ceil(freq_2) - Math.floor(freq_1)
@@ -219,16 +222,16 @@ public class Spectrum {
    * @return An array of powers in a frequency band across the whole spectrum.
    * @throws AuToBIException if an invalid band is requested.
    */
-  public Contour getPowerList(double freq_1, double freq_2, boolean log_values) throws AuToBIException {
+  public Contour getPowerContour(double freq_1, double freq_2, boolean log_values) throws AuToBIException {
     double[] power = getPowerInBand(freq_1, freq_2, log_values);
 
-    Contour power_list = new Contour(starting_time, frame_size, power);
+    Contour power_contour = new Contour(starting_time, frame_size, power);
 
-    return power_list;
+    return power_contour;
   }
 
   /**
-   * Retrieves a list of power tilts in a band as a List.
+   * Retrieves a list of power tilts in a band as a Contour.
    * <p/>
    * Power tilt is calculated as the power within a particular frequency divided by the power in the whole frame
    *
@@ -238,7 +241,7 @@ public class Spectrum {
    * @return An array of powers in a frequency band across the whole spectrum.
    * @throws AuToBIException if an invalid band is requested.
    */
-  public Contour getPowerTiltList(double freq_1, double freq_2, boolean log_values) throws AuToBIException {
+  public Contour getPowerTiltContour(double freq_1, double freq_2, boolean log_values) throws AuToBIException {
     double[] power_band = getPowerInBand(freq_1, freq_2, log_values);
     double[] power = getPower(log_values);
 
@@ -251,7 +254,7 @@ public class Spectrum {
 
   /**
    * Generates the spectral balance from a spectrum object.
-   *
+   * <p/>
    * The spectral balance contour is comprised of the slope of the spectrum at each frame.
    *
    * @return a contour containing the spectral balance for each frame.
@@ -268,11 +271,11 @@ public class Spectrum {
 
   /**
    * Calculates the slope of an array of doubles.
-   *
+   * <p/>
    * Used in the calculation of spectral tilt.
    *
    * @param frame the array of doubles
-   * @param log if true, calculate tilt using log power
+   * @param log   if true, calculate tilt using log power
    * @return the slope of the array.
    */
   private double calculateTilt(double[] frame, boolean log) {
@@ -285,13 +288,14 @@ public class Spectrum {
     for (int i = 0; i < n; ++i) {
       double x = i * freq_resolution;
       double y = frame[i];
-      if (log)
+      if (log) {
         if (y == 0) continue;
         y = Math.log(y);
+      }
       s_x += x;
       s_y += y;
       s_xx += x * x;
-      s_xy += x*y;
+      s_xy += x * y;
     }
 
     return (s_xy - (s_x * s_y) / n) / (s_xx - s_x * s_x / n);

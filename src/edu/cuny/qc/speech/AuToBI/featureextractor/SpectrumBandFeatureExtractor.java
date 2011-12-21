@@ -23,7 +23,6 @@ import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
 import edu.cuny.qc.speech.AuToBI.core.Contour;
 import edu.cuny.qc.speech.AuToBI.core.Region;
 import edu.cuny.qc.speech.AuToBI.core.Spectrum;
-import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -90,7 +89,7 @@ public class SpectrumBandFeatureExtractor extends ContourFeatureExtractor {
           Spectrum spectrum = (Spectrum) r.getAttribute(spectrum_feature);
 
           Contour spectrum_band = spectrum
-              .getPowerList(SpectralTiltFeatureExtractor.barkToHertz(low),
+              .getPowerContour(SpectralTiltFeatureExtractor.barkToHertz(low),
                   SpectralTiltFeatureExtractor.barkToHertz(high),
                   false);
 

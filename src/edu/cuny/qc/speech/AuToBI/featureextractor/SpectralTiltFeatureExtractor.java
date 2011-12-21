@@ -23,7 +23,6 @@ import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
 import edu.cuny.qc.speech.AuToBI.core.Contour;
 import edu.cuny.qc.speech.AuToBI.core.Region;
 import edu.cuny.qc.speech.AuToBI.core.Spectrum;
-import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -45,12 +44,13 @@ public class SpectralTiltFeatureExtractor extends ContourFeatureExtractor {
   /**
    * Constructs a new SpectralTiltFeatureExtractor.
    *
-   * @param feature_prefix an identifier for the extracted feature -- typically "bark"
-   * @param spectrum_feature       the spectrum_feature of the signal
-   * @param low_bark       the low boundary of the spectral region
-   * @param high_bark      the high boundary of the spectral region
+   * @param feature_prefix   an identifier for the extracted feature -- typically "bark"
+   * @param spectrum_feature the spectrum_feature of the signal
+   * @param low_bark         the low boundary of the spectral region
+   * @param high_bark        the high boundary of the spectral region
    */
-  public SpectralTiltFeatureExtractor(String feature_prefix, String spectrum_feature, Integer low_bark, Integer high_bark) {
+  public SpectralTiltFeatureExtractor(String feature_prefix, String spectrum_feature, Integer low_bark,
+                                      Integer high_bark) {
     super();
     this.spectrum_feature = spectrum_feature;
     this.low = low_bark;
@@ -82,14 +82,15 @@ public class SpectralTiltFeatureExtractor extends ContourFeatureExtractor {
    * Extracts spectral tilt features from a set of regions.
    *
    * @param regions the regions to extract features from
-   * @throws edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException if something goes wrong with the feature extraction
+   * @throws edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException
+   *          if something goes wrong with the feature extraction
    */
   public void extractFeatures(List regions) throws FeatureExtractorException {
     try {
       for (Region r : (List<Region>) regions) {
         if (r.hasAttribute(spectrum_feature)) {
           Spectrum spectrum = (Spectrum) r.getAttribute(spectrum_feature);
-          Contour spectral_tilt = spectrum.getPowerTiltList(barkToHertz(low), barkToHertz(high), false);
+          Contour spectral_tilt = spectrum.getPowerTiltContour(barkToHertz(low), barkToHertz(high), false);
           r.setAttribute(attribute_name + "_" + low + "_" + high, spectral_tilt);
         }
       }
