@@ -192,8 +192,8 @@ public class Word extends Region {
    * @return the string representation
    */
   public String toString() {
-    return super.toString() + "[ " + break_before + ", " + break_after + "]" + " " +
-           (accent == null ? "" : accent + " " + accent_time);
+    return super.toString() + "[" + break_before + ", " + break_after + "]" +
+        (accent == null ? "" : " " + accent + " " + accent_time);
   }
 
   /**
