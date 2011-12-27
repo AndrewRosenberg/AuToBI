@@ -57,6 +57,7 @@ public class SpeakerNormalizationParameter implements Serializable {
 
   /**
    * Retrieves the speaker id value
+   *
    * @return the speaker identifier
    */
   public String getSpeakerId() {
@@ -97,46 +98,6 @@ public class SpeakerNormalizationParameter implements Serializable {
   }
 
   /**
-   * Normalizes a pitch value.
-   *
-   * @param pitch the pitch value to normalize
-   * @return the normalized value
-   */
-  public double normalizePitch(double pitch) {
-    return normalize("f0", pitch);
-  }
-
-  /**
-   * Normalizes a log pitch value.
-   *
-   * @param log_pitch the log pitch value to normalize
-   * @return the normalized value
-   */
-  public double normalizeLogPitch(double log_pitch) {
-    return normalize("log_f0", log_pitch);
-  }
-
-  /**
-   * Normalizes an intensity value.
-   *
-   * @param intensity the intensity value to normalize
-   * @return the normalized value
-   */
-  public double normalizeIntensity(double intensity) {
-    return normalize("I", intensity);
-  }
-
-  /**
-   * Normalizes a log intensity value.
-   *
-   * @param log_intensity the log intensity value to normalize.
-   * @return the normalized log intensity value
-   */
-  public double normalizeLogIntensity(double log_intensity) {
-    return normalize("log_I", log_intensity);
-  }
-
-  /**
    * Inserts a list of pitch values into the normalization parameters.
    *
    * @param pitch_values the pitch values to insert
@@ -173,8 +134,8 @@ public class SpeakerNormalizationParameter implements Serializable {
    */
   public String toString() {
     String s = "";
-    s += "f0: mean " + params.get("f0").getMean() + " - stdev:" + params.get("f0").getStdev();
-    s += "\nI: mean " + params.get("I").getMean() + " - stdev:" + params.get("I").getStdev();
+    s += "f0: mean " + params.get("f0").getMean() + " - stdev " + params.get("f0").getStdev();
+    s += "\nI: mean " + params.get("I").getMean() + " - stdev " + params.get("I").getStdev();
     return s;
   }
 }

@@ -86,6 +86,7 @@ public class FeatureSet implements Serializable {
    * @param words the data points
    */
   public void setDataPoints(List<Word> words) {
+    // TODO accomodate featureset based attribute storage, by associating this object with each word.
     data_points = words;
   }
 
@@ -144,6 +145,7 @@ public class FeatureSet implements Serializable {
    */
   public void insertDataPoint(Word pt) {
     checkDataPoints();
+    // TODO accomodate featureset based attribute storage, by associating this object with each word.
     data_points.add(pt);
   }
 

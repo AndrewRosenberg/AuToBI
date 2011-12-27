@@ -37,6 +37,9 @@ public class Region implements Serializable {
   private String file;   // an optional field to store the path to the source file for the region.
   private Map<String, Object> attributes;  // a collection of attributes associated with the region.
 
+  // TODO: allow a region to be associated with a feature set.
+  // TODO: Allow a list of Objects to be allocated for attribute storage without also storing the ID.
+
   /**
    * Constrcuts a new region with a label and file.
    *
@@ -199,6 +202,7 @@ public class Region implements Serializable {
    */
   public void setAttribute(String name, Object value) {
     checkMapUsage();
+    // TODO accomodate featureset based attribute storage
     this.attributes.put(name, value);
   }
 
@@ -210,6 +214,7 @@ public class Region implements Serializable {
    */
   public Boolean hasAttribute(String name) {
     checkMapUsage();
+    // TODO accomodate featureset based attribute storage
     return this.attributes.containsKey(name) && this.attributes.get(name) != null;
   }
 
@@ -221,6 +226,7 @@ public class Region implements Serializable {
    */
   public Object getAttribute(String name) {
     checkMapUsage();
+    // TODO accomodate featureset based attribute storage
     return this.attributes.get(name);
   }
 
@@ -233,6 +239,7 @@ public class Region implements Serializable {
    */
   public Set<String> getAttributeNames() {
     checkMapUsage();
+    // TODO accomodate featureset based attribute storage
     Set<String> names = new HashSet<String>();
     for (String name : this.attributes.keySet()) {
       if (getAttribute(name) != null) {
@@ -248,6 +255,7 @@ public class Region implements Serializable {
    * @param name the attribute name
    */
   public void removeAttribute(String name) {
+    // TODO accomodate featureset based attribute storage
     this.attributes.remove(name);
   }
 
@@ -255,6 +263,7 @@ public class Region implements Serializable {
    * Removes all attributes from the region.
    */
   public void clearAttributes() {
+    // TODO accomodate featureset based attribute storage
     this.attributes.clear();
   }
 
@@ -263,6 +272,7 @@ public class Region implements Serializable {
    */
   private void checkMapUsage() {
     if (attributes == null) {
+      // TODO accomodate featureset based attribute storage
       attributes = new HashMap<String, Object>();
     }
   }
