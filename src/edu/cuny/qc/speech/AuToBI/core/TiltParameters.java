@@ -108,12 +108,12 @@ public class TiltParameters {
     }
 
     int max_index = ContourUtils.getIndexOfMaximum(data);
-    int prev_min_index = ContourUtils.getIndexOfPrecedingMinimum(data, max_index, 1.0);
-    int fol_min_index = ContourUtils.getIndexOfFollowingMinimum(data, max_index, 1.0);
+    int prev_min_index = ContourUtils.getIndexOfPrecedingMinimum(data, max_index, 0.5);
+    int fol_min_index = ContourUtils.getIndexOfFollowingMinimum(data, max_index, 0.5);
 
     amplitude_rise = data.get(max_index) - data.get(prev_min_index);
     amplitude_fall = data.get(max_index) - data.get(fol_min_index);
     duration_rise = data.timeFromIndex(max_index) - data.timeFromIndex(prev_min_index);
-    duration_fall = data.timeFromIndex(max_index) - data.timeFromIndex(fol_min_index);
+    duration_fall = data.timeFromIndex(fol_min_index) - data.timeFromIndex(max_index);
   }
 }
