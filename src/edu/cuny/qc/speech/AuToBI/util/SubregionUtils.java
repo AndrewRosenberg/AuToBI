@@ -182,20 +182,20 @@ public class SubregionUtils {
       throw new AuToBIException("Negative Sized Slice requested.");
     }
     WavData sub_wav = new WavData();
-    sub_wav.setNumberOfChannels(wav_data.getNumberOfChannels());
-    sub_wav.setSampleRate(wav_data.getSampleRate());
-    sub_wav.setSampleSize(wav_data.getSampleSize());
+    sub_wav.numberOfChannels = wav_data.numberOfChannels;
+    sub_wav.sampleRate = wav_data.sampleRate;
+    sub_wav.sampleSize = wav_data.sampleSize;
     sub_wav.t0 = start;
 
-    int start_idx = Math.max(0, (int) Math.ceil((start - wav_data.t0) * sub_wav.getSampleRate()));
+    int start_idx = Math.max(0, (int) Math.ceil((start - wav_data.t0) * sub_wav.sampleRate));
     int end_idx =
-        Math.min(wav_data.samples[0].length - 1, (int) Math.floor((end - wav_data.t0) * sub_wav.getSampleRate()));
+        Math.min(wav_data.samples[0].length - 1, (int) Math.floor((end - wav_data.t0) * sub_wav.sampleRate));
 
     int num_frames = end_idx - start_idx + 1;
-    sub_wav.samples = new double[wav_data.getNumberOfChannels()][num_frames];
+    sub_wav.samples = new double[wav_data.numberOfChannels][num_frames];
 
-    for (int channel = 0; channel < wav_data.getNumberOfChannels(); ++channel) {
-      double[] norm = wav_data.getNormalizedData(channel);
+    for (int channel = 0; channel < wav_data.numberOfChannels; ++channel) {
+      double[] norm = wav_data.getSamples(channel);
       System.arraycopy(norm, start_idx, sub_wav.samples[channel], start_idx - start_idx, end_idx + 1 - start_idx);
     }
 

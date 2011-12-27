@@ -160,7 +160,7 @@ public class WavReader {
 
     for (int channel = 0; channel < raw_samples.length; ++channel) {
       for (int j = 0; j < raw_samples[channel].length; ++j) {
-        data.samples[channel][j] = raw_samples[channel][j] * 1.0 / (1 << (data.getSampleSize() - 1));
+        data.samples[channel][j] = raw_samples[channel][j] * 1.0 / (1 << (data.sampleSize - 1));
       }
     }
     return data;

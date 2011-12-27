@@ -103,7 +103,7 @@ public class IntensityExtractor extends SampledDataAnalyzer {
       if (leftSample < 1) leftSample = 0;
       if (rightSample > wav.getNumSamples()) rightSample = wav.getNumSamples();
 
-      for (int channel = 0; channel < wav.getNumberOfChannels(); channel++) {
+      for (int channel = 0; channel < wav.numberOfChannels; channel++) {
         for (i = leftSample; i < rightSample; i++) {
           amplitude[i - leftSample] = wav.getSample(channel, i);
         }

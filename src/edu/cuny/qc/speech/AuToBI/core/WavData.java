@@ -39,16 +39,6 @@ public class WavData {
   }
 
   /**
-   * Return the normalized audio samples on a given channel.
-   *
-   * @param channel The requested channel.
-   * @return An array of raw audio samples.
-   */
-  public double[] getNormalizedData(int channel) {
-    return samples[channel];
-  }
-
-  /**
    * Gets the duration of the wav file in seconds.
    *
    * @return the duration of the file
@@ -58,66 +48,12 @@ public class WavData {
   }
 
   /**
-   * Returns the sample size in bits.
-   *
-   * @return the sample size
-   */
-  public int getSampleSize() {
-    return sampleSize;
-  }
-
-  /**
-   * Sets the sample size.
-   *
-   * @param sampleSize the desired sample size
-   */
-  public void setSampleSize(int sampleSize) {
-    this.sampleSize = sampleSize;
-  }
-
-  /**
-   * Gets the sample rate in Hertz.
-   *
-   * @return the sample rate
-   */
-  public float getSampleRate() {
-    return sampleRate;
-  }
-
-  /**
-   * Sets teh sample rate.
-   *
-   * @param sampleRate the desired sample rate
-   */
-  public void setSampleRate(float sampleRate) {
-    this.sampleRate = sampleRate;
-  }
-
-  /**
    * Gets the frame size in seconds.
    *
    * @return the frame size
    */
   public float getFrameSize() {
     return 1 / sampleRate;
-  }
-
-  /**
-   * Gets the number of channels.
-   *
-   * @return the number of channels
-   */
-  public int getNumberOfChannels() {
-    return numberOfChannels;
-  }
-
-  /**
-   * Sets the number of channels.
-   *
-   * @param numberOfChannels teh desired number of channels.
-   */
-  public void setNumberOfChannels(int numberOfChannels) {
-    this.numberOfChannels = numberOfChannels;
   }
 
   /**
@@ -166,14 +102,5 @@ public class WavData {
    */
   public void setFilename(String filename) {
     this.filename = filename;
-  }
-
-  /**
-   * Sets the start time of the file.
-   *
-   * @param t0 the start time
-   */
-  public void setStartTime(int t0) {
-    this.t0 = t0;
   }
 }

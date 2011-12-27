@@ -46,8 +46,8 @@ public class SpectrumExtractor extends SampledDataAnalyzer {
   /**
    * Constructs a spectrogram for the the associated WavData.
    * <p/>
-   * The frame_size parameter determines the sampling rate and frame size of the spectrogram.
-   * The hanning_window_size describes the overlap across frames.
+   * The frame_size parameter determines the sampling rate and frame size of the spectrogram. The hanning_window_size
+   * describes the overlap across frames.
    * <p/>
    * Both of these parameters are described in seconds.
    * <p/>
@@ -58,8 +58,8 @@ public class SpectrumExtractor extends SampledDataAnalyzer {
    * @return A two dimensional array of doubles containing the spectrogram.
    */
   public Spectrum getSpectrum(double frame_size, double hanning_window_size) {
-    int frame_samples = (int) (wav.getSampleRate() * frame_size);
-    int hanning_window_samples = (int) (wav.getSampleRate() * hanning_window_size);
+    int frame_samples = (int) (wav.sampleRate * frame_size);
+    int hanning_window_samples = (int) (wav.sampleRate * hanning_window_size);
 
     int n_frames = (wav.getNumSamples() - hanning_window_samples) / frame_samples;
 
@@ -93,7 +93,7 @@ public class SpectrumExtractor extends SampledDataAnalyzer {
     }
 
     double starting_time = starting_sample * wav.getFrameSize() + wav.t0;
-    Spectrum return_value = new Spectrum(spectrogram, starting_time, frame_size, wav.getSampleRate() / (2 * nfft));
+    Spectrum return_value = new Spectrum(spectrogram, starting_time, frame_size, wav.sampleRate / (2 * nfft));
     return return_value;
   }
 
@@ -145,7 +145,7 @@ public class SpectrumExtractor extends SampledDataAnalyzer {
   private double[] absoluteValueSquared(double[] data) {
     double[] result = new double[data.length / 2];
     for (int i = 1; i < data.length / 2; ++i) {
-      result[i] = data[i] * data[i] + data[data.length - i] * data[data.length -i ];
+      result[i] = data[i] * data[i] + data[data.length - i] * data[data.length - i];
     }
     return result;
   }

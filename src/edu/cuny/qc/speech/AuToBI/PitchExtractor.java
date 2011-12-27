@@ -195,7 +195,7 @@ public class PitchExtractor extends SampledDataAnalyzer {
     * Compute the global absolute peak for determination of silence threshold.
     */
     globalPeak = 0.0;
-    for (int channel = 0; channel < wav.getNumberOfChannels(); ++channel) {
+    for (int channel = 0; channel < wav.numberOfChannels; ++channel) {
       double mean = 0.0;
       for (i = 0; i < wav.getNumSamples(); ++i) {
         mean += wav.getSample(channel, i);
@@ -222,7 +222,7 @@ public class PitchExtractor extends SampledDataAnalyzer {
     /*
     * Create buffers for autocorrelation analysis.
     */
-    frame = new double[wav.getNumberOfChannels()][nsampFFT];
+    frame = new double[wav.numberOfChannels][nsampFFT];
 
     windowR = new double[nsampFFT];
     window = new double[nsamp_window];
@@ -288,8 +288,8 @@ public class PitchExtractor extends SampledDataAnalyzer {
       int rightSample = leftSample + 1;
       int startSample, endSample;
 
-      double localMean[] = new double[wav.getNumberOfChannels()];
-      for (int channel = 0; channel < wav.getNumberOfChannels(); ++channel) {
+      double localMean[] = new double[wav.numberOfChannels];
+      for (int channel = 0; channel < wav.numberOfChannels; ++channel) {
         /*
         * Compute the local mean; look one longest period to both sides.
         */
@@ -322,7 +322,7 @@ public class PitchExtractor extends SampledDataAnalyzer {
         startSample = 0;
       if ((endSample = halfnsamp_window + halfnsamp_period) > nsamp_window) endSample = nsamp_window;
 
-      for (int channel = 0; channel < wav.getNumberOfChannels(); ++channel) {
+      for (int channel = 0; channel < wav.numberOfChannels; ++channel) {
         for (j = startSample; j <= endSample; j++) {
           double value = Math.abs(frame[channel][j]);
           if (value > localPeak) localPeak = value;
@@ -338,7 +338,7 @@ public class PitchExtractor extends SampledDataAnalyzer {
         ac[i] = 0.0;
       }
 
-      for (int channel = 0; channel < wav.getNumberOfChannels(); ++channel) {
+      for (int channel = 0; channel < wav.numberOfChannels; ++channel) {
 
         // FFT forward
         RealDoubleFFT_Radix2 frame_fft = new RealDoubleFFT_Radix2(nsampFFT);
