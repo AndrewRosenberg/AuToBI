@@ -84,24 +84,6 @@ public class Word extends Region {
   }
 
   /**
-   * Retrieves the orthography of the word.
-   *
-   * @return the orthography
-   */
-  public String getText() {
-    return getLabel();
-  }
-
-  /**
-   * Sets the orthography of the word.
-   *
-   * @param text the orthography
-   */
-  public void setText(String text) {
-    setLabel(text);
-  }
-
-  /**
    * Retrieves the accent label.
    *
    * @return the accent label
