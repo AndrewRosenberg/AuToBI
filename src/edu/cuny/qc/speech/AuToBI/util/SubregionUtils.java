@@ -192,16 +192,11 @@ public class SubregionUtils {
         Math.min(wav_data.samples[0].length - 1, (int) Math.floor((end - wav_data.t0) * sub_wav.getSampleRate()));
 
     int num_frames = end_idx - start_idx + 1;
-    sub_wav.raw_samples = new int[wav_data.getNumberOfChannels()][num_frames];
     sub_wav.samples = new double[wav_data.getNumberOfChannels()][num_frames];
 
     for (int channel = 0; channel < wav_data.getNumberOfChannels(); ++channel) {
-      int[] raw = wav_data.getRawData(channel);
       double[] norm = wav_data.getNormalizedData(channel);
-      for (int i = start_idx; i <= end_idx; ++i) {
-        sub_wav.raw_samples[channel][i - start_idx] = raw[i];
-        sub_wav.samples[channel][i - start_idx] = norm[i];
-      }
+      System.arraycopy(norm, start_idx, sub_wav.samples[channel], start_idx - start_idx, end_idx + 1 - start_idx);
     }
 
     return sub_wav;

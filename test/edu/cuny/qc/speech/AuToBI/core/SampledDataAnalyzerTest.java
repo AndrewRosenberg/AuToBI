@@ -79,9 +79,9 @@ public class SampledDataAnalyzerTest {
     sda.wav = new WavData();
     sda.wav.t0 = 0.0;
     sda.wav.sampleRate = (float) 1.0;
-    sda.wav.raw_samples = new int[][]{{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11}};
+    sda.wav.samples = new double[][]{{0.0, 1.0, 2.0, 3.0, 4.0, 5.0}};
 
-    assertEquals((Integer) 6, sda.shortTermAnalysis(2.0, 2.0).first);
+    assertEquals((Integer) 3, sda.shortTermAnalysis(2.0, 2.0).first);
     assertEquals(0.5, (Double) sda.shortTermAnalysis(2.0, 2.0).second, 0.001);
   }
 

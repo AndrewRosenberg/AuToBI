@@ -330,9 +330,7 @@ public class SubregionUtilsTest {
     wavData.setNumberOfChannels(1);
     wavData.t0 = 4;
 
-    wavData.raw_samples = new int[][]{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}};
     wavData.samples = new double[][]{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}};
-    wavData.generateSamples();
 
     try {
       WavData subwav = SubregionUtils.getSlice(wavData, 4.09, 4.31);
@@ -340,13 +338,6 @@ public class SubregionUtilsTest {
       assertEquals(8, subwav.getSampleSize(), 0.001);
 
       assertEquals(4.09, subwav.t0, 0.001);
-
-      assertEquals(1, subwav.raw_samples.length);
-      assertEquals(3, subwav.raw_samples[0].length);
-
-      assertEquals(2, subwav.raw_samples[0][0]);
-      assertEquals(3, subwav.raw_samples[0][1]);
-      assertEquals(4, subwav.raw_samples[0][2]);
 
     } catch (AuToBIException e) {
       fail(e.getMessage());
@@ -362,9 +353,7 @@ public class SubregionUtilsTest {
     wavData.setNumberOfChannels(1);
     wavData.t0 = 4;
 
-    wavData.raw_samples = new int[][]{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}};
     wavData.samples = new double[][]{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}};
-    wavData.generateSamples();
 
     try {
       WavData subwav = SubregionUtils.getSlice(wavData, 4.09, 4.09);
@@ -383,9 +372,7 @@ public class SubregionUtilsTest {
     wavData.setNumberOfChannels(1);
     wavData.t0 = 4;
 
-    wavData.raw_samples = new int[][]{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}};
     wavData.samples = new double[][]{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}};
-    wavData.generateSamples();
 
     try {
       WavData subwav = SubregionUtils.getSlice(wavData, 5.09, 4.09);

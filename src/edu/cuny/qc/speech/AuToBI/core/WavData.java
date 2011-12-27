@@ -24,38 +24,18 @@ package edu.cuny.qc.speech.AuToBI.core;
  * WavData is used to store Wav file data.
  */
 public class WavData {
-  // Audio Data
-  public int[][] raw_samples;
-
-  public double[][] samples;
-  // Number of stored channels
-  public int numberOfChannels;
-  // Size of each sample in bits
-  public int sampleSize;
-  // Number of raw_samples per second.
-  public float sampleRate;
-
-  // The time of the first sample.
-  public double t0;
-
-  // The filename containing the this audio data.
-  private String filename;
+  public double[][] samples;   // Normalized Audio Data
+  public int numberOfChannels; // Number of stored channels
+  public int sampleSize;       // Size of each sample in bits
+  public float sampleRate;     // Number of raw_samples per second.
+  public double t0;            // The time of the first sample.
+  private String filename;     // The filename containing the this audio data.
 
   /**
    * Constructs a new WavData object with no data.
    */
   public WavData() {
     this.t0 = 0.0;
-  }
-
-  /**
-   * Return the raw audio samples on a given channel.
-   *
-   * @param channel The requested channel.
-   * @return An array of raw audio samples.
-   */
-  public int[] getRawData(int channel) {
-    return raw_samples[channel];
   }
 
   /**
@@ -74,7 +54,7 @@ public class WavData {
    * @return the duration of the file
    */
   public double getDuration() {
-    return raw_samples[0].length / sampleRate;
+    return samples[0].length / sampleRate;
   }
 
   /**
@@ -146,18 +126,7 @@ public class WavData {
    * @return the number of samples
    */
   public int getNumSamples() {
-    return raw_samples[0].length;
-  }
-
-  /**
-   * Generates floating point samples from the raw integer samples read from the file.
-   */
-  public void generateSamples() {
-    for (int channel = 0; channel < raw_samples.length; ++channel) {
-      for (int i = 0; i < raw_samples[channel].length; ++i) {
-        samples[channel][i] = raw_samples[channel][i] * 1.0 / (1 << (getSampleSize() - 1));
-      }
-    }
+    return samples[0].length;
   }
 
   /**

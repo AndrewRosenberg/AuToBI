@@ -57,23 +57,25 @@ public class WavReader {
   }
 
   /**
-     * Constructs a WavData object from the wav file pointed to by filename with specified start and end times.  The original time information is *not* preserved.
-     * <p/>
-     * Note AuToBI currently only supports 16bit wave files.
-     *
-     * @param filename the filename to read
-     * @return The wav data stored in the file.
-     * @throws IOException                   if there is a file reading problem
-     * @throws UnsupportedAudioFileException if there is a problem with the audio file format
-     * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException               if the file is not 16 bit
-     */
-    public WavData read(String filename, Double start, Double end)
-        throws UnsupportedAudioFileException, IOException, AuToBIException {
-      File file = new File(filename);
-      AudioInputStream soundIn = AudioSystem.getAudioInputStream(new BufferedInputStream(new FileInputStream(file)));
+   * Constructs a WavData object from the wav file pointed to by filename with specified start and end times.  The
+   * original time information is *not* preserved.
+   * <p/>
+   * Note AuToBI currently only supports 16bit wave files.
+   *
+   * @param filename the filename to read
+   * @return The wav data stored in the file.
+   * @throws IOException                   if there is a file reading problem
+   * @throws UnsupportedAudioFileException if there is a problem with the audio file format
+   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException
+   *                                       if the file is not 16 bit
+   */
+  public WavData read(String filename, Double start, Double end)
+      throws UnsupportedAudioFileException, IOException, AuToBIException {
+    File file = new File(filename);
+    AudioInputStream soundIn = AudioSystem.getAudioInputStream(new BufferedInputStream(new FileInputStream(file)));
 
-      return read(soundIn, start, end);
-    }
+    return read(soundIn, start, end);
+  }
 
 
   /**
@@ -95,7 +97,8 @@ public class WavReader {
    * @param start  The start time to read in seconds
    * @param end    The end time to read in seconds
    * @return the wave data
-   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException if the file does not use 16bit samples.
+   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException
+   *          if the file does not use 16bit samples.
    */
   public WavData read(AudioInputStream stream, Double start, Double end) throws AuToBIException {
     WavData data = new WavData();
@@ -137,7 +140,7 @@ public class WavReader {
     // Wave files are by default little endian.  Currently does not support big endian formatted wave files.
     // Convert endian-ness of raw data to sample data
     // Currently only supports 16-bit raw_samples
-    data.raw_samples = new int[data.numberOfChannels][bytes.length / (2 * data.numberOfChannels)];
+    int[][] raw_samples = new int[data.numberOfChannels][bytes.length / (2 * data.numberOfChannels)];
     data.samples = new double[data.numberOfChannels][bytes.length / (2 * data.numberOfChannels)];
 
     int i = 0;
@@ -150,12 +153,16 @@ public class WavReader {
         ++i;
 
         int sample = (high << 8) + (low & 0x00ff);
-        data.raw_samples[channel][index] = sample;
+        raw_samples[channel][index] = sample;
       }
       ++index;
     }
 
-    data.generateSamples();
+    for (int channel = 0; channel < raw_samples.length; ++channel) {
+      for (int j = 0; j < raw_samples[channel].length; ++j) {
+        data.samples[channel][j] = raw_samples[channel][j] * 1.0 / (1 << (data.getSampleSize() - 1));
+      }
+    }
     return data;
   }
 
