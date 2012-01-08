@@ -1,6 +1,6 @@
-/*  TimeValuePairFeatureExtractor.java
+/*  ContourFeatureExtractor.java
 
-    Copyright 2009-2010 Andrew Rosenberg
+    Copyright 2009-2012 Andrew Rosenberg
 
     This file is part of the AuToBI prosodic analysis package.
 
@@ -48,7 +48,8 @@ public class ContourFeatureExtractor extends FeatureExtractor {
   /**
    * Constructs a new empty ContourFeatureExtractor.
    */
-  public ContourFeatureExtractor() {}
+  public ContourFeatureExtractor() {
+  }
 
   /**
    * Sets the attribute name and registers extracted features to match the new name.
@@ -111,8 +112,8 @@ public class ContourFeatureExtractor extends FeatureExtractor {
    * Extracts acoustic aggregations of the associated contour for each region where the context normalization is
    * calculated over a distinct set of regions from the initial aggregations.
    * <p/>
-   * This distinction is useful when normalizing subword regions, like syllables, from all of the surrounding
-   * acoustic material.
+   * This distinction is useful when normalizing subword regions, like syllables, from all of the surrounding acoustic
+   * material.
    *
    * @param regions         The regions to extract features from.
    * @param context_regions the regions that define context -- can be identical as regions.
@@ -161,7 +162,7 @@ public class ContourFeatureExtractor extends FeatureExtractor {
       } else {
         region.setAttribute(attribute_name + "__stdev", stdev);
       }
-      if (stdev == 0) {
+      if (stdev == 0.0) {
         region.setAttribute(attribute_name + "__zMax", 0.0);
       } else {
         region.setAttribute(attribute_name + "__zMax", (agg.getMax() - mean) / stdev);
