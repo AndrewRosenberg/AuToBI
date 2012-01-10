@@ -40,11 +40,11 @@ public class CorrectionSpectrumPADFeatureSet extends FeatureSet {
    */
   public CorrectionSpectrumPADFeatureSet(int low, int high) {
     super();
-    required_features.add("duration__duration");
+    insertRequiredFeature("duration__duration");
 
-    required_features.add("nominal_bark_" + low + "_" + high + "__prediction");
-    required_features.add("bark_" + low + "_" + high + "__prediction_confidence");
-    required_features.add("bark_" + low + "_" + high + "__prediction_confidence_accented");
+    insertRequiredFeature("nominal_bark_" + low + "_" + high + "__prediction");
+    insertRequiredFeature("bark_" + low + "_" + high + "__prediction_confidence");
+    insertRequiredFeature("bark_" + low + "_" + high + "__prediction_confidence_accented");
 
     List<ContextDesc> contexts = new ArrayList<ContextDesc>();
     contexts.add(new ContextDesc("f2b2", 2, 2));
@@ -59,19 +59,19 @@ public class CorrectionSpectrumPADFeatureSet extends FeatureSet {
       for (String norm : new String[]{"", "_norm"}) {
         for (String slope : new String[]{"", "_delta"}) {
           for (String agg : new String[]{"__zMax", "__zMean"}) {
-            required_features.add("f0" + slope + norm + "_" + context.getLabel() + agg);
+            insertRequiredFeature("f0" + slope + norm + "_" + context.getLabel() + agg);
           }
         }
       }
-      required_features.add("duration__duration_" + context.getLabel() + "__zNorm");
-      required_features.add("duration__duration_" + context.getLabel() + "__rNorm");
+      insertRequiredFeature("duration__duration_" + context.getLabel() + "__zNorm");
+      insertRequiredFeature("duration__duration_" + context.getLabel() + "__rNorm");
     }
 
     for (String acoustic : new String[]{"f0"}) {
       for (String norm : new String[]{"", "_norm"}) {
         for (String slope : new String[]{"", "_delta"}) {
           for (String agg : new String[]{"max", "mean", "stdev", "zMax"}) {
-            required_features.add(acoustic + slope + norm + "__" + agg);
+            insertRequiredFeature(acoustic + slope + norm + "__" + agg);
           }
         }
       }

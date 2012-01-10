@@ -181,13 +181,16 @@ public class SubregionUtils {
     if (start >= end) {
       throw new AuToBIException("Negative Sized Slice requested.");
     }
+    if (end < wav_data.t0 || start > wav_data.t0 + wav_data.getNumSamples() / wav_data.sampleRate) {
+      return null;
+    }
     WavData sub_wav = new WavData();
     sub_wav.numberOfChannels = wav_data.numberOfChannels;
     sub_wav.sampleRate = wav_data.sampleRate;
     sub_wav.sampleSize = wav_data.sampleSize;
-    sub_wav.t0 = start;
 
     int start_idx = Math.max(0, (int) Math.ceil((start - wav_data.t0) * sub_wav.sampleRate));
+    sub_wav.t0 = wav_data.t0 + start_idx / sub_wav.sampleRate;
     int end_idx =
         Math.min(wav_data.samples[0].length - 1, (int) Math.floor((end - wav_data.t0) * sub_wav.sampleRate));
 
@@ -196,7 +199,7 @@ public class SubregionUtils {
 
     for (int channel = 0; channel < wav_data.numberOfChannels; ++channel) {
       double[] norm = wav_data.getSamples(channel);
-      System.arraycopy(norm, start_idx, sub_wav.samples[channel], start_idx - start_idx, end_idx + 1 - start_idx);
+      System.arraycopy(norm, start_idx, sub_wav.samples[channel], start_idx - start_idx, num_frames);
     }
 
     return sub_wav;

@@ -41,7 +41,7 @@ public class SpectrumPADFeatureSet extends FeatureSet {
     super();
     for (String acoustic : new String[]{"bark", "bark_tilt"}) {
       for (String agg : new String[]{"max", "mean", "stdev", "zMax"}) {
-        required_features.add(acoustic + "_" + low + "_" + high + "__" + agg);
+        insertRequiredFeature(acoustic + "_" + low + "_" + high + "__" + agg);
       }
     }
 
@@ -57,7 +57,7 @@ public class SpectrumPADFeatureSet extends FeatureSet {
     for (ContextDesc context : contexts) {
       for (String acoustic : new String[]{"bark", "bark_tilt"}) {
         for (String agg : new String[]{"zMax", "zMean"}) {
-          required_features.add(acoustic + "_" + low + "_" + high + "_" + context.getLabel() + "__" + agg);
+          insertRequiredFeature(acoustic + "_" + low + "_" + high + "_" + context.getLabel() + "__" + agg);
         }
       }
     }

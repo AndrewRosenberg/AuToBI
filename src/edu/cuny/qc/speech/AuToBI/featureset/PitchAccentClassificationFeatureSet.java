@@ -22,8 +22,8 @@ package edu.cuny.qc.speech.AuToBI.featureset;
 import edu.cuny.qc.speech.AuToBI.core.FeatureSet;
 
 /**
- * PitchAccentClassificationFeatureSet is responsible for describing the features necessary to perform
- * pitch accent classification.
+ * PitchAccentClassificationFeatureSet is responsible for describing the features necessary to perform pitch accent
+ * classification.
  */
 public class PitchAccentClassificationFeatureSet extends FeatureSet {
 
@@ -33,13 +33,13 @@ public class PitchAccentClassificationFeatureSet extends FeatureSet {
   public PitchAccentClassificationFeatureSet() {
     super();
 
-    required_features.add("duration__duration");
+    insertRequiredFeature("duration__duration");
 
     for (String acoustic : new String[]{"f0", "I"}) {
       for (String norm : new String[]{"", "norm_"}) {
         for (String slope : new String[]{"", "delta_"}) {
           for (String agg : new String[]{"max", "mean", "stdev", "zMax"}) {
-            required_features.add(slope + norm + acoustic + "_pseudosyllable" + "__" + agg);
+            insertRequiredFeature(slope + norm + acoustic + "_pseudosyllable" + "__" + agg);
           }
         }
       }

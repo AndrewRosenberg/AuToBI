@@ -33,18 +33,18 @@ public class IntermediatePhraseBoundaryDetectionFeatureSet extends FeatureSet {
   public IntermediatePhraseBoundaryDetectionFeatureSet() {
     super();
 
-    required_features.add("duration__duration");
-    required_features.add("duration__follPause");
-    required_features.add("nominal_precedesSilence");
+    insertRequiredFeature("duration__duration");
+    insertRequiredFeature("duration__follPause");
+    insertRequiredFeature("nominal_precedesSilence");
 
-    required_features.add("diff_duration__duration");
+    insertRequiredFeature("diff_duration__duration");
 
     for (String diff : new String[]{"", "diff_"}) {
       for (String acoustic : new String[]{"f0", "I"}) {
         for (String norm : new String[]{"", "norm_"}) {
           for (String slope : new String[]{"", "delta_"}) {
             for (String agg : new String[]{"max", "mean", "stdev", "zMax"}) {
-              required_features.add(diff + slope + norm + acoustic + "__" + agg);
+              insertRequiredFeature(diff + slope + norm + acoustic + "__" + agg);
             }
           }
         }

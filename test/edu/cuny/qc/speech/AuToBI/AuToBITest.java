@@ -65,7 +65,7 @@ public class AuToBITest {
     // Set up Test Feature Extraction Configuration
     FeatureSet fs = new FeatureSet();
     fs.setClassAttribute("feature1");
-    fs.getRequiredFeatures().add("feature2");
+    fs.insertRequiredFeature("feature2");
     fs.constructFeatures();
 
     FeatureExtractor fe = new FeatureExtractor() {
@@ -158,7 +158,7 @@ public class AuToBITest {
     fs.insertDataPoint(w);
 
     fs.setClassAttribute("feature1");
-    fs.getRequiredFeatures().add("feature2");
+    fs.insertRequiredFeature("feature2");
     fs.constructFeatures();
 
     FeatureExtractor fe = new FeatureExtractor() {
@@ -193,7 +193,7 @@ public class AuToBITest {
       autobi.initializeReferenceCounting(fs);
 
       autobi.extractFeatures(fs);
-      assertEquals(2, w.getAttributes().size());
+      assertEquals(2, w.getAttributeNames().size());
     } catch (AuToBIException e) {
       fail();
     } catch (FeatureExtractorException e) {

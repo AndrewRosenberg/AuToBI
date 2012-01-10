@@ -143,8 +143,8 @@ public class RegionTest {
   public void testGetAttributes() {
     Region r = new Region(5.0, 15.0, "test_label", "/test/file/name.txt");
 
-    assertNotNull(r.getAttributes());
-    assertEquals(0, r.getAttributes().size());
+    assertNotNull(r.getAttributeNames());
+    assertEquals(0, r.getAttributeNames().size());
   }
 
   @Test
@@ -208,8 +208,59 @@ public class RegionTest {
     r.setAttribute("test_attribute_two", "value");
 
     r.clearAttributes();
-    assertEquals(0, r.getAttributes().size());
+    assertEquals(0, r.getAttributeNames().size());
   }
 
+
+  @Test
+  public void testSetFeatureSetAssignsRequiredFeatureNames() {
+    Region r = new Region(5.0, 15.0, "test_label", "/test/file/name.txt");
+
+
+    FeatureSet fs = new FeatureSet();
+    fs.insertRequiredFeature("test_feature");
+    r.setFeatureSet(fs);
+    r.setAttribute("test_feature", "hello");
+
+    assertTrue(r.getAttributeNames().contains("test_feature"));
+  }
+
+  @Test
+  public void testSetFeatureSetAssignsClassAttribute() {
+    Region r = new Region(5.0, 15.0, "test_label", "/test/file/name.txt");
+
+
+    FeatureSet fs = new FeatureSet();
+    fs.setClassAttribute("test_feature");
+
+    r.setFeatureSet(fs);
+    r.setAttribute("test_feature", "hi");
+
+    assertTrue(r.getAttributeNames().contains("test_feature"));
+  }
+
+  @Test
+  public void testSetAndGetFeatureSetRequiredAttribute() {
+    Word w = new Word(5.0, 15.0, "test_label", "/test/file/name.txt");
+
+    FeatureSet fs = new FeatureSet();
+    fs.insertRequiredFeature("test_feature");
+    fs.insertDataPoint(w);
+
+    w.setAttribute("test_feature", "TESTING");
+    assertEquals("TESTING", w.getAttribute("test_feature"));
+  }
+
+  @Test
+  public void testSetAndGetFeatureSetClassAttribute() {
+    Word w = new Word(5.0, 15.0, "test_label", "/test/file/name.txt");
+
+    FeatureSet fs = new FeatureSet();
+    fs.setClassAttribute("class_attr");
+    fs.insertDataPoint(w);
+
+    w.setAttribute("class_attr", "TESTING");
+    assertEquals("TESTING", w.getAttribute("class_attr"));
+  }
 }
 

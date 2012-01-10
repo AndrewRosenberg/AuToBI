@@ -181,7 +181,7 @@ public class FeatureSetTest {
   @Test
   public void testConstructFeatures() {
     FeatureSet fs = new FeatureSet();
-    fs.getRequiredFeatures().add("one");
+    fs.insertRequiredFeature("one");
 
     fs.constructFeatures();
 
@@ -198,7 +198,7 @@ public class FeatureSetTest {
   @Test
   public void testConstructFeaturesNominal() {
     FeatureSet fs = new FeatureSet();
-    fs.getRequiredFeatures().add("nominal_one");
+    fs.insertRequiredFeature("nominal_one");
 
     fs.constructFeatures();
 
@@ -215,8 +215,8 @@ public class FeatureSetTest {
   @Test
   public void testGenerateArffAttributes() {
     FeatureSet fs = new FeatureSet();
-    fs.getRequiredFeatures().add("nominal_one");
-    fs.getRequiredFeatures().add("two");
+    fs.insertRequiredFeature("nominal_one");
+    fs.insertRequiredFeature("two");
 
     Word w1 = new Word(0, 1, "one");
     w1.setAttribute("nominal_one", "value_one");
@@ -237,8 +237,8 @@ public class FeatureSetTest {
   @Test
   public void testGenerateArffAttributesWithStringAttribute() {
     FeatureSet fs = new FeatureSet();
-    fs.getRequiredFeatures().add("nominal_one");
-    fs.getRequiredFeatures().add("two");
+    fs.insertRequiredFeature("nominal_one");
+    fs.insertRequiredFeature("two");
 
     Word w1 = new Word(0, 1, "one");
     w1.setAttribute("nominal_one", "value_one");
@@ -261,8 +261,8 @@ public class FeatureSetTest {
   @Test
   public void testGenerateArffAttributesWithEmptyNomnialValues() {
     FeatureSet fs = new FeatureSet();
-    fs.getRequiredFeatures().add("nominal_one");
-    fs.getRequiredFeatures().add("two");
+    fs.insertRequiredFeature("nominal_one");
+    fs.insertRequiredFeature("two");
 
     fs.constructFeatures();
 
@@ -276,8 +276,8 @@ public class FeatureSetTest {
   @Test
   public void testGenerateArffData() {
     FeatureSet fs = new FeatureSet();
-    fs.getRequiredFeatures().add("nominal_one");
-    fs.getRequiredFeatures().add("two");
+    fs.insertRequiredFeature("nominal_one");
+    fs.insertRequiredFeature("two");
 
     Word w1 = new Word(0, 1, "one");
     w1.setAttribute("nominal_one", "value_one");
@@ -298,8 +298,8 @@ public class FeatureSetTest {
   @Test
   public void testGenerateArffDataWithMissingAttributes() {
     FeatureSet fs = new FeatureSet();
-    fs.getRequiredFeatures().add("nominal_one");
-    fs.getRequiredFeatures().add("two");
+    fs.insertRequiredFeature("nominal_one");
+    fs.insertRequiredFeature("two");
 
     Word w1 = new Word(0, 1, "one");
     w1.setAttribute("nominal_one", "value_one");
@@ -319,8 +319,8 @@ public class FeatureSetTest {
   @Test
   public void testGenerateArffDataWithEmptyValue() {
     FeatureSet fs = new FeatureSet();
-    fs.getRequiredFeatures().add("nominal_one");
-    fs.getRequiredFeatures().add("two");
+    fs.insertRequiredFeature("nominal_one");
+    fs.insertRequiredFeature("two");
 
     Word w1 = new Word(0, 1, "one");
     w1.setAttribute("nominal_one", "value_one");
@@ -341,8 +341,8 @@ public class FeatureSetTest {
   @Test
   public void testGenerateCSVHeader() {
     FeatureSet fs = new FeatureSet();
-    fs.getRequiredFeatures().add("nominal_one");
-    fs.getRequiredFeatures().add("two");
+    fs.insertRequiredFeature("nominal_one");
+    fs.insertRequiredFeature("two");
 
     Word w1 = new Word(0, 1, "one");
     w1.setAttribute("nominal_one", "value_one");
@@ -358,4 +358,34 @@ public class FeatureSetTest {
     assertEquals("two,nominal_one\n", header);
   }
 
+
+  @Test
+  public void testGetFeatureIndexWorksOnClassAttribute() {
+    FeatureSet fs = new FeatureSet();
+    fs.insertRequiredFeature("nominal_one");
+    fs.insertRequiredFeature("two");
+    fs.setClassAttribute("class_attr");
+
+    assertEquals(0, fs.getFeatureIndex("class_attr"));
+  }
+
+  @Test
+  public void testGetFeatureIndexWorksOnRequiredFeature() {
+    FeatureSet fs = new FeatureSet();
+    fs.insertRequiredFeature("nominal_one");
+    fs.insertRequiredFeature("two");
+    fs.setClassAttribute("class_attr");
+
+    assertEquals(2, fs.getFeatureIndex("two"));
+  }
+
+  @Test
+  public void testGetFeatureIndexReturnsNegOneOnUnknownFeature() {
+    FeatureSet fs = new FeatureSet();
+    fs.insertRequiredFeature("nominal_one");
+    fs.insertRequiredFeature("two");
+    fs.setClassAttribute("class_attr");
+
+    assertEquals(-1, fs.getFeatureIndex("nosuchfeature"));
+  }
 }

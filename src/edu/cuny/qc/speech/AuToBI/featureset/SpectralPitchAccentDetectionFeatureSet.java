@@ -34,10 +34,10 @@ public class SpectralPitchAccentDetectionFeatureSet extends FeatureSet {
 
     for (int low = 0; low <= 19; ++low) {
       for (int high = low + 1; high <= 20; ++high) {
-        required_features.add("nominal_bark_" + low + "_" + high + "__prediction");
-        required_features.add("bark_" + low + "_" + high + "__prediction_confidence");
-        required_features.add("nominal_bark_" + low + "_" + high + "__correction_prediction");
-        required_features.add("bark_" + low + "_" + high + "__correction_prediction_confidence");
+        insertRequiredFeature("nominal_bark_" + low + "_" + high + "__prediction");
+        insertRequiredFeature("bark_" + low + "_" + high + "__prediction_confidence");
+        insertRequiredFeature("nominal_bark_" + low + "_" + high + "__correction_prediction");
+        insertRequiredFeature("bark_" + low + "_" + high + "__correction_prediction_confidence");
       }
     }
     this.class_attribute = "nominal_PitchAccent";

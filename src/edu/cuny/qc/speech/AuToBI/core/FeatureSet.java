@@ -39,9 +39,9 @@ import java.io.IOException;
  * @see edu.cuny.qc.speech.AuToBI.AuToBI
  */
 public class FeatureSet implements Serializable {
-  private static final long serialVersionUID = 20100324L;
+  private static final long serialVersionUID = 20120110L;
 
-  protected Set<String> required_features;  // The required feature names
+  protected Map<String, Integer> required_features;  // The required feature names
   protected Set<Feature> features;          // The extracted feature objects
   protected List<Word> data_points;         // Associated data points
   protected String class_attribute;         // The name of the class attribute (if any)
@@ -53,7 +53,7 @@ public class FeatureSet implements Serializable {
   public FeatureSet() {
     this.features = new LinkedHashSet<Feature>();
     this.data_points = new ArrayList<Word>();
-    this.required_features = new HashSet<String>();
+    this.required_features = new HashMap<String, Integer>();
   }
 
   /**
@@ -65,7 +65,9 @@ public class FeatureSet implements Serializable {
     FeatureSet newfs = new FeatureSet();
     newfs.features.addAll(this.getFeatures());
     newfs.data_points.addAll(this.getDataPoints());
-    newfs.required_features.addAll(this.getRequiredFeatures());
+    for (Map.Entry<String, Integer> entry : this.required_features.entrySet()) {
+      newfs.required_features.put(entry.getKey(), entry.getValue());
+    }
     newfs.class_attribute = this.getClassAttribute();
     return newfs;
   }
@@ -87,6 +89,9 @@ public class FeatureSet implements Serializable {
    */
   public void setDataPoints(List<Word> words) {
     // TODO accomodate featureset based attribute storage, by associating this object with each word.
+    for (Word w : words) {
+      w.setFeatureSet(this);
+    }
     data_points = words;
   }
 
@@ -147,6 +152,7 @@ public class FeatureSet implements Serializable {
     checkDataPoints();
     // TODO accomodate featureset based attribute storage, by associating this object with each word.
     data_points.add(pt);
+    pt.setFeatureSet(this);
   }
 
   /**
@@ -186,7 +192,7 @@ public class FeatureSet implements Serializable {
    */
   public void constructFeatures() {
     features.clear();
-    for (String feature : required_features) {
+    for (String feature : required_features.keySet()) {
       Feature f = new Feature(feature);
       if (feature.startsWith("nominal_")) {
         f.generateNominalValues(data_points);
@@ -207,7 +213,41 @@ public class FeatureSet implements Serializable {
    * @return the required features
    */
   public Set<String> getRequiredFeatures() {
-    return required_features;
+    return required_features.keySet();
+  }
+
+  /**
+   * Inserts a required feature into the set of required features
+   *
+   * @param feature_name the feature to insert
+   */
+  public void insertRequiredFeature(String feature_name) {
+    if (!required_features.containsKey(feature_name)) {
+      // The class attribute is stored at index 0
+      required_features.put(feature_name, required_features.size() + 1);
+      if (data_points != null && data_points.size() > 0) {
+        for (Region r : data_points) {
+          r.addRequiredFeatureCapacity();
+        }
+      }
+    }
+  }
+
+  /**
+   * Gets a unique index corresponding to feature name.  If there is no associated index, returns -1
+   *
+   * @param feature_name the feature name
+   * @return an appropriate array index.
+   */
+  public int getFeatureIndex(String feature_name) {
+    if (class_attribute != null && class_attribute.equals(feature_name)) {
+      return 0;
+    }
+    if (required_features.containsKey(feature_name)) {
+      return required_features.get(feature_name);
+    } else {
+      return -1;
+    }
   }
 
   /**

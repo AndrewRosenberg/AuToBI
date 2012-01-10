@@ -72,7 +72,7 @@ public class ClassifierUtilsTest {
   public void testConvertWordToInstance() {
     Word w = new Word(0, 1, "one");
     FeatureSet fs = new FeatureSet();
-    fs.getRequiredFeatures().add("featureA");
+    fs.insertRequiredFeature("featureA");
     fs.setClassAttribute("class_attribute");
 
     w.setAttribute("featureA", 3);
@@ -130,8 +130,8 @@ public class ClassifierUtilsTest {
   public void testConvertFeatureSetToWekaInstances() {
     Word w = new Word(0, 1, "one");
     FeatureSet fs = new FeatureSet();
-    fs.getRequiredFeatures().add("featureA");
-    fs.getRequiredFeatures().add("featureB");
+    fs.insertRequiredFeature("featureA");
+    fs.insertRequiredFeature("featureB");
     fs.setClassAttribute("class_attribute");
 
     w.setAttribute("featureA", 3);

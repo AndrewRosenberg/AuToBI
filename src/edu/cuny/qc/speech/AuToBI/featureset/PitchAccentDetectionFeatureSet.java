@@ -40,7 +40,7 @@ public class PitchAccentDetectionFeatureSet extends FeatureSet {
       for (String norm : new String[]{"", "norm_"}) {
         for (String slope : new String[]{"", "delta_"}) {
           for (String agg : new String[]{"max", "mean", "stdev", "zMax"}) {
-            required_features.add(slope + norm + acoustic + "__" + agg);
+            insertRequiredFeature(slope + norm + acoustic + "__" + agg);
           }
         }
       }
@@ -48,7 +48,7 @@ public class PitchAccentDetectionFeatureSet extends FeatureSet {
 
     for (String acoustic : new String[]{"bark_tilt_2_20", "bark_2_20"}) {
       for (String agg : new String[]{"max", "mean", "stdev", "zMax"}) {
-        required_features.add(acoustic + "__" + agg);
+        insertRequiredFeature(acoustic + "__" + agg);
       }
     }
 
@@ -65,7 +65,7 @@ public class PitchAccentDetectionFeatureSet extends FeatureSet {
     for (ContextDesc context : contexts) {
       for (String acoustic : new String[]{"bark_2_20", "bark_tilt_2_20"}) {
         for (String agg : new String[]{"zMax", "zMean"}) {
-          required_features.add(acoustic + "_" + context.getLabel() + "__" + agg);
+          insertRequiredFeature(acoustic + "_" + context.getLabel() + "__" + agg);
         }
       }
 
@@ -73,7 +73,7 @@ public class PitchAccentDetectionFeatureSet extends FeatureSet {
         for (String norm : new String[]{"", "norm_"}) {
           for (String slope : new String[]{"", "delta_"}) {
             for (String agg : new String[]{"zMean", "zMax"}) {
-              required_features.add(slope + norm + acoustic + "_" + context.getLabel() + "__" + agg);
+              insertRequiredFeature(slope + norm + acoustic + "_" + context.getLabel() + "__" + agg);
             }
           }
         }

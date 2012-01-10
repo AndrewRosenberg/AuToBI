@@ -19,6 +19,8 @@
  */
 package edu.cuny.qc.speech.AuToBI.core;
 
+import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
+
 import java.util.*;
 import java.io.Serializable;
 
@@ -37,8 +39,9 @@ public class Region implements Serializable {
   private String file;   // an optional field to store the path to the source file for the region.
   private Map<String, Object> attributes;  // a collection of attributes associated with the region.
 
-  // TODO: allow a region to be associated with a feature set.
-  // TODO: Allow a list of Objects to be allocated for attribute storage without also storing the ID.
+  private FeatureSet feature_set;
+  // a FeatureSet that describes the features that are required on this region for classification
+  private Object[] fs_attributes; // a list of values for each of the required attributes from the FeatureSet
 
   /**
    * Constrcuts a new region with a label and file.
@@ -186,12 +189,43 @@ public class Region implements Serializable {
 
   /**
    * Retrieves the attributes hash.
+   * <p/>
+   * This has been deprecated.  The correct way to use this functionality is to get a list of attribute names, and the
+   * get the values for each attribute individually.
    *
    * @return the hash of attributes and their names
    */
+  @Deprecated
   public Map<String, Object> getAttributes() {
     checkMapUsage();
     return attributes;
+  }
+
+  /**
+   * Retrieves the associated FeatureSet
+   *
+   * @return the associated FeatureSet
+   */
+  public FeatureSet getFeatureSet() {
+    return feature_set;
+  }
+
+  /**
+   * Sets the corresponding feature set, and structures the attribute storage.
+   *
+   * @param fs the FeatureSet to be assigned
+   */
+  public void setFeatureSet(FeatureSet fs) {
+    if (this.feature_set != null) {
+      AuToBIUtils.warn("Overwriting features.  Possible information loss.");
+    }
+    this.feature_set = fs;
+
+    // Allocate enough space for all of the required features and the class attribute
+    fs_attributes = new Object[fs.getRequiredFeatures().size() + 1];
+
+    // This will overwrite all features that had been previously assigned to the fs_attributes array.
+    // It might make sense to move these to the attributes hash.  For now, we warn if we're overwriting this array.
   }
 
   /**
@@ -202,8 +236,12 @@ public class Region implements Serializable {
    */
   public void setAttribute(String name, Object value) {
     checkMapUsage();
-    // TODO accomodate featureset based attribute storage
-    this.attributes.put(name, value);
+    if (feature_set != null && feature_set.getRequiredFeatures().contains(name)) {
+      int idx = feature_set.getFeatureIndex(name);
+      this.fs_attributes[idx] = value;
+    } else {
+      this.attributes.put(name, value);
+    }
   }
 
   /**
@@ -215,7 +253,12 @@ public class Region implements Serializable {
   public Boolean hasAttribute(String name) {
     checkMapUsage();
     // TODO accomodate featureset based attribute storage
-    return this.attributes.containsKey(name) && this.attributes.get(name) != null;
+    if (feature_set != null && feature_set.getRequiredFeatures().contains(name)) {
+      int idx = feature_set.getFeatureIndex(name);
+      return this.fs_attributes[idx] != null;
+    } else {
+      return this.attributes.containsKey(name) && this.attributes.get(name) != null;
+    }
   }
 
   /**
@@ -227,7 +270,12 @@ public class Region implements Serializable {
   public Object getAttribute(String name) {
     checkMapUsage();
     // TODO accomodate featureset based attribute storage
-    return this.attributes.get(name);
+    if (feature_set != null && feature_set.getRequiredFeatures().contains(name)) {
+      int idx = feature_set.getFeatureIndex(name);
+      return this.fs_attributes[idx];
+    } else {
+      return this.attributes.get(name);
+    }
   }
 
   /**
@@ -246,6 +294,18 @@ public class Region implements Serializable {
         names.add(name);
       }
     }
+    if (feature_set != null) {
+      for (String name : feature_set.getRequiredFeatures()) {
+        if (getAttribute(name) != null) {
+          names.add(name);
+        }
+      }
+      if (feature_set.class_attribute != null) {
+        if (getAttribute(feature_set.class_attribute) != null) {
+          names.add(feature_set.class_attribute);
+        }
+      }
+    }
     return names;
   }
 
@@ -256,7 +316,11 @@ public class Region implements Serializable {
    */
   public void removeAttribute(String name) {
     // TODO accomodate featureset based attribute storage
-    this.attributes.remove(name);
+    if (feature_set != null && feature_set.getRequiredFeatures().contains(name)) {
+      fs_attributes[feature_set.getFeatureIndex(name)] = null;
+    } else {
+      this.attributes.remove(name);
+    }
   }
 
   /**
@@ -265,6 +329,11 @@ public class Region implements Serializable {
   public void clearAttributes() {
     // TODO accomodate featureset based attribute storage
     this.attributes.clear();
+    if (fs_attributes != null) {
+      for (int i = 0; i < fs_attributes.length; ++i) {
+        fs_attributes[i] = null;
+      }
+    }
   }
 
   /**
@@ -272,7 +341,6 @@ public class Region implements Serializable {
    */
   private void checkMapUsage() {
     if (attributes == null) {
-      // TODO accomodate featureset based attribute storage
       attributes = new HashMap<String, Object>();
     }
   }
@@ -284,5 +352,20 @@ public class Region implements Serializable {
    */
   public String toString() {
     return label + " [" + start + ", " + end + "]" + " (" + file + ")";
+  }
+
+  /**
+   * Increases the capacity for an additional required feature.
+   * <p/>
+   * This is used when a region has already been added to a data set, and then later, the required feature list for that
+   * attribute is increased.
+   */
+  public void addRequiredFeatureCapacity() {
+    // Reallocate
+    Object[] newArray = new Object[fs_attributes.length + 1];
+
+    // copy
+    System.arraycopy(fs_attributes, 0, newArray, 0, fs_attributes.length);
+    fs_attributes = newArray;
   }
 }

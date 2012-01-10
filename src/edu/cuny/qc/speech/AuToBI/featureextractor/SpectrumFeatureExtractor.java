@@ -72,17 +72,18 @@ public class SpectrumFeatureExtractor extends FeatureExtractor {
       Double epsilon = frame_size + hamming_window;
       try {
         WavData subwav = SubregionUtils.getSlice(wav_data, r.getStart() - epsilon, r.getEnd() + epsilon);
-        SpectrumExtractor extractor = new SpectrumExtractor(subwav);
-        Spectrum spectrum = extractor.getSpectrum(frame_size, hamming_window);
+        if (subwav != null) {
+          SpectrumExtractor extractor = new SpectrumExtractor(subwav);
+          Spectrum spectrum = extractor.getSpectrum(frame_size, hamming_window);
 
-        if (spectrum == null) {
-          throw new AuToBIException(
-              "Tried to extract the spectrum from segment with too few frames: " + r.getDuration() + " seconds. (" +
-                  subwav.getNumSamples() + " frames)");
+          if (spectrum == null) {
+            throw new AuToBIException(
+                "Tried to extract the spectrum from segment with too few frames: " + r.getDuration() + " seconds. (" +
+                    subwav.getNumSamples() + " frames)");
+          }
+          Spectrum sub_spectrum = spectrum.getSlice(r.getStart(), r.getEnd());
+          r.setAttribute(feature_name, sub_spectrum);
         }
-        Spectrum sub_spectrum = spectrum.getSlice(r.getStart(), r.getEnd());
-        r.setAttribute(feature_name, sub_spectrum);
-
       } catch (AuToBIException e) {
         AuToBIUtils.warn(e.getMessage());
       }

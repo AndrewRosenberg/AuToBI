@@ -335,8 +335,49 @@ public class SubregionUtilsTest {
     try {
       WavData subwav = SubregionUtils.getSlice(wavData, 4.09, 4.31);
 
-      assertEquals(4.09, subwav.t0, 0.001);
+      assertEquals(4.10, subwav.t0, 0.001);
 
+    } catch (AuToBIException e) {
+      fail(e.getMessage());
+    }
+  }
+
+  @Test
+  public void testGetSliceBeyondTheEnd() {
+    WavData wavData = new WavData();
+
+    wavData.sampleRate = 10;
+    wavData.sampleSize = 8;
+    wavData.numberOfChannels = 1;
+    wavData.t0 = 4;
+
+    wavData.samples = new double[][]{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}};
+
+    try {
+      WavData subwav = SubregionUtils.getSlice(wavData, 8.09, 8.31);
+
+      assertNull(subwav);
+
+    } catch (AuToBIException e) {
+      fail(e.getMessage());
+    }
+  }
+
+  @Test
+  public void testGetSliceBeforeTheBeginning() {
+    WavData wavData = new WavData();
+
+    wavData.sampleRate = 10;
+    wavData.sampleSize = 8;
+    wavData.numberOfChannels = 1;
+    wavData.t0 = 4;
+
+    wavData.samples = new double[][]{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}};
+
+    try {
+      WavData subwav = SubregionUtils.getSlice(wavData, 1.09, 1.31);
+
+      assertNull(subwav);
     } catch (AuToBIException e) {
       fail(e.getMessage());
     }

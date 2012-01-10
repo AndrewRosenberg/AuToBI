@@ -1035,15 +1035,15 @@ public class AuToBI {
 
         String hyp_feature = getHypotheizedFeature(task);
         registerFeatureExtractor(new HypothesizedEventFeatureExtractor(hyp_feature, classifier, fs));
-        autobi_fs.getRequiredFeatures().add(hyp_feature);
+        autobi_fs.insertRequiredFeature(hyp_feature);
 
         if (getBooleanParameter("distributions", false)) {
           String dist_feature = getDistributionFeature(task);
           registerFeatureExtractor(new HypothesizedDistributionFeatureExtractor(dist_feature, classifier, fs));
-          autobi_fs.getRequiredFeatures().add(dist_feature);
+          autobi_fs.insertRequiredFeature(dist_feature);
         }
 
-        autobi_fs.getRequiredFeatures().add(fs.getClassAttribute());
+        autobi_fs.insertRequiredFeature(fs.getClassAttribute());
 
       }
 

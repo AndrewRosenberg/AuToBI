@@ -58,6 +58,9 @@ public class SpectrumExtractor extends SampledDataAnalyzer {
    * @return A two dimensional array of doubles containing the spectrogram.
    */
   public Spectrum getSpectrum(double frame_size, double hanning_window_size) {
+    if (wav == null) {
+      return null;
+    }
     int frame_samples = (int) (wav.sampleRate * frame_size);
     int hanning_window_samples = (int) (wav.sampleRate * hanning_window_size);
 

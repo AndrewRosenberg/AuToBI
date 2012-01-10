@@ -33,18 +33,18 @@ public class PhraseAccentBoundaryToneClassificationFeatureSet extends FeatureSet
   public PhraseAccentBoundaryToneClassificationFeatureSet() {
     super();
 
-     required_features.add("duration__duration");
+    insertRequiredFeature("duration__duration");
 
-     for (String acoustic : new String[]{"f0", "I"}) {
-       for (String norm : new String[]{"", "norm_"}) {
-         for (String slope : new String[]{"", "delta_"}) {
-           for (String agg : new String[]{"max", "mean", "stdev", "zMax"}) {
-             required_features.add(slope + norm + acoustic + "_200ms"+ "__" + agg);
-           }
-         }
-       }
-     }
+    for (String acoustic : new String[]{"f0", "I"}) {
+      for (String norm : new String[]{"", "norm_"}) {
+        for (String slope : new String[]{"", "delta_"}) {
+          for (String agg : new String[]{"max", "mean", "stdev", "zMax"}) {
+            insertRequiredFeature(slope + norm + acoustic + "_200ms" + "__" + agg);
+          }
+        }
+      }
+    }
 
-     class_attribute = "nominal_PhraseAccentBoundaryTone";
+    class_attribute = "nominal_PhraseAccentBoundaryTone";
   }
 }
