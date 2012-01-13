@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+ 
+<project name="AuToBI" default="jar">
+	<target name="compile">
+	        <mkdir dir="out/production/Release"/>
+	        <javac srcdir="src" destdir="out/production/Release"/>
+	</target>
+	
+	<target name="jar">
+		<jar destfile="AuToBI.jar">
+			<zipfileset dir="out/production/Release/" prefix="" />
+			<zipfileset src="lib/commons-math-2.1.jar" />
+			<zipfileset src="lib/jakarta-oro-2.1-dev-1.jar" />
+			<zipfileset src="lib/jnt_fft.jar" />
+			<zipfileset src="lib/log4j-1.2.15.jar" />
+			<zipfileset src="lib/weka.jar" />
+			<manifest>
+				<attribute name="Main-Class" value="edu.cuny.qc.speech.AuToBI.AuToBI" />
+			</manifest>
+		</jar>
+	</target>
+</project>
