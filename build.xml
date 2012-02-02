@@ -1,12 +1,16 @@
 <?xml version="1.0"?>
  
 <project name="AuToBI" default="jar">
+	<path id="project.classpath">
+		<fileset dir="lib" includes="*.jar" />
+	</path>
+	
 	<target name="compile">
 	        <mkdir dir="out/production/Release"/>
-	        <javac srcdir="src" destdir="out/production/Release"/>
+	        <javac srcdir="src" destdir="out/production/Release" classpathref="project.classpath" debug="true" includeantruntime="false"/>
 	</target>
 	
-	<target name="jar">
+	<target name="jar" depends="compile">
 		<jar destfile="AuToBI.jar">
 			<zipfileset dir="out/production/Release/" prefix="" />
 			<zipfileset src="lib/commons-math-2.1.jar" />
@@ -18,5 +22,9 @@
 				<attribute name="Main-Class" value="edu.cuny.qc.speech.AuToBI.AuToBI" />
 			</manifest>
 		</jar>
+	</target>
+	
+	<target name="clean">
+		<delete dir="out/" />
 	</target>
 </project>
