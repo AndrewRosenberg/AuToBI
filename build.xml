@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
- 
+
 <project name="AuToBI" default="jar">
 	<path id="project.classpath">
 		<fileset dir="lib" includes="*.jar" />
@@ -9,7 +9,7 @@
 	        <mkdir dir="out/production/Release"/>
 	        <javac srcdir="src" destdir="out/production/Release" classpathref="project.classpath" debug="true" includeantruntime="false"/>
 	</target>
-	
+
 	<target name="jar" depends="compile">
 		<jar destfile="AuToBI.jar">
 			<zipfileset dir="out/production/Release/" prefix="" />
