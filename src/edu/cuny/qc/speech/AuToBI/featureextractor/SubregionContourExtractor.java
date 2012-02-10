@@ -58,9 +58,8 @@ public class SubregionContourExtractor extends FeatureExtractor {
 
     for (Region r : (List<Region>) regions) {
       Contour c = (Contour) r.getAttribute(contour_feature);
-      if (c != null) {
+      if (c != null && r.hasAttribute(subregion_feature)) {
         Region subregion = (Region) r.getAttribute(subregion_feature);
-
         try {
           Contour subcontour = ContourUtils.getSubContour(c, subregion.getStart(), subregion.getEnd());
           r.setAttribute(contour_feature + "_" + subregion_feature, subcontour);
