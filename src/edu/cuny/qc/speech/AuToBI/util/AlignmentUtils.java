@@ -57,6 +57,11 @@ public class AlignmentUtils {
       } else {
         // Assign tones to word
         String[] tone_data = ToBIUtils.parseToneString(tone.getLabel());
+        
+        if ((tone_data[0] == null) && (tone_data[1] == null) && (tone_data[2] == null)) {
+			AuToBIUtils.warn("Label, " + tone.getLabel()
+					+ ", doesn't match any pattern (accent_pattern, phrase_accent_pattern, boundary_tone_pattern).");
+		}
 
         if (tone_data[0] != null) {
           if (word.isAccented()) {
