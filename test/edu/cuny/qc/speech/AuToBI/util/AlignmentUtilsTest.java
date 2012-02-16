@@ -54,6 +54,23 @@ public class AlignmentUtilsTest {
   }
 
   @Test
+  public void testCopyToBITonesByTimePitchAccentHandlesSeparatedComplexTones() {
+    List<Word> words = new ArrayList<Word>();
+    Word w = new Word(0, 1, "test");
+    words.add(w);
+
+    List<Region> tones = new ArrayList<Region>();
+    Region tone_a = new Region(0.5, 0.5, "H+");
+    Region tone_b = new Region(0.75, 0.75, "+L*");
+    tones.add(tone_a);
+    tones.add(tone_b);
+
+    AlignmentUtils.copyToBITonesByTime(words, tones);
+
+    assertEquals("H+L*", w.getAccent());
+  }
+
+  @Test
   public void testCopyToBITonesByTimePhraseAccent() {
     List<Word> words = new ArrayList<Word>();
     Word w = new Word(0, 1, "test");

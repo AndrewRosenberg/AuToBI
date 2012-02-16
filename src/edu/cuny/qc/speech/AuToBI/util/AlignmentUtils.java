@@ -43,6 +43,7 @@ public class AlignmentUtils {
   public static void copyToBITonesByTime(List<Word> words, List<Region> tones) {
     int word_idx = 0;
     int tone_idx = 0;
+    String partial_accent = null;
 
     while (tone_idx < tones.size() && word_idx < words.size()) {
 
@@ -61,8 +62,34 @@ public class AlignmentUtils {
           if (word.isAccented()) {
             AuToBIUtils.warn("Multiply accented word, " + word + ". Only keeping the first accent.");
           } else {
-            word.setAccent(tone_data[0]);
-            word.setAccentTime(tone.getStart());
+            if (partial_accent == null) {
+              if (tone_data[0].endsWith("+")) {
+                partial_accent = tone_data[0];
+              } else {
+                if (tone_data[0].startsWith("+")) {
+                  AuToBIUtils.warn("Unexpected partial accent tone, " + tone_data[0] +
+                      ", that does not follow a preceding partial accent annotation");
+                }
+                word.setAccent(tone_data[0]);
+                word.setAccentTime(tone.getStart());
+              }
+            } else {
+              if (tone_data[0].startsWith("+")) {
+                word.setAccent(partial_accent + tone_data[0].substring(1));
+                word.setAccentTime(tone.getStart());
+                partial_accent = null;
+              } else {
+                AuToBIUtils.warn(
+                    "Partial accent tone, " + partial_accent + ", follows unexpected tone annotation, " + tone_data[0]);
+                if (tone_data[0].endsWith("+")) {
+                  partial_accent = tone_data[0];
+                } else {
+                  word.setAccent(tone_data[0]);
+                  word.setAccentTime(tone.getStart());
+                  partial_accent = null;
+                }
+              }
+            }
           }
         }
 
@@ -102,6 +129,7 @@ public class AlignmentUtils {
    * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException
    *          If there is an unqual number of breaks and words
    */
+
   public static void copyToBIBreaks(List<Word> words, List<Region> breaks) throws AuToBIException {
     String previous_break = null;
 

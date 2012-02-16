@@ -526,4 +526,24 @@ public class ToBIUtilsTest {
     String label = "*";
     assertEquals("X*?", ToBIUtils.getPitchAccent(label));
   }
+
+  @Test
+  public void testParseToneStringTreatsPlusesAsAccents() {
+    String label = "L+";
+
+    String[] tones = ToBIUtils.parseToneString(label);
+    assertEquals("L+", tones[0]);
+    assertNull(tones[1]);
+    assertNull(tones[2]);
+  }
+
+  @Test
+  public void testParseToneStringTreatsLeadingPlusesAsAccents() {
+    String label = "+L*";
+
+    String[] tones = ToBIUtils.parseToneString(label);
+    assertEquals("+L*", tones[0]);
+    assertNull(tones[1]);
+    assertNull(tones[2]);
+  }
 }

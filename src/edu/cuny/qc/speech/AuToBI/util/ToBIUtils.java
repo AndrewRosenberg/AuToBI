@@ -227,7 +227,8 @@ public class ToBIUtils {
   public static String[] parseToneString(String label) {
     String[] tones = new String[3];
 
-    Pattern accent_pattern = Pattern.compile("(L\\+H\\*|L\\*\\+H|L\\*|H\\*|!H\\*|L\\+!H\\*|L\\*\\+!H|H\\+!H\\*|X\\*)");
+    Pattern accent_pattern =
+        Pattern.compile("(L\\+H\\*|L\\*\\+H|L\\*|H\\*|!H\\*|L\\+!H\\*|L\\*\\+!H|H\\+!H\\*|X\\*|H+L\\*|.+\\+|\\+.+)");
     Matcher accent_matcher = accent_pattern.matcher(label);
     if (accent_matcher.find()) {
       tones[0] = accent_matcher.group();
