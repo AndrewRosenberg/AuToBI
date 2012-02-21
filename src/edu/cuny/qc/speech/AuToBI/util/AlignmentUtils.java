@@ -58,22 +58,34 @@ public class AlignmentUtils {
         // Assign tones to word
         String[] tone_data = ToBIUtils.parseToneString(tone.getLabel());
         
+        AuToBIUtils.info("Parsing "+ tone.getLabel() + " into: tone_data[0] = " + tone_data[0] + " tone_data[1] = " + tone_data[1] + " tone_data[2] = " + tone_data[2]);
         if ((tone_data[0] == null) && (tone_data[1] == null) && (tone_data[2] == null)) {
-			AuToBIUtils.warn("Label, " + tone.getLabel()
-					+ ", doesn't match any pattern (accent_pattern, phrase_accent_pattern, boundary_tone_pattern).");
-		}
+        	if ( ! (tone.getLabel().equals("HiF0") || tone.getLabel().equals("%H")) ) {
+        		AuToBIUtils.warn("Label, " + tone.getLabel()
+        				+ ", doesn't match any pattern (accent_pattern, phrase_accent_pattern, boundary_tone_pattern). Word reference: "
+        				+ word);
+        	}
+        }
 
         if (tone_data[0] != null) {
-          if (word.isAccented()) {
-            AuToBIUtils.warn("Multiply accented word, " + word + ". Only keeping the first accent.");
-          } else {
-            if (partial_accent == null) {
+        	if (word.isAccented()) {
+        		if (partial_accent == null) {
+        			if (tone_data[0].endsWith("+")) {
+        				partial_accent = tone_data[0];
+        			} else {
+        				AuToBIUtils.warn("Multiply accented word, " + word + ". Only keeping the first accent.");
+        			} 
+        		} else {
+        			AuToBIUtils.warn("Multiply accented word, " + word + ". Only keeping the first accent.");
+        		}
+        	} else {
+        		if (partial_accent == null) {
               if (tone_data[0].endsWith("+")) {
                 partial_accent = tone_data[0];
               } else {
                 if (tone_data[0].startsWith("+")) {
                   AuToBIUtils.warn("Unexpected partial accent tone, " + tone_data[0] +
-                      ", that does not follow a preceding partial accent annotation");
+                      ", that does not follow a preceding partial accent annotation  Word reference: " + word);
                 }
                 word.setAccent(tone_data[0]);
                 word.setAccentTime(tone.getStart());
@@ -85,7 +97,7 @@ public class AlignmentUtils {
                 partial_accent = null;
               } else {
                 AuToBIUtils.warn(
-                    "Partial accent tone, " + partial_accent + ", follows unexpected tone annotation, " + tone_data[0]);
+                    "Partial accent tone, " + partial_accent + ", follows unexpected tone annotation, " + tone_data[0] + " Word reference: " + word);
                 if (tone_data[0].endsWith("+")) {
                   partial_accent = tone_data[0];
                 } else {
