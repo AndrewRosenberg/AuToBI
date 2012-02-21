@@ -67,10 +67,18 @@ public class AuToBITrainer {
       throws Exception {
     if (filenames.size() == 0)
       throw new AuToBIException("No filenames specified for training. Aborting.");
-    autobi.propagateFeatureSet(filenames, fs);
+    try {
+      autobi.registerAllFeatureExtractors();
+      autobi.registerNullFeatureExtractor("speaker_id");
 
-    AuToBIUtils.log("training classifier");
-    classifier.train(fs);
+      autobi.propagateFeatureSet(filenames, fs);
+
+      AuToBIUtils.log("training classifier");
+      classifier.train(fs);
+    } catch (FeatureExtractorException e) {
+      e.printStackTrace();
+    }
+
   }
 
 }

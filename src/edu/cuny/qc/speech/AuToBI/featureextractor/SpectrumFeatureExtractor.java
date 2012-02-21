@@ -31,7 +31,6 @@ import java.util.List;
  * supplied regions.
  */
 public class SpectrumFeatureExtractor extends FeatureExtractor {
-  private WavData wav_data;  // the audio information to analyze
   private String feature_name;  // the name of the feature to hold pitch information
   private double frame_size; // The spectrum frame duration
   private double hamming_window; // The size of the hamming window used in the spectrum analysis
@@ -43,19 +42,18 @@ public class SpectrumFeatureExtractor extends FeatureExtractor {
    * <p/>
    * This uses a default frame size of 0.01s, and a hamming window of 0.02s.
    *
-   * @param wav_data     the wave data to analyse
    * @param feature_name the feature name
    */
-  public SpectrumFeatureExtractor(WavData wav_data, String feature_name) {
-    this(wav_data, feature_name, 0.01, 0.02);
+  public SpectrumFeatureExtractor(String feature_name) {
+    this(feature_name, 0.01, 0.02);
   }
 
-  public SpectrumFeatureExtractor(WavData wav_data, String feature_name, double frame_size, double hamming_window) {
-    this.wav_data = wav_data;
+  public SpectrumFeatureExtractor(String feature_name, double frame_size, double hamming_window) {
     this.feature_name = feature_name;
     this.frame_size = frame_size;
     this.hamming_window = hamming_window;
 
+    this.required_features.add("wav");
     this.extracted_features.add(feature_name);
   }
 
@@ -69,23 +67,26 @@ public class SpectrumFeatureExtractor extends FeatureExtractor {
   public void extractFeatures(List regions) throws FeatureExtractorException {
 
     for (Region r : (List<Region>) regions) {
-      Double epsilon = frame_size + hamming_window;
-      try {
-        WavData subwav = SubregionUtils.getSlice(wav_data, r.getStart() - epsilon, r.getEnd() + epsilon);
-        if (subwav != null) {
-          SpectrumExtractor extractor = new SpectrumExtractor(subwav);
-          Spectrum spectrum = extractor.getSpectrum(frame_size, hamming_window);
+      if (r.hasAttribute("wav")) {
+        WavData wav = (WavData) r.getAttribute("wav");
+        Double epsilon = frame_size + hamming_window;
+        try {
+          WavData subwav = SubregionUtils.getSlice(wav, r.getStart() - epsilon, r.getEnd() + epsilon);
+          if (subwav != null) {
+            SpectrumExtractor extractor = new SpectrumExtractor(subwav);
+            Spectrum spectrum = extractor.getSpectrum(frame_size, hamming_window);
 
-          if (spectrum == null) {
-            throw new AuToBIException(
-                "Tried to extract the spectrum from segment with too few frames: " + r.getDuration() + " seconds. (" +
-                    subwav.getNumSamples() + " frames)");
+            if (spectrum == null) {
+              throw new AuToBIException(
+                  "Tried to extract the spectrum from segment with too few frames: " + r.getDuration() + " seconds. (" +
+                      subwav.getNumSamples() + " frames)");
+            }
+            Spectrum sub_spectrum = spectrum.getSlice(r.getStart(), r.getEnd());
+            r.setAttribute(feature_name, sub_spectrum);
           }
-          Spectrum sub_spectrum = spectrum.getSlice(r.getStart(), r.getEnd());
-          r.setAttribute(feature_name, sub_spectrum);
+        } catch (AuToBIException e) {
+          AuToBIUtils.warn(e.getMessage());
         }
-      } catch (AuToBIException e) {
-        AuToBIUtils.warn(e.getMessage());
       }
     }
   }

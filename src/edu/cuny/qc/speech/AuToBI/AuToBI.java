@@ -171,6 +171,23 @@ public class AuToBI {
   }
 
   /**
+   * Sets the Feature Registry
+   * @param registry new feature registry
+   */
+  public void setFeatureRegistry(Map<String, FeatureExtractor> registry) {
+    this.feature_registry = registry;
+  }
+
+  /**
+   * Retrieves the feature registry
+   *
+   * @return the feature registry
+   */
+  public Map<String, FeatureExtractor> getFeatureRegistry() {
+    return feature_registry;
+  }
+
+  /**
    * Registers a FeatureExtractor with AuToBI.
    * <p/>
    * A FeatureExtractor class is responsible for reporting what features it extracts.
@@ -762,11 +779,12 @@ public class AuToBI {
   /**
    * Registers a large default set of feature extractors.
    *
-   * @param wav_data The wave data
    * @throws FeatureExtractorException If there is a problem registering (not running) feature extractors.
    */
-  public void registerAllFeatureExtractors(WavData wav_data)
+  public void registerAllFeatureExtractors()
       throws FeatureExtractorException {
+
+    registerNullFeatureExtractor("wav");
     String[] acoustic_features = new String[]{"f0", "log_f0", "I"};
 
     registerFeatureExtractor(new PitchAccentFeatureExtractor("nominal_PitchAccent"));
@@ -776,9 +794,9 @@ public class AuToBI {
     registerFeatureExtractor(new IntonationalPhraseBoundaryFeatureExtractor("nominal_IntonationalPhraseBoundary"));
     registerFeatureExtractor(new IntermediatePhraseBoundaryFeatureExtractor("nominal_IntermediatePhraseBoundary"));
 
-    registerFeatureExtractor(new PitchFeatureExtractor(wav_data, "f0"));
+    registerFeatureExtractor(new PitchFeatureExtractor("f0"));
     registerFeatureExtractor(new LogContourFeatureExtractor("f0", "log_f0"));
-    registerFeatureExtractor(new IntensityFeatureExtractor(wav_data, "I"));
+    registerFeatureExtractor(new IntensityFeatureExtractor("I"));
 
     if (hasParameter("normalization_parameters")) {
       String known_speaker = null;
@@ -800,7 +818,7 @@ public class AuToBI {
     }
 
     // Register Subregion feature extractors
-    registerFeatureExtractor(new PseudosyllableFeatureExtractor("pseudosyllable", wav_data));
+    registerFeatureExtractor(new PseudosyllableFeatureExtractor("pseudosyllable"));
     registerFeatureExtractor(new SubregionFeatureExtractor("200ms"));
 
     // Register Delta Contour Extractors
@@ -832,7 +850,7 @@ public class AuToBI {
       }
     }
 
-    registerFeatureExtractor(new SpectrumFeatureExtractor(wav_data, "spectrum"));
+    registerFeatureExtractor(new SpectrumFeatureExtractor("spectrum"));
 
     for (int low = 0; low <= 19; ++low) {
       for (int high = low + 1; high <= 20; ++high) {
@@ -1025,10 +1043,13 @@ public class AuToBI {
 
       FeatureSet autobi_fs = new FeatureSet();
       autobi_fs.setDataPoints(words);
+      for (Word w: words) {
+        w.setAttribute("wav", wav);
+      }
       loadClassifiers();
 
       AuToBIUtils.log("Registering Feature Extractors");
-      registerAllFeatureExtractors(wav);
+      registerAllFeatureExtractors();
       registerNullFeatureExtractor("speaker_id");
 
       for (String task : getClassificationTasks()) {

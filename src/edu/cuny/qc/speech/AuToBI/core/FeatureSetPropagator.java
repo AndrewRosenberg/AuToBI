@@ -42,6 +42,7 @@ public class FeatureSetPropagator implements Callable<FeatureSet> {
   public FeatureSetPropagator(AuToBI autobi, FormattedFile file, FeatureSet fs) {
     this.autobi = new AuToBI();
     this.autobi.setParameters(autobi.getParameters());
+    this.autobi.setFeatureRegistry(autobi.getFeatureRegistry());
     this.file = file;
     this.target_fs = fs;
   }
@@ -60,8 +61,9 @@ public class FeatureSetPropagator implements Callable<FeatureSet> {
       AuToBIUtils.log("Reading words from: " + filename);
       List<Word> words = reader.readWords();
 
-      autobi.registerAllFeatureExtractors(wav);
-      autobi.registerNullFeatureExtractor("speaker_id");
+      for (Word w : words) {
+        w.setAttribute("wav", wav);
+      }
 
       FeatureSet current_fs = target_fs.newInstance();
       current_fs.setDataPoints(words);

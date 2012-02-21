@@ -91,7 +91,7 @@ public class CorrectionSpectrumPADTrainer {
             norm_params = new SpeakerNormalizationParameter();
             norm_params.insertPitch(pitch_values);
           }
-          autobi.registerAllFeatureExtractors(wav);
+          autobi.registerAllFeatureExtractors();
 
           // At training the feature set requires nominal_PitchAccent to establish the "correct" class.
           fs.getRequiredFeatures().add("nominal_PitchAccent");

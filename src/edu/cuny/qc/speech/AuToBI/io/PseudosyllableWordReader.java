@@ -52,10 +52,13 @@ public class PseudosyllableWordReader extends AuToBIWordReader {
   public List<Word> readWords() throws IOException, AuToBIException {
     Syllabifier syllabifier = new Syllabifier();
     List<Region> regions = syllabifier.generatePseudosyllableRegions(wav_data);
+    for  (Region r : regions) {
+      r.setAttribute("wav", wav_data);
+    }
     List<Word> words = new ArrayList<Word>();
 
     // Identify silent regions by mean intensity less than the threshold.
-    IntensityFeatureExtractor ife = new IntensityFeatureExtractor(wav_data, "I");
+    IntensityFeatureExtractor ife = new IntensityFeatureExtractor("I");
     ContourFeatureExtractor cfe = new ContourFeatureExtractor("I");
     try {
       ife.extractFeatures(regions);

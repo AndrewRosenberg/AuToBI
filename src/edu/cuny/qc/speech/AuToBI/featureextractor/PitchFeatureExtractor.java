@@ -23,6 +23,8 @@ import edu.cuny.qc.speech.AuToBI.PitchExtractor;
 import edu.cuny.qc.speech.AuToBI.core.*;
 import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -31,23 +33,37 @@ import java.util.List;
  */
 public class PitchFeatureExtractor extends FeatureExtractor {
 
-  private WavData wav_data;  // the audio information to analyze
   private String feature_name;  // the name of the feature to hold pitch information
 
-  public PitchFeatureExtractor(WavData wav_data, String feature_name) {
-    this.wav_data = wav_data;
+  public PitchFeatureExtractor(String feature_name) {
+
     this.feature_name = feature_name;
 
+    this.required_features.add("wav");
     this.extracted_features.add(feature_name);
   }
 
   @Override
   public void extractFeatures(List regions) throws FeatureExtractorException {
-    PitchExtractor extractor = new PitchExtractor(wav_data);
-    try {
-      Contour pitch_contour = extractor.soundToPitch();
 
-      ContourUtils.assignValuesToRegions(regions, pitch_contour, feature_name);
+    try {
+      // Identify all regions which are associated with each wav data.
+      HashMap<WavData, List<Region>> wave_region_map = new HashMap<WavData, List<Region>>();
+      for (Region r : (List<Region>) regions) {
+        WavData wav = (WavData) r.getAttribute("wav");
+        if (wav != null) {
+          if (!wave_region_map.containsKey(wav)) {
+            wave_region_map.put(wav, new ArrayList<Region>());
+          }
+          wave_region_map.get(wav).add(r);
+        }
+      }
+
+      for (WavData wav : wave_region_map.keySet()) {
+        PitchExtractor extractor = new PitchExtractor(wav);
+        Contour pitch_contour = extractor.soundToPitch();
+        ContourUtils.assignValuesToRegions(wave_region_map.get(wav), pitch_contour, feature_name);
+      }
     } catch (AuToBIException e) {
       throw new FeatureExtractorException(e.getMessage());
     }
