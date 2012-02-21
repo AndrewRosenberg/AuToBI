@@ -83,7 +83,6 @@ public class AuToBITrainTest {
 	 */
 	private static FeatureSet getFeatureSet(String task) throws AuToBIException {
 		// TODO Auto-generated method stub
-		//String task = "pitch_accent_detection";
 		if (task.equals("pitch_accent_detection"))
 			return new PitchAccentDetectionFeatureSet();
 		if (task.equals("pitch_accent_classification"))
