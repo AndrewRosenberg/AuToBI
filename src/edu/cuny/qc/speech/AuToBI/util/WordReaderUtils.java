@@ -81,6 +81,9 @@ public class WordReaderUtils {
       case SIMPLE_WORD:
         reader = new SimpleWordReader(filename);
         break;
+      case SWB_NXT:
+        reader = new SwitchboardNXTReader(filename.replace(".terminals.xml", ""));
+        break;
       default:
         reader = new TextGridReader(filename);
     }

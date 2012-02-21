@@ -57,29 +57,28 @@ public class AlignmentUtils {
       } else {
         // Assign tones to word
         String[] tone_data = ToBIUtils.parseToneString(tone.getLabel());
-        
-        AuToBIUtils.info("Parsing "+ tone.getLabel() + " into: tone_data[0] = " + tone_data[0] + " tone_data[1] = " + tone_data[1] + " tone_data[2] = " + tone_data[2]);
         if ((tone_data[0] == null) && (tone_data[1] == null) && (tone_data[2] == null)) {
-        	if ( ! (tone.getLabel().equals("HiF0") || tone.getLabel().equals("%H")) ) {
-        		AuToBIUtils.warn("Label, " + tone.getLabel()
-        				+ ", doesn't match any pattern (accent_pattern, phrase_accent_pattern, boundary_tone_pattern). Word reference: "
-        				+ word);
-        	}
+          if (!(tone.getLabel().equals("HiF0") || tone.getLabel().equals("%H"))) {
+            AuToBIUtils.warn("Label, " + tone.getLabel()
+                +
+                ", doesn't match any pattern (accent_pattern, phrase_accent_pattern, boundary_tone_pattern). Word reference: "
+                + word);
+          }
         }
 
         if (tone_data[0] != null) {
-        	if (word.isAccented()) {
-        		if (partial_accent == null) {
-        			if (tone_data[0].endsWith("+")) {
-        				partial_accent = tone_data[0];
-        			} else {
-        				AuToBIUtils.warn("Multiply accented word, " + word + ". Only keeping the first accent.");
-        			} 
-        		} else {
-        			AuToBIUtils.warn("Multiply accented word, " + word + ". Only keeping the first accent.");
-        		}
-        	} else {
-        		if (partial_accent == null) {
+          if (word.isAccented()) {
+            if (partial_accent == null) {
+              if (tone_data[0].endsWith("+")) {
+                partial_accent = tone_data[0];
+              } else {
+                AuToBIUtils.warn("Multiply accented word, " + word + ". Only keeping the first accent.");
+              }
+            } else {
+              AuToBIUtils.warn("Multiply accented word, " + word + ". Only keeping the first accent.");
+            }
+          } else {
+            if (partial_accent == null) {
               if (tone_data[0].endsWith("+")) {
                 partial_accent = tone_data[0];
               } else {
@@ -97,7 +96,8 @@ public class AlignmentUtils {
                 partial_accent = null;
               } else {
                 AuToBIUtils.warn(
-                    "Partial accent tone, " + partial_accent + ", follows unexpected tone annotation, " + tone_data[0] + " Word reference: " + word);
+                    "Partial accent tone, " + partial_accent + ", follows unexpected tone annotation, " + tone_data[0] +
+                        " Word reference: " + word);
                 if (tone_data[0].endsWith("+")) {
                   partial_accent = tone_data[0];
                 } else {
@@ -146,7 +146,6 @@ public class AlignmentUtils {
    * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException
    *          If there is an unqual number of breaks and words
    */
-
   public static void copyToBIBreaks(List<Word> words, List<Region> breaks) throws AuToBIException {
     String previous_break = null;
 
@@ -159,6 +158,49 @@ public class AlignmentUtils {
       String current_break = breaks.get(i).getLabel();
       w.setBreakAfter(current_break);
       previous_break = current_break;
+    }
+  }
+
+  /**
+   * Copies a list of breaks to associated words.
+   * <p/>
+   * Requires that the breaks and words sorted by time. If a word does not have a break within its boundaries, it is
+   * assumed to be a break index of '1'.
+   * <p/>
+   * Note: This should only be used where there is a strong trust that the annotation is correctly aligned with
+   * segmetnal annotations.
+   *
+   * @param words  The list of words
+   * @param breaks The list of breaks
+   */
+  public static void copyBreaksByTime(List<Word> words, List<Region> breaks) {
+    int break_idx = 0;
+    int word_idx = 0;
+    String previous_break = null;
+
+    while (break_idx < breaks.size() && word_idx < words.size()) {
+
+      Region b = breaks.get(break_idx);
+      Word word = words.get(word_idx);
+
+      if (b.getEnd() < word.getStart()) {
+        break_idx++;
+      } else if (word.getEnd() < b.getStart()) {
+        if (word.getBreakAfter() == null) {
+          word.setBreakBefore(previous_break);
+          word.setBreakAfter("1");
+          previous_break = "1";
+        }
+        word_idx++;
+      } else {
+        // Assign break to word
+        word.setBreakBefore(previous_break);
+        String current_break = breaks.get(break_idx).getLabel();
+        word.setBreakAfter(current_break);
+        previous_break = current_break;
+
+        break_idx++;
+      }
     }
   }
 

@@ -21,12 +21,12 @@ package edu.cuny.qc.speech.AuToBI.io;
 
 /**
  * FormattedFile associates an enumerated type describing the formatting of the prosodic annotation.
- *
+ * <p/>
  * This allows multiple format extensions (like TextGrid) to be associated with a variety of styles of annotation
  * formatting.
  */
 public class FormattedFile {
-  public static enum Format {TEXTGRID, CPROM, BURNC, SIMPLE_WORD}
+  public static enum Format {TEXTGRID, CPROM, BURNC, SIMPLE_WORD, SWB_NXT}
 
   public String filename;
   public Format format;
@@ -49,6 +49,8 @@ public class FormattedFile {
       this.format = FormattedFile.Format.BURNC;
     } else if (filename.endsWith("words")) {
       this.format = FormattedFile.Format.SIMPLE_WORD;
+    } else if (filename.endsWith("terminals.xml")) {
+      this.format = FormattedFile.Format.SWB_NXT;
     }
   }
 

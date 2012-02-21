@@ -684,7 +684,7 @@ public class AuToBI {
     text_grid += "intervals: size = " + words.size() + "\n";
     for (int i = 0; i < words.size(); ++i) {
       Word w = words.get(i);
-      text_grid += "intervals [" + (i+1) + "]:\n";
+      text_grid += "intervals [" + (i + 1) + "]:\n";
       text_grid += "xmin = " + w.getStart() + "\n";
       text_grid += "xmax = " + w.getEnd() + "\n";
       text_grid += "text = \"" + w.getLabel() + "\"\n";
@@ -713,7 +713,7 @@ public class AuToBI {
         }
       }
 
-      text_grid += "intervals [" + (i+1) + "]:\n";
+      text_grid += "intervals [" + (i + 1) + "]:\n";
       text_grid += "xmin = " + w.getStart() + "\n";
       text_grid += "xmax = " + w.getEnd() + "\n";
       text_grid += "text = \"" + text + "\"\n";
@@ -748,7 +748,7 @@ public class AuToBI {
         }
       }
 
-      text_grid += "intervals [" + (i+1) + "]:\n";
+      text_grid += "intervals [" + (i + 1) + "]:\n";
       text_grid += "xmin = " + w.getStart() + "\n";
       text_grid += "xmax = " + w.getEnd() + "\n";
       text_grid += "text = \"" + text + "\"\n";
@@ -970,6 +970,8 @@ public class AuToBI {
     try {
       String wav_filename = getParameter("wav_file");
       String filename = getOptionalParameter("input_file");
+
+      // TODO: All of this filename parsing should be consolidated into WordReaderUtils.getAppropriateWordReader
       Boolean cprom = false;
       if (filename == null) {
         cprom = true;
