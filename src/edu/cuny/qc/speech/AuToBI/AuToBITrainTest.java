@@ -2,6 +2,7 @@ package edu.cuny.qc.speech.AuToBI;
 
 import edu.cuny.qc.speech.AuToBI.classifier.WekaClassifier;
 import edu.cuny.qc.speech.AuToBI.core.*;
+import edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException;
 import edu.cuny.qc.speech.AuToBI.featureset.*;
 import edu.cuny.qc.speech.AuToBI.io.*;
 import edu.cuny.qc.speech.AuToBI.util.AuToBIReaderUtils;
@@ -28,7 +29,11 @@ public class AuToBITrainTest {
 			List<FormattedFile> testing_files = AuToBIReaderUtils.globFormattedFiles(autobi.getParameter("testing_files"));
 			String task = autobi.getParameter("task");
 			String model_file = autobi.getParameter("model_file");
-
+			
+			// Added here to comply to comply with the new feature registration changes to FeatureSetPropagator 
+			autobi.registerAllFeatureExtractors();
+		    autobi.registerNullFeatureExtractor("speaker_id");
+			
 			// This line tells autobi to ignore any deaccented words.
 			autobi.getParameters().setParameter("attribute_omit", "nominal_PitchAccentType:NOACCENT");
 
@@ -68,13 +73,16 @@ public class AuToBITrainTest {
 
 			System.out.print("Test Results on test set\n" + es.toString());
 			AuToBIUtils.log("Test Results on test set\n" + es.toString());
-		} catch (AuToBIException e) {
+		} catch (FeatureExtractorException e) {
+		      e.printStackTrace();
+	    } 
+		catch (AuToBIException e) {
 			e.printStackTrace();
 		} catch (UnsupportedAudioFileException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		} 
 	}
 
 	/**
