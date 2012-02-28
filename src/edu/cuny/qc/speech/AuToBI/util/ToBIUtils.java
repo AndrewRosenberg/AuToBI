@@ -228,7 +228,8 @@ public class ToBIUtils {
     String[] tones = new String[3];
 
     Pattern accent_pattern =
-        Pattern.compile("(L\\+H\\*|L\\*\\+H|L\\*|H\\*|!H\\*|L\\+!H\\*|L\\*\\+!H|H\\+!H\\*|X\\*|H\\+L\\*|H+L\\*|.+\\+|\\+.+)");
+        Pattern.compile(
+            "(L\\+H\\*|L\\*\\+H|L\\*|H\\*|!H\\*|L\\+!H\\*|L\\*\\+!H|H\\+!H\\*|X\\*|H\\+L\\*|H+L\\*|.+\\+|\\+.+)");
     Matcher accent_matcher = accent_pattern.matcher(label);
     if (accent_matcher.find()) {
       tones[0] = accent_matcher.group();
@@ -294,6 +295,8 @@ public class ToBIUtils {
     }
 
     label = label.replace(";", "");
+    label = label.replace(")", "");
+    label = label.replace("(", "");
 
     if (label.contains("*")) {
       return label;
