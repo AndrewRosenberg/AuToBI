@@ -29,6 +29,7 @@ import edu.cuny.qc.speech.AuToBI.util.WordReaderUtils;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Callable;
 
 /**
@@ -69,6 +70,17 @@ public class FeatureSetPropagator implements Callable<FeatureSet> {
       current_fs.setDataPoints(words);
 
       autobi.extractFeatures(current_fs);
+
+      if (autobi.getBooleanParameter("aggressive_feature_elimination", false)) {
+        for (Word w : current_fs.getDataPoints()) {
+          Set<String> attrs = w.getAttributeNames();
+          for (String attr : attrs) {
+            if (!current_fs.getRequiredFeatures().contains(attr)) {
+              w.removeAttribute(attr);
+            }
+          }
+        }
+      }
 
       // Free the autobi object for garbage collection.
       autobi = null;
