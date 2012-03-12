@@ -34,9 +34,6 @@ public class AuToBITrainTest {
       autobi.registerAllFeatureExtractors();
       autobi.registerNullFeatureExtractor("speaker_id");
 
-      // This line tells autobi to ignore any deaccented words.
-      autobi.getParameters().setParameter("attribute_omit", "nominal_PitchAccentType:NOACCENT");
-
       // implement getFeatureSet() so it returns an appropriate feature
       // set.
       FeatureSet training_fs = getFeatureSet(task);
@@ -90,7 +87,6 @@ public class AuToBITrainTest {
    * @throws AuToBIException
    */
   private static FeatureSet getFeatureSet(String task) throws AuToBIException {
-    // TODO Auto-generated method stub
     if (task.equals("pitch_accent_detection"))
       return new PitchAccentDetectionFeatureSet();
     if (task.equals("pitch_accent_classification"))
