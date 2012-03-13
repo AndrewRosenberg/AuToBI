@@ -26,7 +26,7 @@ package edu.cuny.qc.speech.AuToBI.io;
  * formatting.
  */
 public class FormattedFile {
-  public static enum Format {TEXTGRID, CPROM, BURNC, SIMPLE_WORD, SWB_NXT}
+  public static enum Format {TEXTGRID, CPROM, BURNC, SIMPLE_WORD, SWB_NXT, BUCKEYE}
 
   public String filename;
   public Format format;

@@ -84,6 +84,9 @@ public class WordReaderUtils {
       case SWB_NXT:
         reader = new SwitchboardNXTReader(filename.replace(".terminals.xml", ""));
         break;
+      case BUCKEYE:
+        reader = new BuckeyeReader(filename);
+        break;
       default:
         reader = new TextGridReader(filename);
     }
