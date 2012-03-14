@@ -89,12 +89,12 @@ public class AlignmentUtils {
                   AuToBIUtils.warn("Unexpected partial accent tone, " + tone_data[0] +
                       ", that does not follow a preceding partial accent annotation  Word reference: " + word);
                 }
-                word.setAccent(tone_data[0]);
+                word.setAccent(ToBIUtils.getPitchAccent(tone_data[0]));
                 word.setAccentTime(tone.getStart());
               }
             } else {
               if (tone_data[0].startsWith("+")) {
-                word.setAccent(partial_accent + tone_data[0].substring(1));
+                word.setAccent(ToBIUtils.getPitchAccent(partial_accent + tone_data[0].substring(1)));
                 word.setAccentTime(tone.getStart());
                 partial_accent = null;
               } else {
@@ -104,7 +104,7 @@ public class AlignmentUtils {
                 if (tone_data[0].endsWith("+")) {
                   partial_accent = tone_data[0];
                 } else {
-                  word.setAccent(tone_data[0]);
+                  word.setAccent(ToBIUtils.getPitchAccent(tone_data[0]));
                   word.setAccentTime(tone.getStart());
                   partial_accent = null;
                 }
@@ -135,7 +135,6 @@ public class AlignmentUtils {
     if (tone_idx != tones.size()) {
       AuToBIUtils.warn("Tones were present after the end of the words. These have not been aligned to any data.");
     }
-
   }
 
   /**
