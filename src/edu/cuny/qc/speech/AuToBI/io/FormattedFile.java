@@ -43,13 +43,13 @@ public class FormattedFile {
    */
   public FormattedFile(String filename) {
     this.filename = filename;
-    if (filename.endsWith("TextGrid")) {
+    if (filename.toLowerCase().endsWith("textgrid")) {
       this.format = FormattedFile.Format.TEXTGRID;
-    } else if (filename.endsWith("ala")) {
+    } else if (filename.toLowerCase().endsWith("ala")) {
       this.format = FormattedFile.Format.BURNC;
-    } else if (filename.endsWith("words")) {
+    } else if (filename.toLowerCase().endsWith("words")) {
       this.format = FormattedFile.Format.SIMPLE_WORD;
-    } else if (filename.endsWith("terminals.xml")) {
+    } else if (filename.toLowerCase().endsWith("terminals.xml")) {
       this.format = FormattedFile.Format.SWB_NXT;
     }
   }

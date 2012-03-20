@@ -172,6 +172,7 @@ public class AuToBI {
 
   /**
    * Sets the Feature Registry
+   *
    * @param registry new feature registry
    */
   public void setFeatureRegistry(Map<String, FeatureExtractor> registry) {
@@ -1039,11 +1040,15 @@ public class AuToBI {
       }
 
       AuToBIUtils.log("Reading words from: " + filename);
+      if (word_reader == null) {
+        AuToBIUtils.error("Unable to create wordreader for file: " + filename + "\n\tCheck the file extension.");
+        return;
+      }
       List<Word> words = word_reader.readWords();
 
       FeatureSet autobi_fs = new FeatureSet();
       autobi_fs.setDataPoints(words);
-      for (Word w: words) {
+      for (Word w : words) {
         w.setAttribute("wav", wav);
       }
       loadClassifiers();
