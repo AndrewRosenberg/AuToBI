@@ -52,6 +52,21 @@ public class BuckeyeReaderTest {
   }
 
   @Test
+  public void testReadsLinesWithExtraWhiteSpace() {
+    // This file has a double space between the first and second fields.
+    BuckeyeReader reader = new BuckeyeReader(TEST_DIR + "/test2.buckeye.words");
+
+    try {
+      List<Word> words = reader.readWords();
+      assertEquals(979, words.size());
+    } catch (IOException e) {
+      fail();
+    } catch (AuToBIException e) {
+      fail();
+    }
+  }
+
+  @Test
   public void testSetsCanonicalPronunciation() {
     BuckeyeReader reader = new BuckeyeReader(TEST_DIR + "/test.buckeye.words");
 
