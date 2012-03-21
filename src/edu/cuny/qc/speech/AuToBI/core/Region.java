@@ -255,7 +255,8 @@ public class Region implements Serializable {
     // TODO accomodate featureset based attribute storage
     if (feature_set != null && feature_set.getRequiredFeatures().contains(name)) {
       int idx = feature_set.getFeatureIndex(name);
-      return this.fs_attributes[idx] != null;
+      return this.fs_attributes[idx] != null ||
+          (this.attributes.containsKey(name) && this.attributes.get(name) != null);
     } else {
       return this.attributes.containsKey(name) && this.attributes.get(name) != null;
     }

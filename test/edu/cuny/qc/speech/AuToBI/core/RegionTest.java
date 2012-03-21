@@ -274,5 +274,17 @@ public class RegionTest {
 
     assertEquals("TESTING", w.getAttribute("test_attribute"));
   }
+
+  @Test
+  public void testHasAttributesWithMismatchedFeatureSetAssignment() {
+    Word w = new Word(5.0, 15.0, "test_label", "/test/file/name.txt");
+    w.setAttribute("test_attribute", "TESTING");
+
+    FeatureSet fs = new FeatureSet();
+    fs.insertRequiredFeature("test_attribute");
+    fs.insertDataPoint(w);
+
+    assertTrue(w.hasAttribute("test_attribute"));
+  }
 }
 
