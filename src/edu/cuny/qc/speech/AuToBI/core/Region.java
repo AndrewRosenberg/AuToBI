@@ -269,10 +269,13 @@ public class Region implements Serializable {
    */
   public Object getAttribute(String name) {
     checkMapUsage();
-    // TODO accomodate featureset based attribute storage
     if (feature_set != null && feature_set.getRequiredFeatures().contains(name)) {
       int idx = feature_set.getFeatureIndex(name);
-      return this.fs_attributes[idx];
+      if (this.fs_attributes[idx] != null) {
+        return this.fs_attributes[idx];
+      } else {
+        return this.attributes.get(name);
+      }
     } else {
       return this.attributes.get(name);
     }
