@@ -55,9 +55,16 @@ public class FeatureSetPropagator implements Callable<FeatureSet> {
     AuToBIWordReader reader = WordReaderUtils.getAppropriateReader(file);
 
     WavReader wav_reader = new WavReader();
-    WavData wav;
+    WavData wav = null;
     try {
-      wav = wav_reader.read(wav_filename);
+      try {
+        if (autobi.getBooleanParameter("read_wav", true)) {
+          wav = wav_reader.read(wav_filename);
+        }
+      } catch (AuToBIException e) {
+        AuToBIUtils.warn("Problem reading wave file -- " + e.getMessage());
+        wav = null;
+      }
       AuToBIUtils.log("Reading words from: " + filename);
       List<Word> words = reader.readWords();
 

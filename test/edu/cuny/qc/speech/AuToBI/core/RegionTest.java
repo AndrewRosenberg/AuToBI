@@ -286,5 +286,35 @@ public class RegionTest {
 
     assertTrue(w.hasAttribute("test_attribute"));
   }
+
+  @Test
+  public void testGetAttributeAfterFeatureSetReassignmentRemovingRequiredFeature() {
+    Word w = new Word(5.0, 15.0, "test_label", "/test/file/name.txt");
+    w.setAttribute("test_attribute", "TESTING");
+
+    FeatureSet fs = new FeatureSet();
+    fs.insertRequiredFeature("test_attribute");
+    fs.insertDataPoint(w);
+
+    FeatureSet new_fs = new FeatureSet();
+    new_fs.insertDataPoint(w);
+
+    assertEquals("TESTING", w.getAttribute("test_attribute"));
+  }
+
+  @Test
+  public void testGetAttributeAfterFeatureSetReassignmentAddingRequiredFeature() {
+    Word w = new Word(5.0, 15.0, "test_label", "/test/file/name.txt");
+    w.setAttribute("test_attribute", "TESTING");
+
+    FeatureSet fs = new FeatureSet();
+    fs.insertDataPoint(w);
+
+    FeatureSet new_fs = new FeatureSet();
+    new_fs.insertRequiredFeature("test_attribute");
+    new_fs.insertDataPoint(w);
+
+    assertEquals("TESTING", w.getAttribute("test_attribute"));
+  }
 }
 

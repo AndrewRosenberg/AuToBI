@@ -63,6 +63,10 @@ public class NXTTier extends Tier {
           }
         }
       }
+      if (line.contains("<punc")) {
+        String punc = parsePunc(line);
+        this.regions.get(this.regions.size() - 1).setAttribute("following_punc", punc);
+      }
       if (line.contains("<accent")) {
         this.regions.add(parseAccent(line));
       }
@@ -148,6 +152,24 @@ public class NXTTier extends Tier {
         double start_time = start_m.group(1).equals("n/a") ? Double.NaN : Double.parseDouble(start_m.group(1));
         double end_time = end_m.group(1).equals("n/a") ? Double.NaN : Double.parseDouble(end_m.group(1));
         return new Word(start_time, end_time, word_m.group(1));
+      }
+    }
+    return null;
+  }
+
+  protected String parsePunc(String line) {
+    Pattern puncline_p = Pattern.compile("<punc.*?>.*?</punc>");
+    Matcher puncline_m = puncline_p.matcher(line);
+
+    if (puncline_m.find()) {
+
+      Pattern punc_p = Pattern.compile(">(.*?)<");
+      Matcher punc_m = punc_p.matcher(puncline_m.group());
+
+      if (punc_m.find()) {
+        return punc_m.group(1);
+      } else {
+        return null;
       }
     }
     return null;

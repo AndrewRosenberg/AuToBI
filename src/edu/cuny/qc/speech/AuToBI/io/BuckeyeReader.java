@@ -57,9 +57,12 @@ public class BuckeyeReader extends AuToBIWordReader {
       } else if (started) {
         String[] data = line.trim().split(";");
         String[] first_chunk = data[0].split("\\s+");
+        if (first_chunk.length < 3) {
+          continue;
+        }
         String label = first_chunk[2];
         double end_time = Double.parseDouble(first_chunk[0]);
-        if (!label.startsWith("<") && !label.startsWith("{")) {
+        if (!label.startsWith("<") && !label.startsWith("{") && data.length >= 3) {
           Word w = new Word(start_time, end_time, label, null, filename);
           w.setAttribute("canonical_pron", data[1]);
           w.setAttribute("actual_pron", data[2]);

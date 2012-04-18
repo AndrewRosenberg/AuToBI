@@ -216,16 +216,43 @@ public class Region implements Serializable {
    * @param fs the FeatureSet to be assigned
    */
   public void setFeatureSet(FeatureSet fs) {
+
+    // Move any attributes that were required by the previous feature set.
+    Map<String, Object> attr_storage = null;
     if (this.feature_set != null) {
-      AuToBIUtils.warn("Overwriting features.  Possible information loss.");
+      attr_storage = new HashMap<String, Object>();
+      for (String f : feature_set.getRequiredFeatures()) {
+        attr_storage.put(f, getAttribute(f));
+      }
+      attr_storage.put(feature_set.getClassAttribute(), getAttribute(feature_set.getClassAttribute()));
     }
     this.feature_set = fs;
 
     // Allocate enough space for all of the required features and the class attribute
     fs_attributes = new Object[fs.getRequiredFeatures().size() + 1];
 
-    // This will overwrite all features that had been previously assigned to the fs_attributes array.
-    // It might make sense to move these to the attributes hash.  For now, we warn if we're overwriting this array.
+    if (attr_storage != null) {
+      // Insert any of the previous required features back into the attribute storage.
+      for (String f : attr_storage.keySet()) {
+        setAttribute(f, attr_storage.get(f));
+      }
+    }
+
+    // Move any previously non-required attributes to required storage.
+    checkMapUsage();
+    Set<String> to_move = new HashSet<String>();
+    for (String f : this.attributes.keySet()) {
+      if (feature_set.getRequiredFeatures().contains(f)) {
+        to_move.add(f);
+      }
+    }
+
+    for (String f : to_move) {
+      Object value = getAttribute(f);
+      removeAttribute(f);
+      setAttribute(f, value);
+    }
+
   }
 
   /**
@@ -252,7 +279,6 @@ public class Region implements Serializable {
    */
   public Boolean hasAttribute(String name) {
     checkMapUsage();
-    // TODO accomodate featureset based attribute storage
     if (feature_set != null && feature_set.getRequiredFeatures().contains(name)) {
       int idx = feature_set.getFeatureIndex(name);
       return this.fs_attributes[idx] != null ||
@@ -291,7 +317,6 @@ public class Region implements Serializable {
    */
   public Set<String> getAttributeNames() {
     checkMapUsage();
-    // TODO accomodate featureset based attribute storage
     Set<String> names = new HashSet<String>();
     for (String name : this.attributes.keySet()) {
       if (getAttribute(name) != null) {
@@ -319,10 +344,11 @@ public class Region implements Serializable {
    * @param name the attribute name
    */
   public void removeAttribute(String name) {
-    // TODO accomodate featureset based attribute storage
     if (feature_set != null && feature_set.getRequiredFeatures().contains(name)) {
       fs_attributes[feature_set.getFeatureIndex(name)] = null;
-    } else {
+    }
+    // Guarantees that the attribute is not stored in either location.
+    if (attributes.containsKey(name)) {
       this.attributes.remove(name);
     }
   }
@@ -331,7 +357,6 @@ public class Region implements Serializable {
    * Removes all attributes from the region.
    */
   public void clearAttributes() {
-    // TODO accomodate featureset based attribute storage
     this.attributes.clear();
     if (fs_attributes != null) {
       for (int i = 0; i < fs_attributes.length; ++i) {
