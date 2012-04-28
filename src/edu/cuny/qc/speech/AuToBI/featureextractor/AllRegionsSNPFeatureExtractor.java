@@ -9,7 +9,12 @@ import java.util.List;
  * Constructs SpeakerNormalizationParameters based on values stored in all input regions.
  * <p/>
  * This is an alternative approach to storing speaker normalization parameters calculated from external data.
+ * <p/>
+ * This class has been deprecated. The same functionality exists in NormalizationParameterFeatureExtractor
+ *
+ * @see NormalizationParameterFeatureExtractor
  */
+@Deprecated
 public class AllRegionsSNPFeatureExtractor extends FeatureExtractor {
   private String dest_feature; // The feature to store the SNP object on
   private String speaker_id_feature; // The feature containing speaker identity information
