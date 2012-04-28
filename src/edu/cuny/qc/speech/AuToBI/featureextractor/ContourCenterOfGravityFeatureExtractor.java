@@ -56,7 +56,9 @@ public class ContourCenterOfGravityFeatureExtractor extends FeatureExtractor {
           num += tvp.first * tvp.second;
           denom += tvp.second;
         }
-        r.setAttribute(attribute_name + "__cog", ((num / denom) - r.getStart()) / r.getDuration());
+        if (denom > 0.0) {
+          r.setAttribute(attribute_name + "__cog", ((num / denom) - r.getStart()) / r.getDuration());
+        }
       }
     }
   }

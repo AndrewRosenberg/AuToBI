@@ -104,6 +104,8 @@ public class Region implements Serializable {
     if (r.attributes != null) {
       attributes = new HashMap<String, Object>(r.attributes);
     }
+
+    // TODO: copy featureset and fs_attributes.
   }
 
   /**
