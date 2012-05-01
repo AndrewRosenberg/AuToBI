@@ -35,6 +35,9 @@ import java.util.ArrayList;
  * <p/>
  * If the attribute is a list of TimeValuePairs, zscore normalization of the min, max and mean within the current word
  * based on the context are calculated.
+ * <p/>
+ * TODO: This FeatureExtractor should be divided into two feature extractors, one for contour features and another for
+ * Doubles.
  *
  * @see edu.cuny.qc.speech.AuToBI.core.ContextDesc
  */
@@ -55,7 +58,6 @@ public class ContextNormalizedFeatureExtractor extends FeatureExtractor {
     this.attribute_name = attribute_name;
 
     this.context = context;
-    extracted_features = new ArrayList<String>();
 
     String context_feature_prefix = this.attribute_name + "_" + context.getLabel();
     extracted_features.add(context_feature_prefix + "__zMin");

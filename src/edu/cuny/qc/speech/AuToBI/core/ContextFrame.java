@@ -35,7 +35,7 @@ import java.lang.Math;
  */
 @SuppressWarnings("unchecked")
 public class ContextFrame {
-  protected List<Word> data;           // the word regions
+  protected List<Region> data;           // the word regions
   protected LinkedList<Double> window; // the windowed contour
   protected String feature_name;       // the feature that is analyzed
   private Integer back;                // the amount of back context
@@ -51,7 +51,7 @@ public class ContextFrame {
    * @param back         the amount of back context
    * @param front        the amount of forward context
    */
-  public ContextFrame(List<Word> data, String feature_name, Integer back, Integer front) {
+  public ContextFrame(List<Region> data, String feature_name, Integer back, Integer front) {
     this.back = back;
     this.front = front;
     this.feature_name = feature_name;

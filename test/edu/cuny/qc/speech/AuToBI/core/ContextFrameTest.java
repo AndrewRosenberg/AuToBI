@@ -39,7 +39,7 @@ public class ContextFrameTest {
 
   @Test
   public void testIncrementWorksWithNullAttributes() {
-    List<Word> words = new ArrayList<Word>();
+    List<Region> words = new ArrayList<Region>();
     words.add(new Word(0, 1, "one"));
     words.add(new Word(0, 1, "two"));
     words.add(new Word(0, 1, "three"));
@@ -58,7 +58,7 @@ public class ContextFrameTest {
 
   @Test
   public void testInit() {
-    List<Word> words = new ArrayList<Word>();
+    List<Region> words = new ArrayList<Region>();
     Word w1 = new Word(0, 1, "one");
     Word w2 = new Word(1, 2, "two");
     Word w3 = new Word(2, 3, "three");
@@ -82,7 +82,7 @@ public class ContextFrameTest {
 
   @Test
   public void testInitWithContours() {
-    List<Word> words = new ArrayList<Word>();
+    List<Region> words = new ArrayList<Region>();
     Word w1 = new Word(0, 1, "one");
     Word w2 = new Word(1, 2, "two");
     Word w3 = new Word(2, 3, "three");
@@ -107,7 +107,7 @@ public class ContextFrameTest {
 
   @Test
   public void testIncrementToTheEnd() {
-    List<Word> words = new ArrayList<Word>();
+    List<Region> words = new ArrayList<Region>();
     Word w1 = new Word(0, 1, "one");
     Word w2 = new Word(1, 2, "two");
     Word w3 = new Word(2, 3, "three");
@@ -139,7 +139,7 @@ public class ContextFrameTest {
 
   @Test
   public void testIncrementToTheEndWithContour() {
-    List<Word> words = new ArrayList<Word>();
+    List<Region> words = new ArrayList<Region>();
     Word w1 = new Word(0, 1, "one");
     Word w2 = new Word(1, 2, "two");
     Word w3 = new Word(2, 3, "three");
@@ -171,7 +171,7 @@ public class ContextFrameTest {
 
   @Test
   public void testIncrementPassingTheEnd() {
-    List<Word> words = new ArrayList<Word>();
+    List<Region> words = new ArrayList<Region>();
     Word w1 = new Word(0, 1, "one");
     Word w2 = new Word(1, 2, "two");
     Word w3 = new Word(2, 3, "three");
@@ -203,7 +203,7 @@ public class ContextFrameTest {
 
   @Test
   public void testIncrementPassingTheEndWithContour() {
-    List<Word> words = new ArrayList<Word>();
+    List<Region> words = new ArrayList<Region>();
     Word w1 = new Word(0, 1, "one");
     Word w2 = new Word(1, 2, "two");
     Word w3 = new Word(2, 3, "three");
@@ -235,7 +235,7 @@ public class ContextFrameTest {
 
   @Test
   public void testIncrementFrameSize() {
-    List<Word> words = new ArrayList<Word>();
+    List<Region> words = new ArrayList<Region>();
     Word w1 = new Word(0, 1, "one");
     Word w2 = new Word(1, 2, "two");
     Word w3 = new Word(2, 3, "three");
@@ -275,7 +275,7 @@ public class ContextFrameTest {
 
   @Test
   public void testIncrementFrameSizeWithContour() {
-    List<Word> words = new ArrayList<Word>();
+    List<Region> words = new ArrayList<Region>();
     Word w1 = new Word(0, 1, "one");
     Word w2 = new Word(1, 2, "two");
     Word w3 = new Word(2, 3, "three");
@@ -315,7 +315,7 @@ public class ContextFrameTest {
 
   @Test
   public void testIncrementMean() {
-    List<Word> words = new ArrayList<Word>();
+    List<Region> words = new ArrayList<Region>();
     Word w1 = new Word(0, 1, "one");
     Word w2 = new Word(1, 2, "two");
     Word w3 = new Word(2, 3, "three");
@@ -355,7 +355,7 @@ public class ContextFrameTest {
 
   @Test
   public void testIncrementMeanWithContour() {
-    List<Word> words = new ArrayList<Word>();
+    List<Region> words = new ArrayList<Region>();
     Word w1 = new Word(0, 1, "one");
     Word w2 = new Word(1, 2, "two");
     Word w3 = new Word(2, 3, "three");
@@ -395,7 +395,7 @@ public class ContextFrameTest {
 
   @Test
   public void testIncrementStdev() {
-    List<Word> words = new ArrayList<Word>();
+    List<Region> words = new ArrayList<Region>();
     Word w1 = new Word(0, 1, "one");
     Word w2 = new Word(1, 2, "two");
     Word w3 = new Word(2, 3, "three");
@@ -435,7 +435,7 @@ public class ContextFrameTest {
 
   @Test
   public void testIncrementStdevWithContour() {
-    List<Word> words = new ArrayList<Word>();
+    List<Region> words = new ArrayList<Region>();
     Word w1 = new Word(0, 1, "one");
     Word w2 = new Word(1, 2, "two");
     Word w3 = new Word(2, 3, "three");
@@ -475,7 +475,7 @@ public class ContextFrameTest {
 
   @Test
   public void testIncrementMax() {
-    List<Word> words = new ArrayList<Word>();
+    List<Region> words = new ArrayList<Region>();
     Word w1 = new Word(0, 1, "one");
     Word w2 = new Word(1, 2, "two");
     Word w3 = new Word(2, 3, "three");
@@ -515,7 +515,7 @@ public class ContextFrameTest {
 
   @Test
   public void testIncrementMaxWithContour() {
-    List<Word> words = new ArrayList<Word>();
+    List<Region> words = new ArrayList<Region>();
     Word w1 = new Word(0, 1, "one");
     Word w2 = new Word(1, 2, "two");
     Word w3 = new Word(2, 3, "three");
@@ -555,7 +555,7 @@ public class ContextFrameTest {
 
   @Test
   public void testIncrementMin() {
-    List<Word> words = new ArrayList<Word>();
+    List<Region> words = new ArrayList<Region>();
     Word w1 = new Word(0, 1, "one");
     Word w2 = new Word(1, 2, "two");
     Word w3 = new Word(2, 3, "three");
@@ -595,7 +595,7 @@ public class ContextFrameTest {
 
   @Test
   public void testIncrementMinWithContour() {
-    List<Word> words = new ArrayList<Word>();
+    List<Region> words = new ArrayList<Region>();
     Word w1 = new Word(0, 1, "one");
     Word w2 = new Word(1, 2, "two");
     Word w3 = new Word(2, 3, "three");
@@ -635,7 +635,7 @@ public class ContextFrameTest {
 
   @Test
   public void testMultipleCallsToInit() {
-    List<Word> words = new ArrayList<Word>();
+    List<Region> words = new ArrayList<Region>();
     Word w1 = new Word(0, 1, "one");
     Word w2 = new Word(1, 2, "two");
     Word w3 = new Word(2, 3, "three");
