@@ -22,6 +22,7 @@ package edu.cuny.qc.speech.AuToBI.featureextractor;
 import edu.cuny.qc.speech.AuToBI.core.Contour;
 import edu.cuny.qc.speech.AuToBI.core.Region;
 import edu.cuny.qc.speech.AuToBI.core.Word;
+import junit.framework.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -55,6 +56,31 @@ public class DifferenceFeatureExtractorTest {
       fail();
     } catch (FeatureExtractorException e) {
       fail();
+    }
+  }
+
+  @Test
+  public void testExtractFeaturesFailsWithNonNumericFeature() {
+    try {
+      List<Region> regions = new ArrayList<Region>();
+      Word w = new Word(0, 1, "test");
+      w.setAttribute("attr", "string attribute");
+      regions.add(w);
+
+      Word w1 = new Word(0, 1, "test");
+      w1.setAttribute("attr", "string attribute");
+      regions.add(w1);
+
+      ArrayList<String> features = new ArrayList<String>();
+      features.add("attr");
+
+      DifferenceFeatureExtractor fe = new DifferenceFeatureExtractor(features);
+      fe.extractFeatures(regions);
+      fail();
+    } catch (NullPointerException e) {
+      fail();
+    } catch (FeatureExtractorException e) {
+      assertTrue(true);
     }
   }
 
