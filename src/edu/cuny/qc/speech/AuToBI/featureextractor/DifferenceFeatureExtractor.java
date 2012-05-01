@@ -34,6 +34,8 @@ public class DifferenceFeatureExtractor extends FeatureExtractor {
 
   /**
    * Constructs a DifferenceFeatureExtractor.
+   * <p/>
+   * TODO: This should probably be just one feature at a time instead of a list of valid features
    *
    * @param difference_features the features to process
    */
@@ -74,11 +76,6 @@ public class DifferenceFeatureExtractor extends FeatureExtractor {
         Number value =
             ((Number) next_r.getAttribute(feature)).doubleValue() - ((Number) r.getAttribute(feature)).doubleValue();
         r.setAttribute("diff_" + feature, value);
-      }
-    }
-    for (Region r : (List<Region>) regions) {
-      for (String feature : features) {
-        r.setAttribute("diff_" + feature, 0.0);
       }
     }
   }
