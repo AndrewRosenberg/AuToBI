@@ -31,11 +31,15 @@ import java.util.List;
  * <p/>
  * The operation does assume, however, that the file contains speech by a single speaker.
  */
+@SuppressWarnings("unchecked")
 public class NormalizationParameterFeatureExtractor extends FeatureExtractor {
   private String destination_feature;  // the destination feature name
 
   /**
    * Constructs a new NormalizationParameterFeatureExtractor.
+   * <p/>
+   * Currently this class requires "f0" and "I" attributes, and generates normalization parameters for pitch and
+   * intensity.
    *
    * @param destination_feature the name of the feature to store the feature in.
    */
@@ -43,6 +47,7 @@ public class NormalizationParameterFeatureExtractor extends FeatureExtractor {
     this.destination_feature = destination_feature;
 
     this.extracted_features.add(destination_feature);
+    // TODO: allow the normalized features to be specified through parameters
     this.required_features.add("f0");
     this.required_features.add("I");
   }
