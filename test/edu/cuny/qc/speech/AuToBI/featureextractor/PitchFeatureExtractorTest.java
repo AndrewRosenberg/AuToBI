@@ -1,4 +1,4 @@
-/*  IntensityFeatureExtractorTest.java
+/*  PitchFeatureExtractor.java
 
     Copyright 2012 Andrew Rosenberg
 
@@ -21,6 +21,7 @@ package edu.cuny.qc.speech.AuToBI.featureextractor;
 
 import edu.cuny.qc.speech.AuToBI.core.*;
 import edu.cuny.qc.speech.AuToBI.io.WavReader;
+import org.junit.Before;
 import org.junit.Test;
 
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -28,43 +29,40 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static junit.framework.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static junit.framework.Assert.*;
 
 /**
- * Test class for IntensityFeatureExtractor
+ * Test class for PitchFeatureExtractor
  *
- * @see IntensityFeatureExtractor
+ * @see PitchFeatureExtractor
  */
-public class IntensityFeatureExtractorTest {
-
+public class PitchFeatureExtractorTest {
+  private PitchFeatureExtractor fe;
+  private List<Region> regions;
   private static final String TEST_DIR = "/Users/andrew/code/AuToBI/release/test_data/";
+
+  @Before
+  public void setUp() throws Exception {
+    fe = new PitchFeatureExtractor("f0");
+    regions = new ArrayList<Region>();
+  }
 
   @Test
   public void testConstructorSetsExtractedFeaturesCorrectly() {
-    IntensityFeatureExtractor fe =
-        new IntensityFeatureExtractor("I");
-
     assertEquals(1, fe.getExtractedFeatures().size());
-    assertTrue(fe.getExtractedFeatures().contains("I"));
+    assertTrue(fe.getExtractedFeatures().contains("f0"));
   }
 
   @Test
   public void testConstructorSetsRequiredFeaturesCorrectly() {
-    IntensityFeatureExtractor fe =
-        new IntensityFeatureExtractor("I");
-
     assertEquals(1, fe.getRequiredFeatures().size());
     assertTrue(fe.getRequiredFeatures().contains("wav"));
   }
 
   @Test
   public void testExtractFeaturesExtractsFeatures() {
-    IntensityFeatureExtractor fe =
-        new IntensityFeatureExtractor("I");
-
-    List<Region> regions = new ArrayList<Region>();
-    Word w = new Word(0.0, 1.0, "test");
+    Word w = new Word(0, 1, "word");
+    w.setAccent("H*");
     regions.add(w);
 
     WavReader reader = new WavReader();
@@ -83,21 +81,18 @@ public class IntensityFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertTrue(w.hasAttribute("I"));
+      assertTrue(w.hasAttribute("f0"));
     } catch (FeatureExtractorException e) {
-      e.printStackTrace();
+      fail();
     }
   }
 
   @Test
   public void testExtractFeaturesExtractsFeaturesCorrectly() {
-
-    IntensityFeatureExtractor fe =
-        new IntensityFeatureExtractor("I");
-
-    List<Region> regions = new ArrayList<Region>();
-    Word w = new Word(0.0, 1.0, "test");
+    Word w = new Word(0, 1, "word");
+    w.setAccent("H*");
     regions.add(w);
+
     WavReader reader = new WavReader();
 
     WavData wav = null;
@@ -111,17 +106,16 @@ public class IntensityFeatureExtractorTest {
       e.printStackTrace();
     }
     w.setAttribute("wav", wav);
-
     try {
       fe.extractFeatures(regions);
-      Contour c = (Contour) w.getAttribute("I");
+      Contour c = (Contour) w.getAttribute("f0");
+      // Assume that Pitch Extraction is tested in PitchExtractor
+      // We'll do some sanity checks here.
       assertEquals(100, c.size());
       assertEquals(0.01, c.getStep(), 0.0001);
       assertEquals(0.005, c.getStart(), 0.0001);
-      // Assume that the intensity extraction algorithm is tested in IntensityExtractor.
-      // Here we'll make sure that the generated contour passes some sanity checks.
     } catch (FeatureExtractorException e) {
-      e.printStackTrace();
+      fail();
     }
   }
 }
