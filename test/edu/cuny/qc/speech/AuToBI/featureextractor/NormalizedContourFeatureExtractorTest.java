@@ -80,7 +80,7 @@ public class NormalizedContourFeatureExtractorTest {
   }
 
   @Test
-  public void testExtractFeaturesExtractsFeaturesCorrectlyOnMatch() {
+  public void testExtractFeaturesExtractsFeaturesCorrectly() {
     Word w = new Word(0, 1, "word");
     w.setAttribute("f0", new Contour(0, .1, new double[]{10, 11, 12, 13}));
     SpeakerNormalizationParameter snp = new SpeakerNormalizationParameter();
