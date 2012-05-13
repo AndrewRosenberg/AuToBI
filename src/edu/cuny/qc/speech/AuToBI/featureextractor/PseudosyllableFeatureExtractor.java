@@ -19,12 +19,9 @@
  */
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
-import edu.cuny.qc.speech.AuToBI.PitchExtractor;
-import edu.cuny.qc.speech.AuToBI.core.Contour;
 import edu.cuny.qc.speech.AuToBI.core.Region;
 import edu.cuny.qc.speech.AuToBI.core.FeatureExtractor;
 import edu.cuny.qc.speech.AuToBI.core.WavData;
-import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 import edu.cuny.qc.speech.AuToBI.util.SubregionUtils;
 import edu.cuny.qc.speech.AuToBI.Syllabifier;
 
@@ -41,6 +38,7 @@ import java.util.List;
  * @see edu.cuny.qc.speech.AuToBI.Syllabifier
  * @see edu.cuny.qc.speech.AuToBI.core.SubWord
  */
+@SuppressWarnings("unchecked")
 public class PseudosyllableFeatureExtractor extends FeatureExtractor {
   private String subregion_name;  // the feature name to store the subregion
 

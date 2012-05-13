@@ -31,6 +31,7 @@ import java.util.List;
  * PitchFeatureExtractor extracts pitch information from a given WavData object and aligns the appropriate contour
  * sections to the supplied regions.
  */
+@SuppressWarnings("ALL")
 public class PitchFeatureExtractor extends FeatureExtractor {
 
   private String feature_name;  // the name of the feature to hold pitch information
