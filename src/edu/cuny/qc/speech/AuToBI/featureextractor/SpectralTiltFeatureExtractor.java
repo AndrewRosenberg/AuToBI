@@ -33,6 +33,7 @@ import java.util.ArrayList;
  * Spectral tilt, in this case, is defined as the ratio of the energy in a specified spectral region and the total
  * energy in the frame.
  */
+@SuppressWarnings("unchecked")
 public class SpectralTiltFeatureExtractor extends ContourFeatureExtractor {
   private String spectrum_feature;  // the spectrum of the signal
 
@@ -96,7 +97,6 @@ public class SpectralTiltFeatureExtractor extends ContourFeatureExtractor {
       }
 
       tvpfe.extractFeatures(regions);
-
     } catch (AuToBIException e) {
       e.printStackTrace();
     }
