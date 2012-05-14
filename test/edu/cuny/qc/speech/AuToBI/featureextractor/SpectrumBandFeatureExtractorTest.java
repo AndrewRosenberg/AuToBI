@@ -1,4 +1,4 @@
-/*  SpectralTiltFeatureExtractorTest .java
+/*  SpectrumBandFeatureExtractorTest .java
 
     Copyright 2012 Andrew Rosenberg
 
@@ -19,7 +19,10 @@
  */
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
-import edu.cuny.qc.speech.AuToBI.core.*;
+import edu.cuny.qc.speech.AuToBI.core.Contour;
+import edu.cuny.qc.speech.AuToBI.core.Region;
+import edu.cuny.qc.speech.AuToBI.core.Spectrum;
+import edu.cuny.qc.speech.AuToBI.core.Word;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,17 +32,17 @@ import java.util.List;
 import static junit.framework.Assert.*;
 
 /**
- * Test class for SpectralTiltFeatureExtractor
+ * Test class for SpectrumBandFeatureExtractor
  *
- * @see SpectralTiltFeatureExtractor
+ * @see edu.cuny.qc.speech.AuToBI.featureextractor.SpectrumBandFeatureExtractor
  */
-public class SpectralTiltFeatureExtractorTest {
-  private SpectralTiltFeatureExtractor fe;
+public class SpectrumBandFeatureExtractorTest {
+  private SpectrumBandFeatureExtractor fe;
   private List<Region> regions;
 
   @Before
   public void setUp() throws Exception {
-    fe = new SpectralTiltFeatureExtractor("prefix", "spectrum", 1, 2);
+    fe = new SpectrumBandFeatureExtractor("prefix", "spectrum", 1, 2);
     regions = new ArrayList<Region>();
   }
 
@@ -54,6 +57,7 @@ public class SpectralTiltFeatureExtractorTest {
     assertTrue(fe.getExtractedFeatures().contains("prefix_1_2__zMax"));
     assertTrue(fe.getExtractedFeatures().contains("prefix_1_2__maxLocation"));
     assertTrue(fe.getExtractedFeatures().contains("prefix_1_2__maxRelLocation"));
+
   }
 
   @Test
@@ -88,8 +92,8 @@ public class SpectralTiltFeatureExtractorTest {
       fe.extractFeatures(regions);
       Contour c = (Contour) w.getAttribute("prefix_1_2");
       assertEquals(2, c.size());
-      assertEquals(0.0666, c.get(0), 0.0001);
-      assertEquals(0.0963, c.get(1), 0.0001);
+      assertEquals(3, c.get(0), 0.0001);
+      assertEquals(13, c.get(1), 0.0001);
     } catch (FeatureExtractorException e) {
       fail();
     }
