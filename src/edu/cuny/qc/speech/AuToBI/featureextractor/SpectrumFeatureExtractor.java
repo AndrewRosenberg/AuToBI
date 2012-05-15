@@ -30,6 +30,7 @@ import java.util.List;
  * SpectrumFeatureExtractor extracts a spectrum from a given WavData object and aligns the appropriate sections to the
  * supplied regions.
  */
+@SuppressWarnings("unchecked")
 public class SpectrumFeatureExtractor extends FeatureExtractor {
   private String feature_name;  // the name of the feature to hold pitch information
   private double frame_size; // The spectrum frame duration
@@ -77,6 +78,8 @@ public class SpectrumFeatureExtractor extends FeatureExtractor {
             Spectrum spectrum = extractor.getSpectrum(frame_size, hamming_window);
 
             if (spectrum == null) {
+              // AR: When writing tests, I couldn't get this case to fire. It seems unwise to remove this failsafe
+              // though. If it happens during runtime, write a test for it.
               throw new AuToBIException(
                   "Tried to extract the spectrum from segment with too few frames: " + r.getDuration() + " seconds. (" +
                       subwav.getNumSamples() + " frames)");
