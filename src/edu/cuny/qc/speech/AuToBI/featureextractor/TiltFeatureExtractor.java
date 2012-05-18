@@ -20,7 +20,6 @@
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
 import edu.cuny.qc.speech.AuToBI.core.*;
-import edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException;
 
 import java.util.List;
 
@@ -29,37 +28,39 @@ import java.util.List;
  *
  * @see edu.cuny.qc.speech.AuToBI.core.TiltParameters
  */
+@SuppressWarnings("unchecked")
 public class TiltFeatureExtractor extends FeatureExtractor {
-  private String tvp_feature;  // the TimeValuePair feature to analyze
+  private String contour_feature;  // the Contour feature to analyze
 
   /**
    * Constructs a new TiltFeatureExtractor to calculate Tilt features using the given feature
-   * 
-   * @param tvp_feature the TimeValuePair feature name
+   *
+   * @param contour_feature the Contour feature name
    */
-  public TiltFeatureExtractor(String tvp_feature) {
-    this.tvp_feature = tvp_feature;
-    required_features.add(tvp_feature);
+  public TiltFeatureExtractor(String contour_feature) {
+    this.contour_feature = contour_feature;
+    required_features.add(contour_feature);
 
-    extracted_features.add(tvp_feature + "__tilt");
-    extracted_features.add(tvp_feature + "__tilt_amp");
-    extracted_features.add(tvp_feature + "__tilt_dur");
+    extracted_features.add(contour_feature + "__tilt");
+    extracted_features.add(contour_feature + "__tilt_amp");
+    extracted_features.add(contour_feature + "__tilt_dur");
   }
 
   /**
-   * Calculates Tilt parameters for the contour referenced by tvp_feature over each region.
+   * Calculates Tilt parameters for the contour referenced by contour_feature over each region.
    *
    * @param regions The regions to extract features from.
-   * @throws edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException should never happen.
+   * @throws edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException
+   *          should never happen.
    */
   @Override
   public void extractFeatures(List regions) throws FeatureExtractorException {
-    for (Region r: (List<Region>) regions) {
-      TiltParameters tilt = new TiltParameters((Contour) r.getAttribute(tvp_feature));
+    for (Region r : (List<Region>) regions) {
+      TiltParameters tilt = new TiltParameters((Contour) r.getAttribute(contour_feature));
 
-      r.setAttribute(tvp_feature + "__tilt", tilt.getTilt());
-      r.setAttribute(tvp_feature + "__tilt_amp", tilt.getAmplitudeTilt());
-      r.setAttribute(tvp_feature + "__tilt_dur", tilt.getDurationTilt());
+      r.setAttribute(contour_feature + "__tilt", tilt.getTilt());
+      r.setAttribute(contour_feature + "__tilt_amp", tilt.getAmplitudeTilt());
+      r.setAttribute(contour_feature + "__tilt_dur", tilt.getDurationTilt());
     }
   }
 }
