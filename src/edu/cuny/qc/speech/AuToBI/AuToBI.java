@@ -929,7 +929,8 @@ public class AuToBI {
                 new SpectrumPADFeatureExtractor(low, high, pacc.getPitchAccentDetector(low, high),
                     new SpectrumPADFeatureSet(low, high)));
             registerFeatureExtractor(
-                new CorrectionSpectrumPADFeatureExtractor(low, high, pacc.getCorrectionClassifier(low, high), this));
+                new CorrectionSpectrumPADFeatureExtractor(low, high, pacc.getCorrectionClassifier(low, high),
+                    new CorrectionSpectrumPADFeatureSet(low, high)));
           }
         }
       }

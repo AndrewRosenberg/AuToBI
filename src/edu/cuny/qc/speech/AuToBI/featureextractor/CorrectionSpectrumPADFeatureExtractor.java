@@ -19,13 +19,12 @@
  */
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
-import edu.cuny.qc.speech.AuToBI.*;
 import edu.cuny.qc.speech.AuToBI.classifier.AuToBIClassifier;
-import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
 import edu.cuny.qc.speech.AuToBI.core.Distribution;
 import edu.cuny.qc.speech.AuToBI.core.FeatureExtractor;
+import edu.cuny.qc.speech.AuToBI.core.FeatureSet;
 import edu.cuny.qc.speech.AuToBI.core.Word;
-import edu.cuny.qc.speech.AuToBI.featureset.CorrectionSpectrumPADFeatureSet;
+
 
 import java.util.List;
 
@@ -36,12 +35,13 @@ import java.util.List;
  * corrected using a second feature set.  This feature extraction routine generates hypotheses for the second --
  * correction -- tier.
  */
+@SuppressWarnings("unchecked")
 public class CorrectionSpectrumPADFeatureExtractor extends FeatureExtractor {
 
   private int low;                      // the low bark
   private int high;                     // the high bark
   private AuToBIClassifier classifier;  // The correction classifier
-  private AuToBI autobi;                // An associated autobi object for feature extraction
+  private FeatureSet fs;                // A FeatureSet to describe the required features for the classifier
 
   /**
    * Constructs a CorrectionSpectrumPADFeatureExtractor
@@ -51,16 +51,19 @@ public class CorrectionSpectrumPADFeatureExtractor extends FeatureExtractor {
    * @param low        the low bark value
    * @param high       the high bark value
    * @param classifier the correction classifier
-   * @param autobi     an autobi object to manage the feature extraction for the correction classifier
+   * @param fs         a feature set to describe the necessary features for the classifier
    */
-  public CorrectionSpectrumPADFeatureExtractor(int low, int high, AuToBIClassifier classifier, AuToBI autobi) {
+  public CorrectionSpectrumPADFeatureExtractor(int low, int high, AuToBIClassifier classifier, FeatureSet fs) {
     this.low = low;
     this.high = high;
     this.classifier = classifier;
-    this.autobi = autobi;
+    this.fs = fs;
 
     extracted_features.add("nominal_bark_" + low + "_" + high + "__correction_prediction");
     extracted_features.add("bark_" + low + "_" + high + "__correction_prediction_confidence");
+
+    required_features.addAll(fs.getRequiredFeatures());
+    required_features.add(fs.getClassAttribute());
   }
 
 
@@ -73,18 +76,10 @@ public class CorrectionSpectrumPADFeatureExtractor extends FeatureExtractor {
   public void extractFeatures(List regions) throws FeatureExtractorException {
 
     // Construct a feature set.
-    CorrectionSpectrumPADFeatureSet fs = new CorrectionSpectrumPADFeatureSet(low, high);
+    FeatureSet feature_set = fs.newInstance();
 
-    fs.setDataPoints(regions);
-    fs.setClassAttribute("nominal_PitchAccent");
-
-    // Extract correction features.
-    try {
-      autobi.extractFeatures(fs);
-    } catch (AuToBIException e) {
-      throw new FeatureExtractorException(e.getMessage());
-    }
-    fs.constructFeatures();
+    feature_set.setDataPoints(regions);
+    feature_set.constructFeatures();
 
     for (Word w : (List<Word>) regions) {
       try {
@@ -92,7 +87,7 @@ public class CorrectionSpectrumPADFeatureExtractor extends FeatureExtractor {
 
         w.setAttribute("nominal_bark_" + low + "_" + high + "__correction_prediction", result.getKeyWithMaximumValue());
         w.setAttribute("bark_" + low + "_" + high + "__correction_prediction_confidence",
-                       result.get(result.getKeyWithMaximumValue()));
+            result.get(result.getKeyWithMaximumValue()));
       } catch (Exception e) {
         throw new FeatureExtractorException(e.getMessage());
       }
