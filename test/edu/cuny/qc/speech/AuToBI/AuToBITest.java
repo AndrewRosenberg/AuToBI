@@ -4,7 +4,6 @@ import edu.cuny.qc.speech.AuToBI.core.*;
 import edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException;
 import org.junit.Test;
 
-import java.net.Authenticator;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -12,14 +11,8 @@ import static org.junit.Assert.*;
 /**
  * Test class for AuToBI.
  */
+@SuppressWarnings("unchecked")
 public class AuToBITest {
-
-  @Test
-  public void testInit() {
-    // Init sets up the log4j logger, and passes command line to AuToBIParameters for parsing.
-    // See AuToBIParametersTest for testing of parameter parsing.
-    assertTrue(true);
-  }
 
   @Test
   public void testInitializeReferenceCounting() {

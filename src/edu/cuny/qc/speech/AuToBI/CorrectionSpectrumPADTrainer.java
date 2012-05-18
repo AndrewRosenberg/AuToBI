@@ -26,8 +26,8 @@ import edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException;
 import edu.cuny.qc.speech.AuToBI.featureextractor.MatchingFeatureExtractor;
 import edu.cuny.qc.speech.AuToBI.featureextractor.XValSpectrumPADFeatureExtractor;
 import edu.cuny.qc.speech.AuToBI.featureset.CorrectionSpectrumPADFeatureSet;
+import edu.cuny.qc.speech.AuToBI.featureset.SpectrumPADFeatureSet;
 import edu.cuny.qc.speech.AuToBI.io.TextGridReader;
-import edu.cuny.qc.speech.AuToBI.io.WavReader;
 import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
 import weka.classifiers.trees.J48;
 
@@ -41,16 +41,14 @@ import java.io.FileNotFoundException;
 /**
  * Entry point class to train and store Correcting Classifiers for Spectral Pitch Accent Detection.
  * <p/>
- * The main function defined in this class generates a single correcting classifier for one spectral region
- * defined by the parameters -low_bark and -high_bark.
+ * The main function defined in this class generates a single correcting classifier for one spectral region defined by
+ * the parameters -low_bark and -high_bark.
  */
 public class CorrectionSpectrumPADTrainer {
 
   public static void main(String[] args) {
     AuToBI autobi = new AuToBI();
     autobi.init(args);
-
-    WavReader reader = new WavReader();
 
     try {
       Integer low = Integer.parseInt(autobi.getParameter("low_bark"));
@@ -62,45 +60,28 @@ public class CorrectionSpectrumPADTrainer {
       String speaker_normalization_file = autobi.getParameter("speaker_normalization_filename");
       for (String filename : AuToBIUtils.glob(autobi.getParameter("training_filenames"))) {
 
-        String file_stem = filename.substring(0, filename.lastIndexOf('.'));
-
-        String wav_filename = file_stem + ".wav";
         autobi.loadSpeakerNormalizationMapping(speaker_normalization_file);
-        String norm_param_filename = autobi.getSpeakerNormParamFilename(filename);
 
         TextGridReader tg_reader = new TextGridReader(filename);
 
-        WavData wav = reader.read(wav_filename);
-        PitchExtractor pitch_extractor = new PitchExtractor(wav);
-        SpectrumExtractor spectrum_extractor = new SpectrumExtractor(wav);
-        Contour pitch_values = null;
         try {
           AuToBIUtils.log("Reading words from: " + filename);
           List<Word> words = tg_reader.readWords();
 
           AuToBIUtils.log("Extracting acoustic information.");
 
-          pitch_values = pitch_extractor.soundToPitch();
-          Spectrum spectrum = spectrum_extractor.getSpectrum(0.01, 0.02);
-
-          SpeakerNormalizationParameter norm_params =
-              SpeakerNormalizationParameterGenerator.readSerializedParameters(norm_param_filename);
-
           // If stored normalization data is unavailable generate normalization data from the input file.
-          if (norm_params == null) {
-            norm_params = new SpeakerNormalizationParameter();
-            norm_params.insertPitch(pitch_values);
-          }
           autobi.registerAllFeatureExtractors();
 
           // At training the feature set requires nominal_PitchAccent to establish the "correct" class.
           fs.getRequiredFeatures().add("nominal_PitchAccent");
 
           // register a feature extractors specific for the XVal predictions
-          autobi.registerFeatureExtractor(new XValSpectrumPADFeatureExtractor(low, high, num_folds, autobi));
+          autobi.registerFeatureExtractor(
+              new XValSpectrumPADFeatureExtractor(low, high, num_folds, new SpectrumPADFeatureSet(low, high)));
           autobi.registerFeatureExtractor(
               new MatchingFeatureExtractor("nominal_PitchAccent", "nominal_bark_" + low + "_" + high + "__prediction",
-                                           "nominal_PitchAccentCorrect"));
+                  "nominal_PitchAccentCorrect"));
 
           CorrectionSpectrumPADFeatureSet current_fs =
               new CorrectionSpectrumPADFeatureSet(low, high);
