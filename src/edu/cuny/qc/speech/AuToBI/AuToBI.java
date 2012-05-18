@@ -565,7 +565,7 @@ public class AuToBI {
     for (Future<FeatureSet> new_fs : results) {
       if (new_fs != null) {
 
-        List<Word> words = null;
+        List<Word> words;
         try {
           words = new_fs.get().getDataPoints();
 
@@ -926,7 +926,8 @@ public class AuToBI {
         for (int low = 0; low < high_bark; ++low) {
           for (int high = low + 1; high <= high_bark; ++high) {
             registerFeatureExtractor(
-                new SpectrumPADFeatureExtractor(low, high, pacc.getPitchAccentDetector(low, high), this));
+                new SpectrumPADFeatureExtractor(low, high, pacc.getPitchAccentDetector(low, high),
+                    new SpectrumPADFeatureSet(low, high)));
             registerFeatureExtractor(
                 new CorrectionSpectrumPADFeatureExtractor(low, high, pacc.getCorrectionClassifier(low, high), this));
           }

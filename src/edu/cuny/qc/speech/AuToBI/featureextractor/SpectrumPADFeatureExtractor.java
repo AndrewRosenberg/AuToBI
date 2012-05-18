@@ -19,31 +19,26 @@
  */
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
-import edu.cuny.qc.speech.AuToBI.*;
 import edu.cuny.qc.speech.AuToBI.classifier.AuToBIClassifier;
-import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
-import edu.cuny.qc.speech.AuToBI.core.Distribution;
-import edu.cuny.qc.speech.AuToBI.core.FeatureExtractor;
-import edu.cuny.qc.speech.AuToBI.core.Word;
-import edu.cuny.qc.speech.AuToBI.featureset.SpectrumPADFeatureSet;
+import edu.cuny.qc.speech.AuToBI.core.*;
 
 import java.util.List;
 
 /**
- * SpectrumPADFeatureExtractor is a FeatureExtractor which generates hypothesized pitch accent detection (PAD) prediction
- * hypotheses given a particular spectral region.
+ * SpectrumPADFeatureExtractor is a FeatureExtractor which generates hypothesized pitch accent detection (PAD)
+ * prediction hypotheses given a particular spectral region.
  * <p/>
  * This feature extractor requires the association of an externally trained pitch accent detection classifier and a
  * descriptor of the spectral region -- here typically in terms of a low and high bark boundary.
  */
+@SuppressWarnings("unchecked")
 public class SpectrumPADFeatureExtractor extends FeatureExtractor {
 
   private final String ACCENTED_VALUE = "ACCENTED";  // a label for ACCENTED words
   private int low;                                   // the bottom of the spectral region (in bark)
   private int high;                                  // the top of the spectral region (in bark)
   private AuToBIClassifier classifier;               // the classifier responsible for generating predictions
-  private AuToBI autobi;                             // an autobi object to guide feature extraction necessary for
-  // generation of these hypotheses
+  private FeatureSet fs;                             // a featureSet to describe the features requied by the classifier
 
   /**
    * Constructs a new SpectrumPADFeatureExtractor given a spectral region, externally trained classifier, and AuToBI
@@ -52,37 +47,36 @@ public class SpectrumPADFeatureExtractor extends FeatureExtractor {
    * @param low        the low boundary of the spectral region -- in bark units
    * @param high       the high boundary of the spectral region
    * @param classifier the classifier responsible for generating hypotheses
-   * @param autobi     the AuToBI object to guide feature extraction
+   * @param fs         the AuToBI object to guide feature extraction
    */
-  public SpectrumPADFeatureExtractor(int low, int high, AuToBIClassifier classifier, AuToBI autobi) {
+  public SpectrumPADFeatureExtractor(int low, int high, AuToBIClassifier classifier, FeatureSet fs) {
     this.low = low;
     this.high = high;
     this.classifier = classifier;
-    this.autobi = autobi;
+    this.fs = fs;
 
     extracted_features.add("nominal_bark_" + low + "_" + high + "__prediction");
     extracted_features.add("bark_" + low + "_" + high + "__prediction_confidence");
     extracted_features.add("bark_" + low + "_" + high + "__prediction_confidence_accented");
+
+    required_features.addAll(fs.getRequiredFeatures());
+    required_features.add(fs.getClassAttribute());
   }
 
   /**
    * Generates hypothesed pitch accent detection predictions for each region and stores these with the regions.
    *
    * @param regions The regions to extract features from.
-   * @throws edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException if something goes wrong
+   * @throws edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException
+   *          if something goes wrong
    */
   public void extractFeatures(List regions) throws FeatureExtractorException {
     // Construct a feature set.
-    SpectrumPADFeatureSet fs = new SpectrumPADFeatureSet(low, high);
+    FeatureSet feature_set = fs.newInstance();
 
     // Extract spectrum features.
-    fs.setDataPoints((List<Word>) regions);
-    try {
-      autobi.extractFeatures(fs);
-    } catch (AuToBIException e) {
-      throw new FeatureExtractorException(e.getMessage());
-    }
-    fs.constructFeatures();
+    feature_set.setDataPoints((List<Word>) regions);
+    feature_set.constructFeatures();
 
     for (Word w : (List<Word>) regions) {
       try {
@@ -90,7 +84,7 @@ public class SpectrumPADFeatureExtractor extends FeatureExtractor {
 
         w.setAttribute("nominal_bark_" + low + "_" + high + "__prediction", result.getKeyWithMaximumValue());
         w.setAttribute("bark_" + low + "_" + high + "__prediction_confidence",
-                       result.get(result.getKeyWithMaximumValue()));
+            result.get(result.getKeyWithMaximumValue()));
         w.setAttribute("bark_" + low + "_" + high + "__prediction_confidence_accented", result.get(ACCENTED_VALUE));
       } catch (Exception e) {
         throw new FeatureExtractorException(e.getMessage());
