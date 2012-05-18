@@ -41,6 +41,7 @@ import java.util.*;
  * the same phone set, this will be an exact match.  If they don't, this will give a best effort alignment between the
  * two.
  */
+@SuppressWarnings("unchecked")
 public class SyllableFeatureExtractor extends FeatureExtractor {
   private String syllable_feature;         // The name of the feature to store syllables on.
   private String phone_feature;            // The name of the feature containing a list of phone regions.
