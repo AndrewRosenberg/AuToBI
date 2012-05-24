@@ -32,8 +32,6 @@ import java.io.IOException;
 import java.io.File;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
-import java.util.List;
-import java.util.ArrayList;
 
 /**
  * Intensity extractor an intensity contour from a wave file.

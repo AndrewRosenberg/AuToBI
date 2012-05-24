@@ -26,16 +26,15 @@ import edu.cuny.qc.speech.AuToBI.core.Word;
 import edu.cuny.qc.speech.AuToBI.util.PartitionUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
  * Ensemble Sampling Classifiers divide the training data into k samples.  Then k classifiers are trained. During
- * evaluation, each of the k classifiers generate hypohteses, which are combined using weighted majority voting.
+ * evaluation, each of the k classifiers generate hypotheses, which are combined using weighted majority voting.
  * <p/>
  * The k training samples are constructed such that each majority class token appears in one sample, while the remaining
  * minority class tokens appear in every sample.  Thus k is equal to the size of the majority class divided by the size
- * of the largest minority class.
+ * of the smallest class.
  */
 public class MinimumClassEnsembleSampledClassifier extends EnsembleSampledClassifier {
 

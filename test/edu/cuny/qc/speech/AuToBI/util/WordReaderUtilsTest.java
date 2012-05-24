@@ -1,6 +1,6 @@
-/*  ToBIUtilsTest.java
+/*  WordReaderUtilsTest.java
 
-    Copyright 2011 Andrew Rosenberg
+    Copyright 2011-2012 Andrew Rosenberg
 
     This file is part of the AuToBI prosodic analysis package.
 
@@ -19,13 +19,9 @@
  */
 package edu.cuny.qc.speech.AuToBI.util;
 
-import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
-import edu.cuny.qc.speech.AuToBI.core.Word;
+import edu.cuny.qc.speech.AuToBI.core.AuToBIParameters;
 import edu.cuny.qc.speech.AuToBI.io.*;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -86,7 +82,7 @@ public class WordReaderUtilsTest {
   public void testGetWordReaderTextGrid() {
     FormattedFile file = new FormattedFile("test.txt", FormattedFile.Format.TEXTGRID);
 
-    AuToBIWordReader reader = WordReaderUtils.getAppropriateReader(file);
+    AuToBIWordReader reader = WordReaderUtils.getAppropriateReader(file, new AuToBIParameters());
     assertTrue(reader instanceof TextGridReader);
   }
 
@@ -94,7 +90,7 @@ public class WordReaderUtilsTest {
   public void testGetWordReaderCPROM() {
     FormattedFile file = new FormattedFile("test.txt", FormattedFile.Format.CPROM);
 
-    AuToBIWordReader reader = WordReaderUtils.getAppropriateReader(file);
+    AuToBIWordReader reader = WordReaderUtils.getAppropriateReader(file, new AuToBIParameters());
     assertTrue(reader instanceof CPromTextGridReader);
   }
 
@@ -102,7 +98,7 @@ public class WordReaderUtilsTest {
   public void testGetWordReaderBURNC() {
     FormattedFile file = new FormattedFile("test.txt", FormattedFile.Format.BURNC);
 
-    AuToBIWordReader reader = WordReaderUtils.getAppropriateReader(file);
+    AuToBIWordReader reader = WordReaderUtils.getAppropriateReader(file, new AuToBIParameters());
     assertTrue(reader instanceof BURNCReader);
   }
 
@@ -110,7 +106,7 @@ public class WordReaderUtilsTest {
   public void testGetWordReaderSimpleWord() {
     FormattedFile file = new FormattedFile("test.txt", FormattedFile.Format.SIMPLE_WORD);
 
-    AuToBIWordReader reader = WordReaderUtils.getAppropriateReader(file);
+    AuToBIWordReader reader = WordReaderUtils.getAppropriateReader(file, new AuToBIParameters());
     assertTrue(reader instanceof SimpleWordReader);
   }
 }

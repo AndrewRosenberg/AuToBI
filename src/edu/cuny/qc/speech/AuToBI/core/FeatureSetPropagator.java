@@ -52,7 +52,7 @@ public class FeatureSetPropagator implements Callable<FeatureSet> {
     String file_stem = filename.substring(0, filename.lastIndexOf('.'));
     String wav_filename = file_stem + ".wav";
 
-    AuToBIWordReader reader = WordReaderUtils.getAppropriateReader(file);
+    AuToBIWordReader reader = WordReaderUtils.getAppropriateReader(file, autobi.getParameters());
 
     WavReader wav_reader = new WavReader();
     WavData wav = null;
