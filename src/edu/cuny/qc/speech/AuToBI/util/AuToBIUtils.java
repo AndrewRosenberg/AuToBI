@@ -23,10 +23,18 @@ import java.util.*;
 import java.io.File;
 import java.io.FilenameFilter;
 
+import edu.cuny.qc.speech.AuToBI.classifier.WekaClassifier;
 import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
+import edu.cuny.qc.speech.AuToBI.core.AuToBIParameters;
+import edu.cuny.qc.speech.AuToBI.core.AuToBITask;
 import edu.cuny.qc.speech.AuToBI.core.Word;
+import edu.cuny.qc.speech.AuToBI.featureset.*;
 import org.apache.oro.io.GlobFilenameFilter;
+import weka.classifiers.functions.Logistic;
+
 import org.apache.log4j.Logger;
+import weka.classifiers.functions.SMO;
+import weka.classifiers.meta.AdaBoostM1;
 
 /**
  * Stores general utility functions for AuToBI.
@@ -161,7 +169,7 @@ public class AuToBIUtils {
   public static String join(Collection<?> collection, String delimiter) {
     if (collection.isEmpty()) return "";
     Iterator<?> iter = collection.iterator();
-    StringBuffer buffer = new StringBuffer(iter.next().toString());
+    StringBuilder buffer = new StringBuilder(iter.next().toString());
     while (iter.hasNext()) buffer.append(delimiter).append(iter.next().toString());
     return buffer.toString();
   }
@@ -285,5 +293,159 @@ public class AuToBIUtils {
         }
       }
     }
+  }
+
+  /**
+   * Constructs a hash of AuToBITasks associating a task identifier from AuToBIParameters with an AuToBITask describing
+   * the necessary FeatureSet and AuToBIClassifier to use in training a classifier for this task.
+   * <p/>
+   * The parameters are:
+   * <p/>
+   * pitch_accent_detector
+   * <p/>
+   * pitch_accent_classifier
+   * <p/>
+   * intonational_phrase_detector
+   * <p/>
+   * intermediate_phrase_detector
+   * <p/>
+   * phrase_accent_classifier
+   * <p/>
+   * phrase_accent_boundary_tone_classifier
+   *
+   * @param params AuToBIParameter that hold the parameters for the current execution of AuToBI
+   * @return a hash associating parameters with AuToBITask objects
+   */
+  public static HashMap<String, AuToBITask> createTaskListFromParameters(AuToBIParameters params) {
+    HashMap<String, AuToBITask> map = new HashMap<String, AuToBITask>();
+
+    if (params.hasParameter("pitch_accent_detector")) {
+      map.put("pitch_accent_detector", getPitchAccentDetectionTask());
+    }
+    if (params.hasParameter("pitch_accent_classifier")) {
+      map.put("pitch_accent_classifier", getPitchAccentClassificationTask());
+    }
+    if (params.hasParameter("intonational_phrase_detector")) {
+      map.put("intonational_phrase_detector", getIntonationalPhraseDetectionTask());
+    }
+    if (params.hasParameter("intermediate_phrase_detector")) {
+      map.put("intermediate_phrase_detector", getIntermediatePhraseDetectionTask());
+    }
+    if (params.hasParameter("phrase_accent_classifier")) {
+      map.put("phrase_accent_classifier", getPhraseAccentClassificationTask());
+    }
+    if (params.hasParameter("phrase_accent_boundary_tone_classifier")) {
+      map.put("phrase_accent_boundary_tone_classifier", getPABTClassificationTask());
+    }
+
+    return map;
+  }
+
+  /**
+   * Gets an AuToBITask containing the standard configuration of featureset, classifier, and true and hypothesized
+   * feature name for pitch accent detection.
+   *
+   * @return an appropriate AuToBITask
+   */
+  public static AuToBITask getPitchAccentDetectionTask() {
+    AuToBITask task = new AuToBITask();
+    task.setClassifier(new WekaClassifier(new Logistic()));
+    String hyp = "hyp_pitch_accent_location";
+    task.setHypFeature(hyp);
+    task.setConfFeature(hyp + "_conf");
+    task.setDistFeature(hyp + "_dist");
+    task.setTrueFeature("nominal_PitchAccent");
+    task.setFeatureSet(new PitchAccentDetectionFeatureSet());
+    return task;
+  }
+
+  /**
+   * Gets an AuToBITask containing the standard configuration of featureset, classifier, and true and hypothesized
+   * feature name for pitch accent classification.
+   *
+   * @return an appropriate AuToBITask
+   */
+  public static AuToBITask getPitchAccentClassificationTask() {
+    AuToBITask task = new AuToBITask();
+    task.setClassifier(new WekaClassifier(new SMO()));
+    String hyp = "hyp_pitch_accent_type";
+    task.setHypFeature(hyp);
+    task.setConfFeature(hyp + "_conf");
+    task.setDistFeature(hyp + "_dist");
+    task.setTrueFeature("nominal_PitchAccentType");
+    task.setFeatureSet(new PitchAccentClassificationFeatureSet());
+    return task;
+  }
+
+  /**
+   * Gets an AuToBITask containing the standard configuration of featureset, classifier, and true and hypothesized
+   * feature name for intonational phrase boundary detection.
+   *
+   * @return an appropriate AuToBITask
+   */
+  public static AuToBITask getIntonationalPhraseDetectionTask() {
+    AuToBITask task = new AuToBITask();
+    task.setClassifier(new WekaClassifier(new AdaBoostM1()));
+    String hyp = "hyp_intonational_phrase_boundary";
+    task.setHypFeature(hyp);
+    task.setConfFeature(hyp + "_conf");
+    task.setDistFeature(hyp + "_dist");
+    task.setTrueFeature("nominal_IntonationalPhraseBoundary");
+    task.setFeatureSet(new IntonationalPhraseBoundaryDetectionFeatureSet());
+    return task;
+  }
+
+  /**
+   * Gets an AuToBITask containing the standard configuration of featureset, classifier, and true and hypothesized
+   * feature name for intermediate phrase boundary detection.
+   *
+   * @return an appropriate AuToBITask
+   */
+  public static AuToBITask getIntermediatePhraseDetectionTask() {
+    AuToBITask task = new AuToBITask();
+    task.setClassifier(new WekaClassifier(new AdaBoostM1()));
+    String hyp = "hyp_intermediate_phrase_boundary";
+    task.setHypFeature(hyp);
+    task.setConfFeature(hyp + "_conf");
+    task.setDistFeature(hyp + "_dist");
+    task.setTrueFeature("nominal_IntermediatePhraseBoundary");
+    task.setFeatureSet(new IntermediatePhraseBoundaryDetectionFeatureSet());
+    return task;
+  }
+
+  /**
+   * Gets an AuToBITask containing the standard configuration of featureset, classifier, and true and hypothesized
+   * feature name for phrase accent classification.
+   *
+   * @return an appropriate AuToBITask
+   */
+  public static AuToBITask getPhraseAccentClassificationTask() {
+    AuToBITask task = new AuToBITask();
+    task.setClassifier(new WekaClassifier(new SMO()));
+    String hyp = "hyp_phrase_accent";
+    task.setHypFeature(hyp);
+    task.setConfFeature(hyp + "_conf");
+    task.setDistFeature(hyp + "_dist");
+    task.setTrueFeature("nominal_PhraseAccent");
+    task.setFeatureSet(new PhraseAccentClassificationFeatureSet());
+    return task;
+  }
+
+  /**
+   * Gets an AuToBITask containing the standard configuration of featureset, classifier, and true and hypothesized
+   * feature name for classification of phrase accent boundary tone pairs.
+   *
+   * @return an appropriate AuToBITask
+   */
+  public static AuToBITask getPABTClassificationTask() {
+    AuToBITask task = new AuToBITask();
+    task.setClassifier(new WekaClassifier(new SMO()));
+    String hyp = "hyp_phrase_accent_boundary_tone";
+    task.setHypFeature(hyp);
+    task.setConfFeature(hyp + "_conf");
+    task.setDistFeature(hyp + "_dist");
+    task.setTrueFeature("nominal_PhraseAccentBoundaryTone");
+    task.setFeatureSet(new PhraseAccentBoundaryToneClassificationFeatureSet());
+    return task;
   }
 }

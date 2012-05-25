@@ -1,6 +1,6 @@
 /*  AuToBITrainer.java
 
-    Copyright (c) 2009-2010 Andrew Rosenberg
+    Copyright (c) 2009-2012 Andrew Rosenberg
 
     This file is part of the AuToBI prosodic analysis package.
 
@@ -22,25 +22,31 @@ package edu.cuny.qc.speech.AuToBI;
 import edu.cuny.qc.speech.AuToBI.classifier.AuToBIClassifier;
 import edu.cuny.qc.speech.AuToBI.core.*;
 import edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException;
-import edu.cuny.qc.speech.AuToBI.featureextractor.SNPAssignmentFeatureExtractor;
-import edu.cuny.qc.speech.AuToBI.featureset.PitchAccentDetectionFeatureSet;
 import edu.cuny.qc.speech.AuToBI.io.*;
+import edu.cuny.qc.speech.AuToBI.util.AuToBIReaderUtils;
 import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
+import edu.cuny.qc.speech.AuToBI.util.ClassifierUtils;
 
-import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * A Class to handle the training of autobi models, based on a set of training files, a FeatureSet describing the
  * required features, and an AuToBIClassifier to train.
+ * <p/>
+ * This class is used to drive the training of all AuToBI classifiers.  AuToBITask objects store the information
+ * required to train classifiers, and are used to maintain consistency around AuToBI.     This parameterization allows
+ * this class to treat all tasks identically.
+ * <p/>
+ * The only difference between AuToBI tasks is that the prosodic event classification tasks are trained only on data
+ * points where that prosodic event actualy occurs.  There
  *
  * @see edu.cuny.qc.speech.AuToBI.core.FeatureSet
  * @see edu.cuny.qc.speech.AuToBI.classifier.AuToBIClassifier
  */
 public class AuToBITrainer {
-
   private AuToBI autobi;  // An AuToBI object to store parameters and handle the feature extraction.
 
   /**
@@ -78,7 +84,59 @@ public class AuToBITrainer {
     } catch (FeatureExtractorException e) {
       e.printStackTrace();
     }
-
   }
 
+  public static void main(String[] args) {
+    AuToBI autobi = new AuToBI();
+    autobi.init(args);
+
+    List<FormattedFile> filenames;
+    try {
+      filenames = AuToBIReaderUtils.globFormattedFiles(autobi.getParameter("training_filenames"));
+    } catch (AuToBIException e) {
+      try {
+        filenames = AuToBIReaderUtils.globFormattedFiles(autobi.getParameter("cprom_filenames"));
+      } catch (AuToBIException e1) {
+        AuToBIUtils.error("No training files specified with -training_files or -cprom_filenames");
+        return;
+      }
+    }
+
+    HashMap<String, AuToBITask> tasks = AuToBIUtils.createTaskListFromParameters(autobi.getParameters());
+
+    for (String task_label : tasks.keySet()) {
+      AuToBITask task = tasks.get(task_label);
+      AuToBITrainer trainer = new AuToBITrainer(autobi);
+      try {
+
+        // Tone classification tasks ignore those points that do not have any associated prosodic event
+        if (task_label.equals("phrase_accent_classifier")) {
+          autobi.getParameters().setParameter("attribute_omit", "nominal_PitchAccentType:NOTONE");
+        } else if (task_label.equals("phrase_accent_boundary_tone_classifier")) {
+          autobi.getParameters().setParameter("attribute_omit", "nominal_PhraseAccentBoundaryTone:NOTONE");
+        } else if (task_label.equals("phrase_accent_classifier")) {
+          autobi.getParameters().setParameter("attribute_omit", "nominal_PhraseAccent:NOTONE");
+        } else {
+          autobi.getParameters().setParameter("attribute_omit", "");
+        }
+        trainer.trainClassifier(filenames, task.getFeatureSet(), task.getClassifier());
+      } catch (Exception e) {
+        AuToBIUtils.error("Error training classifier for " + task_label);
+        continue;
+      }
+
+      String output_file;
+      try {
+        output_file = autobi.getParameter(task_label);
+      } catch (AuToBIException e) {
+        AuToBIUtils.error("Problem reading classifier filename parameter: " + e.getMessage());
+        continue;
+      }
+      try {
+        ClassifierUtils.writeAuToBIClassifier(output_file, task.getClassifier());
+      } catch (IOException e) {
+        AuToBIUtils.error("Could not write AuToBIClassifier: " + e.getMessage());
+      }
+    }
+  }
 }

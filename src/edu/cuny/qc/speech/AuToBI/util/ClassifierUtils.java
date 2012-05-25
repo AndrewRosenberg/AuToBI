@@ -64,6 +64,22 @@ public class ClassifierUtils {
     return null;
   }
 
+  /**
+   * Writes an AuToBIClassifier to a file.
+   *
+   * @param filename the filename to write the classifier to.
+   * @param c        the classifier to store
+   */
+  public static void writeAuToBIClassifier(String filename, AuToBIClassifier c) throws IOException {
+    AuToBIUtils.log("writing model to: " + filename);
+    FileOutputStream fos;
+    ObjectOutputStream out;
+    fos = new FileOutputStream(filename);
+    out = new ObjectOutputStream(fos);
+    out.writeObject(c);
+    out.close();
+
+  }
 
   /**
    * Converts a single point to a weka Instance.

@@ -21,7 +21,9 @@
 package edu.cuny.qc.speech.AuToBI.util;
 
 import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
+import edu.cuny.qc.speech.AuToBI.core.AuToBITask;
 import edu.cuny.qc.speech.AuToBI.core.Word;
+import edu.cuny.qc.speech.AuToBI.featureset.*;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -96,7 +98,7 @@ public class AuToBIUtilsTest {
   @Test
   public void testGlobSingleFileHasMultiple() {
     try {
-      String file = AuToBIUtils.globSingleFile(TEST_DIR + "/*");
+      AuToBIUtils.globSingleFile(TEST_DIR + "/*");
       fail();
     } catch (AuToBIException e) {
       // Expected.
@@ -106,7 +108,7 @@ public class AuToBIUtilsTest {
   @Test
   public void testGlobSingleFileHasMultipleWithComma() {
     try {
-      String file = AuToBIUtils.globSingleFile(TEST_DIR + "/*,test.file");
+      AuToBIUtils.globSingleFile(TEST_DIR + "/*,test.file");
       fail();
     } catch (AuToBIException e) {
       // Expected.
@@ -126,7 +128,7 @@ public class AuToBIUtilsTest {
   @Test
   public void testGlobSingleFileMatchesNone() {
     try {
-      String file = AuToBIUtils.globSingleFile(TEST_DIR + "/FALSE_FILENAME.wav");
+      AuToBIUtils.globSingleFile(TEST_DIR + "/FALSE_FILENAME.wav");
       fail();
     } catch (AuToBIException e) {
       // Expected.
@@ -332,7 +334,7 @@ public class AuToBIUtilsTest {
     assertEquals("H%", w.getAttribute("hyp_phrase_boundary"));
   }
 
-   @Test
+  @Test
   public void testMergeAuToBIHypothesesBoundaryToneWithFALSEIP() {
     Word w = new Word(0.0, 0.1, "hello");
     List<Word> words = new ArrayList<Word>();
@@ -374,7 +376,7 @@ public class AuToBIUtilsTest {
     assertEquals("L-", w.getAttribute("hyp_phrase_boundary"));
   }
 
-   @Test
+  @Test
   public void testMergeAuToBIHypothesesPhraseAccentWithFALSEInterP() {
     Word w = new Word(0.0, 0.1, "hello");
     List<Word> words = new ArrayList<Word>();
@@ -399,5 +401,53 @@ public class AuToBIUtilsTest {
     AuToBIUtils.mergeAuToBIHypotheses(words);
 
     assertEquals("L-", w.getAttribute("hyp_phrase_boundary"));
+  }
+
+  @Test
+  public void testGetPitchAccentDetectionTask() {
+    AuToBITask task = AuToBIUtils.getPitchAccentDetectionTask();
+    assertEquals("nominal_PitchAccent", task.getTrueFeature());
+    assertEquals("hyp_pitch_accent_location", task.getHypFeature());
+    assertTrue(task.getFeatureSet() instanceof PitchAccentDetectionFeatureSet);
+  }
+
+  @Test
+  public void testGetPitchAccentClassificationTask() {
+    AuToBITask task = AuToBIUtils.getPitchAccentClassificationTask();
+    assertEquals("nominal_PitchAccentType", task.getTrueFeature());
+    assertEquals("hyp_pitch_accent_type", task.getHypFeature());
+    assertTrue(task.getFeatureSet() instanceof PitchAccentClassificationFeatureSet);
+  }
+
+  @Test
+  public void testGetIntonationalPhraseDetectionTask() {
+    AuToBITask task = AuToBIUtils.getIntonationalPhraseDetectionTask();
+    assertEquals("nominal_IntonationalPhraseBoundary", task.getTrueFeature());
+    assertEquals("hyp_intonational_phrase_boundary", task.getHypFeature());
+    assertTrue(task.getFeatureSet() instanceof IntonationalPhraseBoundaryDetectionFeatureSet);
+  }
+
+  @Test
+  public void testGetIntermediatePhraseDetectionTask() {
+    AuToBITask task = AuToBIUtils.getIntermediatePhraseDetectionTask();
+    assertEquals("nominal_IntermediatePhraseBoundary", task.getTrueFeature());
+    assertEquals("hyp_intermediate_phrase_boundary", task.getHypFeature());
+    assertTrue(task.getFeatureSet() instanceof IntermediatePhraseBoundaryDetectionFeatureSet);
+  }
+
+  @Test
+  public void testGetPhraseAccentClassificationTask() {
+    AuToBITask task = AuToBIUtils.getPhraseAccentClassificationTask();
+    assertEquals("nominal_PhraseAccent", task.getTrueFeature());
+    assertEquals("hyp_phrase_accent", task.getHypFeature());
+    assertTrue(task.getFeatureSet() instanceof PhraseAccentClassificationFeatureSet);
+  }
+
+  @Test
+  public void testGetPABTClassificationTask() {
+    AuToBITask task = AuToBIUtils.getPABTClassificationTask();
+    assertEquals("nominal_PhraseAccentBoundaryTone", task.getTrueFeature());
+    assertEquals("hyp_phrase_accent_boundary_tone", task.getHypFeature());
+    assertTrue(task.getFeatureSet() instanceof PhraseAccentBoundaryToneClassificationFeatureSet);
   }
 }

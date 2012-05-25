@@ -22,7 +22,6 @@ package edu.cuny.qc.speech.AuToBI;
 import edu.cuny.qc.speech.AuToBI.classifier.AuToBIClassifier;
 import edu.cuny.qc.speech.AuToBI.classifier.WekaClassifier;
 import edu.cuny.qc.speech.AuToBI.featureset.IntermediatePhraseBoundaryDetectionFeatureSet;
-import edu.cuny.qc.speech.AuToBI.featureset.PitchAccentDetectionFeatureSet;
 import edu.cuny.qc.speech.AuToBI.io.FormattedFile;
 import edu.cuny.qc.speech.AuToBI.util.AuToBIReaderUtils;
 import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
@@ -40,8 +39,9 @@ import weka.classifiers.functions.Logistic;
  * IntermediatePhraseBoundaryDetectionTrainer is used to train and serialize models that distinguish (intonational
  * phrase medial) intermediate phrase boundaries from phrase internal word boundaries.
  */
+@Deprecated
 public class IntermediatePhraseBoundaryDetectionTrainer extends AuToBITrainer {
-                      /**
+  /**
    * Constructs a new AuToBITrainer with an associated AuToBI object to manage parameters and feature extraction.
    *
    * @param autobi an AuToBI object.
@@ -66,7 +66,7 @@ public class IntermediatePhraseBoundaryDetectionTrainer extends AuToBITrainer {
   }
 
   public static void main(String[] args) {
-  AuToBI autobi = new AuToBI();
+    AuToBI autobi = new AuToBI();
     autobi.init(args);
 
     IntermediatePhraseBoundaryDetectionTrainer trainer = new IntermediatePhraseBoundaryDetectionTrainer(autobi);

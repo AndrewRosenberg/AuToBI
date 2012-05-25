@@ -22,7 +22,6 @@ package edu.cuny.qc.speech.AuToBI;
 import edu.cuny.qc.speech.AuToBI.classifier.AuToBIClassifier;
 import edu.cuny.qc.speech.AuToBI.classifier.WekaClassifier;
 import edu.cuny.qc.speech.AuToBI.featureset.IntonationalPhraseBoundaryDetectionFeatureSet;
-import edu.cuny.qc.speech.AuToBI.featureset.PitchAccentDetectionFeatureSet;
 import edu.cuny.qc.speech.AuToBI.io.FormattedFile;
 import edu.cuny.qc.speech.AuToBI.util.AuToBIReaderUtils;
 import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
@@ -42,8 +41,9 @@ import weka.classifiers.meta.AdaBoostM1;
  * <p/>
  * Note: intermediatephrase boundaries are not considered phrase final by this classification task.
  */
+@Deprecated
 public class IntonationalPhraseBoundaryDetectionTrainer extends AuToBITrainer {
-                        /**
+  /**
    * Constructs a new AuToBITrainer with an associated AuToBI object to manage parameters and feature extraction.
    *
    * @param autobi an AuToBI object.

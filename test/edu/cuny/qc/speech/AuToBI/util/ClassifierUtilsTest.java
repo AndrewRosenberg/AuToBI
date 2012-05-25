@@ -20,15 +20,15 @@
 package edu.cuny.qc.speech.AuToBI.util;
 
 import edu.cuny.qc.speech.AuToBI.classifier.AuToBIClassifier;
+import edu.cuny.qc.speech.AuToBI.classifier.MockClassifier;
 import edu.cuny.qc.speech.AuToBI.core.*;
 import org.junit.Test;
 import weka.core.FastVector;
 import weka.core.Instance;
 import weka.core.Instances;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.*;
@@ -57,6 +57,19 @@ public class ClassifierUtilsTest {
     AuToBIClassifier c = ClassifierUtils.readAuToBIClassifier(filename);
 
     assertNotNull(c);
+  }
+
+  @Test
+  public void testWriteClassifierExecutesWithoutError() {
+    String filename = TEST_DIR + "/testwrite.model";
+
+    AuToBIClassifier c = new MockClassifier();
+
+    try {
+      ClassifierUtils.writeAuToBIClassifier(filename, c);
+    } catch (IOException e) {
+      fail(e.getMessage());
+    }
   }
 
   @Test
@@ -222,7 +235,7 @@ public class ClassifierUtilsTest {
 
       @Override
       public AuToBIClassifier newInstance() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return null;
       }
     };
 
@@ -250,7 +263,7 @@ public class ClassifierUtilsTest {
 
       @Override
       public AuToBIClassifier newInstance() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return null;
       }
     };
 
@@ -282,7 +295,7 @@ public class ClassifierUtilsTest {
 
       @Override
       public AuToBIClassifier newInstance() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return null;
       }
     };
 
@@ -312,7 +325,7 @@ public class ClassifierUtilsTest {
 
       @Override
       public AuToBIClassifier newInstance() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return null;
       }
     };
 
@@ -345,7 +358,7 @@ public class ClassifierUtilsTest {
 
       @Override
       public AuToBIClassifier newInstance() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return null;
       }
     };
 
@@ -373,7 +386,7 @@ public class ClassifierUtilsTest {
 
       @Override
       public AuToBIClassifier newInstance() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return null;
       }
     };
 
