@@ -71,19 +71,6 @@ public class TextGridReader extends AuToBIWordReader {
   }
 
   /**
-   * Constructs a new TextGridReader with supplied tier names
-   *
-   * @param words_tier_name  the words tier
-   * @param tones_tier_name  the tones tier
-   * @param breaks_tier_name the breaks tier
-   */
-  public TextGridReader(String words_tier_name, String tones_tier_name, String breaks_tier_name) {
-    this.words_tier_name = words_tier_name;
-    this.tones_tier_name = tones_tier_name;
-    this.breaks_tier_name = breaks_tier_name;
-  }
-
-  /**
    * Constructs a new TextGridReader with specified file and tier names.
    *
    * @param filename         the file name
@@ -129,8 +116,9 @@ public class TextGridReader extends AuToBIWordReader {
    * TextGridReader reader = new TextGridReader(filename) List<Words> data_points = reader.readWords();
    *
    * @return A list of words with from the TextGrid
-   * @throws IOException     if there is a reader problem
-   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException if there is an alignment problem
+   * @throws IOException if there is a reader problem
+   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException
+   *                     if there is an alignment problem
    */
   public List<Word> readWords() throws IOException, AuToBIException {
     AuToBIFileReader file_reader;
@@ -141,7 +129,7 @@ public class TextGridReader extends AuToBIWordReader {
     }
 
     Tier tier;
-    tier = readTextGridTier(file_reader);  // Remove TextGrid header
+    readTextGridTier(file_reader);  // Remove TextGrid header
     do {
       tier = readTextGridTier(file_reader);
 
@@ -171,12 +159,12 @@ public class TextGridReader extends AuToBIWordReader {
 
     } while (tier.name != null);
 
-    List<Word> words = generateWordList(words_tier.getRegions());
-
     if (words_tier == null) {
       String tier_name = words_tier_name == null ? "'words' or 'orthographic'" : words_tier_name;
       throw new TextGridSyntaxErrorException("No words tier found with name, " + tier_name);
     }
+
+    List<Word> words = generateWordList(words_tier.getRegions());
 
     if (tones_tier != null) {
       AlignmentUtils.copyToBITonesByTime(words, tones_tier.getRegions());
@@ -185,8 +173,8 @@ public class TextGridReader extends AuToBIWordReader {
             "Null or empty specified breaks tier found.  Default breaks will be generated from phrase ending tones in the tones tier.");
         ToBIUtils.generateBreaksFromTones(words);
       } else {
-        try{
-        AlignmentUtils.copyToBIBreaks(words, breaks_tier.getRegions());
+        try {
+          AlignmentUtils.copyToBIBreaks(words, breaks_tier.getRegions());
         } catch (AuToBIException e) {
 
           for (int i = 0; i < words.size(); ++i) {
