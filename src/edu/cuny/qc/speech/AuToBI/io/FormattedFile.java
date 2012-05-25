@@ -43,10 +43,13 @@ public class FormattedFile {
    */
   public FormattedFile(String filename) {
     this.filename = filename;
+    String filestem = filename.substring(filename.lastIndexOf("/") + 1);
     if (filename.toLowerCase().endsWith("textgrid")) {
       this.format = FormattedFile.Format.TEXTGRID;
     } else if (filename.toLowerCase().endsWith("ala")) {
       this.format = FormattedFile.Format.BURNC;
+    } else if (filestem.matches("s\\d\\d\\d\\d[ab].words")) {
+      this.format = Format.BUCKEYE;
     } else if (filename.toLowerCase().endsWith("words")) {
       this.format = FormattedFile.Format.SIMPLE_WORD;
     } else if (filename.toLowerCase().endsWith("terminals.xml")) {
