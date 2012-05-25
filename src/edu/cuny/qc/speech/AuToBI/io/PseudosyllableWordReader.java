@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class PseudosyllableWordReader extends AuToBIWordReader {
   private WavData wav_data;   // the audio material to base the segmentation on
-  private double threshold;  // the silence threshold in mean dB in the region
+  private double threshold;   // the silence threshold in mean dB in the region
   private String annotation_file;  // A file containing ToBI annotations.
 
   /**
@@ -50,6 +50,25 @@ public class PseudosyllableWordReader extends AuToBIWordReader {
     this.threshold = 10.0;
     this.annotation_file = null;
   }
+
+  /**
+   * Gets the silence threshold value (mean db over the region)
+   *
+   * @return the silence threshold
+   */
+  public double getThreshold() {
+    return threshold;
+  }
+
+  /**
+   * Sets the silence threshold value  (mean db over the region)
+   *
+   * @param threshold the silence threshold
+   */
+  public void setThreshold(double threshold) {
+    this.threshold = threshold;
+  }
+
 
   @Override
   public List<Word> readWords() throws IOException, AuToBIException {

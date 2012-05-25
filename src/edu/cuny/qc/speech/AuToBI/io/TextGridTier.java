@@ -79,7 +79,7 @@ public class TextGridTier extends Tier {
    * @throws IOException                  If there is a problem reading the file
    * @throws TextGridSyntaxErrorException If there is a formatting problem
    */
-  private void addPoint(AuToBIFileReader reader)
+  protected void addPoint(AuToBIFileReader reader)
       throws IOException, TextGridSyntaxErrorException {
     String time = AuToBIReaderUtils.removeTabsAndTrim(reader.readLine());
     if (time == null || !time.contains("time ="))
@@ -105,7 +105,7 @@ public class TextGridTier extends Tier {
    * @throws IOException                  If there is a problem reading the file
    * @throws TextGridSyntaxErrorException If there is a formatting problem
    */
-  private void addInterval(AuToBIFileReader reader)
+  protected void addInterval(AuToBIFileReader reader)
       throws IOException, TextGridSyntaxErrorException {
     String xmin = AuToBIReaderUtils.removeTabsAndTrim(reader.readLine());
     if (xmin == null || !xmin.contains("xmin ="))
