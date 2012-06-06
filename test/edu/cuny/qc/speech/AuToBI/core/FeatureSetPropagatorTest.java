@@ -20,16 +20,14 @@
 package edu.cuny.qc.speech.AuToBI.core;
 
 import edu.cuny.qc.speech.AuToBI.AuToBI;
+import edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException;
 import edu.cuny.qc.speech.AuToBI.io.FormattedFile;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static junit.framework.Assert.assertFalse;
-import static org.junit.Assert.*;
+import static junit.framework.Assert.assertTrue;
 
 /**
  * Test class for FeatureSetPropagator.
@@ -46,10 +44,12 @@ import static org.junit.Assert.*;
  *
  * @see edu.cuny.qc.speech.AuToBI.core.FeatureSetPropagator
  */
+@SuppressWarnings("unchecked")
 public class FeatureSetPropagatorTest {
 
   final String TEST_DIR = "/Users/andrew/code/AuToBI/release/test_data";
 
+  @SuppressWarnings("UnusedDeclaration")
   @Test
   public void testConstructor() {
 
@@ -83,5 +83,37 @@ public class FeatureSetPropagatorTest {
     FeatureSet new_fs = fsp.call();
     assertFalse(fs == new_fs);
     assertTrue(new_fs.getDataPoints().size() > 0);
+  }
+
+  @Test
+  public void testAggressiveFeatureEliminationSparesClassAttribute() {
+    AuToBI autobi = new AuToBI();
+    AuToBIParameters params = new AuToBIParameters();
+    params.setParameter("aggressive_feature_elimination", "true");
+    autobi.setParameters(params);
+    FeatureExtractor fe = new FeatureExtractor() {
+
+      @Override
+      public void extractFeatures(List regions) throws FeatureExtractorException {
+        for (Region r : (List<Region>) regions) {
+          r.setAttribute("test_class_attribute", "SAVED");
+        }
+      }
+    };
+    fe.getExtractedFeatures().add("test_class_attribute");
+
+    autobi.registerFeatureExtractor(fe);
+
+    FormattedFile file = new FormattedFile(TEST_DIR + "/test.txt", FormattedFile.Format.SIMPLE_WORD);
+    FeatureSet fs = new FeatureSet();
+
+    fs.setClassAttribute("test_class_attribute");
+
+    FeatureSetPropagator fsp = new FeatureSetPropagator(autobi, file, fs);
+    FeatureSet new_fs = fsp.call();
+
+    assertTrue(new_fs.getDataPoints().size() > 0);
+
+    assertTrue(new_fs.getDataPoints().get(0).hasAttribute("test_class_attribute"));
   }
 }

@@ -97,7 +97,7 @@ public class AuToBITrainer {
       try {
         filenames = AuToBIReaderUtils.globFormattedFiles(autobi.getParameter("cprom_filenames"));
       } catch (AuToBIException e1) {
-        AuToBIUtils.error("No training files specified with -training_files or -cprom_filenames");
+        AuToBIUtils.error("No training files specified with -training_filenames or -cprom_filenames");
         return;
       }
     }

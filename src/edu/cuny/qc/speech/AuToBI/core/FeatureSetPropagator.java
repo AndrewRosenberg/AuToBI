@@ -81,7 +81,7 @@ public class FeatureSetPropagator implements Callable<FeatureSet> {
         for (Word w : current_fs.getDataPoints()) {
           Set<String> attrs = w.getAttributeNames();
           for (String attr : attrs) {
-            if (!current_fs.getRequiredFeatures().contains(attr)) {
+            if (!current_fs.getRequiredFeatures().contains(attr) && !attr.equals(current_fs.getClassAttribute())) {
               w.removeAttribute(attr);
             }
           }

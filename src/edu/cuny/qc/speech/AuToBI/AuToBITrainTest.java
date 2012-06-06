@@ -69,7 +69,6 @@ public class AuToBITrainTest {
 
       EvaluationSummary es = new EvaluationSummary(er);
 
-      System.out.print("Test Results on test set\n" + es.toString());
       AuToBIUtils.log("Test Results on test set\n" + es.toString());
     } catch (FeatureExtractorException e) {
       e.printStackTrace();
