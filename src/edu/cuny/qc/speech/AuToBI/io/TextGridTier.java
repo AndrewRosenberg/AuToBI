@@ -82,10 +82,11 @@ public class TextGridTier extends Tier {
   protected void addPoint(AuToBIFileReader reader)
       throws IOException, TextGridSyntaxErrorException {
     String time = AuToBIReaderUtils.removeTabsAndTrim(reader.readLine());
-    if (time == null || !time.contains("time ="))
+    if (time == null || !(time.contains("time =") || time.contains("number =")))
       throw new TextGridSyntaxErrorException("missing point at line: " + reader.getLineNumber());
 
     time = time.replace("time = ", "").trim();
+    time = time.replace("number = ", "").trim();
     Region region = new Region(Double.valueOf(time));
     region.setFile(reader.getFilename());
 

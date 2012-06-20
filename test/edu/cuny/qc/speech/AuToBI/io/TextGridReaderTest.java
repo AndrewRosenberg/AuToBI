@@ -20,9 +20,11 @@
 
 package edu.cuny.qc.speech.AuToBI.io;
 
+import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
 import edu.cuny.qc.speech.AuToBI.core.Word;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
@@ -107,5 +109,20 @@ public class TextGridReaderTest {
     } catch (Exception e) {
       // expected.
     }
+  }
+
+  @Test
+  public void testReadsWordsFromTextGridWithNumberAsTime() {
+    String filestem = TEST_DIR + "/test.number.TextGrid";
+    TextGridReader reader = new TextGridReader(filestem);
+    try {
+      List<Word> words = reader.readWords();
+      assertEquals(6, words.size());
+    } catch (AuToBIException e) {
+      fail(e.getMessage());
+    } catch (IOException e) {
+      fail(e.getMessage());
+    }
+
   }
 }

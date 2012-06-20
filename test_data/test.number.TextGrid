@@ -1,0 +1,93 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 2.700045351473923 
+tiers? <exists> 
+size = 4 
+item []: 
+    item [1]:
+        class = "TextTier" 
+        name = "tones" 
+        xmin = 0 
+        xmax = 2.700045351473923 
+        points: size = 5 
+        points [1]:
+            number = 0.705627 
+            mark = "L+H*" 
+        points [2]:
+            number = 1.09029 
+            mark = "L*" 
+        points [3]:
+            number = 1.50681 
+            mark = "L*" 
+        points [4]:
+            number = 2.01643 
+            mark = "L+H*" 
+        points [5]:
+            number = 2.31534 
+            mark = "L-L%" 
+    item [2]:
+        class = "IntervalTier" 
+        name = "words" 
+        xmin = 0 
+        xmax = 2.700045351473923 
+        intervals: size = 7 
+        intervals [1]:
+            xmin = 0 
+            xmax = 0.5090254199406492 
+            text = "" 
+        intervals [2]:
+            xmin = 0.5090254199406492 
+            xmax = 0.74944 
+            text = "keep" 
+        intervals [3]:
+            xmin = 0.74944 
+            xmax = 0.868597 
+            text = "the" 
+        intervals [4]:
+            xmin = 0.868597 
+            xmax = 1.39819 
+            text = "thermometer" 
+        intervals [5]:
+            xmin = 1.39819 
+            xmax = 1.68946 
+            text = "under" 
+        intervals [6]:
+            xmin = 1.68946 
+            xmax = 1.8682 
+            text = "your" 
+        intervals [7]:
+            xmin = 1.8682 
+            xmax = 2.31503 
+            text = "tongue" 
+    item [3]:
+        class = "TextTier" 
+        name = "breaks" 
+        xmin = 0 
+        xmax = 2.700045351473923 
+        points: size = 6 
+        points [1]:
+            number = 0.74944 
+            mark = "1" 
+        points [2]:
+            number = 0.868597 
+            mark = "1" 
+        points [3]:
+            number = 1.39819 
+            mark = "1" 
+        points [4]:
+            number = 1.68946 
+            mark = "1" 
+        points [5]:
+            number = 1.8682 
+            mark = "1" 
+        points [6]:
+            number = 2.31503 
+            mark = "4" 
+    item [4]:
+        class = "TextTier" 
+        name = "misc" 
+        xmin = 0 
+        xmax = 2.700045351473923 
+        points: size = 0 
