@@ -1,4 +1,4 @@
-/*  SwitchboardNXTReaderTest.java
+/*  TextGridReaderTest.java
 
     Copyright 2012 Andrew Rosenberg
 

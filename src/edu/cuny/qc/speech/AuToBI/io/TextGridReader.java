@@ -151,7 +151,7 @@ public class TextGridReader extends AuToBIWordReader {
 
       if (tier.name != null && breaks_tier_name != null) {
         if (tier.name.equals(breaks_tier_name)) {
-          tones_tier = tier;
+          breaks_tier = tier;
         }
       } else if (tier.name != null && tier.name.equals("breaks")) {
         breaks_tier = tier;
