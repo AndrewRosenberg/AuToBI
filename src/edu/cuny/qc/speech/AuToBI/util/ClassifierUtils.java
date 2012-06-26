@@ -288,7 +288,13 @@ public class ClassifierUtils {
     EvaluationResults eval = new EvaluationResults(sorted_values);
 
     for (Word w : fs.getDataPoints()) {
-      eval.addInstance(w.getAttribute(hyp_feature).toString(), w.getAttribute(true_feature).toString());
+      if (!w.hasAttribute(hyp_feature)) {
+        AuToBIUtils.warn("Word, " + w + ", has no hypothesized attribute: " + hyp_feature);
+      } else if (!w.hasAttribute(true_feature)) {
+        AuToBIUtils.warn("Word, " + w + ", has no true attribute: " + hyp_feature);
+      } else {
+        eval.addInstance(w.getAttribute(hyp_feature).toString(), w.getAttribute(true_feature).toString());
+      }
     }
     return eval;
   }

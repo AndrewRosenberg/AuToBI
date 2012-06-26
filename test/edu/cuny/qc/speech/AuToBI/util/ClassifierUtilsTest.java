@@ -399,4 +399,40 @@ public class ClassifierUtilsTest {
     assertTrue(w1.hasAttribute("dist"));
     assertEquals("default", w1.getAttribute("dist"));
   }
+
+  @Test
+  public void testGenerateEvaluationResultsFailsGracefullyWithNoTrueFeature() {
+
+    FeatureSet fs = new FeatureSet();
+    Word w = new Word(0, 1, "test");
+    w.setAttribute("hyp_feature", "PREDICTED_VALUE");
+    fs.insertDataPoint(w);
+
+    try {
+      EvaluationResults eval = ClassifierUtils.generateEvaluationResults("hyp_feature", "true_feature", fs);
+      assertNotNull(eval);
+    } catch (AuToBIException e) {
+      fail();
+    } catch (NullPointerException e) {
+      fail();
+    }
+  }
+
+  @Test
+  public void testGenerateEvaluationResultsFailsGracefullyWithNoHypFeature() {
+
+    FeatureSet fs = new FeatureSet();
+    Word w = new Word(0, 1, "test");
+    w.setAttribute("true_feature", "PREDICTED_VALUE");
+    fs.insertDataPoint(w);
+
+    try {
+      EvaluationResults eval = ClassifierUtils.generateEvaluationResults("hyp_feature", "true_feature", fs);
+      assertNotNull(eval);
+    } catch (AuToBIException e) {
+      fail();
+    } catch (NullPointerException e) {
+      fail();
+    }
+  }
 }
