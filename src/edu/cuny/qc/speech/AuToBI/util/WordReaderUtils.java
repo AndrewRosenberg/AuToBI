@@ -1,6 +1,6 @@
 /*  WordReaderUtils.java
 
-    Copyright (c) 20092010 Andrew Rosenberg
+    Copyright (c) 2009-2012 Andrew Rosenberg
 
     This file is part of the AuToBI prosodic analysis package.
 
@@ -91,6 +91,9 @@ public class WordReaderUtils {
         break;
       case BUCKEYE:
         reader = new BuckeyeReader(filename);
+        break;
+      case DUR:
+        reader = new DURReader(filename);
         break;
       default:
         reader = new TextGridReader(filename);
