@@ -190,7 +190,7 @@ public class TextGridReader extends AuToBIWordReader {
       AlignmentUtils.copyToBIBreaks(words, breaks_tier.getRegions());
       AuToBIUtils
           .warn("No specified tones tier found.  Default phrase ending tones will be generated from breaks tier.");
-      ToBIUtils.generateBreaksFromTones(words);
+      ToBIUtils.generateDefaultTonesFromBreaks(words);
     }
 
     return words;

@@ -28,6 +28,8 @@ import java.io.IOException;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 /**
@@ -92,6 +94,32 @@ public class TextGridReaderTest {
       List<Word> words = reader.readWords();
 
       assertEquals(10, words.size());
+    } catch (Exception e) {
+      fail(e.getMessage());
+    }
+  }
+
+  @Test
+  public void testGeneratesDefaultTonesWithNoTonesTier() {
+    String filestem = TEST_DIR + "/test.notones.TextGrid";
+    TextGridReader reader = new TextGridReader(filestem);
+
+    try {
+      List<Word> words = reader.readWords();
+
+      assertEquals(10, words.size());
+      for (Word word : words) {
+        if (word.isIntonationalPhraseFinal()) {
+          assertTrue(word.hasBoundaryTone());
+          assertTrue(word.hasPhraseAccent());
+        } else if (word.isIntermediatePhraseFinal()) {
+          assertFalse(word.hasBoundaryTone());
+          assertTrue(word.hasPhraseAccent());
+        } else {
+          assertFalse(word.hasBoundaryTone());
+          assertFalse(word.hasPhraseAccent());
+        }
+      }
     } catch (Exception e) {
       fail(e.getMessage());
     }
