@@ -79,6 +79,9 @@ public class WekaClassifier extends AuToBIClassifier {
    * @throws Exception if weka has a training problem.
    */
   public void train(FeatureSet feature_set) throws Exception {
+    if (feature_set.getFeatures() == null || feature_set.getFeatures().size() == 0) {
+      feature_set.constructFeatures();
+    }
     setFeatures(feature_set.getFeatures());
     class_attribute = feature_set.getClassAttribute();
 

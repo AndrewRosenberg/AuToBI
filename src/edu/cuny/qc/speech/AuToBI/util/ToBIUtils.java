@@ -21,7 +21,6 @@ package edu.cuny.qc.speech.AuToBI.util;
 
 import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
 import edu.cuny.qc.speech.AuToBI.core.Word;
-import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
 
 import java.util.List;
 import java.util.regex.Pattern;
@@ -150,6 +149,36 @@ public class ToBIUtils {
       } else {
         word.setBreakAfter("1");
         previous_break = "1";
+      }
+    }
+  }
+
+  /**
+   * Generates default tonesinformation from breaks.
+   * <p/>
+   * Assumes that the breaks have already been assigned.  If some phrase ending tones have been assigned, these will not
+   * be overwritten. However, inappropriate tones will be deleted -- for example, if the break is 1, and there is a
+   * phrase accent, it will be deleted.
+   *
+   * @param words the set of words
+   */
+  public static void generateDefaultTonesFromBreaks(List<Word> words) {
+    for (Word word : words) {
+      if (word.getBreakAfter().startsWith("4")) {
+        if (!word.hasBoundaryTone())
+          word.setBoundaryTone("X%?");
+        if (!word.hasPhraseAccent())
+          word.setPhraseAccent("X%-");
+      } else if (word.getBreakAfter().startsWith("3")) {
+        if (word.hasBoundaryTone())
+          word.setBoundaryTone(null);
+        if (!word.hasPhraseAccent())
+          word.setPhraseAccent("X%-");
+      } else {
+        if (word.hasBoundaryTone())
+          word.setBoundaryTone(null);
+        if (word.hasPhraseAccent())
+          word.setPhraseAccent(null);
       }
     }
   }

@@ -15,7 +15,7 @@ public class CPromTextGridReader extends TextGridReader {
   private String prominence_tier_name; // the name of the prominence tier.
   private Tier prominence_tier;  // A tier to store prominence annotations
   private Boolean include_secondary;
-      // A flag dictating whether the "secondary" prominence should be considered as accented.
+  // A flag dictating whether the "secondary" prominence should be considered as accented.
 
   public CPromTextGridReader(String filename, String words_tier, String prominence_tier, String charsetName,
                              Boolean include_secondary) {
@@ -43,13 +43,13 @@ public class CPromTextGridReader extends TextGridReader {
   public List<Word> readWords() throws IOException, AuToBIException {
     AuToBIFileReader file_reader;
     if (charsetName == null) {
-      file_reader = new AuToBIFileReader(filename);
+      file_reader = new AuToBIFileReader(filename, "UTF16");
     } else {
       file_reader = new AuToBIFileReader(filename, charsetName);
     }
 
     Tier tier;
-    tier = readTextGridTier(file_reader);  // Remove TextGrid header
+    readTextGridTier(file_reader);  // Remove TextGrid header
     tier = readTextGridTier(file_reader);
     while (tier != null && tier.getName() != null) {
       if (words_tier_name != null) {
@@ -72,11 +72,6 @@ public class CPromTextGridReader extends TextGridReader {
 
     List<Word> words = generateWordList(words_tier.getRegions());
 
-    if (words_tier == null) {
-      String tier_name = words_tier_name == null ? "'words' or 'orthographic'" : words_tier_name;
-      throw new AuToBIException("No words tier found with name, " + tier_name);
-    }
-
     if (prominence_tier != null) {
       copyProminenceAnnotations(words, prominence_tier.getRegions());
     }
@@ -90,10 +85,10 @@ public class CPromTextGridReader extends TextGridReader {
    * @param words      the word regions
    * @param prominence the prominence regions.
    */
-  private void copyProminenceAnnotations(List<Word> words, List<Region> prominence) {
+  protected void copyProminenceAnnotations(List<Word> words, List<Region> prominence) {
     int j = 0;
     for (Word word : words) {
-      while (j < prominence.size() && prominence.get(j).getStart() < word.getStart()) {
+      while (j < prominence.size() && prominence.get(j).getEnd() < word.getStart()) {
         ++j;
       }
 

@@ -1,0 +1,2004 @@
+<nite:terminal_stream xmlns:nite="http://nite.sourceforge.net/" nite:id="sw4830-A-terminals">
+<word pos="PRP" nite:id="s1_1" msstateID="sw4830A-ms98-a-0001-2" msstate="sw4830A-ms98-a-0001" nite:end="0.080000" nite:start="0.020000" orth="You">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms1A_pw1)"/>
+</word>
+<word pos="VBP" nite:id="s1_2" msstateID="sw4830A-ms98-a-0001-3" msstate="sw4830A-ms98-a-0001" swWord="wanna" nite:end="n/a" nite:start="0.080000" orth="want">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms1A_pw2)"/>
+</word>
+<trace nite:id="s1_3"/>
+<word pos="TO" nite:id="s1_4" msstateID="sw4830A-ms98-a-0001-3" msstate="sw4830A-ms98-a-0001" swWord="wanna" nite:end="0.200000" nite:start="n/a" orth="to">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms1A_pw2)"/>
+</word>
+<word pos="VB" nite:id="s1_5" msstateID="sw4830A-ms98-a-0001-4" msstate="sw4830A-ms98-a-0001" nite:end="0.316750" nite:start="0.200000" orth="go">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms1A_pw3)"/>
+</word>
+<word pos="RB" nite:id="s1_6" msstateID="sw4830A-ms98-a-0001-6" msstate="sw4830A-ms98-a-0001" nite:end="0.670000" nite:start="0.374625" orth="first">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms1A_pw4)"/>
+</word>
+<punc nite:id="s1_7">?</punc>
+<punc nite:id="s1_8">.</punc>
+<word pos="UH" nite:id="s4_1" msstateID="sw4830A-ms98-a-0002-9" msstate="sw4830A-ms98-a-0002" nite:end="2.774500" nite:start="2.257000" orth="Okay">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms2A_pw5)"/>
+</word>
+<punc nite:id="s4_2">.</punc>
+<word pos="UH" nite:id="s5_1" msstateID="sw4830A-ms98-a-0002-10" msstate="sw4830A-ms98-a-0002" swWord="um" nite:end="3.242250" nite:start="2.774500" orth="Uh">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms2A_pw6)"/>
+</word>
+<sil nite:id="s5_2"/>
+<word pos="CD" nite:id="s5_3" msstateID="sw4830A-ms98-a-0002-12" msstate="sw4830A-ms98-a-0002" nite:end="3.604625" nite:start="3.430625" orth="one">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms2A_pw7)"/>
+</word>
+<word pos="IN" nite:id="s5_4" msstateID="sw4830A-ms98-a-0002-13" msstate="sw4830A-ms98-a-0002" nite:end="3.714625" nite:start="3.604625" orth="of">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms2A_pw8)"/>
+</word>
+<word pos="DT" nite:id="s5_5" msstateID="sw4830A-ms98-a-0002-14" msstate="sw4830A-ms98-a-0002" nite:end="3.784625" nite:start="3.714625" orth="the">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms2A_pw9)"/>
+</word>
+<word pos="NNS" nite:id="s5_6" msstateID="sw4830A-ms98-a-0002-15" msstate="sw4830A-ms98-a-0002" nite:end="4.174625" nite:start="3.784625" orth="things">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms2A_pw10)"/>
+</word>
+<trace nite:id="s5_7"/>
+<word pos="PRP" nite:id="s5_8" msstateID="sw4830A-ms98-a-0002-16" msstate="sw4830A-ms98-a-0002" nite:end="4.314625" nite:start="4.174625" orth="they">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms2A_pw11)"/>
+</word>
+<word pos="VBD" nite:id="s5_9" msstateID="sw4830A-ms98-a-0002-17" msstate="sw4830A-ms98-a-0002" nite:end="4.644625" nite:start="4.314625" orth="talked">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms2A_pw12)"/>
+</word>
+<word pos="IN" nite:id="s5_10" msstateID="sw4830A-ms98-a-0002-18" msstate="sw4830A-ms98-a-0002" nite:end="4.914625" nite:start="4.644625" orth="about">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms2A_pw13)"/>
+</word>
+<trace nite:id="s5_11"/>
+<word pos="VBD" nite:id="s5_12" msstateID="sw4830A-ms98-a-0002-19" msstate="sw4830A-ms98-a-0002" nite:end="5.294625" nite:start="4.914625" orth="was">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms2A_pw14)"/>
+</word>
+<sil nite:id="s5_13"/>
+<word pos="UH" nite:id="s5_14" msstateID="sw4830A-ms98-a-0002-20" msstate="sw4830A-ms98-a-0002" nite:end="5.516125" nite:start="5.294625" orth="uh">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms2A_pw15)"/>
+</word>
+<sil nite:id="s5_15"/>
+<word pos="VBD" nite:id="s5_19" msstateID="sw4830A-ms98-a-0003-23" msstate="sw4830A-ms98-a-0003" nite:end="6.824875" nite:start="6.624875" orth="did">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms3A_pw16)"/>
+</word>
+<word pos="PRP" nite:id="s5_20" msstateID="sw4830A-ms98-a-0003-24" msstate="sw4830A-ms98-a-0003" nite:end="7.144875" nite:start="6.824875" orth="we">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms3A_pw17)"/>
+</word>
+<sil nite:id="s5_21"/>
+<word pos="XX" nite:id="s5_23" msstateID="sw4830A-ms98-a-0003-26" msstate="sw4830A-ms98-a-0003" swWord="di[d]-" nite:end="7.444875" nite:start="7.224875" orth="d-">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms3A_pw18)"/>
+</word>
+<sil nite:id="s5_24"/>
+<word pos="XX" nite:id="s5_27" msstateID="sw4830A-ms98-a-0003-27" msstate="sw4830A-ms98-a-0003" swWord="wha[t]-" nite:end="7.568375" nite:start="7.444875" orth="wh-">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms3A_pw19)"/>
+</word>
+<sil nite:id="s5_28"/>
+<word pos="WP" nite:id="s5_31" msstateID="sw4830A-ms98-a-0003-29" msstate="sw4830A-ms98-a-0003" nite:end="8.164875" nite:start="7.873500" orth="what">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms3A_pw21)"/>
+</word>
+<word pos="VBP" nite:id="s5_32" msstateID="sw4830A-ms98-a-0003-30" msstate="sw4830A-ms98-a-0003" nite:end="8.264875" nite:start="8.164875" orth="do">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms3A_pw22)"/>
+</word>
+<word pos="PRP" nite:id="s5_33" msstateID="sw4830A-ms98-a-0003-31" msstate="sw4830A-ms98-a-0003" nite:end="8.454875" nite:start="8.264875" orth="we">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms3A_pw23)"/>
+</word>
+<word pos="VB" nite:id="s5_35" msstateID="sw4830A-ms98-a-0003-32" msstate="sw4830A-ms98-a-0003" nite:end="8.814875" nite:start="8.454875" orth="think">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms3A_pw24)"/>
+</word>
+<trace nite:id="s5_36"/>
+<word pos="IN" nite:id="s5_37" msstateID="sw4830A-ms98-a-0003-33" msstate="sw4830A-ms98-a-0003" nite:end="9.114875" nite:start="8.814875" orth="about">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms3A_pw25)"/>
+</word>
+<word pos="DT" nite:id="s5_38" msstateID="sw4830A-ms98-a-0003-34" msstate="sw4830A-ms98-a-0003" nite:end="9.234875" nite:start="9.114875" orth="a">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms3A_pw26)"/>
+</word>
+<word pos="NN" nite:id="s5_39" msstateID="sw4830A-ms98-a-0003-35" msstate="sw4830A-ms98-a-0003" nite:end="9.614875" nite:start="9.234875" orth="judge">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms3A_pw27)"/>
+</word>
+<word pos="VBG" nite:id="s5_40" msstateID="sw4830A-ms98-a-0003-36" msstate="sw4830A-ms98-a-0003" nite:end="10.114875" nite:start="9.614875" orth="making">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms3A_pw28)"/>
+</word>
+<word pos="DT" nite:id="s5_41" msstateID="sw4830A-ms98-a-0003-37" msstate="sw4830A-ms98-a-0003" nite:end="10.234875" nite:start="10.114875" orth="the">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms3A_pw29)"/>
+</word>
+<word pos="NN" nite:id="s5_42" msstateID="sw4830A-ms98-a-0003-38" msstate="sw4830A-ms98-a-0003" nite:end="10.956625" nite:start="10.234875" orth="decision">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms3A_pw30)"/>
+</word>
+<punc nite:id="s5_43">?</punc>
+<word pos="CC" nite:id="s7_1" msstateID="sw4830A-ms98-a-0003-40" msstate="sw4830A-ms98-a-0003" nite:end="11.854875" nite:start="11.674125" orth="And">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms3A_pw31)"/>
+</word>
+<word pos="PRP" nite:id="s7_2" msstateID="sw4830A-ms98-a-0003-41" msstate="sw4830A-ms98-a-0003" nite:end="11.944875" nite:start="11.854875" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms3A_pw32)"/>
+</word>
+<word pos="RB" nite:id="s7_3" msstateID="sw4830A-ms98-a-0003-42" msstate="sw4830A-ms98-a-0003" nite:end="12.204875" nite:start="11.944875" orth="really">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms3A_pw33)"/>
+</word>
+<word pos="VBP" nite:id="s7_4" msstateID="sw4830A-ms98-a-0003-43" msstate="sw4830A-ms98-a-0003" swWord="don't" nite:end="n/a" nite:start="12.204875" orth="do">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms3A_pw34)"/>
+</word>
+<word pos="RB" nite:id="s7_5" msstateID="sw4830A-ms98-a-0003-43" msstate="sw4830A-ms98-a-0003" swWord="don't" nite:end="12.444875" nite:start="n/a" orth="n't">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms3A_pw34)"/>
+</word>
+<word pos="VB" nite:id="s7_6" msstateID="sw4830A-ms98-a-0003-44" msstate="sw4830A-ms98-a-0003" nite:end="12.704875" nite:start="12.444875" orth="agree">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms3A_pw35)"/>
+</word>
+<word pos="IN" nite:id="s7_7" msstateID="sw4830A-ms98-a-0003-45" msstate="sw4830A-ms98-a-0003" nite:end="12.944875" nite:start="12.704875" orth="with">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms3A_pw36)"/>
+</word>
+<word pos="DT" nite:id="s7_8" msstateID="sw4830A-ms98-a-0003-46" msstate="sw4830A-ms98-a-0003" nite:end="13.174875" nite:start="12.944875" orth="that">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms3A_pw37)"/>
+</word>
+<punc nite:id="s7_9">.</punc>
+<word pos="PRP" nite:id="s8_1" msstateID="sw4830A-ms98-a-0004-49" msstate="sw4830A-ms98-a-0004" nite:end="14.103000" nite:start="13.944000" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms4A_pw38)"/>
+</word>
+<word pos="VBP" nite:id="s8_2" msstateID="sw4830A-ms98-a-0004-50" msstate="sw4830A-ms98-a-0004" nite:end="14.341625" nite:start="14.103000" orth="think">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms4A_pw39)"/>
+</word>
+<word pos="IN" nite:id="s8_3" msstateID="sw4830A-ms98-a-0004-51" msstate="sw4830A-ms98-a-0004" nite:end="14.604000" nite:start="14.341625" orth="that">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms4A_pw40)"/>
+</word>
+<word pos="DT" nite:id="s8_4" msstateID="sw4830A-ms98-a-0004-52" msstate="sw4830A-ms98-a-0004" nite:end="14.664000" nite:start="14.604000" orth="the">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms4A_pw41)"/>
+</word>
+<word pos="NN" nite:id="s8_5" msstateID="sw4830A-ms98-a-0004-53" msstate="sw4830A-ms98-a-0004" nite:end="15.004000" nite:start="14.664000" orth="trial">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms4A_pw42)"/>
+</word>
+<word pos="IN" nite:id="s8_6" msstateID="sw4830A-ms98-a-0004-54" msstate="sw4830A-ms98-a-0004" nite:end="15.184000" nite:start="15.004000" orth="by">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms4A_pw43)"/>
+</word>
+<word pos="NN" nite:id="s8_7" msstateID="sw4830A-ms98-a-0004-55" msstate="sw4830A-ms98-a-0004" nite:end="15.720750" nite:start="15.184000" orth="jury">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms4A_pw44)"/>
+</word>
+<trace nite:id="s8_8"/>
+<word pos="VBZ" nite:id="s8_9" msstateID="sw4830A-ms98-a-0004-57" msstate="sw4830A-ms98-a-0004" nite:end="16.734000" nite:start="16.459000" orth="is">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms4A_pw45)"/>
+</word>
+<word pos="JJR" nite:id="s8_10" msstateID="sw4830A-ms98-a-0004-58" msstate="sw4830A-ms98-a-0004" nite:end="17.084000" nite:start="16.734000" orth="better">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms4A_pw46)"/>
+</word>
+<sil nite:id="s8_11"/>
+<word pos="UH" nite:id="s8_12" msstateID="sw4830A-ms98-a-0005-61" msstate="sw4830A-ms98-a-0005" nite:end="18.756500" nite:start="18.436500" orth="uh">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms5A_pw47)"/>
+</word>
+<sil nite:id="s8_13"/>
+<word pos="PRP" nite:id="s8_14" msstateID="sw4830A-ms98-a-0005-63" msstate="sw4830A-ms98-a-0005" nite:end="19.046500" nite:start="18.886500" orth="you">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms5A_pw48)"/>
+</word>
+<word pos="VBP" nite:id="s8_15" msstateID="sw4830A-ms98-a-0005-64" msstate="sw4830A-ms98-a-0005" nite:end="19.226500" nite:start="19.046500" orth="know">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms5A_pw49)"/>
+</word>
+<sil nite:id="s8_16"/>
+<word pos="IN" nite:id="s8_18" msstateID="sw4830A-ms98-a-0005-65" msstate="sw4830A-ms98-a-0005" nite:end="19.790500" nite:start="19.226500" orth="than">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms5A_pw50)"/>
+</word>
+<word pos="XX" nite:id="s8_19" msstateID="sw4830A-ms98-a-0005-66" msstate="sw4830A-ms98-a-0005" swWord="e[ven]-" nite:end="20.020250" nite:start="19.790500" orth="e-">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms5A_pw51)"/>
+</word>
+<sil nite:id="s8_20"/>
+<trace nite:id="s8_23"/>
+<word pos="VBG" nite:id="s8_24" msstateID="sw4830A-ms98-a-0005-67" msstate="sw4830A-ms98-a-0005" nite:end="20.426500" nite:start="20.020250" orth="having">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms5A_pw52)"/>
+</word>
+<word pos="DT" nite:id="s8_25" msstateID="sw4830A-ms98-a-0005-68" msstate="sw4830A-ms98-a-0005" nite:end="20.516500" nite:start="20.426500" orth="a">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms5A_pw53)"/>
+</word>
+<word pos="JJ" nite:id="s8_26" msstateID="sw4830A-ms98-a-0005-69" msstate="sw4830A-ms98-a-0005" nite:end="21.136500" nite:start="20.516500" orth="unanimous">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms5A_pw54)"/>
+</word>
+<word pos="NN" nite:id="s8_27" msstateID="sw4830A-ms98-a-0005-70" msstate="sw4830A-ms98-a-0005" nite:end="21.806500" nite:start="21.136500" orth="decision">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms5A_pw55)"/>
+</word>
+<word pos="IN" nite:id="s8_28" msstateID="sw4830A-ms98-a-0005-72" msstate="sw4830A-ms98-a-0005" nite:end="22.756500" nite:start="22.416500" orth="rather">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms5A_pw56)"/>
+</word>
+<word pos="IN" nite:id="s8_29" msstateID="sw4830A-ms98-a-0005-73" msstate="sw4830A-ms98-a-0005" nite:end="22.946500" nite:start="22.756500" orth="than">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms5A_pw57)"/>
+</word>
+<trace nite:id="s8_30"/>
+<word pos="TO" nite:id="s8_31" msstateID="sw4830A-ms98-a-0005-74" msstate="sw4830A-ms98-a-0005" nite:end="23.066500" nite:start="22.946500" orth="to">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms5A_pw58)"/>
+</word>
+<word pos="VB" nite:id="s8_32" msstateID="sw4830A-ms98-a-0005-75" msstate="sw4830A-ms98-a-0005" nite:end="23.346500" nite:start="23.066500" orth="have">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms5A_pw59)"/>
+</word>
+<word pos="CD" nite:id="s8_33" msstateID="sw4830A-ms98-a-0005-76" msstate="sw4830A-ms98-a-0005" nite:end="23.556500" nite:start="23.346500" orth="one">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms5A_pw60)"/>
+</word>
+<word pos="NN" nite:id="s8_34" msstateID="sw4830A-ms98-a-0005-77" msstate="sw4830A-ms98-a-0005" nite:end="24.006500" nite:start="23.556500" orth="person">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms5A_pw61)"/>
+</word>
+<word pos="VB" nite:id="s8_35" msstateID="sw4830A-ms98-a-0005-78" msstate="sw4830A-ms98-a-0005" nite:end="24.126500" nite:start="24.006500" orth="be">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms5A_pw62)"/>
+</word>
+<word pos="JJ" nite:id="s8_36" msstateID="sw4830A-ms98-a-0005-79" msstate="sw4830A-ms98-a-0005" nite:end="25.046500" nite:start="24.126500" orth="responsible">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms5A_pw63)"/>
+</word>
+<punc nite:id="s8_37">.</punc>
+<word pos="PRP" nite:id="s9_1" msstateID="sw4830A-ms98-a-0006-82" msstate="sw4830A-ms98-a-0006" nite:end="26.550250" nite:start="26.450250" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms6A_pw64)"/>
+</word>
+<word pos="VBP" nite:id="s9_2" msstateID="sw4830A-ms98-a-0006-83" msstate="sw4830A-ms98-a-0006" swWord="don't" nite:end="n/a" nite:start="26.550250" orth="do">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms6A_pw65)"/>
+</word>
+<word pos="RB" nite:id="s9_3" msstateID="sw4830A-ms98-a-0006-83" msstate="sw4830A-ms98-a-0006" swWord="don't" nite:end="26.780250" nite:start="n/a" orth="n't">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms6A_pw65)"/>
+</word>
+<word pos="VB" nite:id="s9_4" msstateID="sw4830A-ms98-a-0006-84" msstate="sw4830A-ms98-a-0006" nite:end="27.010250" nite:start="26.780250" orth="think">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms6A_pw66)"/>
+</word>
+<word pos="IN" nite:id="s9_5" msstateID="sw4830A-ms98-a-0006-85" msstate="sw4830A-ms98-a-0006" nite:end="27.200250" nite:start="27.010250" orth="that">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms6A_pw67)"/>
+</word>
+<word pos="PRP" nite:id="s9_6" msstateID="sw4830A-ms98-a-0006-86" msstate="sw4830A-ms98-a-0006" nite:end="27.340500" nite:start="27.200250" orth="they">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms6A_pw68)"/>
+</word>
+<word pos="MD" nite:id="s9_7" msstateID="sw4830A-ms98-a-0006-87" msstate="sw4830A-ms98-a-0006" nite:end="27.558875" nite:start="27.340500" orth="could">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms6A_pw69)"/>
+</word>
+<word pos="VB" nite:id="s9_8" msstateID="sw4830A-ms98-a-0006-88" msstate="sw4830A-ms98-a-0006" nite:end="27.861500" nite:start="27.558875" orth="be">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms6A_pw70)"/>
+</word>
+<word pos="JJ" nite:id="s9_9" msstateID="sw4830A-ms98-a-0006-90" msstate="sw4830A-ms98-a-0006" nite:end="28.719000" nite:start="28.072500" orth="objective">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms6A_pw71)"/>
+</word>
+<word pos="IN" nite:id="s9_10" msstateID="sw4830A-ms98-a-0006-91" msstate="sw4830A-ms98-a-0006" nite:end="28.884750" nite:start="28.719000" orth="in">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms6A_pw72)"/>
+</word>
+<word pos="DT" nite:id="s9_11" msstateID="sw4830A-ms98-a-0006-92" msstate="sw4830A-ms98-a-0006" nite:end="29.268250" nite:start="28.884750" orth="every">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms6A_pw73)"/>
+</word>
+<word pos="NN" nite:id="s9_12" msstateID="sw4830A-ms98-a-0006-93" msstate="sw4830A-ms98-a-0006" nite:end="29.837000" nite:start="29.268250" orth="case">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms6A_pw74)"/>
+</word>
+<sil nite:id="s9_13"/>
+<word pos="DT" nite:id="s9_14" msstateID="sw4830A-ms98-a-0006-94" msstate="sw4830A-ms98-a-0006" nite:end="30.160250" nite:start="29.837000" orth="every">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms6A_pw75)"/>
+</word>
+<word pos="NN" nite:id="s9_15" msstateID="sw4830A-ms98-a-0006-95" msstate="sw4830A-ms98-a-0006" nite:end="30.700250" nite:start="30.160250" orth="time">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms6A_pw76)"/>
+</word>
+<punc nite:id="s9_16">.</punc>
+<word pos="PRP" nite:id="s11_2" msstateID="sw4830A-ms98-a-0007-98" msstate="sw4830A-ms98-a-0007" swWord="y[ou]-" nite:end="31.725500" nite:start="31.675500" orth="Yo-">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms7A_pw77)"/>
+</word>
+<sil nite:id="s11_3"/>
+<word pos="PRP" nite:id="s11_5" msstateID="sw4830A-ms98-a-0007-99" msstate="sw4830A-ms98-a-0007" nite:end="31.915500" nite:start="31.725500" orth="you">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms7A_pw78)"/>
+</word>
+<word pos="VBP" nite:id="s11_7" msstateID="sw4830A-ms98-a-0007-100" msstate="sw4830A-ms98-a-0007" nite:end="32.005500" nite:start="31.915500" orth="know">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms7A_pw79)"/>
+</word>
+<word pos="WP" nite:id="s11_8" msstateID="sw4830A-ms98-a-0007-101" msstate="sw4830A-ms98-a-0007" nite:end="32.105500" nite:start="32.005500" orth="what">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms7A_pw80)"/>
+</word>
+<word pos="PRP" nite:id="s11_9" msstateID="sw4830A-ms98-a-0007-102" msstate="sw4830A-ms98-a-0007" nite:end="32.155500" nite:start="32.105500" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms7A_pw81)"/>
+</word>
+<word pos="VBP" nite:id="s11_10" msstateID="sw4830A-ms98-a-0007-103" msstate="sw4830A-ms98-a-0007" nite:end="32.425500" nite:start="32.155500" orth="mean">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms7A_pw82)"/>
+</word>
+<trace nite:id="s11_11"/>
+<punc nite:id="s11_12">?</punc>
+<word pos="UH" nite:id="s14_1" msstateID="sw4830A-ms98-a-0009-107" msstate="sw4830A-ms98-a-0009" nite:end="36.250250" nite:start="35.928250" orth="Yeah">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms9A_pw83)"/>
+</word>
+<punc nite:id="s14_2">.</punc>
+<word pos="UH" nite:id="s17_1" msstateID="sw4830A-ms98-a-0011-111" msstate="sw4830A-ms98-a-0011" nite:end="42.504750" nite:start="42.127875" orth="Right">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms11A_pw84)"/>
+</word>
+<punc nite:id="s17_2">.</punc>
+<word pos="DT" nite:id="s19_1" msstateID="sw4830A-ms98-a-0013-115" msstate="sw4830A-ms98-a-0013" swWord="that's" nite:end="n/a" nite:start="48.636875" orth="That">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms13A_pw85)"/>
+</word>
+<word pos="BES" nite:id="s19_2" msstateID="sw4830A-ms98-a-0013-115" msstate="sw4830A-ms98-a-0013" swWord="that's" nite:end="48.996875" nite:start="n/a" orth="'s">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms13A_pw85)"/>
+</word>
+<word pos="PRP" nite:id="s19_3" msstateID="sw4830A-ms98-a-0013-116" msstate="sw4830A-ms98-a-0013" nite:end="49.256875" nite:start="48.996875" orth="it">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms13A_pw86)"/>
+</word>
+<punc nite:id="s19_4">.</punc>
+<word pos="UH" nite:id="s22_1" msstateID="sw4830A-ms98-a-0015-120" msstate="sw4830A-ms98-a-0015" nite:end="56.354000" nite:start="56.055375" orth="Well">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms15A_pw87)"/>
+</word>
+<sil nite:id="s22_2"/>
+<word pos="PRP" nite:id="s22_4" msstateID="sw4830A-ms98-a-0015-121" msstate="sw4830A-ms98-a-0015" swWord="i-" nite:end="56.540125" nite:start="n/a" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms15A_pw88)"/>
+</word>
+<sil nite:id="s22_5"/>
+<word pos="PRP" nite:id="s22_7" msstateID="sw4830A-ms98-a-0015-122" msstate="sw4830A-ms98-a-0015" nite:end="56.695625" nite:start="56.540125" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms15A_pw89)"/>
+</word>
+<word pos="VBP" nite:id="s22_9" msstateID="sw4830A-ms98-a-0015-123" msstate="sw4830A-ms98-a-0015" nite:end="56.929125" nite:start="56.695625" orth="feel">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms15A_pw90)"/>
+</word>
+<word pos="DT" nite:id="s22_10" msstateID="sw4830A-ms98-a-0015-124" msstate="sw4830A-ms98-a-0015" nite:end="57.038375" nite:start="56.929125" orth="the">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms15A_pw91)"/>
+</word>
+<word pos="JJ" nite:id="s22_11" msstateID="sw4830A-ms98-a-0015-125" msstate="sw4830A-ms98-a-0015" nite:end="57.335375" nite:start="57.038375" orth="other">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms15A_pw92)"/>
+</word>
+<word pos="NN" nite:id="s22_12" msstateID="sw4830A-ms98-a-0015-126" msstate="sw4830A-ms98-a-0015" nite:end="57.605375" nite:start="57.335375" orth="thing">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms15A_pw93)"/>
+</word>
+<word pos="RB" nite:id="s22_13" msstateID="sw4830A-ms98-a-0015-127" msstate="sw4830A-ms98-a-0015" nite:end="57.955375" nite:start="57.605375" orth="too">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms15A_pw94)"/>
+</word>
+<sil nite:id="s22_14"/>
+<word pos="UH" nite:id="s22_15" msstateID="sw4830A-ms98-a-0015-128" msstate="sw4830A-ms98-a-0015" nite:end="58.195375" nite:start="57.955375" orth="uh">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms15A_pw95)"/>
+</word>
+<sil nite:id="s22_16"/>
+<word pos="PRP" nite:id="s23_1" msstateID="sw4830A-ms98-a-0015-129" msstate="sw4830A-ms98-a-0015" nite:end="58.345375" nite:start="58.195375" orth="they">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms15A_pw96)"/>
+</word>
+<word pos="VBD" nite:id="s23_2" msstateID="sw4830A-ms98-a-0015-130" msstate="sw4830A-ms98-a-0015" nite:end="58.435375" nite:start="58.345375" orth="were">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms15A_pw97)"/>
+</word>
+<word pos="VBG" nite:id="s23_3" msstateID="sw4830A-ms98-a-0015-131" msstate="sw4830A-ms98-a-0015" nite:end="58.815375" nite:start="58.435375" orth="saying">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms15A_pw98)"/>
+</word>
+<sil nite:id="s23_4"/>
+<word pos="UH" nite:id="s23_5" msstateID="sw4830A-ms98-a-0015-133" msstate="sw4830A-ms98-a-0015" nite:end="59.723250" nite:start="59.365375" orth="uh">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms15A_pw99)"/>
+</word>
+<sil nite:id="s23_6"/>
+<word pos="PRP" nite:id="s23_7" msstateID="sw4830A-ms98-a-0015-135" msstate="sw4830A-ms98-a-0015" nite:end="60.055375" nite:start="59.892750" orth="you">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms15A_pw100)"/>
+</word>
+<word pos="VBP" nite:id="s23_8" msstateID="sw4830A-ms98-a-0015-136" msstate="sw4830A-ms98-a-0015" nite:end="60.165375" nite:start="60.055375" orth="know">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms15A_pw101)"/>
+</word>
+<sil nite:id="s23_9"/>
+<word pos="WDT" nite:id="s23_10" msstateID="sw4830A-ms98-a-0015-137" msstate="sw4830A-ms98-a-0015" nite:end="60.445375" nite:start="60.165375" orth="what">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms15A_pw102)"/>
+</word>
+<word pos="JJ" nite:id="s23_11" msstateID="sw4830A-ms98-a-0015-138" msstate="sw4830A-ms98-a-0015" nite:end="60.685375" nite:start="60.445375" orth="new">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms15A_pw103)"/>
+</word>
+<word pos="NNS" nite:id="s23_12" msstateID="sw4830A-ms98-a-0015-139" msstate="sw4830A-ms98-a-0015" nite:end="61.381000" nite:start="60.685375" orth="ways">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms15A_pw104)"/>
+</word>
+<word pos="MD" nite:id="s23_14" msstateID="sw4830A-ms98-a-0015-141" msstate="sw4830A-ms98-a-0015" nite:end="61.875375" nite:start="61.610750" orth="could">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms15A_pw105)"/>
+</word>
+<word pos="XX" nite:id="s23_15" msstateID="sw4830A-ms98-a-0015-142" msstate="sw4830A-ms98-a-0015" swWord="you" nite:end="62.005375" nite:start="61.875375" orth="y-">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms15A_pw106)"/>
+</word>
+<sil nite:id="s23_16"/>
+<word pos="MD" nite:id="s23_18" msstateID="sw4830A-ms98-a-0015-143" msstate="sw4830A-ms98-a-0015" nite:end="62.245375" nite:start="62.005375" orth="could">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms15A_pw107)"/>
+</word>
+<word pos="PRP" nite:id="s23_19" msstateID="sw4830A-ms98-a-0015-144" msstate="sw4830A-ms98-a-0015" nite:end="62.375375" nite:start="62.245375" orth="it">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms15A_pw108)"/>
+</word>
+<sil nite:id="s23_20"/>
+<word pos="PRP" nite:id="s23_23" msstateID="sw4830A-ms98-a-0015-146" msstate="sw4830A-ms98-a-0015" nite:end="62.988000" nite:start="62.562375" orth="you">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms15A_pw109)"/>
+</word>
+<sil nite:id="s23_24"/>
+<word pos="PRP" nite:id="s23_26" msstateID="sw4830A-ms98-a-0015-147" msstate="sw4830A-ms98-a-0015" nite:end="63.175375" nite:start="62.988000" orth="you">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms15A_pw110)"/>
+</word>
+<word pos="VBP" nite:id="s23_28" msstateID="sw4830A-ms98-a-0015-148" msstate="sw4830A-ms98-a-0015" nite:end="63.315375" nite:start="63.175375" orth="know">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms15A_pw111)"/>
+</word>
+<sil nite:id="s23_29"/>
+<word pos="VB" nite:id="s23_30" msstateID="sw4830A-ms98-a-0015-149" msstate="sw4830A-ms98-a-0015" nite:end="63.825375" nite:start="63.315375" orth="change">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms15A_pw112)"/>
+</word>
+<word pos="DT" nite:id="s23_31" msstateID="sw4830A-ms98-a-0015-150" msstate="sw4830A-ms98-a-0015" nite:end="63.997750" nite:start="63.825375" orth="the">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms15A_pw113)"/>
+</word>
+<word pos="NN" nite:id="s23_32" msstateID="sw4830A-ms98-a-0015-151" msstate="sw4830A-ms98-a-0015" nite:end="64.437625" nite:start="63.997750" orth="system">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms15A_pw114)"/>
+</word>
+<trace nite:id="s23_33"/>
+<punc nite:id="s23_34">.</punc>
+<word pos="PRP" nite:id="s24_2" msstateID="sw4830A-ms98-a-0016-154" msstate="sw4830A-ms98-a-0016" swWord="i-" nite:end="65.283625" nite:start="n/a" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms16A_pw115)"/>
+</word>
+<sil nite:id="s24_3"/>
+<word pos="PRP" nite:id="s24_5" msstateID="sw4830A-ms98-a-0016-155" msstate="sw4830A-ms98-a-0016" nite:end="65.435000" nite:start="65.283625" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms16A_pw116)"/>
+</word>
+<word pos="RB" nite:id="s24_7" msstateID="sw4830A-ms98-a-0016-156" msstate="sw4830A-ms98-a-0016" nite:end="65.715000" nite:start="65.435000" orth="really">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms16A_pw117)"/>
+</word>
+<word pos="VBP" nite:id="s24_8" msstateID="sw4830A-ms98-a-0016-157" msstate="sw4830A-ms98-a-0016" nite:end="66.075000" nite:start="65.715000" orth="think">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms16A_pw118)"/>
+</word>
+<word pos="IN" nite:id="s24_9" msstateID="sw4830A-ms98-a-0016-158" msstate="sw4830A-ms98-a-0016" nite:end="66.342375" nite:start="66.075000" orth="that">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms16A_pw119)"/>
+</word>
+<sil nite:id="s24_10"/>
+<word pos="UH" nite:id="s24_11" msstateID="sw4830A-ms98-a-0016-160" msstate="sw4830A-ms98-a-0016" swWord="um" nite:end="66.921250" nite:start="66.572125" orth="uh">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms16A_pw120)"/>
+</word>
+<sil nite:id="s24_12"/>
+<word pos="PRP" nite:id="s24_13" msstateID="sw4830A-ms98-a-0016-162" msstate="sw4830A-ms98-a-0016" nite:end="67.405000" nite:start="67.102125" orth="we">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms16A_pw121)"/>
+</word>
+<word pos="VBP" nite:id="s24_14" msstateID="sw4830A-ms98-a-0016-163" msstate="sw4830A-ms98-a-0016" nite:end="67.835000" nite:start="67.405000" orth="spend">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms16A_pw122)"/>
+</word>
+<word pos="DT" nite:id="s24_15" msstateID="sw4830A-ms98-a-0016-164" msstate="sw4830A-ms98-a-0016" nite:end="67.905000" nite:start="67.835000" orth="a">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms16A_pw123)"/>
+</word>
+<word pos="NN" nite:id="s24_16" msstateID="sw4830A-ms98-a-0016-165" msstate="sw4830A-ms98-a-0016" nite:end="68.135000" nite:start="67.905000" orth="lot">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms16A_pw124)"/>
+</word>
+<word pos="IN" nite:id="s24_17" msstateID="sw4830A-ms98-a-0016-166" msstate="sw4830A-ms98-a-0016" nite:end="68.205000" nite:start="68.135000" orth="of">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms16A_pw125)"/>
+</word>
+<word pos="NN" nite:id="s24_18" msstateID="sw4830A-ms98-a-0016-167" msstate="sw4830A-ms98-a-0016" nite:end="68.728750" nite:start="68.205000" orth="time">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms16A_pw126)"/>
+</word>
+<sil nite:id="s24_19"/>
+<word pos="UH" nite:id="s24_20" msstateID="sw4830A-ms98-a-0016-169" msstate="sw4830A-ms98-a-0016" nite:end="70.275000" nite:start="69.741875" orth="uh">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms16A_pw127)"/>
+</word>
+<sil nite:id="s24_21"/>
+<trace nite:id="s24_22"/>
+<word pos="VBG" nite:id="s24_23" msstateID="sw4830A-ms98-a-0016-170" msstate="sw4830A-ms98-a-0016" nite:end="70.575000" nite:start="70.275000" orth="going">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms16A_pw128)"/>
+</word>
+<word pos="IN" nite:id="s24_24" msstateID="sw4830A-ms98-a-0016-171" msstate="sw4830A-ms98-a-0016" nite:end="70.825000" nite:start="70.575000" orth="through">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms16A_pw129)"/>
+</word>
+<word pos="NN" nite:id="s24_25" msstateID="sw4830A-ms98-a-0016-172" msstate="sw4830A-ms98-a-0016" nite:end="71.335000" nite:start="70.825000" orth="appeal">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms16A_pw130)"/>
+</word>
+<word pos="IN" nite:id="s24_26" msstateID="sw4830A-ms98-a-0016-173" msstate="sw4830A-ms98-a-0016" nite:end="71.595000" nite:start="71.335000" orth="after">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms16A_pw131)"/>
+</word>
+<word pos="NN" nite:id="s24_27" msstateID="sw4830A-ms98-a-0016-174" msstate="sw4830A-ms98-a-0016" nite:end="72.045000" nite:start="71.595000" orth="appeal">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms16A_pw132)"/>
+</word>
+<word pos="IN" nite:id="s24_28" msstateID="sw4830A-ms98-a-0016-175" msstate="sw4830A-ms98-a-0016" nite:end="72.355000" nite:start="72.045000" orth="after">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms16A_pw133)"/>
+</word>
+<word pos="NN" nite:id="s24_29" msstateID="sw4830A-ms98-a-0016-176" msstate="sw4830A-ms98-a-0016" nite:end="72.805000" nite:start="72.355000" orth="appeal">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms16A_pw134)"/>
+</word>
+<word pos="IN" nite:id="s24_30" msstateID="sw4830A-ms98-a-0016-177" msstate="sw4830A-ms98-a-0016" nite:end="73.065000" nite:start="72.805000" orth="after">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms16A_pw135)"/>
+</word>
+<word pos="NN" nite:id="s24_31" msstateID="sw4830A-ms98-a-0016-178" msstate="sw4830A-ms98-a-0016" nite:end="73.335500" nite:start="73.065000" orth="appeal">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms16A_pw136)"/>
+</word>
+<sil nite:id="s24_32"/>
+<word pos="PRP" nite:id="s25_1" msstateID="sw4830A-ms98-a-0016-179" msstate="sw4830A-ms98-a-0016" nite:end="73.440875" nite:start="73.335500" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms16A_pw137)"/>
+</word>
+<word pos="VBP" nite:id="s25_2" msstateID="sw4830A-ms98-a-0016-180" msstate="sw4830A-ms98-a-0016" nite:end="73.626500" nite:start="73.440875" orth="mean">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms16A_pw138)"/>
+</word>
+<sil nite:id="s25_3"/>
+<word pos="IN" nite:id="s25_5" msstateID="sw4830A-ms98-a-0016-181" msstate="sw4830A-ms98-a-0016" swWord="i[f]-" nite:end="73.852500" nite:start="73.626500" orth="i-">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms16A_pw139)"/>
+</word>
+<sil nite:id="s25_6"/>
+<word pos="IN" nite:id="s25_8" msstateID="sw4830A-ms98-a-0016-182" msstate="sw4830A-ms98-a-0016" nite:end="73.995000" nite:start="73.852500" orth="if">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms16A_pw140)"/>
+</word>
+<word pos="PRP" nite:id="s25_10" msstateID="sw4830A-ms98-a-0016-183" msstate="sw4830A-ms98-a-0016" nite:end="74.155000" nite:start="73.995000" orth="you">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms16A_pw141)"/>
+</word>
+<word pos="VBP" nite:id="s25_11" msstateID="sw4830A-ms98-a-0016-185" msstate="sw4830A-ms98-a-0016" nite:end="74.465000" nite:start="74.235000" orth="go">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms16A_pw142)"/>
+</word>
+<word pos="IN" nite:id="s25_12" msstateID="sw4830A-ms98-a-0016-186" msstate="sw4830A-ms98-a-0016" nite:end="74.645000" nite:start="74.465000" orth="to">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms16A_pw143)"/>
+</word>
+<word pos="DT" nite:id="s25_13" msstateID="sw4830A-ms98-a-0016-187" msstate="sw4830A-ms98-a-0016" nite:end="74.715000" nite:start="74.645000" orth="a">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms16A_pw144)"/>
+</word>
+<word pos="NN" nite:id="s25_14" msstateID="sw4830A-ms98-a-0016-188" msstate="sw4830A-ms98-a-0016" nite:end="75.205000" nite:start="74.715000" orth="trial">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms16A_pw145)"/>
+</word>
+<word pos="IN" nite:id="s25_15" msstateID="sw4830A-ms98-a-0016-189" msstate="sw4830A-ms98-a-0016" nite:end="75.495000" nite:start="75.205000" orth="by">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms16A_pw146)"/>
+</word>
+<word pos="NN" nite:id="s25_16" msstateID="sw4830A-ms98-a-0016-190" msstate="sw4830A-ms98-a-0016" nite:end="76.065000" nite:start="75.495000" orth="jury">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms16A_pw147)"/>
+</word>
+<word pos="CC" nite:id="s25_17" msstateID="sw4830A-ms98-a-0017-193" msstate="sw4830A-ms98-a-0017" nite:end="77.587000" nite:start="77.237000" orth="and">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms17A_pw148)"/>
+</word>
+<word pos="RB" nite:id="s25_18" msstateID="sw4830A-ms98-a-0017-194" msstate="sw4830A-ms98-a-0017" nite:end="78.507000" nite:start="77.587000" orth="especially">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms17A_pw149)"/>
+</word>
+<word pos="IN" nite:id="s25_19" msstateID="sw4830A-ms98-a-0017-195" msstate="sw4830A-ms98-a-0017" nite:end="78.637000" nite:start="78.507000" orth="if">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms17A_pw150)"/>
+</word>
+<word pos="DT" nite:id="s25_20" msstateID="sw4830A-ms98-a-0017-196" msstate="sw4830A-ms98-a-0017" nite:end="78.697000" nite:start="78.637000" orth="a">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms17A_pw151)"/>
+</word>
+<word pos="NN" nite:id="s25_21" msstateID="sw4830A-ms98-a-0017-197" msstate="sw4830A-ms98-a-0017" nite:end="79.167000" nite:start="78.697000" orth="person">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms17A_pw152)"/>
+</word>
+<word pos="VBZ" nite:id="s25_22" msstateID="sw4830A-ms98-a-0017-198" msstate="sw4830A-ms98-a-0017" nite:end="79.437000" nite:start="79.167000" orth="has">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms17A_pw153)"/>
+</word>
+<word pos="VBN" nite:id="s25_23" msstateID="sw4830A-ms98-a-0017-199" msstate="sw4830A-ms98-a-0017" nite:end="80.767000" nite:start="79.437000" orth="confessed">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms17A_pw154)"/>
+</word>
+<punc nite:id="s25_24">.</punc>
+<word pos="IN" nite:id="s25_25" msstateID="sw4830A-ms98-a-0017-200" msstate="sw4830A-ms98-a-0017" nite:end="81.157000" nite:start="80.767000" orth="If">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms17A_pw155)"/>
+</word>
+<word pos="PRP" nite:id="s25_26" msstateID="sw4830A-ms98-a-0017-201" msstate="sw4830A-ms98-a-0017" nite:end="81.357000" nite:start="81.157000" orth="they">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms17A_pw156)"/>
+</word>
+<word pos="VBP" nite:id="s25_27" msstateID="sw4830A-ms98-a-0017-202" msstate="sw4830A-ms98-a-0017" nite:end="81.537000" nite:start="81.357000" orth="have">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms17A_pw157)"/>
+</word>
+<word pos="VBN" nite:id="s25_28" msstateID="sw4830A-ms98-a-0017-204" msstate="sw4830A-ms98-a-0017" nite:end="81.777000" nite:start="81.607000" orth="been">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms17A_pw158)"/>
+</word>
+<word pos="VBN" nite:id="s25_29" msstateID="sw4830A-ms98-a-0017-205" msstate="sw4830A-ms98-a-0017" nite:end="82.157000" nite:start="81.777000" orth="caught">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms17A_pw159)"/>
+</word>
+<trace nite:id="s25_30"/>
+<sil nite:id="s25_31"/>
+<word pos="PRP" nite:id="s25_32" msstateID="sw4830A-ms98-a-0017-207" msstate="sw4830A-ms98-a-0017" nite:end="83.107000" nite:start="82.997000" orth="you">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms17A_pw160)"/>
+</word>
+<word pos="VBP" nite:id="s25_33" msstateID="sw4830A-ms98-a-0017-208" msstate="sw4830A-ms98-a-0017" nite:end="83.207000" nite:start="83.107000" orth="know">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms17A_pw161)"/>
+</word>
+<sil nite:id="s25_34"/>
+<word pos="NN" nite:id="s25_35" msstateID="sw4830A-ms98-a-0017-209" msstate="sw4830A-ms98-a-0017" nite:end="83.587000" nite:start="83.207000" orth="point">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms17A_pw162)"/>
+</word>
+<word pos="NN" nite:id="s25_36" msstateID="sw4830A-ms98-a-0017-211" msstate="sw4830A-ms98-a-0017" nite:end="84.147000" nite:start="83.667000" orth="blank">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms17A_pw163)"/>
+</word>
+<word pos="IN" nite:id="s25_37" msstateID="sw4830A-ms98-a-0017-212" msstate="sw4830A-ms98-a-0017" nite:end="84.307000" nite:start="84.147000" orth="in">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms17A_pw164)"/>
+</word>
+<word pos="DT" nite:id="s25_38" msstateID="sw4830A-ms98-a-0017-213" msstate="sw4830A-ms98-a-0017" nite:end="84.367000" nite:start="84.307000" orth="the">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms17A_pw165)"/>
+</word>
+<word pos="NN" nite:id="s25_39" msstateID="sw4830A-ms98-a-0017-214" msstate="sw4830A-ms98-a-0017" nite:end="84.887000" nite:start="84.367000" orth="crime">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms17A_pw166)"/>
+</word>
+<punc nite:id="s25_40">.</punc>
+<word pos="EX" nite:id="s25_41" msstateID="sw4830A-ms98-a-0017-216" msstate="sw4830A-ms98-a-0017" swWord="there's" nite:end="n/a" nite:start="85.694000" orth="There">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms17A_pw167)"/>
+</word>
+<word pos="BES" nite:id="s25_42" msstateID="sw4830A-ms98-a-0017-216" msstate="sw4830A-ms98-a-0017" swWord="there's" nite:end="86.181250" nite:start="n/a" orth="'s">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms17A_pw167)"/>
+</word>
+<sil nite:id="s25_43"/>
+<word pos="UH" nite:id="s25_44" msstateID="sw4830A-ms98-a-0017-217" msstate="sw4830A-ms98-a-0017" nite:end="86.387000" nite:start="86.181250" orth="uh">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms17A_pw168)"/>
+</word>
+<sil nite:id="s25_45"/>
+<word pos="DT" nite:id="s25_46" msstateID="sw4830A-ms98-a-0017-218" msstate="sw4830A-ms98-a-0017" nite:end="86.577000" nite:start="86.387000" orth="no">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms17A_pw169)"/>
+</word>
+<word pos="NN" nite:id="s25_47" msstateID="sw4830A-ms98-a-0017-219" msstate="sw4830A-ms98-a-0017" nite:end="87.307000" nite:start="86.577000" orth="question">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms17A_pw170)"/>
+</word>
+<word pos="PRP" nite:id="s27_1" msstateID="sw4830A-ms98-a-0017-220" msstate="sw4830A-ms98-a-0017" swWord="it's" nite:end="n/a" nite:start="87.307000" orth="it">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms17A_pw171)"/>
+</word>
+<word pos="BES" nite:id="s27_2" msstateID="sw4830A-ms98-a-0017-220" msstate="sw4830A-ms98-a-0017" swWord="it's" nite:end="87.617000" nite:start="n/a" orth="'s">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms17A_pw171)"/>
+</word>
+<word pos="IN" nite:id="s27_3" msstateID="sw4830A-ms98-a-0017-221" msstate="sw4830A-ms98-a-0017" nite:end="88.097000" nite:start="87.617000" orth="beyond">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms17A_pw172)"/>
+</word>
+<word pos="DT" nite:id="s27_4" msstateID="sw4830A-ms98-a-0017-222" msstate="sw4830A-ms98-a-0017" nite:end="88.177000" nite:start="88.097000" orth="a">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms17A_pw173)"/>
+</word>
+<word pos="JJ" nite:id="s27_5" msstateID="sw4830A-ms98-a-0017-223" msstate="sw4830A-ms98-a-0017" nite:end="88.797000" nite:start="88.177000" orth="reasonable">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms17A_pw174)"/>
+</word>
+<word pos="NN" nite:id="s27_6" msstateID="sw4830A-ms98-a-0017-224" msstate="sw4830A-ms98-a-0017" nite:end="89.167000" nite:start="88.797000" orth="doubt">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms17A_pw175)"/>
+</word>
+<punc nite:id="s27_7">.</punc>
+<word pos="PRP" nite:id="s28_1" msstateID="sw4830A-ms98-a-0018-227" msstate="sw4830A-ms98-a-0018" nite:end="90.389125" nite:start="90.199125" orth="You">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms18A_pw176)"/>
+</word>
+<word pos="VBP" nite:id="s28_2" msstateID="non-aligned" msstate="non-aligned" swWord="non-aligned" nite:end="non-aligned" nite:start="non-aligned" orth="know"/>
+<sil nite:id="s28_3"/>
+<word pos="PDT" nite:id="s28_4" msstateID="sw4830A-ms98-a-0018-228" msstate="sw4830A-ms98-a-0018" nite:end="90.629125" nite:start="90.389125" orth="all">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms18A_pw177)"/>
+</word>
+<word pos="DT" nite:id="s28_5" msstateID="sw4830A-ms98-a-0018-229" msstate="sw4830A-ms98-a-0018" nite:end="90.799125" nite:start="90.629125" orth="these">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms18A_pw178)"/>
+</word>
+<word pos="NNS" nite:id="s28_6" msstateID="sw4830A-ms98-a-0018-230" msstate="sw4830A-ms98-a-0018" nite:end="91.169125" nite:start="90.799125" orth="things">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms18A_pw179)"/>
+</word>
+<punc nite:id="s28_7">.</punc>
+<word pos="PRP" nite:id="s29_1" msstateID="sw4830A-ms98-a-0018-231" msstate="sw4830A-ms98-a-0018" nite:end="91.229125" nite:start="91.169125" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms18A_pw180)"/>
+</word>
+<word pos="VBP" nite:id="s29_2" msstateID="sw4830A-ms98-a-0018-232" msstate="sw4830A-ms98-a-0018" nite:end="91.409125" nite:start="91.229125" orth="mean">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms18A_pw181)"/>
+</word>
+<sil nite:id="s29_3"/>
+<word pos="PRP" nite:id="s29_4" msstateID="sw4830A-ms98-a-0018-233" msstate="sw4830A-ms98-a-0018" nite:end="91.509125" nite:start="91.409125" orth="you">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms18A_pw182)"/>
+</word>
+<word pos="VBP" nite:id="s29_5" msstateID="sw4830A-ms98-a-0018-234" msstate="sw4830A-ms98-a-0018" nite:end="91.609125" nite:start="91.509125" orth="know">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms18A_pw183)"/>
+</word>
+<sil nite:id="s29_6"/>
+<word pos="PRP" nite:id="s29_7" msstateID="sw4830A-ms98-a-0018-235" msstate="sw4830A-ms98-a-0018" swWord="we've" nite:end="n/a" nite:start="91.609125" orth="we">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms18A_pw184)"/>
+</word>
+<word pos="VBP" nite:id="s29_8" msstateID="sw4830A-ms98-a-0018-235" msstate="sw4830A-ms98-a-0018" swWord="we've" nite:end="91.769125" nite:start="n/a" orth="'ve">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms18A_pw184)"/>
+</word>
+<word pos="VBN" nite:id="s29_9" msstateID="sw4830A-ms98-a-0018-237" msstate="sw4830A-ms98-a-0018" nite:end="92.079125" nite:start="91.859125" orth="gone">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms18A_pw185)"/>
+</word>
+<word pos="IN" nite:id="s29_10" msstateID="sw4830A-ms98-a-0018-238" msstate="sw4830A-ms98-a-0018" nite:end="92.219125" nite:start="92.079125" orth="through">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms18A_pw186)"/>
+</word>
+<word pos="DT" nite:id="s29_11" msstateID="sw4830A-ms98-a-0018-239" msstate="sw4830A-ms98-a-0018" nite:end="92.469125" nite:start="92.219125" orth="this">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms18A_pw187)"/>
+</word>
+<word pos="RB" nite:id="s29_12" msstateID="sw4830A-ms98-a-0018-241" msstate="sw4830A-ms98-a-0018" nite:end="92.899125" nite:start="92.529125" orth="over">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms18A_pw189)"/>
+</word>
+<word pos="CC" nite:id="s29_13" msstateID="sw4830A-ms98-a-0018-242" msstate="sw4830A-ms98-a-0018" nite:end="92.989125" nite:start="92.899125" orth="and">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms18A_pw190)"/>
+</word>
+<word pos="RB" nite:id="s29_14" msstateID="sw4830A-ms98-a-0018-243" msstate="sw4830A-ms98-a-0018" nite:end="93.189125" nite:start="92.989125" orth="over">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms18A_pw191)"/>
+</word>
+<word pos="RB" nite:id="s29_15" msstateID="sw4830A-ms98-a-0018-244" msstate="sw4830A-ms98-a-0018" nite:end="93.489125" nite:start="93.189125" orth="again">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms18A_pw192)"/>
+</word>
+<punc nite:id="s29_16">.</punc>
+<word pos="CC" nite:id="s32_1" msstateID="sw4830A-ms98-a-0019-247" msstate="sw4830A-ms98-a-0019" nite:end="94.795000" nite:start="94.362125" orth="And">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms19A_pw193)"/>
+</word>
+<word pos="PRP" nite:id="s32_2" msstateID="sw4830A-ms98-a-0019-249" msstate="sw4830A-ms98-a-0019" nite:end="95.292125" nite:start="95.152000" orth="it">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms19A_pw194)"/>
+</word>
+<word pos="MD" nite:id="s32_3" msstateID="sw4830A-ms98-a-0019-250" msstate="sw4830A-ms98-a-0019" nite:end="95.512125" nite:start="95.292125" orth="can">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms19A_pw195)"/>
+</word>
+<word pos="VB" nite:id="s32_4" msstateID="sw4830A-ms98-a-0019-251" msstate="sw4830A-ms98-a-0019" nite:end="95.882125" nite:start="95.512125" orth="go">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms19A_pw196)"/>
+</word>
+<word pos="RP" nite:id="s32_5" msstateID="sw4830A-ms98-a-0019-252" msstate="sw4830A-ms98-a-0019" nite:end="96.363750" nite:start="95.882125" orth="on">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms19A_pw197)"/>
+</word>
+<word pos="IN" nite:id="s32_6" msstateID="sw4830A-ms98-a-0019-253" msstate="sw4830A-ms98-a-0019" nite:end="96.921250" nite:start="96.363750" orth="for">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms19A_pw198)"/>
+</word>
+<word pos="CD" nite:id="s32_7" msstateID="sw4830A-ms98-a-0019-254" msstate="sw4830A-ms98-a-0019" nite:end="97.464625" nite:start="96.921250" orth="ten">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms19A_pw199)"/>
+</word>
+<sil nite:id="s32_8"/>
+<word pos="CD" nite:id="s32_9" msstateID="sw4830A-ms98-a-0019-256" msstate="sw4830A-ms98-a-0019" nite:end="98.032125" nite:start="97.690625" orth="twenty">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms19A_pw200)"/>
+</word>
+<sil nite:id="s32_10"/>
+<word pos="NNS" nite:id="s32_11" msstateID="sw4830A-ms98-a-0019-257" msstate="sw4830A-ms98-a-0019" nite:end="98.404750" nite:start="98.032125" orth="years">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms19A_pw201)"/>
+</word>
+<punc nite:id="s32_12">.</punc>
+<word pos="PRP" nite:id="s34_2" msstateID="sw4830A-ms98-a-0019-259" msstate="sw4830A-ms98-a-0019" swWord="i-" nite:end="98.682125" nite:start="n/a" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms19A_pw202)"/>
+</word>
+<sil nite:id="s34_3"/>
+<word pos="PRP" nite:id="s34_5" msstateID="sw4830A-ms98-a-0019-260" msstate="sw4830A-ms98-a-0019" nite:end="98.882125" nite:start="98.682125" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms19A_pw203)"/>
+</word>
+<word pos="VBP" nite:id="s34_7" msstateID="sw4830A-ms98-a-0019-261" msstate="sw4830A-ms98-a-0019" nite:end="99.132125" nite:start="98.882125" orth="think">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms19A_pw204)"/>
+</word>
+<trace nite:id="s34_8"/>
+<word pos="DT" nite:id="s34_9" msstateID="sw4830A-ms98-a-0019-262" msstate="sw4830A-ms98-a-0019" nite:end="99.332125" nite:start="99.132125" orth="this">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms19A_pw205)"/>
+</word>
+<word pos="VBZ" nite:id="s34_10" msstateID="sw4830A-ms98-a-0019-263" msstate="sw4830A-ms98-a-0019" nite:end="99.422125" nite:start="99.332125" orth="is">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms19A_pw206)"/>
+</word>
+<word pos="DT" nite:id="s34_11" msstateID="sw4830A-ms98-a-0019-264" msstate="sw4830A-ms98-a-0019" nite:end="99.522125" nite:start="99.422125" orth="a">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms19A_pw207)"/>
+</word>
+<word pos="RB" nite:id="s34_12" msstateID="sw4830A-ms98-a-0019-265" msstate="sw4830A-ms98-a-0019" nite:end="99.862125" nite:start="99.522125" orth="little">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms19A_pw208)"/>
+</word>
+<word pos="JJ" nite:id="s34_13" msstateID="sw4830A-ms98-a-0019-267" msstate="sw4830A-ms98-a-0019" nite:end="101.282125" nite:start="100.392125" orth="ridiculous">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms19A_pw209)"/>
+</word>
+<punc nite:id="s34_14">.</punc>
+<word pos="PRP" nite:id="s36_1" msstateID="sw4830A-ms98-a-0020-270" msstate="sw4830A-ms98-a-0020" nite:end="102.317250" nite:start="102.195125" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms20A_pw210)"/>
+</word>
+<word pos="VBP" nite:id="s36_2" msstateID="sw4830A-ms98-a-0020-271" msstate="sw4830A-ms98-a-0020" nite:end="102.530750" nite:start="102.317250" orth="think">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms20A_pw211)"/>
+</word>
+<trace nite:id="s36_3"/>
+<word pos="DT" nite:id="s36_4" msstateID="sw4830A-ms98-a-0020-272" msstate="sw4830A-ms98-a-0020" nite:end="102.706125" nite:start="102.530750" orth="the">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms20A_pw212)"/>
+</word>
+<word pos="JJ" nite:id="s36_5" msstateID="sw4830A-ms98-a-0020-273" msstate="sw4830A-ms98-a-0020" nite:end="102.896125" nite:start="102.706125" orth="only">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms20A_pw213)"/>
+</word>
+<word pos="NNS" nite:id="s36_6" msstateID="sw4830A-ms98-a-0020-274" msstate="sw4830A-ms98-a-0020" nite:end="103.226125" nite:start="102.896125" orth="people">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms20A_pw214)"/>
+</word>
+<word pos="WP" nite:id="s36_7" msstateID="sw4830A-ms98-a-0020-275" msstate="sw4830A-ms98-a-0020" nite:end="103.523500" nite:start="103.226125" orth="who">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms20A_pw215)"/>
+</word>
+<trace nite:id="s36_8"/>
+<word pos="VBP" nite:id="s36_9" msstateID="sw4830A-ms98-a-0020-277" msstate="sw4830A-ms98-a-0020" nite:end="104.306125" nite:start="103.907750" orth="benefit">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms20A_pw216)"/>
+</word>
+<word pos="IN" nite:id="s36_10" msstateID="sw4830A-ms98-a-0020-278" msstate="sw4830A-ms98-a-0020" nite:end="104.486125" nite:start="104.306125" orth="from">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms20A_pw217)"/>
+</word>
+<word pos="DT" nite:id="s36_11" msstateID="sw4830A-ms98-a-0020-279" msstate="sw4830A-ms98-a-0020" nite:end="104.716125" nite:start="104.486125" orth="that">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms20A_pw218)"/>
+</word>
+<word pos="VBP" nite:id="s36_12" msstateID="sw4830A-ms98-a-0020-280" msstate="sw4830A-ms98-a-0020" nite:end="104.786125" nite:start="104.716125" orth="are">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms20A_pw219)"/>
+</word>
+<word pos="DT" nite:id="s36_13" msstateID="sw4830A-ms98-a-0020-281" msstate="sw4830A-ms98-a-0020" nite:end="104.896125" nite:start="104.786125" orth="the">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms20A_pw220)"/>
+</word>
+<word pos="NNS" nite:id="s36_14" msstateID="sw4830A-ms98-a-0020-282" msstate="sw4830A-ms98-a-0020" nite:end="105.584625" nite:start="104.896125" orth="lawyers">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms20A_pw221)"/>
+</word>
+<punc nite:id="s36_15">.</punc>
+<word pos="PRP" nite:id="s39_2" msstateID="sw4830A-ms98-a-0022-286" msstate="sw4830A-ms98-a-0022" nite:end="108.048250" nite:start="107.878250" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms22A_pw222)"/>
+</word>
+<sil nite:id="s39_3"/>
+<word pos="PRP" nite:id="s39_5" msstateID="sw4830A-ms98-a-0022-287" msstate="sw4830A-ms98-a-0022" swWord="i'm" nite:end="n/a" nite:start="108.048250" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms22A_pw223)"/>
+</word>
+<word pos="VBP" nite:id="s39_6" msstateID="sw4830A-ms98-a-0022-287" msstate="sw4830A-ms98-a-0022" swWord="i'm" nite:end="108.308250" nite:start="n/a" orth="'m">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms22A_pw223)"/>
+</word>
+<word pos="JJ" nite:id="s39_8" msstateID="sw4830A-ms98-a-0022-288" msstate="sw4830A-ms98-a-0022" nite:end="108.778250" nite:start="108.308250" orth="serious">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms22A_pw224)"/>
+</word>
+<punc nite:id="s39_9">.</punc>
+<word pos="CC" nite:id="s40_1" msstateID="sw4830A-ms98-a-0022-289" msstate="sw4830A-ms98-a-0022" nite:end="108.898250" nite:start="108.778250" orth="And">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms22A_pw225)"/>
+</word>
+<word pos="PRP" nite:id="s40_2" msstateID="sw4830A-ms98-a-0022-290" msstate="sw4830A-ms98-a-0022" nite:end="109.058250" nite:start="108.898250" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms22A_pw226)"/>
+</word>
+<word pos="VBP" nite:id="s40_3" msstateID="sw4830A-ms98-a-0022-291" msstate="sw4830A-ms98-a-0022" nite:end="109.278250" nite:start="109.058250" orth="think">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms22A_pw227)"/>
+</word>
+<word pos="IN" nite:id="s40_4" msstateID="sw4830A-ms98-a-0022-292" msstate="sw4830A-ms98-a-0022" nite:end="109.468250" nite:start="109.278250" orth="that">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms22A_pw228)"/>
+</word>
+<word pos="DT" nite:id="s40_5" msstateID="sw4830A-ms98-a-0022-293" msstate="sw4830A-ms98-a-0022" nite:end="109.558250" nite:start="109.468250" orth="the">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms22A_pw229)"/>
+</word>
+<word pos="NNS" nite:id="s40_6" msstateID="sw4830A-ms98-a-0022-294" msstate="sw4830A-ms98-a-0022" nite:end="110.068250" nite:start="109.558250" orth="lawyers">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms22A_pw230)"/>
+</word>
+<word pos="VBP" nite:id="s40_7" msstateID="sw4830A-ms98-a-0022-295" msstate="sw4830A-ms98-a-0022" nite:end="110.378250" nite:start="110.068250" orth="have">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms22A_pw231)"/>
+</word>
+<word pos="VBN" nite:id="s40_8" msstateID="sw4830A-ms98-a-0022-296" msstate="sw4830A-ms98-a-0022" nite:end="110.848250" nite:start="110.378250" orth="caused">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms22A_pw232)"/>
+</word>
+<word pos="DT" nite:id="s40_9" msstateID="sw4830A-ms98-a-0022-297" msstate="sw4830A-ms98-a-0022" nite:end="110.918250" nite:start="110.848250" orth="a">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms22A_pw233)"/>
+</word>
+<word pos="NN" nite:id="s40_10" msstateID="sw4830A-ms98-a-0022-298" msstate="sw4830A-ms98-a-0022" nite:end="111.158250" nite:start="110.918250" orth="lot">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms22A_pw234)"/>
+</word>
+<word pos="IN" nite:id="s40_11" msstateID="sw4830A-ms98-a-0022-299" msstate="sw4830A-ms98-a-0022" nite:end="111.298250" nite:start="111.158250" orth="of">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms22A_pw235)"/>
+</word>
+<word pos="DT" nite:id="s40_12" msstateID="sw4830A-ms98-a-0022-300" msstate="sw4830A-ms98-a-0022" nite:end="111.368250" nite:start="111.298250" orth="the">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms22A_pw236)"/>
+</word>
+<word pos="NNS" nite:id="s40_13" msstateID="sw4830A-ms98-a-0022-301" msstate="sw4830A-ms98-a-0022" nite:end="112.206875" nite:start="111.368250" orth="problems">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms22A_pw237)"/>
+</word>
+<word pos="WDT" nite:id="s40_15" msstateID="sw4830A-ms98-a-0022-303" msstate="sw4830A-ms98-a-0022" swWord="tha[t]-" nite:end="112.778250" nite:start="112.666000" orth="tha-">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms22A_pw238)"/>
+</word>
+<sil nite:id="s40_16"/>
+<word pos="WDT" nite:id="s40_18" msstateID="sw4830A-ms98-a-0022-305" msstate="sw4830A-ms98-a-0022" nite:end="113.226625" nite:start="112.938250" orth="that">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms22A_pw240)"/>
+</word>
+<trace nite:id="s40_20"/>
+<word pos="VBP" nite:id="s40_21" msstateID="sw4830A-ms98-a-0022-306" msstate="sw4830A-ms98-a-0022" nite:end="113.588250" nite:start="113.226625" orth="exist">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms22A_pw241)"/>
+</word>
+<word pos="IN" nite:id="s40_23" msstateID="sw4830A-ms98-a-0022-307" msstate="sw4830A-ms98-a-0022" nite:end="113.748250" nite:start="113.588250" orth="in">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms22A_pw242)"/>
+</word>
+<word pos="DT" nite:id="s40_24" msstateID="sw4830A-ms98-a-0022-308" msstate="sw4830A-ms98-a-0022" nite:end="113.958250" nite:start="113.748250" orth="the">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms22A_pw243)"/>
+</word>
+<word pos="NN" nite:id="s40_25" msstateID="non-aligned" msstate="non-aligned" swWord="non-aligned" nite:end="non-aligned" nite:start="non-aligned" orth="s-"/>
+<sil nite:id="s40_26"/>
+<word pos="IN" nite:id="s40_28" msstateID="sw4830A-ms98-a-0022-309" msstate="sw4830A-ms98-a-0022" nite:end="114.088250" nite:start="113.958250" orth="in">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms22A_pw244)"/>
+</word>
+<word pos="DT" nite:id="s40_29" msstateID="sw4830A-ms98-a-0022-310" msstate="sw4830A-ms98-a-0022" nite:end="114.158250" nite:start="114.088250" orth="the">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms22A_pw245)"/>
+</word>
+<word pos="JJ" nite:id="s40_30" msstateID="sw4830A-ms98-a-0022-311" msstate="sw4830A-ms98-a-0022" nite:end="114.528250" nite:start="114.158250" orth="criminal">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms22A_pw246)"/>
+</word>
+<word pos="NN" nite:id="s40_31" msstateID="sw4830A-ms98-a-0022-312" msstate="sw4830A-ms98-a-0022" nite:end="114.898250" nite:start="114.528250" orth="system">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms22A_pw247)"/>
+</word>
+<word pos="NN" nite:id="s40_33" msstateID="sw4830A-ms98-a-0022-313" msstate="sw4830A-ms98-a-0022" nite:end="115.334250" nite:start="114.898250" orth="today">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms22A_pw248)"/>
+</word>
+<punc nite:id="s40_34">.</punc>
+<word pos="IN" nite:id="s40_35" msstateID="sw4830A-ms98-a-0022-315" msstate="sw4830A-ms98-a-0022" nite:end="115.958250" nite:start="115.756125" orth="With">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms22A_pw249)"/>
+</word>
+<word pos="NN" nite:id="s40_36" msstateID="sw4830A-ms98-a-0022-316" msstate="sw4830A-ms98-a-0022" nite:end="116.218250" nite:start="115.958250" orth="plea">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms22A_pw250)"/>
+</word>
+<word pos="NN" nite:id="s40_37" msstateID="sw4830A-ms98-a-0022-317" msstate="sw4830A-ms98-a-0022" nite:end="116.878250" nite:start="116.218250" orth="bargaining">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms22A_pw251)"/>
+</word>
+<punc nite:id="s40_38">.</punc>
+<word pos="PRP" nite:id="s42_1" msstateID="sw4830A-ms98-a-0023-320" msstate="sw4830A-ms98-a-0023" nite:end="117.853125" nite:start="117.733125" orth="You">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms23A_pw252)"/>
+</word>
+<word pos="VBP" nite:id="s42_2" msstateID="sw4830A-ms98-a-0023-321" msstate="sw4830A-ms98-a-0023" nite:end="118.053125" nite:start="117.853125" orth="know">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms23A_pw253)"/>
+</word>
+<sil nite:id="s42_3"/>
+<word pos="IN" nite:id="s42_4" msstateID="sw4830A-ms98-a-0023-322" msstate="sw4830A-ms98-a-0023" nite:end="118.173125" nite:start="118.053125" orth="if">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms23A_pw254)"/>
+</word>
+<word pos="NN" nite:id="s42_5" msstateID="sw4830A-ms98-a-0023-323" msstate="sw4830A-ms98-a-0023" nite:end="118.524375" nite:start="118.173125" orth="someone">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms23A_pw255)"/>
+</word>
+<word pos="VBZ" nite:id="s42_6" msstateID="sw4830A-ms98-a-0023-324" msstate="sw4830A-ms98-a-0023" nite:end="118.783625" nite:start="118.524375" orth="is">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms23A_pw256)"/>
+</word>
+<sil nite:id="s42_8"/>
+<word pos="UH" nite:id="s44_1" msstateID="sw4830A-ms98-a-0025-329" msstate="sw4830A-ms98-a-0025" nite:end="121.841875" nite:start="121.522000" orth="Well">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms25A_pw257)"/>
+</word>
+<punc nite:id="s44_2">.</punc>
+<word pos="UH" nite:id="s47_1" msstateID="sw4830A-ms98-a-0027-333" msstate="sw4830A-ms98-a-0027" nite:end="126.277750" nite:start="125.957750" orth="Well">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms27A_pw258)"/>
+</word>
+<sil nite:id="s47_2"/>
+<word pos="PRP" nite:id="s47_3" msstateID="sw4830A-ms98-a-0027-334" msstate="sw4830A-ms98-a-0027" nite:end="126.404000" nite:start="126.277750" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms27A_pw259)"/>
+</word>
+<word pos="VBP" nite:id="s47_4" msstateID="sw4830A-ms98-a-0027-335" msstate="sw4830A-ms98-a-0027" nite:end="126.735500" nite:start="126.404000" orth="know">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms27A_pw260)"/>
+</word>
+<punc nite:id="s47_5">.</punc>
+<word pos="DT" nite:id="s48_1" msstateID="sw4830A-ms98-a-0027-337" msstate="sw4830A-ms98-a-0027" swWord="that's" nite:end="n/a" nite:start="126.927750" orth="That">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms27A_pw262)"/>
+</word>
+<word pos="BES" nite:id="s48_2" msstateID="sw4830A-ms98-a-0027-337" msstate="sw4830A-ms98-a-0027" swWord="that's" nite:end="127.137750" nite:start="n/a" orth="'s">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms27A_pw262)"/>
+</word>
+<word pos="XX" nite:id="s48_3" msstateID="non-aligned" msstate="non-aligned" swWord="non-aligned" nite:end="non-aligned" nite:start="non-aligned" orth="MUMBLEx"/>
+<word pos="WP" nite:id="s48_4" msstateID="sw4830A-ms98-a-0027-338" msstate="sw4830A-ms98-a-0027" nite:end="127.267750" nite:start="127.137750" orth="what">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms27A_pw263)"/>
+</word>
+<word pos="PRP" nite:id="s48_5" msstateID="sw4830A-ms98-a-0027-339" msstate="sw4830A-ms98-a-0027" swWord="i'm" nite:end="n/a" nite:start="127.267750" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms27A_pw264)"/>
+</word>
+<word pos="VBP" nite:id="s48_6" msstateID="sw4830A-ms98-a-0027-339" msstate="sw4830A-ms98-a-0027" swWord="i'm" nite:end="127.327750" nite:start="n/a" orth="'m">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms27A_pw264)"/>
+</word>
+<word pos="VBG" nite:id="s48_7" msstateID="sw4830A-ms98-a-0027-340" msstate="sw4830A-ms98-a-0027" nite:end="127.567750" nite:start="127.327750" orth="saying">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms27A_pw265)"/>
+</word>
+<trace nite:id="s48_8"/>
+<punc nite:id="s48_9">.</punc>
+<word pos="CC" nite:id="s49_1" msstateID="sw4830A-ms98-a-0027-341" msstate="sw4830A-ms98-a-0027" nite:end="127.657750" nite:start="127.567750" orth="But">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms27A_pw266)"/>
+</word>
+<word pos="PRP" nite:id="s49_2" msstateID="sw4830A-ms98-a-0027-342" msstate="sw4830A-ms98-a-0027" nite:end="127.737750" nite:start="127.657750" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms27A_pw267)"/>
+</word>
+<word pos="VBP" nite:id="s49_3" msstateID="sw4830A-ms98-a-0027-343" msstate="sw4830A-ms98-a-0027" nite:end="127.987750" nite:start="127.737750" orth="think">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms27A_pw268)"/>
+</word>
+<trace nite:id="s49_4"/>
+<word pos="DT" nite:id="s49_6" msstateID="sw4830A-ms98-a-0027-344" msstate="sw4830A-ms98-a-0027" nite:end="128.057750" nite:start="127.987750" orth="a">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms27A_pw269)"/>
+</word>
+<word pos="NN" nite:id="s49_7" msstateID="sw4830A-ms98-a-0027-345" msstate="sw4830A-ms98-a-0027" nite:end="128.357750" nite:start="128.057750" orth="lot">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms27A_pw270)"/>
+</word>
+<word pos="IN" nite:id="s49_8" msstateID="sw4830A-ms98-a-0027-346" msstate="sw4830A-ms98-a-0027" nite:end="128.457750" nite:start="128.357750" orth="of">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms27A_pw271)"/>
+</word>
+<sil nite:id="s49_9"/>
+<word pos="DT" nite:id="s49_11" msstateID="sw4830A-ms98-a-0027-348" msstate="sw4830A-ms98-a-0027" nite:end="128.877750" nite:start="128.627750" orth="all">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms27A_pw272)"/>
+</word>
+<word pos="IN" nite:id="s49_12" msstateID="sw4830A-ms98-a-0027-349" msstate="sw4830A-ms98-a-0027" nite:end="129.007750" nite:start="128.877750" orth="of">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms27A_pw273)"/>
+</word>
+<word pos="DT" nite:id="s49_14" msstateID="sw4830A-ms98-a-0027-350" msstate="sw4830A-ms98-a-0027" nite:end="129.107750" nite:start="129.007750" orth="the">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms27A_pw274)"/>
+</word>
+<word pos="JJ" nite:id="s49_15" msstateID="sw4830A-ms98-a-0027-351" msstate="sw4830A-ms98-a-0027" nite:end="129.347750" nite:start="129.107750" orth="whole">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms27A_pw275)"/>
+</word>
+<word pos="JJ" nite:id="s49_16" msstateID="sw4830A-ms98-a-0027-352" msstate="sw4830A-ms98-a-0027" nite:end="129.807750" nite:start="129.347750" orth="criminal">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms27A_pw276)"/>
+</word>
+<word pos="NN" nite:id="s49_17" msstateID="sw4830A-ms98-a-0027-353" msstate="sw4830A-ms98-a-0027" nite:end="130.542625" nite:start="129.807750" orth="system">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms27A_pw277)"/>
+</word>
+<word pos="VBZ" nite:id="s49_18" msstateID="sw4830A-ms98-a-0027-355" msstate="sw4830A-ms98-a-0027" nite:end="131.357750" nite:start="130.930625" orth="is">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms27A_pw278)"/>
+</word>
+<word pos="JJ" nite:id="s49_19" msstateID="sw4830A-ms98-a-0027-356" msstate="sw4830A-ms98-a-0027" nite:end="131.777750" nite:start="131.357750" orth="messed">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms27A_pw279)"/>
+</word>
+<trace nite:id="s49_20"/>
+<word pos="RP" nite:id="s49_21" msstateID="sw4830A-ms98-a-0027-357" msstate="sw4830A-ms98-a-0027" nite:end="132.167125" nite:start="131.777750" orth="up">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms27A_pw280)"/>
+</word>
+<word pos="IN" nite:id="s49_23" msstateID="sw4830A-ms98-a-0028-360" msstate="sw4830A-ms98-a-0028" nite:end="133.295250" nite:start="133.095250" orth="in">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw281)"/>
+</word>
+<sil nite:id="s49_24"/>
+<word pos="IN" nite:id="s49_26" msstateID="sw4830A-ms98-a-0028-361" msstate="sw4830A-ms98-a-0028" nite:end="133.465250" nite:start="133.295250" orth="in">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw282)"/>
+</word>
+<word pos="DT" nite:id="s49_28" msstateID="sw4830A-ms98-a-0028-362" msstate="sw4830A-ms98-a-0028" nite:end="133.705250" nite:start="133.465250" orth="that">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw283)"/>
+</word>
+<word pos="NN" nite:id="s49_29" msstateID="sw4830A-ms98-a-0028-363" msstate="sw4830A-ms98-a-0028" nite:end="134.264375" nite:start="133.705250" orth="regard">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw284)"/>
+</word>
+<punc nite:id="s49_30">.</punc>
+<word pos="PRP" nite:id="s50_1" msstateID="sw4830A-ms98-a-0028-365" msstate="sw4830A-ms98-a-0028" nite:end="134.485250" nite:start="134.388625" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw285)"/>
+</word>
+<word pos="VBP" nite:id="s50_2" msstateID="sw4830A-ms98-a-0028-366" msstate="sw4830A-ms98-a-0028" nite:end="134.685250" nite:start="134.485250" orth="mean">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw286)"/>
+</word>
+<sil nite:id="s50_3"/>
+<word pos="PRP" nite:id="s50_4" msstateID="sw4830A-ms98-a-0028-367" msstate="sw4830A-ms98-a-0028" nite:end="134.785250" nite:start="134.685250" orth="you">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw287)"/>
+</word>
+<word pos="VBP" nite:id="s50_5" msstateID="sw4830A-ms98-a-0028-368" msstate="sw4830A-ms98-a-0028" nite:end="134.935250" nite:start="134.785250" orth="know">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw288)"/>
+</word>
+<sil nite:id="s50_6"/>
+<word pos="NNS" nite:id="s50_7" msstateID="sw4830A-ms98-a-0028-369" msstate="sw4830A-ms98-a-0028" nite:end="135.395250" nite:start="134.935250" orth="people">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw289)"/>
+</word>
+<word pos="WP" nite:id="s50_8" msstateID="sw4830A-ms98-a-0028-370" msstate="sw4830A-ms98-a-0028" nite:end="135.605250" nite:start="135.395250" orth="who">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw290)"/>
+</word>
+<trace nite:id="s50_9"/>
+<word pos="VBP" nite:id="s50_10" msstateID="sw4830A-ms98-a-0028-372" msstate="sw4830A-ms98-a-0028" nite:end="136.066500" nite:start="135.715250" orth="commit">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw291)"/>
+</word>
+<sil nite:id="s50_11"/>
+<word pos="UH" nite:id="s50_12" msstateID="sw4830A-ms98-a-0028-374" msstate="sw4830A-ms98-a-0028" nite:end="137.185250" nite:start="136.895125" orth="uh">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw292)"/>
+</word>
+<sil nite:id="s50_13"/>
+<word pos="NNS" nite:id="s50_14" msstateID="sw4830A-ms98-a-0028-375" msstate="sw4830A-ms98-a-0028" nite:end="137.715250" nite:start="137.185250" orth="crimes">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw293)"/>
+</word>
+<word pos="IN" nite:id="s50_15" msstateID="sw4830A-ms98-a-0028-376" msstate="sw4830A-ms98-a-0028" nite:end="137.955250" nite:start="137.715250" orth="that">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw294)"/>
+</word>
+<word pos="PRP" nite:id="s50_16" msstateID="sw4830A-ms98-a-0028-377" msstate="sw4830A-ms98-a-0028" nite:end="138.266125" nite:start="137.955250" orth="they">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw295)"/>
+</word>
+<sil nite:id="s50_17"/>
+<word pos="PRP" nite:id="s51_1" msstateID="sw4830A-ms98-a-0028-379" msstate="sw4830A-ms98-a-0028" nite:end="138.935250" nite:start="138.816000" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw296)"/>
+</word>
+<word pos="VBP" nite:id="s51_2" msstateID="sw4830A-ms98-a-0028-380" msstate="sw4830A-ms98-a-0028" swWord="don't" nite:end="n/a" nite:start="138.935250" orth="do">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw297)"/>
+</word>
+<word pos="RB" nite:id="s51_3" msstateID="sw4830A-ms98-a-0028-380" msstate="sw4830A-ms98-a-0028" swWord="don't" nite:end="139.115250" nite:start="n/a" orth="n't">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw297)"/>
+</word>
+<word pos="VB" nite:id="s51_4" msstateID="sw4830A-ms98-a-0028-381" msstate="sw4830A-ms98-a-0028" nite:end="139.355250" nite:start="139.115250" orth="know">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw298)"/>
+</word>
+<word pos="WRB" nite:id="s51_5" msstateID="sw4830A-ms98-a-0028-382" msstate="sw4830A-ms98-a-0028" nite:end="139.635250" nite:start="139.355250" orth="how">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw299)"/>
+</word>
+<word pos="PRP" nite:id="s51_6" msstateID="sw4830A-ms98-a-0028-383" msstate="sw4830A-ms98-a-0028" nite:end="139.755250" nite:start="139.635250" orth="it">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw300)"/>
+</word>
+<word pos="VBZ" nite:id="s51_7" msstateID="sw4830A-ms98-a-0028-384" msstate="sw4830A-ms98-a-0028" nite:end="140.115250" nite:start="139.755250" orth="works">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw301)"/>
+</word>
+<word pos="RB" nite:id="s51_8" msstateID="sw4830A-ms98-a-0028-385" msstate="sw4830A-ms98-a-0028" nite:end="140.675250" nite:start="140.115250" orth="exactly">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw302)"/>
+</word>
+<trace nite:id="s51_9"/>
+<word pos="CC" nite:id="s52_1" msstateID="sw4830A-ms98-a-0028-386" msstate="sw4830A-ms98-a-0028" nite:end="141.015250" nite:start="140.675250" orth="but">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw303)"/>
+</word>
+<word pos="PRP" nite:id="s52_2" msstateID="sw4830A-ms98-a-0028-388" msstate="sw4830A-ms98-a-0028" nite:end="141.535250" nite:start="141.455250" orth="you">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw304)"/>
+</word>
+<word pos="VBP" nite:id="s52_3" msstateID="sw4830A-ms98-a-0028-389" msstate="sw4830A-ms98-a-0028" nite:end="141.625250" nite:start="141.535250" orth="know">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw305)"/>
+</word>
+<sil nite:id="s52_4"/>
+<word pos="PRP" nite:id="s52_5" msstateID="sw4830A-ms98-a-0028-390" msstate="sw4830A-ms98-a-0028" nite:end="141.735250" nite:start="141.625250" orth="they">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw306)"/>
+</word>
+<word pos="VBP" nite:id="s52_6" msstateID="sw4830A-ms98-a-0028-391" msstate="sw4830A-ms98-a-0028" nite:end="141.925250" nite:start="141.735250" orth="get">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw307)"/>
+</word>
+<word pos="JJR" nite:id="s52_7" msstateID="sw4830A-ms98-a-0028-392" msstate="sw4830A-ms98-a-0028" nite:end="142.275250" nite:start="141.925250" orth="lesser">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw308)"/>
+</word>
+<word pos="NNS" nite:id="s52_8" msstateID="sw4830A-ms98-a-0028-393" msstate="sw4830A-ms98-a-0028" nite:end="142.985250" nite:start="142.275250" orth="sentences">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw309)"/>
+</word>
+<word pos="CC" nite:id="s54_1" msstateID="sw4830A-ms98-a-0028-395" msstate="sw4830A-ms98-a-0028" nite:end="143.304875" nite:start="143.035250" orth="and">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw310)"/>
+</word>
+<word pos="PRP" nite:id="s54_2" msstateID="sw4830A-ms98-a-0028-397" msstate="sw4830A-ms98-a-0028" nite:end="143.895250" nite:start="143.704125" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw311)"/>
+</word>
+<word pos="VBP" nite:id="s54_3" msstateID="sw4830A-ms98-a-0028-398" msstate="sw4830A-ms98-a-0028" nite:end="144.405250" nite:start="143.895250" orth="understand">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw312)"/>
+</word>
+<word pos="IN" nite:id="s54_4" msstateID="sw4830A-ms98-a-0028-399" msstate="sw4830A-ms98-a-0028" nite:end="144.525250" nite:start="144.405250" orth="that">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw313)"/>
+</word>
+<word pos="DT" nite:id="s54_5" msstateID="sw4830A-ms98-a-0028-400" msstate="sw4830A-ms98-a-0028" nite:end="144.605250" nite:start="144.525250" orth="the">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw314)"/>
+</word>
+<word pos="NNS" nite:id="s54_6" msstateID="sw4830A-ms98-a-0028-401" msstate="sw4830A-ms98-a-0028" nite:end="144.975250" nite:start="144.605250" orth="jails">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw315)"/>
+</word>
+<word pos="VBP" nite:id="s54_7" msstateID="sw4830A-ms98-a-0028-402" msstate="sw4830A-ms98-a-0028" nite:end="145.035250" nite:start="144.975250" orth="are">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw316)"/>
+</word>
+<word pos="JJ" nite:id="s54_8" msstateID="sw4830A-ms98-a-0028-403" msstate="sw4830A-ms98-a-0028" nite:end="145.275250" nite:start="145.035250" orth="full">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw317)"/>
+</word>
+<word pos="IN" nite:id="s54_9" msstateID="sw4830A-ms98-a-0028-404" msstate="sw4830A-ms98-a-0028" nite:end="145.335250" nite:start="145.275250" orth="of">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw318)"/>
+</word>
+<word pos="NNS" nite:id="s54_10" msstateID="sw4830A-ms98-a-0028-405" msstate="sw4830A-ms98-a-0028" nite:end="145.815250" nite:start="145.335250" orth="people">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw319)"/>
+</word>
+<sil nite:id="s54_11"/>
+<word pos="PRP" nite:id="s54_12" msstateID="sw4830A-ms98-a-0028-406" msstate="sw4830A-ms98-a-0028" nite:end="145.955250" nite:start="145.815250" orth="you">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw320)"/>
+</word>
+<word pos="VBP" nite:id="s54_13" msstateID="sw4830A-ms98-a-0028-407" msstate="sw4830A-ms98-a-0028" nite:end="146.189875" nite:start="145.955250" orth="know">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw321)"/>
+</word>
+<sil nite:id="s54_14"/>
+<word pos="UH" nite:id="s54_15" msstateID="sw4830A-ms98-a-0028-409" msstate="sw4830A-ms98-a-0028" nite:end="146.972875" nite:start="146.599375" orth="uh">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms28A_pw322)"/>
+</word>
+<word pos="CC" nite:id="s54_16" msstateID="sw4830A-ms98-a-0029-412" msstate="sw4830A-ms98-a-0029" nite:end="148.205250" nite:start="147.985250" orth="and">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms29A_pw323)"/>
+</word>
+<word pos="IN" nite:id="s54_17" msstateID="sw4830A-ms98-a-0029-413" msstate="sw4830A-ms98-a-0029" nite:end="148.355250" nite:start="148.205250" orth="that">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms29A_pw324)"/>
+</word>
+<word pos="PRP" nite:id="s54_18" msstateID="sw4830A-ms98-a-0029-414" msstate="sw4830A-ms98-a-0029" nite:end="148.485250" nite:start="148.355250" orth="they">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms29A_pw325)"/>
+</word>
+<word pos="VBP" nite:id="s54_19" msstateID="sw4830A-ms98-a-0029-415" msstate="sw4830A-ms98-a-0029" nite:end="148.665250" nite:start="148.485250" orth="have">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms29A_pw326)"/>
+</word>
+<trace nite:id="s54_20"/>
+<word pos="TO" nite:id="s54_21" msstateID="sw4830A-ms98-a-0029-416" msstate="sw4830A-ms98-a-0029" nite:end="148.805250" nite:start="148.665250" orth="to">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms29A_pw327)"/>
+</word>
+<word pos="VB" nite:id="s54_22" msstateID="sw4830A-ms98-a-0029-417" msstate="sw4830A-ms98-a-0029" nite:end="148.965250" nite:start="148.805250" orth="do">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms29A_pw328)"/>
+</word>
+<word pos="NN" nite:id="s54_23" msstateID="sw4830A-ms98-a-0029-418" msstate="sw4830A-ms98-a-0029" nite:end="149.535250" nite:start="148.965250" orth="something">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms29A_pw329)"/>
+</word>
+<punc nite:id="s54_24">.</punc>
+<word pos="CC" nite:id="s56_1" msstateID="sw4830A-ms98-a-0029-420" msstate="sw4830A-ms98-a-0029" nite:end="149.975250" nite:start="149.715250" orth="But">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms29A_pw330)"/>
+</word>
+<sil nite:id="s56_2"/>
+<word pos="PRP" nite:id="s56_3" msstateID="sw4830A-ms98-a-0029-422" msstate="sw4830A-ms98-a-0029" nite:end="150.355250" nite:start="150.245250" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms29A_pw331)"/>
+</word>
+<word pos="VBP" nite:id="s56_4" msstateID="sw4830A-ms98-a-0029-423" msstate="sw4830A-ms98-a-0029" nite:end="150.735250" nite:start="150.355250" orth="think">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms29A_pw332)"/>
+</word>
+<word pos="IN" nite:id="s56_5" msstateID="sw4830A-ms98-a-0029-424" msstate="sw4830A-ms98-a-0029" nite:end="150.985250" nite:start="150.735250" orth="that">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms29A_pw333)"/>
+</word>
+<word pos="DT" nite:id="s56_6" msstateID="sw4830A-ms98-a-0029-426" msstate="sw4830A-ms98-a-0029" nite:end="151.155250" nite:start="151.045250" orth="the">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms29A_pw334)"/>
+</word>
+<word pos="NN" nite:id="s56_7" msstateID="sw4830A-ms98-a-0029-427" msstate="sw4830A-ms98-a-0029" nite:end="151.545250" nite:start="151.155250" orth="reason">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms29A_pw335)"/>
+</word>
+<trace nite:id="s56_8"/>
+<word pos="PRP" nite:id="s56_9" msstateID="sw4830A-ms98-a-0029-428" msstate="sw4830A-ms98-a-0029" nite:end="151.755250" nite:start="151.545250" orth="they">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms29A_pw336)"/>
+</word>
+<word pos="VBP" nite:id="s56_10" msstateID="sw4830A-ms98-a-0029-429" msstate="sw4830A-ms98-a-0029" nite:end="151.895250" nite:start="151.755250" orth="are">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms29A_pw337)"/>
+</word>
+<word pos="JJ" nite:id="s56_11" msstateID="sw4830A-ms98-a-0029-430" msstate="sw4830A-ms98-a-0029" nite:end="152.296250" nite:start="151.895250" orth="full">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms29A_pw338)"/>
+</word>
+<trace nite:id="s56_12"/>
+<word pos="VBZ" nite:id="s56_13" msstateID="sw4830A-ms98-a-0029-432" msstate="sw4830A-ms98-a-0029" nite:end="152.810875" nite:start="152.639000" orth="is">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms29A_pw339)"/>
+</word>
+<word pos="IN" nite:id="s56_14" msstateID="sw4830A-ms98-a-0029-433" msstate="sw4830A-ms98-a-0029" nite:end="153.375250" nite:start="152.810875" orth="because">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms29A_pw340)"/>
+</word>
+<word pos="PRP" nite:id="s56_15" msstateID="sw4830A-ms98-a-0029-434" msstate="sw4830A-ms98-a-0029" nite:end="153.495250" nite:start="153.375250" orth="they">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms29A_pw341)"/>
+</word>
+<word pos="VBP" nite:id="s56_16" msstateID="sw4830A-ms98-a-0029-435" msstate="sw4830A-ms98-a-0029" nite:end="153.725250" nite:start="153.495250" orth="know">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms29A_pw342)"/>
+</word>
+<word pos="IN" nite:id="s56_17" msstateID="sw4830A-ms98-a-0029-436" msstate="sw4830A-ms98-a-0029" nite:end="153.855250" nite:start="153.725250" orth="that">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms29A_pw343)"/>
+</word>
+<word pos="PRP" nite:id="s56_18" msstateID="sw4830A-ms98-a-0029-438" msstate="sw4830A-ms98-a-0029" nite:end="154.015250" nite:start="153.905250" orth="they">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms29A_pw344)"/>
+</word>
+<word pos="MD" nite:id="s56_19" msstateID="sw4830A-ms98-a-0029-439" msstate="sw4830A-ms98-a-0029" nite:end="154.265250" nite:start="154.015250" orth="can">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms29A_pw345)"/>
+</word>
+<word pos="VB" nite:id="s56_20" msstateID="sw4830A-ms98-a-0029-440" msstate="sw4830A-ms98-a-0029" nite:end="154.415250" nite:start="154.265250" orth="get">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms29A_pw346)"/>
+</word>
+<word pos="RB" nite:id="s56_21" msstateID="sw4830A-ms98-a-0029-441" msstate="sw4830A-ms98-a-0029" nite:end="154.685250" nite:start="154.415250" orth="away">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms29A_pw347)"/>
+</word>
+<word pos="IN" nite:id="s56_22" msstateID="sw4830A-ms98-a-0029-442" msstate="sw4830A-ms98-a-0029" nite:end="154.835250" nite:start="154.685250" orth="with">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms29A_pw348)"/>
+</word>
+<word pos="PRP" nite:id="s56_23" msstateID="sw4830A-ms98-a-0029-443" msstate="sw4830A-ms98-a-0029" nite:end="154.975250" nite:start="154.835250" orth="it">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms29A_pw349)"/>
+</word>
+<punc nite:id="s56_24">.</punc>
+<word pos="PRP" nite:id="s58_2" msstateID="sw4830A-ms98-a-0030-446" msstate="sw4830A-ms98-a-0030" swWord="you" nite:end="156.378125" nite:start="156.208125" orth="Yo-">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms30A_pw350)"/>
+</word>
+<sil nite:id="s58_3"/>
+<word pos="PRP" nite:id="s58_5" msstateID="sw4830A-ms98-a-0030-447" msstate="sw4830A-ms98-a-0030" nite:end="156.498125" nite:start="156.378125" orth="you">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms30A_pw351)"/>
+</word>
+<word pos="VBP" nite:id="s58_7" msstateID="sw4830A-ms98-a-0030-448" msstate="sw4830A-ms98-a-0030" nite:end="156.558125" nite:start="156.498125" orth="know">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms30A_pw352)"/>
+</word>
+<word pos="WP" nite:id="s58_8" msstateID="sw4830A-ms98-a-0030-449" msstate="sw4830A-ms98-a-0030" nite:end="156.648125" nite:start="156.558125" orth="what">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms30A_pw353)"/>
+</word>
+<word pos="PRP" nite:id="s58_9" msstateID="sw4830A-ms98-a-0030-450" msstate="sw4830A-ms98-a-0030" swWord="i'm" nite:end="n/a" nite:start="156.648125" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms30A_pw354)"/>
+</word>
+<word pos="VBP" nite:id="s58_10" msstateID="sw4830A-ms98-a-0030-450" msstate="sw4830A-ms98-a-0030" swWord="i'm" nite:end="156.718125" nite:start="n/a" orth="'m">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms30A_pw354)"/>
+</word>
+<word pos="VBG" nite:id="s58_11" msstateID="sw4830A-ms98-a-0030-451" msstate="sw4830A-ms98-a-0030" nite:end="156.978125" nite:start="156.718125" orth="saying">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms30A_pw355)"/>
+</word>
+<trace nite:id="s58_12"/>
+<punc nite:id="s58_13">?</punc>
+<word pos="IN" nite:id="s59_1" msstateID="sw4830A-ms98-a-0030-452" msstate="sw4830A-ms98-a-0030" swWord="tha[t]-" nite:end="157.118125" nite:start="156.978125" orth="That">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms30A_pw356)"/>
+</word>
+<word pos="PRP" nite:id="s59_4" msstateID="sw4830A-ms98-a-0030-453" msstate="sw4830A-ms98-a-0030" swWord="we" nite:end="157.268125" nite:start="157.118125" orth="w-">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms30A_pw357)"/>
+</word>
+<sil nite:id="s59_5"/>
+<word pos="PRP" nite:id="s59_7" msstateID="sw4830A-ms98-a-0030-454" msstate="sw4830A-ms98-a-0030" nite:end="157.468125" nite:start="157.268125" orth="we">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms30A_pw358)"/>
+</word>
+<word pos="VBP" nite:id="s59_9" msstateID="sw4830A-ms98-a-0030-455" msstate="sw4830A-ms98-a-0030" swWord="don't" nite:end="n/a" nite:start="157.468125" orth="do">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms30A_pw359)"/>
+</word>
+<word pos="RB" nite:id="s59_10" msstateID="sw4830A-ms98-a-0030-455" msstate="sw4830A-ms98-a-0030" swWord="don't" nite:end="157.755000" nite:start="n/a" orth="n't">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms30A_pw359)"/>
+</word>
+<word pos="VB" nite:id="s59_11" msstateID="sw4830A-ms98-a-0030-456" msstate="sw4830A-ms98-a-0030" nite:end="158.308625" nite:start="157.755000" orth="have">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms30A_pw360)"/>
+</word>
+<sil nite:id="s59_12"/>
+<word pos="UH" nite:id="s59_14" msstateID="sw4830A-ms98-a-0030-457" msstate="sw4830A-ms98-a-0030" swWord="um" nite:end="158.698125" nite:start="158.308625" orth="uh">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms30A_pw361)"/>
+</word>
+<sil nite:id="s59_15"/>
+<word pos="UH" nite:id="s59_16" msstateID="sw4830A-ms98-a-0030-459" msstate="sw4830A-ms98-a-0030" nite:end="159.818125" nite:start="159.608125" orth="well">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms30A_pw362)"/>
+</word>
+<word pos="DT" nite:id="s59_17" msstateID="sw4830A-ms98-a-0030-460" msstate="sw4830A-ms98-a-0030" nite:end="159.868125" nite:start="159.818125" orth="a">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms30A_pw363)"/>
+</word>
+<word pos="NN" nite:id="s59_18" msstateID="sw4830A-ms98-a-0030-461" msstate="sw4830A-ms98-a-0030" nite:end="160.078125" nite:start="159.868125" orth="lot">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms30A_pw364)"/>
+</word>
+<word pos="IN" nite:id="s59_19" msstateID="sw4830A-ms98-a-0030-462" msstate="sw4830A-ms98-a-0030" nite:end="160.158125" nite:start="160.078125" orth="of">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms30A_pw365)"/>
+</word>
+<word pos="NNS" nite:id="s59_20" msstateID="sw4830A-ms98-a-0030-463" msstate="sw4830A-ms98-a-0030" nite:end="160.478125" nite:start="160.158125" orth="states">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms30A_pw366)"/>
+</word>
+<word pos="VBP" nite:id="s59_21" msstateID="sw4830A-ms98-a-0030-464" msstate="sw4830A-ms98-a-0030" swWord="don't" nite:end="n/a" nite:start="160.478125" orth="do">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms30A_pw367)"/>
+</word>
+<word pos="RB" nite:id="s59_22" msstateID="sw4830A-ms98-a-0030-464" msstate="sw4830A-ms98-a-0030" swWord="don't" nite:end="160.698125" nite:start="n/a" orth="n't">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms30A_pw367)"/>
+</word>
+<word pos="VB" nite:id="s59_23" msstateID="sw4830A-ms98-a-0030-465" msstate="sw4830A-ms98-a-0030" nite:end="160.858125" nite:start="160.698125" orth="have">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms30A_pw368)"/>
+</word>
+<word pos="JJ" nite:id="s59_25" msstateID="sw4830A-ms98-a-0030-466" msstate="sw4830A-ms98-a-0030" nite:end="161.228125" nite:start="160.858125" orth="capital">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms30A_pw369)"/>
+</word>
+<word pos="NN" nite:id="s59_26" msstateID="sw4830A-ms98-a-0030-467" msstate="sw4830A-ms98-a-0030" nite:end="161.928125" nite:start="161.228125" orth="punishment">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms30A_pw370)"/>
+</word>
+<punc nite:id="s59_27">.</punc>
+<word pos="CC" nite:id="s61_1" msstateID="sw4830A-ms98-a-0031-470" msstate="sw4830A-ms98-a-0031" nite:end="163.168500" nite:start="162.818500" orth="And">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms31A_pw371)"/>
+</word>
+<sil nite:id="s61_2"/>
+<word pos="UH" nite:id="s61_3" msstateID="sw4830A-ms98-a-0031-471" msstate="sw4830A-ms98-a-0031" swWord="um" nite:end="163.578500" nite:start="163.168500" orth="uh">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms31A_pw372)"/>
+</word>
+<word pos="PRP" nite:id="s61_5" msstateID="sw4830A-ms98-a-0032-474" msstate="sw4830A-ms98-a-0032" swWord="i-" nite:end="165.036125" nite:start="n/a" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw373)"/>
+</word>
+<sil nite:id="s61_6"/>
+<word pos="PRP" nite:id="s61_8" msstateID="sw4830A-ms98-a-0032-475" msstate="sw4830A-ms98-a-0032" nite:end="165.196125" nite:start="165.036125" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw374)"/>
+</word>
+<word pos="VBP" nite:id="s61_10" msstateID="sw4830A-ms98-a-0032-476" msstate="sw4830A-ms98-a-0032" nite:end="165.496125" nite:start="165.196125" orth="think">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw375)"/>
+</word>
+<trace nite:id="s61_11"/>
+<word pos="PRP" nite:id="s61_12" msstateID="sw4830A-ms98-a-0032-477" msstate="sw4830A-ms98-a-0032" nite:end="165.616125" nite:start="165.496125" orth="they">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw376)"/>
+</word>
+<word pos="MD" nite:id="s61_13" msstateID="sw4830A-ms98-a-0032-478" msstate="sw4830A-ms98-a-0032" nite:end="166.027625" nite:start="165.616125" orth="should">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw377)"/>
+</word>
+<trace nite:id="s61_14"/>
+<punc nite:id="s61_15">.</punc>
+<word pos="PRP" nite:id="s63_2" msstateID="sw4830A-ms98-a-0032-480" msstate="sw4830A-ms98-a-0032" nite:end="166.306125" nite:start="166.238625" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw378)"/>
+</word>
+<sil nite:id="s63_3"/>
+<word pos="CC" nite:id="s63_5" msstateID="sw4830A-ms98-a-0032-481" msstate="sw4830A-ms98-a-0032" nite:end="166.586125" nite:start="166.306125" orth="and">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw379)"/>
+</word>
+<word pos="PRP" nite:id="s63_6" msstateID="sw4830A-ms98-a-0032-482" msstate="sw4830A-ms98-a-0032" nite:end="166.666125" nite:start="166.586125" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw380)"/>
+</word>
+<word pos="VBP" nite:id="s63_8" msstateID="sw4830A-ms98-a-0032-483" msstate="sw4830A-ms98-a-0032" nite:end="166.896125" nite:start="166.666125" orth="think">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw381)"/>
+</word>
+<trace nite:id="s63_9"/>
+<word pos="IN" nite:id="s63_10" msstateID="sw4830A-ms98-a-0032-484" msstate="sw4830A-ms98-a-0032" nite:end="167.016125" nite:start="166.896125" orth="if">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw382)"/>
+</word>
+<word pos="DT" nite:id="s63_11" msstateID="sw4830A-ms98-a-0032-485" msstate="sw4830A-ms98-a-0032" nite:end="167.100500" nite:start="167.016125" orth="a">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw383)"/>
+</word>
+<word pos="NN" nite:id="s63_12" msstateID="sw4830A-ms98-a-0032-486" msstate="sw4830A-ms98-a-0032" nite:end="167.646625" nite:start="167.100500" orth="person">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw384)"/>
+</word>
+<word pos="VBZ" nite:id="s63_13" msstateID="sw4830A-ms98-a-0032-487" msstate="sw4830A-ms98-a-0032" nite:end="167.866125" nite:start="167.646625" orth="is">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw385)"/>
+</word>
+<word pos="JJ" nite:id="s63_14" msstateID="sw4830A-ms98-a-0032-489" msstate="sw4830A-ms98-a-0032" nite:end="168.336125" nite:start="167.996125" orth="guilty">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw386)"/>
+</word>
+<word pos="IN" nite:id="s63_15" msstateID="sw4830A-ms98-a-0032-490" msstate="sw4830A-ms98-a-0032" nite:end="168.396125" nite:start="168.336125" orth="of">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw387)"/>
+</word>
+<trace nite:id="s63_16"/>
+<word pos="VBG" nite:id="s63_17" msstateID="sw4830A-ms98-a-0032-491" msstate="sw4830A-ms98-a-0032" nite:end="168.776125" nite:start="168.396125" orth="taking">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw388)"/>
+</word>
+<word pos="NN" nite:id="s63_18" msstateID="sw4830A-ms98-a-0032-492" msstate="sw4830A-ms98-a-0032" swWord="someone's" nite:end="n/a" nite:start="168.776125" orth="someone">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw389)"/>
+</word>
+<word pos="POS" nite:id="s63_19" msstateID="sw4830A-ms98-a-0032-492" msstate="sw4830A-ms98-a-0032" swWord="someone's" nite:end="169.216125" nite:start="n/a" orth="'s">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw389)"/>
+</word>
+<word pos="NN" nite:id="s63_20" msstateID="sw4830A-ms98-a-0032-493" msstate="sw4830A-ms98-a-0032" nite:end="169.566125" nite:start="169.216125" orth="life">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw390)"/>
+</word>
+<word pos="CC" nite:id="s63_21" msstateID="sw4830A-ms98-a-0032-495" msstate="sw4830A-ms98-a-0032" nite:end="169.946125" nite:start="169.806125" orth="and">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw391)"/>
+</word>
+<word pos="IN" nite:id="s63_22" msstateID="sw4830A-ms98-a-0032-496" msstate="sw4830A-ms98-a-0032" nite:end="170.116125" nite:start="169.946125" orth="like">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw392)"/>
+</word>
+<word pos="PRP" nite:id="s63_23" msstateID="sw4830A-ms98-a-0032-497" msstate="sw4830A-ms98-a-0032" nite:end="170.216125" nite:start="170.116125" orth="you">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw393)"/>
+</word>
+<word pos="VBP" nite:id="s63_24" msstateID="sw4830A-ms98-a-0032-498" msstate="sw4830A-ms98-a-0032" nite:end="170.486125" nite:start="170.216125" orth="say">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw394)"/>
+</word>
+<sil nite:id="s63_25"/>
+<word pos="PRP" nite:id="s63_28" msstateID="sw4830A-ms98-a-0032-499" msstate="sw4830A-ms98-a-0032" swWord="it's" nite:end="n/a" nite:start="170.486125" orth="it">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw395)"/>
+</word>
+<word pos="BES" nite:id="s63_29" msstateID="sw4830A-ms98-a-0032-499" msstate="sw4830A-ms98-a-0032" swWord="it's" nite:end="170.796125" nite:start="n/a" orth="'s">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw395)"/>
+</word>
+<sil nite:id="s63_30"/>
+<word pos="PRP" nite:id="s63_32" msstateID="sw4830A-ms98-a-0032-500" msstate="sw4830A-ms98-a-0032" swWord="it's" nite:end="n/a" nite:start="170.796125" orth="it">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw396)"/>
+</word>
+<word pos="BES" nite:id="s63_33" msstateID="sw4830A-ms98-a-0032-500" msstate="sw4830A-ms98-a-0032" swWord="it's" nite:end="171.066125" nite:start="n/a" orth="'s">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw396)"/>
+</word>
+<sil nite:id="s63_34"/>
+<word pos="EX" nite:id="s63_37" msstateID="sw4830A-ms98-a-0032-501" msstate="sw4830A-ms98-a-0032" swWord="there's" nite:end="n/a" nite:start="171.066125" orth="there">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw397)"/>
+</word>
+<word pos="BES" nite:id="s63_38" msstateID="sw4830A-ms98-a-0032-501" msstate="sw4830A-ms98-a-0032" swWord="there's" nite:end="171.326125" nite:start="n/a" orth="'s">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw397)"/>
+</word>
+<word pos="DT" nite:id="s63_40" msstateID="sw4830A-ms98-a-0032-502" msstate="sw4830A-ms98-a-0032" nite:end="171.616125" nite:start="171.326125" orth="no">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw398)"/>
+</word>
+<word pos="NN" nite:id="s63_41" msstateID="sw4830A-ms98-a-0032-503" msstate="sw4830A-ms98-a-0032" nite:end="171.916125" nite:start="171.616125" orth="doubt">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw399)"/>
+</word>
+<word pos="RB" nite:id="s63_42" msstateID="sw4830A-ms98-a-0032-504" msstate="sw4830A-ms98-a-0032" nite:end="172.610625" nite:start="171.916125" orth="whatsoever">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw400)"/>
+</word>
+<punc nite:id="s63_43">.</punc>
+<word pos="IN" nite:id="s63_44" msstateID="sw4830A-ms98-a-0032-506" msstate="sw4830A-ms98-a-0032" nite:end="173.406125" nite:start="173.175625" orth="Like">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw401)"/>
+</word>
+<word pos="JJ" nite:id="s63_45" msstateID="sw4830A-ms98-a-0032-507" msstate="sw4830A-ms98-a-0032" nite:end="173.716125" nite:start="173.406125" orth="drunk">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw402)"/>
+</word>
+<word pos="NNS" nite:id="s63_46" msstateID="sw4830A-ms98-a-0032-508" msstate="sw4830A-ms98-a-0032" nite:end="174.186125" nite:start="173.716125" orth="drivers">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw403)"/>
+</word>
+<word pos="WDT" nite:id="s63_47" msstateID="sw4830A-ms98-a-0032-509" msstate="sw4830A-ms98-a-0032" nite:end="174.356125" nite:start="174.186125" orth="that">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw404)"/>
+</word>
+<trace nite:id="s63_48"/>
+<word pos="VBP" nite:id="s63_49" msstateID="sw4830A-ms98-a-0032-510" msstate="sw4830A-ms98-a-0032" nite:end="174.606125" nite:start="174.356125" orth="kill">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw405)"/>
+</word>
+<word pos="NNS" nite:id="s63_50" msstateID="sw4830A-ms98-a-0032-511" msstate="sw4830A-ms98-a-0032" nite:end="175.191875" nite:start="174.606125" orth="people">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw406)"/>
+</word>
+<word pos="CC" nite:id="s64_1" msstateID="sw4830A-ms98-a-0032-513" msstate="sw4830A-ms98-a-0032" nite:end="176.016125" nite:start="175.696625" orth="and">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw407)"/>
+</word>
+<sil nite:id="s64_2"/>
+<word pos="UH" nite:id="s64_3" msstateID="sw4830A-ms98-a-0032-514" msstate="sw4830A-ms98-a-0032" swWord="um" nite:end="176.375750" nite:start="176.016125" orth="uh">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms32A_pw408)"/>
+</word>
+<sil nite:id="s64_4"/>
+<word pos="PRP" nite:id="s64_5" msstateID="sw4830A-ms98-a-0033-517" msstate="sw4830A-ms98-a-0033" nite:end="177.600000" nite:start="177.500000" orth="you">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw409)"/>
+</word>
+<word pos="VBP" nite:id="s64_6" msstateID="sw4830A-ms98-a-0033-518" msstate="sw4830A-ms98-a-0033" nite:end="177.780000" nite:start="177.600000" orth="know">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw410)"/>
+</word>
+<sil nite:id="s64_7"/>
+<word pos="DT" nite:id="s64_8" msstateID="sw4830A-ms98-a-0033-519" msstate="sw4830A-ms98-a-0033" nite:end="178.010000" nite:start="177.780000" orth="all">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw411)"/>
+</word>
+<word pos="PRP" nite:id="s66_2" msstateID="sw4830A-ms98-a-0033-521" msstate="sw4830A-ms98-a-0033" nite:end="178.885125" nite:start="178.640000" orth="they">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw412)"/>
+</word>
+<sil nite:id="s66_3"/>
+<word pos="PRP" nite:id="s66_5" msstateID="sw4830A-ms98-a-0033-522" msstate="sw4830A-ms98-a-0033" swWord="they're" nite:end="n/a" nite:start="178.885125" orth="they">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw413)"/>
+</word>
+<word pos="VBP" nite:id="s66_6" msstateID="sw4830A-ms98-a-0033-522" msstate="sw4830A-ms98-a-0033" swWord="they're" nite:end="179.035750" nite:start="n/a" orth="'re">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw413)"/>
+</word>
+<word pos="VBN" nite:id="s66_8" msstateID="sw4830A-ms98-a-0033-523" msstate="sw4830A-ms98-a-0033" nite:end="179.460000" nite:start="179.035750" orth="caught">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw414)"/>
+</word>
+<trace nite:id="s66_9"/>
+<word pos="JJ" nite:id="s66_10" msstateID="sw4830A-ms98-a-0033-524" msstate="sw4830A-ms98-a-0033" nite:end="179.690000" nite:start="179.460000" orth="dead">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw415)"/>
+</word>
+<word pos="IN" nite:id="s66_11" msstateID="sw4830A-ms98-a-0033-525" msstate="sw4830A-ms98-a-0033" nite:end="179.820000" nite:start="179.690000" orth="to">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw416)"/>
+</word>
+<word pos="NNS" nite:id="s66_12" msstateID="sw4830A-ms98-a-0033-526" msstate="sw4830A-ms98-a-0033" nite:end="180.160000" nite:start="179.820000" orth="rights">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw417)"/>
+</word>
+<punc nite:id="s66_13">.</punc>
+<word pos="PRP" nite:id="s67_2" msstateID="sw4830A-ms98-a-0033-527" msstate="sw4830A-ms98-a-0033" swWord="i-" nite:end="180.360000" nite:start="n/a" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw418)"/>
+</word>
+<sil nite:id="s67_3"/>
+<word pos="PRP" nite:id="s67_5" msstateID="sw4830A-ms98-a-0033-528" msstate="sw4830A-ms98-a-0033" nite:end="180.480000" nite:start="180.360000" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw419)"/>
+</word>
+<word pos="RB" nite:id="s67_7" msstateID="sw4830A-ms98-a-0033-529" msstate="sw4830A-ms98-a-0033" nite:end="180.770000" nite:start="180.480000" orth="just">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw420)"/>
+</word>
+<word pos="VBP" nite:id="s67_8" msstateID="sw4830A-ms98-a-0033-530" msstate="sw4830A-ms98-a-0033" nite:end="180.990000" nite:start="180.770000" orth="think">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw421)"/>
+</word>
+<word pos="IN" nite:id="s67_9" msstateID="sw4830A-ms98-a-0033-531" msstate="sw4830A-ms98-a-0033" nite:end="181.170000" nite:start="180.990000" orth="that">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw422)"/>
+</word>
+<word pos="DT" nite:id="s67_12" msstateID="sw4830A-ms98-a-0033-532" msstate="sw4830A-ms98-a-0033" swWord="that's" nite:end="n/a" nite:start="181.170000" orth="that">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw423)"/>
+</word>
+<word pos="BES" nite:id="s67_13" msstateID="sw4830A-ms98-a-0033-532" msstate="sw4830A-ms98-a-0033" swWord="that's" nite:end="181.700000" nite:start="n/a" orth="'s">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw423)"/>
+</word>
+<sil nite:id="s67_14"/>
+<word pos="PRP" nite:id="s67_16" msstateID="sw4830A-ms98-a-0033-534" msstate="sw4830A-ms98-a-0033" swWord="they've" nite:end="n/a" nite:start="182.150000" orth="they">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw424)"/>
+</word>
+<word pos="VBP" nite:id="s67_17" msstateID="sw4830A-ms98-a-0033-534" msstate="sw4830A-ms98-a-0033" swWord="they've" nite:end="182.310000" nite:start="n/a" orth="'ve">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw424)"/>
+</word>
+<sil nite:id="s67_18"/>
+<word pos="PRP" nite:id="s67_21" msstateID="sw4830A-ms98-a-0033-536" msstate="sw4830A-ms98-a-0033" swWord="they've" nite:end="n/a" nite:start="182.450000" orth="they">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw425)"/>
+</word>
+<word pos="VBP" nite:id="s67_22" msstateID="sw4830A-ms98-a-0033-536" msstate="sw4830A-ms98-a-0033" swWord="they've" nite:end="182.610000" nite:start="n/a" orth="'ve">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw425)"/>
+</word>
+<word pos="VBN" nite:id="s67_24" msstateID="sw4830A-ms98-a-0033-537" msstate="sw4830A-ms98-a-0033" nite:end="183.010000" nite:start="182.610000" orth="taken">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw426)"/>
+</word>
+<word pos="DT" nite:id="s67_25" msstateID="sw4830A-ms98-a-0033-538" msstate="sw4830A-ms98-a-0033" nite:end="183.090000" nite:start="183.010000" orth="a">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw427)"/>
+</word>
+<word pos="NN" nite:id="s67_26" msstateID="sw4830A-ms98-a-0033-539" msstate="sw4830A-ms98-a-0033" nite:end="183.400000" nite:start="183.090000" orth="life">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw428)"/>
+</word>
+<word pos="CC" nite:id="s68_1" msstateID="sw4830A-ms98-a-0033-540" msstate="sw4830A-ms98-a-0033" nite:end="183.610000" nite:start="183.400000" orth="and">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw429)"/>
+</word>
+<word pos="IN" nite:id="s68_3" msstateID="sw4830A-ms98-a-0033-541" msstate="sw4830A-ms98-a-0033" nite:end="183.780000" nite:start="183.610000" orth="if">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw430)"/>
+</word>
+<sil nite:id="s68_4"/>
+<word pos="PRP" nite:id="s68_7" msstateID="sw4830A-ms98-a-0033-543" msstate="sw4830A-ms98-a-0033" nite:end="184.250000" nite:start="184.110000" orth="they">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw431)"/>
+</word>
+<word pos="MD" nite:id="s68_8" msstateID="sw4830A-ms98-a-0033-544" msstate="sw4830A-ms98-a-0033" nite:end="184.460000" nite:start="184.250000" orth="should">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw432)"/>
+</word>
+<word pos="VB" nite:id="s68_9" msstateID="sw4830A-ms98-a-0033-546" msstate="sw4830A-ms98-a-0033" nite:end="184.770000" nite:start="184.570000" orth="pay">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw433)"/>
+</word>
+<word pos="IN" nite:id="s68_10" msstateID="sw4830A-ms98-a-0033-547" msstate="sw4830A-ms98-a-0033" nite:end="185.040000" nite:start="184.770000" orth="for">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw434)"/>
+</word>
+<word pos="PRP" nite:id="s68_11" msstateID="sw4830A-ms98-a-0033-548" msstate="sw4830A-ms98-a-0033" nite:end="185.170000" nite:start="185.040000" orth="it">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw435)"/>
+</word>
+<word pos="IN" nite:id="s68_12" msstateID="sw4830A-ms98-a-0033-549" msstate="sw4830A-ms98-a-0033" nite:end="185.360000" nite:start="185.170000" orth="with">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw436)"/>
+</word>
+<word pos="PRP$" nite:id="s68_13" msstateID="sw4830A-ms98-a-0033-550" msstate="sw4830A-ms98-a-0033" nite:end="185.510000" nite:start="185.360000" orth="their">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw437)"/>
+</word>
+<word pos="NN" nite:id="s68_14" msstateID="sw4830A-ms98-a-0033-551" msstate="sw4830A-ms98-a-0033" nite:end="185.860000" nite:start="185.510000" orth="life">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms33A_pw438)"/>
+</word>
+<punc nite:id="s68_15">.</punc>
+<word pos="UH" nite:id="s71_1" msstateID="sw4830A-ms98-a-0035-555" msstate="sw4830A-ms98-a-0035" nite:end="191.240125" nite:start="190.900125" orth="Yeah">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms35A_pw439)"/>
+</word>
+<punc nite:id="s71_2">.</punc>
+<word pos="UH" nite:id="s74_1" msstateID="sw4830A-ms98-a-0037-559" msstate="sw4830A-ms98-a-0037" nite:end="194.869500" nite:start="194.419500" orth="Uh-huh">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms37A_pw440)"/>
+</word>
+<punc nite:id="s74_2">.</punc>
+<word pos="UH" nite:id="s76_1" msstateID="sw4830A-ms98-a-0039-563" msstate="sw4830A-ms98-a-0039" nite:end="201.714125" nite:start="201.469250" orth="Oh">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms39A_pw441)"/>
+</word>
+<sil nite:id="s76_2"/>
+<word pos="UH" nite:id="s76_3" msstateID="sw4830A-ms98-a-0039-564" msstate="sw4830A-ms98-a-0039" nite:end="202.074125" nite:start="201.714125" orth="really">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms39A_pw442)"/>
+</word>
+<punc nite:id="s76_4">.</punc>
+<word pos="PRP" nite:id="s79_1" msstateID="sw4830A-ms98-a-0041-568" msstate="sw4830A-ms98-a-0041" nite:end="205.936250" nite:start="205.506250" orth="It">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms41A_pw443)"/>
+</word>
+<sil nite:id="s79_2"/>
+<word pos="UH" nite:id="s79_3" msstateID="sw4830A-ms98-a-0041-569" msstate="sw4830A-ms98-a-0041" nite:end="206.069125" nite:start="205.936250" orth="uh">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms41A_pw444)"/>
+</word>
+<sil nite:id="s79_4"/>
+<sil nite:id="s79_5"/>
+<word pos="UH" nite:id="s80_1" msstateID="sw4830A-ms98-a-0042-573" msstate="sw4830A-ms98-a-0042" nite:end="207.765875" nite:start="207.405875" orth="Yeah">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms42A_pw445)"/>
+</word>
+<punc nite:id="s80_2">.</punc>
+<word pos="PRP" nite:id="s83_1" msstateID="sw4830A-ms98-a-0044-577" msstate="sw4830A-ms98-a-0044" nite:end="211.545375" nite:start="211.431500" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms44A_pw446)"/>
+</word>
+<word pos="VBP" nite:id="s83_2" msstateID="sw4830A-ms98-a-0044-578" msstate="sw4830A-ms98-a-0044" nite:end="211.851500" nite:start="211.545375" orth="know">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms44A_pw447)"/>
+</word>
+<word pos="IN" nite:id="s83_4" msstateID="sw4830A-ms98-a-0044-579" msstate="sw4830A-ms98-a-0044" nite:end="212.131500" nite:start="211.851500" orth="that">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms44A_pw448)"/>
+</word>
+<sil nite:id="s83_5"/>
+<word pos="IN" nite:id="s83_7" msstateID="sw4830A-ms98-a-0044-580" msstate="sw4830A-ms98-a-0044" swWord="the" nite:end="212.221500" nite:start="212.131500" orth="that">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms44A_pw449)"/>
+</word>
+<punc nite:id="s83_10">.</punc>
+<word pos="UH" nite:id="s84_1" msstateID="sw4830A-ms98-a-0046-585" msstate="sw4830A-ms98-a-0046" nite:end="215.952875" nite:start="215.457500" orth="Uh-huh">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms46A_pw450)"/>
+</word>
+<punc nite:id="s84_2">.</punc>
+<word pos="CC" nite:id="s85_1" msstateID="sw4830A-ms98-a-0047-588" msstate="sw4830A-ms98-a-0047" swWord="an[d]-" nite:end="217.182125" nite:start="216.952125" orth="And">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms47A_pw451)"/>
+</word>
+<sil nite:id="s85_2"/>
+<word pos="PRP" nite:id="s85_3" msstateID="sw4830A-ms98-a-0047-589" msstate="sw4830A-ms98-a-0047" nite:end="217.282125" nite:start="217.182125" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms47A_pw452)"/>
+</word>
+<word pos="VBP" nite:id="s85_4" msstateID="sw4830A-ms98-a-0047-590" msstate="sw4830A-ms98-a-0047" swWord="don't" nite:end="n/a" nite:start="217.282125" orth="do">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms47A_pw453)"/>
+</word>
+<word pos="RB" nite:id="s85_5" msstateID="sw4830A-ms98-a-0047-590" msstate="sw4830A-ms98-a-0047" swWord="don't" nite:end="217.495875" nite:start="n/a" orth="n't">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms47A_pw453)"/>
+</word>
+<word pos="VB" nite:id="s85_6" msstateID="sw4830A-ms98-a-0047-591" msstate="sw4830A-ms98-a-0047" nite:end="217.758875" nite:start="217.495875" orth="know">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms47A_pw454)"/>
+</word>
+<punc nite:id="s85_7">.</punc>
+<word pos="UH" nite:id="s86_1" msstateID="sw4830A-ms98-a-0047-592" msstate="sw4830A-ms98-a-0047" nite:end="218.052625" nite:start="217.758875" orth="Uh">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms47A_pw455)"/>
+</word>
+<sil nite:id="s86_2"/>
+<word pos="WP" nite:id="s86_3" msstateID="sw4830A-ms98-a-0047-594" msstate="sw4830A-ms98-a-0047" nite:end="218.502125" nite:start="218.272125" orth="what">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms47A_pw457)"/>
+</word>
+<word pos="MD" nite:id="s86_4" msstateID="sw4830A-ms98-a-0047-595" msstate="sw4830A-ms98-a-0047" nite:end="218.672125" nite:start="218.502125" orth="would">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms47A_pw458)"/>
+</word>
+<word pos="PRP" nite:id="s86_5" msstateID="sw4830A-ms98-a-0047-596" msstate="sw4830A-ms98-a-0047" nite:end="218.842125" nite:start="218.672125" orth="you">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms47A_pw459)"/>
+</word>
+<word pos="VB" nite:id="s86_6" msstateID="sw4830A-ms98-a-0047-597" msstate="sw4830A-ms98-a-0047" nite:end="218.992125" nite:start="218.842125" orth="do">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms47A_pw460)"/>
+</word>
+<trace nite:id="s86_7"/>
+<trace nite:id="s86_8"/>
+<word pos="TO" nite:id="s86_9" msstateID="sw4830A-ms98-a-0047-598" msstate="sw4830A-ms98-a-0047" nite:end="219.352125" nite:start="218.992125" orth="to">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms47A_pw461)"/>
+</word>
+<word pos="VB" nite:id="s86_10" msstateID="sw4830A-ms98-a-0047-599" msstate="sw4830A-ms98-a-0047" nite:end="219.772125" nite:start="219.352125" orth="change">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms47A_pw462)"/>
+</word>
+<word pos="PRP" nite:id="s86_11" msstateID="sw4830A-ms98-a-0047-600" msstate="sw4830A-ms98-a-0047" nite:end="219.972125" nite:start="219.772125" orth="it">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms47A_pw463)"/>
+</word>
+<punc nite:id="s86_12">?</punc>
+<word pos="TO" nite:id="s86_13" msstateID="sw4830A-ms98-a-0047-601" msstate="sw4830A-ms98-a-0047" nite:end="220.092125" nite:start="219.972125" orth="To">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms47A_pw464)"/>
+</word>
+<word pos="VB" nite:id="s86_14" msstateID="sw4830A-ms98-a-0047-602" msstate="sw4830A-ms98-a-0047" nite:end="220.312125" nite:start="220.092125" orth="make">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms47A_pw465)"/>
+</word>
+<word pos="PRP" nite:id="s86_15" msstateID="sw4830A-ms98-a-0047-603" msstate="sw4830A-ms98-a-0047" nite:end="220.422125" nite:start="220.312125" orth="it">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms47A_pw466)"/>
+</word>
+<word pos="JJR" nite:id="s86_16" msstateID="sw4830A-ms98-a-0047-604" msstate="sw4830A-ms98-a-0047" nite:end="220.802125" nite:start="220.422125" orth="better">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms47A_pw467)"/>
+</word>
+<punc nite:id="s86_17">?</punc>
+<word pos="UH" nite:id="s92_1" msstateID="sw4830A-ms98-a-0049-608" msstate="sw4830A-ms98-a-0049" nite:end="236.523500" nite:start="236.390500" orth="Oh">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms49A_pw468)"/>
+</word>
+<sil nite:id="s92_2"/>
+<word pos="UH" nite:id="s92_3" msstateID="sw4830A-ms98-a-0049-609" msstate="sw4830A-ms98-a-0049" nite:end="236.742750" nite:start="236.523500" orth="yeah">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms49A_pw469)"/>
+</word>
+<punc nite:id="s92_4">.</punc>
+<word pos="PRP" nite:id="s93_3" msstateID="sw4830A-ms98-a-0049-611" msstate="sw4830A-ms98-a-0049" swWord="i-" nite:end="237.262125" nite:start="n/a" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms49A_pw470)"/>
+</word>
+<sil nite:id="s93_4"/>
+<word pos="PRP" nite:id="s93_6" msstateID="sw4830A-ms98-a-0049-612" msstate="sw4830A-ms98-a-0049" nite:end="237.589750" nite:start="237.262125" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms49A_pw471)"/>
+</word>
+<sil nite:id="s93_7"/>
+<word pos="PRP" nite:id="s93_10" msstateID="sw4830A-ms98-a-0049-613" msstate="sw4830A-ms98-a-0049" nite:end="237.803375" nite:start="237.589750" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms49A_pw472)"/>
+</word>
+<word pos="VBP" nite:id="s93_12" msstateID="sw4830A-ms98-a-0049-614" msstate="sw4830A-ms98-a-0049" swWord="don't" nite:end="n/a" nite:start="237.803375" orth="do">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms49A_pw473)"/>
+</word>
+<word pos="RB" nite:id="s93_13" msstateID="sw4830A-ms98-a-0049-614" msstate="sw4830A-ms98-a-0049" swWord="don't" nite:end="238.113375" nite:start="n/a" orth="n't">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms49A_pw473)"/>
+</word>
+<word pos="VB" nite:id="s93_14" msstateID="sw4830A-ms98-a-0049-615" msstate="sw4830A-ms98-a-0049" nite:end="238.313375" nite:start="238.113375" orth="agree">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms49A_pw474)"/>
+</word>
+<word pos="IN" nite:id="s93_15" msstateID="sw4830A-ms98-a-0049-616" msstate="sw4830A-ms98-a-0049" nite:end="238.483375" nite:start="238.313375" orth="with">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms49A_pw475)"/>
+</word>
+<word pos="DT" nite:id="s93_16" msstateID="sw4830A-ms98-a-0049-617" msstate="sw4830A-ms98-a-0049" nite:end="238.653375" nite:start="238.483375" orth="that">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms49A_pw476)"/>
+</word>
+<word pos="IN" nite:id="s93_17" msstateID="sw4830A-ms98-a-0049-618" msstate="sw4830A-ms98-a-0049" nite:end="238.833375" nite:start="238.653375" orth="at">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms49A_pw477)"/>
+</word>
+<word pos="DT" nite:id="s93_18" msstateID="sw4830A-ms98-a-0049-619" msstate="sw4830A-ms98-a-0049" nite:end="239.123375" nite:start="238.833375" orth="all">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms49A_pw478)"/>
+</word>
+<punc nite:id="s93_19">.</punc>
+<trace nite:id="s95_1"/>
+<word pos="VB" nite:id="s95_2" msstateID="sw4830A-ms98-a-0051-623" msstate="sw4830A-ms98-a-0051" nite:end="242.450500" nite:start="241.950500" orth="Imagine">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw479)"/>
+</word>
+<word pos="DT" nite:id="s95_3" msstateID="sw4830A-ms98-a-0051-624" msstate="sw4830A-ms98-a-0051" nite:end="242.560500" nite:start="242.450500" orth="the">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw480)"/>
+</word>
+<word pos="NN" nite:id="s95_4" msstateID="sw4830A-ms98-a-0051-625" msstate="sw4830A-ms98-a-0051" nite:end="242.880500" nite:start="242.560500" orth="guilt">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw481)"/>
+</word>
+<trace nite:id="s95_5"/>
+<word pos="DT" nite:id="s95_6" msstateID="sw4830A-ms98-a-0051-626" msstate="sw4830A-ms98-a-0051" nite:end="243.060500" nite:start="242.880500" orth="that">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw482)"/>
+</word>
+<word pos="NN" nite:id="s95_7" msstateID="sw4830A-ms98-a-0051-627" msstate="sw4830A-ms98-a-0051" nite:end="243.460500" nite:start="243.060500" orth="person">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw483)"/>
+</word>
+<word pos="MD" nite:id="s95_8" msstateID="sw4830A-ms98-a-0051-628" msstate="sw4830A-ms98-a-0051" nite:end="243.610500" nite:start="243.460500" orth="would">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw484)"/>
+</word>
+<word pos="VB" nite:id="s95_9" msstateID="sw4830A-ms98-a-0051-629" msstate="sw4830A-ms98-a-0051" nite:end="243.832125" nite:start="243.610500" orth="have">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw485)"/>
+</word>
+<trace nite:id="s95_10"/>
+<punc nite:id="s95_11">.</punc>
+<word pos="PRP" nite:id="s96_1" msstateID="sw4830A-ms98-a-0051-630" msstate="sw4830A-ms98-a-0051" nite:end="243.956375" nite:start="243.832125" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw486)"/>
+</word>
+<word pos="VBP" nite:id="s96_2" msstateID="sw4830A-ms98-a-0051-631" msstate="sw4830A-ms98-a-0051" nite:end="244.139500" nite:start="243.956375" orth="mean">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw487)"/>
+</word>
+<word pos="XX" nite:id="s96_3" msstateID="sw4830A-ms98-a-0051-633" msstate="sw4830A-ms98-a-0051" swWord="it" nite:end="244.470500" nite:start="244.312750" orth="MUMBLEx">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw488)"/>
+</word>
+<word pos="VBD" nite:id="s96_4" msstateID="sw4830A-ms98-a-0051-634" msstate="sw4830A-ms98-a-0051" nite:end="244.840500" nite:start="244.470500" orth="burned">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw489)"/>
+</word>
+<word pos="RP" nite:id="s96_5" msstateID="sw4830A-ms98-a-0051-635" msstate="sw4830A-ms98-a-0051" nite:end="245.100500" nite:start="244.840500" orth="out">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw490)"/>
+</word>
+<punc nite:id="s96_6">.</punc>
+<word pos="EX" nite:id="s98_2" msstateID="sw4830A-ms98-a-0051-637" msstate="sw4830A-ms98-a-0051" swWord="is" nite:end="n/a" nite:start="245.510500" orth="There">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw491)"/>
+</word>
+<word pos="BES" nite:id="s98_3" msstateID="sw4830A-ms98-a-0051-637" msstate="sw4830A-ms98-a-0051" swWord="is" nite:end="245.620500" nite:start="n/a" orth="'s">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw491)"/>
+</word>
+<word pos="EX" nite:id="s98_5" msstateID="sw4830A-ms98-a-0051-639" msstate="sw4830A-ms98-a-0051" swWord="there's" nite:end="n/a" nite:start="245.910500" orth="there">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw492)"/>
+</word>
+<word pos="BES" nite:id="s98_6" msstateID="sw4830A-ms98-a-0051-639" msstate="sw4830A-ms98-a-0051" swWord="there's" nite:end="246.110500" nite:start="n/a" orth="'s">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw492)"/>
+</word>
+<word pos="DT" nite:id="s98_8" msstateID="sw4830A-ms98-a-0051-640" msstate="sw4830A-ms98-a-0051" nite:end="246.230500" nite:start="246.110500" orth="no">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw493)"/>
+</word>
+<word pos="JJ" nite:id="s98_9" msstateID="sw4830A-ms98-a-0051-641" msstate="sw4830A-ms98-a-0051" nite:end="246.800500" nite:start="246.230500" orth="possible">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw494)"/>
+</word>
+<word pos="NN" nite:id="s98_10" msstateID="sw4830A-ms98-a-0051-642" msstate="sw4830A-ms98-a-0051" nite:end="247.050500" nite:start="246.800500" orth="way">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw495)"/>
+</word>
+<word pos="IN" nite:id="s98_11" msstateID="sw4830A-ms98-a-0051-643" msstate="sw4830A-ms98-a-0051" nite:end="247.190500" nite:start="247.050500" orth="that">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw496)"/>
+</word>
+<word pos="PRP" nite:id="s98_12" msstateID="sw4830A-ms98-a-0051-644" msstate="sw4830A-ms98-a-0051" nite:end="247.440500" nite:start="247.190500" orth="you">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw497)"/>
+</word>
+<word pos="MD" nite:id="s98_13" msstateID="sw4830A-ms98-a-0051-645" msstate="sw4830A-ms98-a-0051" nite:end="247.730500" nite:start="247.440500" orth="could">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw498)"/>
+</word>
+<sil nite:id="s98_14"/>
+<word pos="UH" nite:id="s98_15" msstateID="sw4830A-ms98-a-0051-647" msstate="sw4830A-ms98-a-0051" swWord="um" nite:end="248.710500" nite:start="248.350500" orth="uh">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw499)"/>
+</word>
+<sil nite:id="s98_16"/>
+<word pos="PRP" nite:id="s98_17" msstateID="sw4830A-ms98-a-0051-649" msstate="sw4830A-ms98-a-0051" nite:end="249.000500" nite:start="248.940500" orth="you">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw500)"/>
+</word>
+<word pos="VBP" nite:id="s98_18" msstateID="sw4830A-ms98-a-0051-650" msstate="sw4830A-ms98-a-0051" nite:end="249.130500" nite:start="249.000500" orth="know">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw501)"/>
+</word>
+<sil nite:id="s98_19"/>
+<word pos="VB" nite:id="s98_20" msstateID="sw4830A-ms98-a-0051-651" msstate="sw4830A-ms98-a-0051" nite:end="249.420500" nite:start="249.130500" orth="feel">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw502)"/>
+</word>
+<word pos="RB" nite:id="s98_21" msstateID="sw4830A-ms98-a-0051-652" msstate="sw4830A-ms98-a-0051" nite:end="249.610500" nite:start="249.420500" orth="good">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw503)"/>
+</word>
+<word pos="IN" nite:id="s98_22" msstateID="sw4830A-ms98-a-0051-653" msstate="sw4830A-ms98-a-0051" nite:end="249.890500" nite:start="249.610500" orth="about">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw504)"/>
+</word>
+<word pos="PRP" nite:id="s98_23" msstateID="sw4830A-ms98-a-0051-654" msstate="sw4830A-ms98-a-0051" nite:end="250.370500" nite:start="249.890500" orth="yourself">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw505)"/>
+</word>
+<trace nite:id="s98_24"/>
+<punc nite:id="s98_25">.</punc>
+<word pos="IN" nite:id="s101_1" msstateID="sw4830A-ms98-a-0051-656" msstate="sw4830A-ms98-a-0051" nite:end="251.050500" nite:start="250.930500" orth="If">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw506)"/>
+</word>
+<word pos="PRP" nite:id="s101_2" msstateID="sw4830A-ms98-a-0051-657" msstate="sw4830A-ms98-a-0051" nite:end="251.190500" nite:start="251.050500" orth="you">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw507)"/>
+</word>
+<word pos="VBD" nite:id="s101_3" msstateID="sw4830A-ms98-a-0051-658" msstate="sw4830A-ms98-a-0051" nite:end="251.330500" nite:start="251.190500" orth="had">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw508)"/>
+</word>
+<trace nite:id="s101_4"/>
+<word pos="TO" nite:id="s101_5" msstateID="sw4830A-ms98-a-0051-659" msstate="sw4830A-ms98-a-0051" nite:end="251.460500" nite:start="251.330500" orth="to">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw509)"/>
+</word>
+<word pos="VB" nite:id="s101_6" msstateID="sw4830A-ms98-a-0051-660" msstate="sw4830A-ms98-a-0051" nite:end="251.640500" nite:start="251.460500" orth="do">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw510)"/>
+</word>
+<word pos="NN" nite:id="s101_7" msstateID="sw4830A-ms98-a-0051-661" msstate="sw4830A-ms98-a-0051" nite:end="252.130500" nite:start="251.640500" orth="something">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw511)"/>
+</word>
+<word pos="IN" nite:id="s101_8" msstateID="sw4830A-ms98-a-0051-662" msstate="sw4830A-ms98-a-0051" nite:end="252.350500" nite:start="252.130500" orth="like">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw512)"/>
+</word>
+<word pos="DT" nite:id="s101_9" msstateID="sw4830A-ms98-a-0051-663" msstate="sw4830A-ms98-a-0051" nite:end="252.540500" nite:start="252.350500" orth="that">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw513)"/>
+</word>
+<sil nite:id="s101_10"/>
+<word pos="NN" nite:id="s101_11" msstateID="sw4830A-ms98-a-0051-664" msstate="sw4830A-ms98-a-0051" nite:end="252.730500" nite:start="252.540500" orth="day">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw514)"/>
+</word>
+<word pos="IN" nite:id="s101_12" msstateID="sw4830A-ms98-a-0051-665" msstate="sw4830A-ms98-a-0051" nite:end="253.030500" nite:start="252.730500" orth="after">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw515)"/>
+</word>
+<word pos="NN" nite:id="s101_13" msstateID="sw4830A-ms98-a-0051-666" msstate="sw4830A-ms98-a-0051" nite:end="253.370500" nite:start="253.030500" orth="day">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms51A_pw516)"/>
+</word>
+<punc nite:id="s101_14">.</punc>
+<word pos="UH" nite:id="s103_1" msstateID="sw4830A-ms98-a-0052-669" msstate="sw4830A-ms98-a-0052" nite:end="255.552250" nite:start="255.222250" orth="No">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms52A_pw517)"/>
+</word>
+<punc nite:id="s103_2">.</punc>
+<word pos="RB" nite:id="s104_1" msstateID="sw4830A-ms98-a-0052-671" msstate="sw4830A-ms98-a-0052" nite:end="255.942250" nite:start="255.692250" orth="Not">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms52A_pw519)"/>
+</word>
+<word pos="RB" nite:id="s104_2" msstateID="sw4830A-ms98-a-0052-672" msstate="sw4830A-ms98-a-0052" nite:end="256.342250" nite:start="255.942250" orth="really">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms52A_pw520)"/>
+</word>
+<punc nite:id="s104_3">.</punc>
+<word pos="UH" nite:id="s106_1" msstateID="sw4830A-ms98-a-0054-676" msstate="sw4830A-ms98-a-0054" nite:end="265.459750" nite:start="265.229750" orth="Well">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms54A_pw521)"/>
+</word>
+<sil nite:id="s106_2"/>
+<word pos="XX" nite:id="s106_4" msstateID="sw4830A-ms98-a-0054-677" msstate="sw4830A-ms98-a-0054" swWord="wou[ld]-" nite:end="265.569750" nite:start="265.459750" orth="w-">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms54A_pw522)"/>
+</word>
+<sil nite:id="s106_5"/>
+<word pos="VBP" nite:id="s106_7" msstateID="sw4830A-ms98-a-0054-678" msstate="sw4830A-ms98-a-0054" nite:end="265.699750" nite:start="265.569750" orth="do">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms54A_pw523)"/>
+</word>
+<word pos="PRP" nite:id="s106_9" msstateID="sw4830A-ms98-a-0054-679" msstate="sw4830A-ms98-a-0054" nite:end="265.829750" nite:start="265.699750" orth="you">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms54A_pw524)"/>
+</word>
+<word pos="VB" nite:id="s106_10" msstateID="sw4830A-ms98-a-0054-680" msstate="sw4830A-ms98-a-0054" nite:end="266.069750" nite:start="265.829750" orth="think">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms54A_pw525)"/>
+</word>
+<trace nite:id="s106_11"/>
+<word pos="NNS" nite:id="s106_12" msstateID="sw4830A-ms98-a-0054-681" msstate="sw4830A-ms98-a-0054" nite:end="266.339750" nite:start="266.069750" orth="people">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms54A_pw526)"/>
+</word>
+<word pos="MD" nite:id="s106_13" msstateID="sw4830A-ms98-a-0054-682" msstate="sw4830A-ms98-a-0054" nite:end="266.569750" nite:start="266.339750" orth="should">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms54A_pw527)"/>
+</word>
+<word pos="VB" nite:id="s106_14" msstateID="sw4830A-ms98-a-0054-683" msstate="sw4830A-ms98-a-0054" nite:end="266.829750" nite:start="266.569750" orth="have">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms54A_pw528)"/>
+</word>
+<word pos="DT" nite:id="s106_15" msstateID="sw4830A-ms98-a-0054-684" msstate="sw4830A-ms98-a-0054" nite:end="266.889750" nite:start="266.829750" orth="a">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms54A_pw529)"/>
+</word>
+<word pos="NN" nite:id="s106_16" msstateID="sw4830A-ms98-a-0054-685" msstate="sw4830A-ms98-a-0054" nite:end="267.378375" nite:start="266.889750" orth="trial">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms54A_pw530)"/>
+</word>
+<word pos="VBZ" nite:id="s106_17" msstateID="sw4830A-ms98-a-0054-686" msstate="sw4830A-ms98-a-0054" swWord="if" nite:end="267.589250" nite:start="267.378375" orth="is">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms54A_pw531)"/>
+</word>
+<word pos="PRP" nite:id="s106_18" msstateID="sw4830A-ms98-a-0054-687" msstate="sw4830A-ms98-a-0054" swWord="they're" nite:end="n/a" nite:start="267.589250" orth="they">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms54A_pw532)"/>
+</word>
+<word pos="VBP" nite:id="s106_19" msstateID="sw4830A-ms98-a-0054-687" msstate="sw4830A-ms98-a-0054" swWord="they're" nite:end="267.779750" nite:start="n/a" orth="'re">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms54A_pw532)"/>
+</word>
+<word pos="VBN" nite:id="s106_20" msstateID="sw4830A-ms98-a-0054-688" msstate="sw4830A-ms98-a-0054" nite:end="268.189750" nite:start="267.779750" orth="caught">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms54A_pw533)"/>
+</word>
+<trace nite:id="s106_21"/>
+<trace nite:id="s106_22"/>
+<word pos="JJ" nite:id="s106_23" msstateID="sw4830A-ms98-a-0054-689" msstate="sw4830A-ms98-a-0054" nite:end="268.389750" nite:start="268.189750" orth="dead">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms54A_pw534)"/>
+</word>
+<word pos="IN" nite:id="s106_24" msstateID="sw4830A-ms98-a-0054-690" msstate="sw4830A-ms98-a-0054" nite:end="268.539750" nite:start="268.389750" orth="to">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms54A_pw535)"/>
+</word>
+<word pos="NNS" nite:id="s106_25" msstateID="sw4830A-ms98-a-0054-691" msstate="sw4830A-ms98-a-0054" nite:end="268.989750" nite:start="268.539750" orth="rights">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms54A_pw536)"/>
+</word>
+<word pos="IN" nite:id="s106_26" msstateID="sw4830A-ms98-a-0054-692" msstate="sw4830A-ms98-a-0054" nite:end="269.239750" nite:start="268.989750" orth="like">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms54A_pw537)"/>
+</word>
+<sil nite:id="s106_27"/>
+<word pos="PRP" nite:id="s110_1" msstateID="sw4830A-ms98-a-0056-696" msstate="sw4830A-ms98-a-0056" nite:end="274.416500" nite:start="274.278375" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms56A_pw538)"/>
+</word>
+<word pos="VBP" nite:id="s110_2" msstateID="sw4830A-ms98-a-0056-697" msstate="sw4830A-ms98-a-0056" nite:end="274.601875" nite:start="274.416500" orth="mean">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms56A_pw539)"/>
+</word>
+<sil nite:id="s110_3"/>
+<trace nite:id="s110_4"/>
+<word pos="VBG" nite:id="s110_5" msstateID="sw4830A-ms98-a-0056-699" msstate="sw4830A-ms98-a-0056" nite:end="275.552000" nite:start="274.841875" orth="supposing">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms56A_pw540)"/>
+</word>
+<trace nite:id="s110_6"/>
+<word pos="PRP" nite:id="s110_7" msstateID="sw4830A-ms98-a-0056-701" msstate="sw4830A-ms98-a-0056" nite:end="275.971875" nite:start="275.842000" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms56A_pw541)"/>
+</word>
+<word pos="VBP" nite:id="s110_8" msstateID="sw4830A-ms98-a-0056-702" msstate="sw4830A-ms98-a-0056" nite:end="276.211875" nite:start="275.971875" orth="come">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms56A_pw542)"/>
+</word>
+<word pos="RP" nite:id="s110_9" msstateID="sw4830A-ms98-a-0056-703" msstate="sw4830A-ms98-a-0056" nite:end="276.431875" nite:start="276.211875" orth="up">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms56A_pw543)"/>
+</word>
+<word pos="IN" nite:id="s110_10" msstateID="sw4830A-ms98-a-0056-704" msstate="sw4830A-ms98-a-0056" nite:end="276.511875" nite:start="276.431875" orth="to">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms56A_pw544)"/>
+</word>
+<word pos="PRP" nite:id="s110_11" msstateID="sw4830A-ms98-a-0056-705" msstate="sw4830A-ms98-a-0056" nite:end="276.751875" nite:start="276.511875" orth="you">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms56A_pw545)"/>
+</word>
+<word pos="CC" nite:id="s110_12" msstateID="sw4830A-ms98-a-0056-706" msstate="sw4830A-ms98-a-0056" nite:end="277.051875" nite:start="276.751875" orth="and">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms56A_pw546)"/>
+</word>
+<word pos="PRP" nite:id="s110_13" msstateID="sw4830A-ms98-a-0056-707" msstate="sw4830A-ms98-a-0056" nite:end="277.191875" nite:start="277.051875" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms56A_pw547)"/>
+</word>
+<word pos="RB" nite:id="s110_14" msstateID="sw4830A-ms98-a-0056-708" msstate="sw4830A-ms98-a-0056" nite:end="277.481875" nite:start="277.191875" orth="just">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms56A_pw548)"/>
+</word>
+<word pos="NN" nite:id="s110_15" msstateID="sw4830A-ms98-a-0056-709" msstate="sw4830A-ms98-a-0056" nite:end="277.791875" nite:start="277.481875" orth="point">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms56A_pw549)"/>
+</word>
+<word pos="NN" nite:id="s110_16" msstateID="sw4830A-ms98-a-0056-711" msstate="sw4830A-ms98-a-0056" nite:end="278.191875" nite:start="277.841875" orth="blank">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms56A_pw550)"/>
+</word>
+<word pos="VBP" nite:id="s110_17" msstateID="sw4830A-ms98-a-0056-713" msstate="sw4830A-ms98-a-0056" nite:end="278.841875" nite:start="278.601875" orth="kill">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms56A_pw551)"/>
+</word>
+<word pos="PRP" nite:id="s110_18" msstateID="sw4830A-ms98-a-0056-714" msstate="sw4830A-ms98-a-0056" nite:end="279.031875" nite:start="278.841875" orth="you">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms56A_pw552)"/>
+</word>
+<punc nite:id="s110_19">.</punc>
+<word pos="IN" nite:id="s112_1" msstateID="sw4830A-ms98-a-0057-717" msstate="sw4830A-ms98-a-0057" nite:end="281.001125" nite:start="280.891125" orth="In">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms57A_pw553)"/>
+</word>
+<word pos="JJ" nite:id="s112_2" msstateID="sw4830A-ms98-a-0057-718" msstate="sw4830A-ms98-a-0057" nite:end="281.211125" nite:start="281.001125" orth="other">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms57A_pw554)"/>
+</word>
+<word pos="NNS" nite:id="s112_3" msstateID="sw4830A-ms98-a-0057-719" msstate="sw4830A-ms98-a-0057" nite:end="281.391125" nite:start="281.211125" orth="words">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms57A_pw555)"/>
+</word>
+<word pos="PRP" nite:id="s112_4" msstateID="sw4830A-ms98-a-0057-720" msstate="sw4830A-ms98-a-0057" swWord="you're" nite:end="n/a" nite:start="281.391125" orth="you">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms57A_pw556)"/>
+</word>
+<word pos="VBP" nite:id="s112_5" msstateID="sw4830A-ms98-a-0057-720" msstate="sw4830A-ms98-a-0057" swWord="you're" nite:end="281.611125" nite:start="n/a" orth="'re">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms57A_pw556)"/>
+</word>
+<word pos="VBG" nite:id="s112_6" msstateID="sw4830A-ms98-a-0057-721" msstate="sw4830A-ms98-a-0057" nite:end="281.851125" nite:start="281.611125" orth="saying">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms57A_pw557)"/>
+</word>
+<word pos="DT" nite:id="s112_7" msstateID="sw4830A-ms98-a-0057-722" msstate="sw4830A-ms98-a-0057" nite:end="282.027500" nite:start="281.851125" orth="that">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms57A_pw558)"/>
+</word>
+<sil nite:id="s112_8"/>
+<word pos="XX" nite:id="s112_10" msstateID="sw4830A-ms98-a-0057-723" msstate="sw4830A-ms98-a-0057" swWord="we" nite:end="282.219625" nite:start="282.027500" orth="w-">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms57A_pw559)"/>
+</word>
+<sil nite:id="s112_11"/>
+<word pos="PRP" nite:id="s112_13" msstateID="sw4830A-ms98-a-0057-724" msstate="sw4830A-ms98-a-0057" nite:end="282.371125" nite:start="282.219625" orth="you">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms57A_pw560)"/>
+</word>
+<word pos="VBP" nite:id="s112_15" msstateID="sw4830A-ms98-a-0057-725" msstate="sw4830A-ms98-a-0057" nite:end="282.511125" nite:start="282.371125" orth="have">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms57A_pw561)"/>
+</word>
+<trace nite:id="s112_16"/>
+<word pos="TO" nite:id="s112_17" msstateID="sw4830A-ms98-a-0057-726" msstate="sw4830A-ms98-a-0057" nite:end="282.601125" nite:start="282.511125" orth="to">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms57A_pw562)"/>
+</word>
+<word pos="VB" nite:id="s112_18" msstateID="sw4830A-ms98-a-0057-727" msstate="sw4830A-ms98-a-0057" nite:end="282.811125" nite:start="282.601125" orth="find">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms57A_pw563)"/>
+</word>
+<word pos="RP" nite:id="s112_19" msstateID="sw4830A-ms98-a-0057-728" msstate="sw4830A-ms98-a-0057" nite:end="282.911125" nite:start="282.811125" orth="out">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms57A_pw564)"/>
+</word>
+<word pos="IN" nite:id="s112_20" msstateID="sw4830A-ms98-a-0057-729" msstate="sw4830A-ms98-a-0057" nite:end="283.131125" nite:start="282.911125" orth="whether">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms57A_pw565)"/>
+</word>
+<word pos="PRP" nite:id="s112_21" msstateID="sw4830A-ms98-a-0057-730" msstate="sw4830A-ms98-a-0057" swWord="it's" nite:end="n/a" nite:start="283.131125" orth="it">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms57A_pw566)"/>
+</word>
+<word pos="BES" nite:id="s112_22" msstateID="sw4830A-ms98-a-0057-730" msstate="sw4830A-ms98-a-0057" swWord="it's" nite:end="283.331125" nite:start="n/a" orth="'s">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms57A_pw566)"/>
+</word>
+<word pos="JJ" nite:id="s112_23" msstateID="sw4830A-ms98-a-0057-731" msstate="sw4830A-ms98-a-0057" nite:end="284.341125" nite:start="283.331125" orth="premeditated">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms57A_pw567)"/>
+</word>
+<word pos="CC" nite:id="s112_24" msstateID="sw4830A-ms98-a-0057-732" msstate="sw4830A-ms98-a-0057" nite:end="284.621125" nite:start="284.341125" orth="or">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms57A_pw568)"/>
+</word>
+<word pos="WP" nite:id="s112_25" msstateID="sw4830A-ms98-a-0057-734" msstate="sw4830A-ms98-a-0057" nite:end="285.251125" nite:start="285.051125" orth="what">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms57A_pw569)"/>
+</word>
+<word pos="DT" nite:id="s112_26" msstateID="sw4830A-ms98-a-0057-735" msstate="sw4830A-ms98-a-0057" nite:end="285.332250" nite:start="285.251125" orth="the">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms57A_pw570)"/>
+</word>
+<word pos="NNS" nite:id="s112_27" msstateID="sw4830A-ms98-a-0057-736" msstate="sw4830A-ms98-a-0057" nite:end="286.213500" nite:start="285.332250" orth="circumstances">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms57A_pw571)"/>
+</word>
+<word pos="VBD" nite:id="s112_28" msstateID="sw4830A-ms98-a-0057-737" msstate="sw4830A-ms98-a-0057" nite:end="286.590375" nite:start="286.213500" orth="were">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms57A_pw572)"/>
+</word>
+<trace nite:id="s112_29"/>
+<punc nite:id="s112_30">.</punc>
+<word pos="UH" nite:id="s116_1" msstateID="sw4830A-ms98-a-0059-741" msstate="sw4830A-ms98-a-0059" nite:end="289.863250" nite:start="289.593250" orth="Yeah">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms59A_pw573)"/>
+</word>
+<punc nite:id="s116_2">.</punc>
+<word pos="UH" nite:id="s118_1" msstateID="sw4830A-ms98-a-0061-745" msstate="sw4830A-ms98-a-0061" nite:end="293.637125" nite:start="293.306125" orth="Yeah">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms61A_pw574)"/>
+</word>
+<punc nite:id="s118_2">.</punc>
+<word pos="UH" nite:id="s120_1" msstateID="sw4830A-ms98-a-0063-749" msstate="sw4830A-ms98-a-0063" nite:end="298.010125" nite:start="297.650125" orth="Well">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms63A_pw575)"/>
+</word>
+<sil nite:id="s120_2"/>
+<word pos="PRP" nite:id="s120_4" msstateID="sw4830A-ms98-a-0063-752" msstate="sw4830A-ms98-a-0063" nite:end="298.630250" nite:start="298.408500" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms63A_pw578)"/>
+</word>
+<sil nite:id="s120_5"/>
+<word pos="PRP" nite:id="s120_7" msstateID="sw4830A-ms98-a-0063-753" msstate="sw4830A-ms98-a-0063" swWord="feel" nite:end="298.735375" nite:start="n/a" orth="I">
+	<nite:pointer role="phon" href="sw4830.A.phonwords.xml#id(ms63A_pw579)"/>
+</word>
+<sil nite:id="s120_8"/>
+</nite:terminal_stream>

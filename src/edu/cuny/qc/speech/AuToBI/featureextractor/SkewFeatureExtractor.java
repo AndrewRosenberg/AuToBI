@@ -35,6 +35,7 @@ import java.util.List;
  * @see TiltFeatureExtractor
  * @see edu.cuny.qc.speech.AuToBI.core.TiltParameters
  */
+@SuppressWarnings("unchecked")
 public class SkewFeatureExtractor extends FeatureExtractor {
 
   /**
@@ -54,15 +55,18 @@ public class SkewFeatureExtractor extends FeatureExtractor {
    * Calculates skew features from each region.
    *
    * @param regions The regions to extract features from.
-   * @throws edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException should never happen
+   * @throws edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException
+   *          should never happen
    */
   @Override
   public void extractFeatures(List regions) throws FeatureExtractorException {
     for (Region r : (List<Region>) regions) {
       if (r.hasAttribute("f0__tilt_amp") && r.hasAttribute("f0__tilt_dur") && r.hasAttribute("I__tilt_amp") &&
           r.hasAttribute("I__tilt_dur")) {
-        r.setAttribute("skew_amp", (Double) r.getAttribute("f0__tilt_amp") - (Double) r.getAttribute("I__tilt_amp"));
-        r.setAttribute("skew_dur", (Double) r.getAttribute("f0__tilt_dur") - (Double) r.getAttribute("I__tilt_dur"));
+        r.setAttribute("skew_amp",
+            ((Double) r.getAttribute("f0__tilt_amp")) - ((Double) r.getAttribute("I__tilt_amp")));
+        r.setAttribute("skew_dur",
+            ((Double) r.getAttribute("f0__tilt_dur")) - ((Double) r.getAttribute("I__tilt_dur")));
       }
     }
   }

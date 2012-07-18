@@ -32,6 +32,8 @@ import java.util.ArrayList;
  * <p/>
  * The extracted features include the duration in seconds, the duration normalized by the duration of surrounding words,
  * and the length and presence of any following silences.
+ * <p/>
+ * TODO: This behavior should almost certainly be refactored into a broader set of feature extractors
  */
 public class DurationFeatureExtractor extends FeatureExtractor {
   // Gaps between regions greater than this length are considered silent.
@@ -75,12 +77,6 @@ public class DurationFeatureExtractor extends FeatureExtractor {
    * @throws FeatureExtractorException if the regions overlap
    */
   public void extractFeatures(List data_points) throws FeatureExtractorException {
-    if (data_points.size() == 0)
-      return;
-    if (!(data_points.get(0) instanceof Region)) {
-      return;
-    }
-
     String feature_prefix = "duration__";
 
     Double previous_pause;
@@ -90,13 +86,13 @@ public class DurationFeatureExtractor extends FeatureExtractor {
     for (int i = 0; i < data_points.size(); ++i) {
       if (i < data_points.size() - 1) {
         following_pause = Math.min(max_pauselen, ((Region) data_points.get(i + 1)).getStart() -
-                                                 ((Region) data_points.get(i)).getEnd());
+            ((Region) data_points.get(i)).getEnd());
       } else {
         following_pause = max_pauselen;
       }
       if (i > 0) {
         previous_pause = Math.min(max_pauselen, ((Region) data_points.get(i)).getStart() -
-                                                ((Region) data_points.get(i - 1)).getEnd());
+            ((Region) data_points.get(i - 1)).getEnd());
       } else {
         previous_pause = max_pauselen;
       }

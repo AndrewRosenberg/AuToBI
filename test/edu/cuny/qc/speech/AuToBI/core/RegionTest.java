@@ -262,5 +262,59 @@ public class RegionTest {
     w.setAttribute("class_attr", "TESTING");
     assertEquals("TESTING", w.getAttribute("class_attr"));
   }
+
+  @Test
+  public void testSetAndGetAttributesWithMismatchedFeatureSetAssignment() {
+    Word w = new Word(5.0, 15.0, "test_label", "/test/file/name.txt");
+    w.setAttribute("test_attribute", "TESTING");
+
+    FeatureSet fs = new FeatureSet();
+    fs.insertRequiredFeature("test_attribute");
+    fs.insertDataPoint(w);
+
+    assertEquals("TESTING", w.getAttribute("test_attribute"));
+  }
+
+  @Test
+  public void testHasAttributesWithMismatchedFeatureSetAssignment() {
+    Word w = new Word(5.0, 15.0, "test_label", "/test/file/name.txt");
+    w.setAttribute("test_attribute", "TESTING");
+
+    FeatureSet fs = new FeatureSet();
+    fs.insertRequiredFeature("test_attribute");
+    fs.insertDataPoint(w);
+
+    assertTrue(w.hasAttribute("test_attribute"));
+  }
+
+  @Test
+  public void testGetAttributeAfterFeatureSetReassignmentRemovingRequiredFeature() {
+    Word w = new Word(5.0, 15.0, "test_label", "/test/file/name.txt");
+    w.setAttribute("test_attribute", "TESTING");
+
+    FeatureSet fs = new FeatureSet();
+    fs.insertRequiredFeature("test_attribute");
+    fs.insertDataPoint(w);
+
+    FeatureSet new_fs = new FeatureSet();
+    new_fs.insertDataPoint(w);
+
+    assertEquals("TESTING", w.getAttribute("test_attribute"));
+  }
+
+  @Test
+  public void testGetAttributeAfterFeatureSetReassignmentAddingRequiredFeature() {
+    Word w = new Word(5.0, 15.0, "test_label", "/test/file/name.txt");
+    w.setAttribute("test_attribute", "TESTING");
+
+    FeatureSet fs = new FeatureSet();
+    fs.insertDataPoint(w);
+
+    FeatureSet new_fs = new FeatureSet();
+    new_fs.insertRequiredFeature("test_attribute");
+    new_fs.insertDataPoint(w);
+
+    assertEquals("TESTING", w.getAttribute("test_attribute"));
+  }
 }
 

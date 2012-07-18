@@ -52,12 +52,19 @@ public class FeatureSetPropagator implements Callable<FeatureSet> {
     String file_stem = filename.substring(0, filename.lastIndexOf('.'));
     String wav_filename = file_stem + ".wav";
 
-    AuToBIWordReader reader = WordReaderUtils.getAppropriateReader(file);
+    AuToBIWordReader reader = WordReaderUtils.getAppropriateReader(file, autobi.getParameters());
 
     WavReader wav_reader = new WavReader();
-    WavData wav;
+    WavData wav = null;
     try {
-      wav = wav_reader.read(wav_filename);
+      try {
+        if (autobi.getBooleanParameter("read_wav", true)) {
+          wav = wav_reader.read(wav_filename);
+        }
+      } catch (AuToBIException e) {
+        AuToBIUtils.warn("Problem reading wave file -- " + e.getMessage());
+        wav = null;
+      }
       AuToBIUtils.log("Reading words from: " + filename);
       List<Word> words = reader.readWords();
 
@@ -74,7 +81,7 @@ public class FeatureSetPropagator implements Callable<FeatureSet> {
         for (Word w : current_fs.getDataPoints()) {
           Set<String> attrs = w.getAttributeNames();
           for (String attr : attrs) {
-            if (!current_fs.getRequiredFeatures().contains(attr)) {
+            if (!current_fs.getRequiredFeatures().contains(attr) && !attr.equals(current_fs.getClassAttribute())) {
               w.removeAttribute(attr);
             }
           }

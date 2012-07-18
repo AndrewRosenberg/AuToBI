@@ -22,7 +22,7 @@ package edu.cuny.qc.speech.AuToBI.featureset;
 import edu.cuny.qc.speech.AuToBI.core.FeatureSet;
 
 /**
- * IntermediatePhraseBoundaryDetectionFeatureSet describeds the required features and class attribute for the
+ * IntermediatePhraseBoundaryDetectionFeatureSet describes the required features and class attribute for the
  * Intermediate Phrase Boundary detection task.
  */
 public class IntermediatePhraseBoundaryDetectionFeatureSet extends FeatureSet {

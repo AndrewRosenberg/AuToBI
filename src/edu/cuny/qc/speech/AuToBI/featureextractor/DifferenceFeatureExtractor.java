@@ -34,6 +34,8 @@ public class DifferenceFeatureExtractor extends FeatureExtractor {
 
   /**
    * Constructs a DifferenceFeatureExtractor.
+   * <p/>
+   * TODO: This should probably be just one feature at a time instead of a list of valid features
    *
    * @param difference_features the features to process
    */
@@ -59,26 +61,19 @@ public class DifferenceFeatureExtractor extends FeatureExtractor {
       Region next_r = (Region) regions.get(i + 1);
 
       for (String feature : features) {
-        if (!r.hasAttribute(feature))
-          throw new FeatureExtractorException("Region, " + r + ", has no feature: " + feature);
-        if (!next_r.hasAttribute(feature))
-          throw new FeatureExtractorException("Region, " + r + ", has no feature: " + feature);
+        if (r.hasAttribute(feature) && next_r.hasAttribute(feature)) {
 
-        if (!(r.getAttribute(feature) instanceof Number))
-          throw new FeatureExtractorException(
-              "Cannot calculate difference. Feature, " + feature + ", is not a Double on region, " + r);
-        if (!(next_r.getAttribute(feature) instanceof Number))
-          throw new FeatureExtractorException(
-              "Cannot calculate difference. Feature, " + feature + ", is not a Double on region, " + next_r);
+          if (!(r.getAttribute(feature) instanceof Number))
+            throw new FeatureExtractorException(
+                "Cannot calculate difference. Feature, " + feature + ", is not a Number on region, " + r);
+          if (!(next_r.getAttribute(feature) instanceof Number))
+            throw new FeatureExtractorException(
+                "Cannot calculate difference. Feature, " + feature + ", is not a Number on region, " + next_r);
 
-        Number value =
-            ((Number) next_r.getAttribute(feature)).doubleValue() - ((Number) r.getAttribute(feature)).doubleValue();
-        r.setAttribute("diff_" + feature, value);
-      }
-    }
-    for (Region r : (List<Region>) regions) {
-      for (String feature : features) {
-        r.setAttribute("diff_" + feature, 0.0);
+          Number value =
+              ((Number) next_r.getAttribute(feature)).doubleValue() - ((Number) r.getAttribute(feature)).doubleValue();
+          r.setAttribute("diff_" + feature, value);
+        }
       }
     }
   }

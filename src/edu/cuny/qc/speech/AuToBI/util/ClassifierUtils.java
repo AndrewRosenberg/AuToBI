@@ -64,6 +64,22 @@ public class ClassifierUtils {
     return null;
   }
 
+  /**
+   * Writes an AuToBIClassifier to a file.
+   *
+   * @param filename the filename to write the classifier to.
+   * @param c        the classifier to store
+   */
+  public static void writeAuToBIClassifier(String filename, AuToBIClassifier c) throws IOException {
+    AuToBIUtils.log("writing model to: " + filename);
+    FileOutputStream fos;
+    ObjectOutputStream out;
+    fos = new FileOutputStream(filename);
+    out = new ObjectOutputStream(fos);
+    out.writeObject(c);
+    out.close();
+
+  }
 
   /**
    * Converts a single point to a weka Instance.
@@ -272,7 +288,13 @@ public class ClassifierUtils {
     EvaluationResults eval = new EvaluationResults(sorted_values);
 
     for (Word w : fs.getDataPoints()) {
-      eval.addInstance(w.getAttribute(hyp_feature).toString(), w.getAttribute(true_feature).toString());
+      if (!w.hasAttribute(hyp_feature)) {
+        AuToBIUtils.warn("Word, " + w + ", has no hypothesized attribute: " + hyp_feature);
+      } else if (!w.hasAttribute(true_feature)) {
+        AuToBIUtils.warn("Word, " + w + ", has no true attribute: " + hyp_feature);
+      } else {
+        eval.addInstance(w.getAttribute(hyp_feature).toString(), w.getAttribute(true_feature).toString());
+      }
     }
     return eval;
   }

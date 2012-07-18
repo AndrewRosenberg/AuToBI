@@ -50,20 +50,25 @@ public class BuckeyeReader extends AuToBIWordReader {
 
     boolean started = false;
     String line;
+    double start_time = 0.0;
     while ((line = reader.readLine()) != null) {
       if (line.trim().startsWith("#")) {
         started = true;
       } else if (started) {
         String[] data = line.trim().split(";");
-        String[] first_chunk = data[0].split(" ");
+        String[] first_chunk = data[0].split("\\s+");
+        if (first_chunk.length < 3) {
+          continue;
+        }
         String label = first_chunk[2];
-        if (!label.startsWith("<") && !label.startsWith("{")) {
-          Word w =
-              new Word(Double.parseDouble(first_chunk[0]), Double.parseDouble(first_chunk[1]), label, null, filename);
+        double end_time = Double.parseDouble(first_chunk[0]);
+        if (!label.startsWith("<") && !label.startsWith("{") && data.length >= 3) {
+          Word w = new Word(start_time, end_time, label, null, filename);
           w.setAttribute("canonical_pron", data[1]);
           w.setAttribute("actual_pron", data[2]);
           words.add(w);
         }
+        start_time = end_time;
       }
     }
 

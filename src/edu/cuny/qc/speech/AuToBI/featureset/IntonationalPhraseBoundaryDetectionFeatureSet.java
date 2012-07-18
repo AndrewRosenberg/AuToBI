@@ -22,7 +22,7 @@ package edu.cuny.qc.speech.AuToBI.featureset;
 import edu.cuny.qc.speech.AuToBI.core.FeatureSet;
 
 /**
- * IntonationalPhraseBoundaryDetectionFeatureSet describeds the required features and class attribute for the
+ * IntonationalPhraseBoundaryDetectionFeatureSet describes the required features and class attribute for the
  * Intonational Phrase Boundary detection task.
  */
 public class IntonationalPhraseBoundaryDetectionFeatureSet extends FeatureSet {

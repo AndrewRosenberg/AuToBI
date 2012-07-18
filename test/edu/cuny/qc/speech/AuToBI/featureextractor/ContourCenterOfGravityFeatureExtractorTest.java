@@ -21,15 +21,12 @@ package edu.cuny.qc.speech.AuToBI.featureextractor;
 
 import edu.cuny.qc.speech.AuToBI.core.Contour;
 import edu.cuny.qc.speech.AuToBI.core.Region;
-import edu.cuny.qc.speech.AuToBI.core.Word;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static junit.framework.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 /**
  * Test class for ContourCenterOfGravityFeatureExtractor
@@ -39,13 +36,37 @@ import static org.junit.Assert.fail;
 public class ContourCenterOfGravityFeatureExtractorTest {
 
   @Test
-  public void testExtractFeaturesWorksWithNullFeature() {
+  public void testExtractFeaturesGeneratesNoFeatureWithNullFeature() {
+    ContourCenterOfGravityFeatureExtractor ccogfe = new ContourCenterOfGravityFeatureExtractor("attr");
 
+    List<Region> regions = new ArrayList<Region>();
+    Region r = new Region(0.0, 0.0, "test");
+    regions.add(r);
+
+    try {
+      ccogfe.extractFeatures(regions);
+      assertFalse(r.hasAttribute("attr__cog"));
+    } catch (FeatureExtractorException e) {
+      fail();
+    }
   }
 
   @Test
-  public void testExtractFeaturesWorksWithZeroLengthContour() {
+  public void testExtractFeaturesGeneratesNoFeatureWithZeroLengthContour() {
+    ContourCenterOfGravityFeatureExtractor ccogfe = new ContourCenterOfGravityFeatureExtractor("attr");
 
+    List<Region> regions = new ArrayList<Region>();
+    Region r = new Region(0.0, 0.0, "test");
+    regions.add(r);
+
+    r.setAttribute("attr", new Contour(0, 1, 0));
+
+    try {
+      ccogfe.extractFeatures(regions);
+      assertFalse(r.hasAttribute("attr__cog"));
+    } catch (FeatureExtractorException e) {
+      fail();
+    }
   }
 
   @Test
@@ -57,7 +78,38 @@ public class ContourCenterOfGravityFeatureExtractorTest {
   }
 
   @Test
-  public void testExtractFeaturesCorrectlyExtractsFeatures() {
+  public void testExtractFeaturesExtractsFeatures() {
+    ContourCenterOfGravityFeatureExtractor ccogfe = new ContourCenterOfGravityFeatureExtractor("attr");
 
+    List<Region> regions = new ArrayList<Region>();
+    Region r = new Region(0.0, 0.0, "test");
+    regions.add(r);
+
+    r.setAttribute("attr", new Contour(0, 1, new double[]{0.0, 0.0, 1.0, 2.0}));
+
+    try {
+      ccogfe.extractFeatures(regions);
+      assertTrue(r.hasAttribute("attr__cog"));
+    } catch (FeatureExtractorException e) {
+      fail();
+    }
+  }
+
+  @Test
+  public void testExtractFeaturesCorrectlyExtractsFeatures() {
+    ContourCenterOfGravityFeatureExtractor ccogfe = new ContourCenterOfGravityFeatureExtractor("attr");
+
+    List<Region> regions = new ArrayList<Region>();
+    Region r = new Region(0.0, 3.0, "test");
+    regions.add(r);
+
+    r.setAttribute("attr", new Contour(0, 1, new double[]{0.0, 0.0, 1.0, 2.0}));
+
+    try {
+      ccogfe.extractFeatures(regions);
+      assertEquals(0.88888, (Double) r.getAttribute("attr__cog"), 0.00001);
+    } catch (FeatureExtractorException e) {
+      fail();
+    }
   }
 }

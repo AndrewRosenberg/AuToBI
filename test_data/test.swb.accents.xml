@@ -1,0 +1,851 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- File generated from the EDINBURGH CONVERTED files. -->
+<nite:accent_stream xmlns:nite="http://nite.sourceforge.net/" nite:id="sw4830.A-accents">
+<accent nite:id="sw4830.A.acc1.aw4" nite:start="0.26328841019540816" nite:end="0.26328841019540816" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms1A_pw3)"/>
+</accent>
+<accent nite:id="sw4830.A.acc2.aw6" nite:start="0.5792399174236702" nite:end="0.5792399174236702" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms1A_pw4)"/>
+</accent>
+<accent nite:id="sw4830.A.acc3.aw9" nite:start="2.504746" nite:end="2.504746" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms2A_pw5)"/>
+</accent>
+<accent nite:id="sw4830.A.acc4.aw12" nite:start="3.578888" nite:end="3.578888" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms2A_pw7)"/>
+</accent>
+<accent nite:id="sw4830.A.acc5.aw17" nite:start="4.443318035899346" nite:end="4.443318035899346" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms2A_pw12)"/>
+</accent>
+<accent nite:id="sw4830.A.acc6.aw18" nite:start="4.7888899969302585" nite:end="4.7888899969302585" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms2A_pw13)"/>
+</accent>
+<accent nite:id="sw4830.A.acc7.aw19" nite:start="5.058765242687732" nite:end="5.058765242687732" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms2A_pw14)"/>
+</accent>
+<accent nite:id="sw4830.A.acc8.aw23" nite:start="6.74904" nite:end="6.74904" strength="weak" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms3A_pw16)"/>
+</accent>
+<accent nite:id="sw4830.A.acc9.aw24" nite:start="6.911943638486033" nite:end="6.911943638486033" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms3A_pw17)"/>
+</accent>
+<accent nite:id="sw4830.A.acc10.aw28" nite:start="7.722115338674289" nite:end="7.722115338674289" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms3A_pw20)"/>
+</accent>
+<accent nite:id="sw4830.A.acc11.aw29" nite:start="8.065587" nite:end="8.065587" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms3A_pw21)"/>
+</accent>
+<accent nite:id="sw4830.A.acc12.aw32" nite:start="8.659692" nite:end="8.659692" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms3A_pw24)"/>
+</accent>
+<accent nite:id="sw4830.A.acc13.aw35" nite:start="9.420146" nite:end="9.420146" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms3A_pw27)"/>
+</accent>
+<accent nite:id="sw4830.A.acc14.aw38" nite:start="10.608356" nite:end="10.608356" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms3A_pw30)"/>
+</accent>
+<accent nite:id="sw4830.A.acc15.aw42" nite:start="12.098395" nite:end="12.098395" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms3A_pw33)"/>
+</accent>
+<accent nite:id="sw4830.A.acc16.aw44" nite:start="12.584603966792646" nite:end="12.584603966792646" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms3A_pw35)"/>
+</accent>
+<accent nite:id="sw4830.A.acc17.aw46" nite:start="13.039457" nite:end="13.039457" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms3A_pw37)"/>
+</accent>
+<accent nite:id="sw4830.A.acc18.aw50" nite:start="14.206754" nite:end="14.206754" strength="weak" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms4A_pw39)"/>
+</accent>
+<accent nite:id="sw4830.A.acc19.aw53" nite:start="14.888321" nite:end="14.888321" strength="full" type="pre-nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms4A_pw42)"/>
+</accent>
+<accent nite:id="sw4830.A.acc20.aw55" nite:start="15.383826" nite:end="15.383826" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms4A_pw44)"/>
+</accent>
+<accent nite:id="sw4830.A.acc21.aw58" nite:start="16.831397873209184" nite:end="16.831397873209184" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms4A_pw46)"/>
+</accent>
+<accent nite:id="sw4830.A.acc22.aw63" nite:start="18.971339" nite:end="18.971339" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms5A_pw48)"/>
+</accent>
+<accent nite:id="sw4830.A.acc23.aw65" nite:start="19.536616" nite:end="19.536616" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms5A_pw50)"/>
+</accent>
+<accent nite:id="sw4830.A.acc24.aw67" nite:start="20.221016" nite:end="20.221016" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms5A_pw52)"/>
+</accent>
+<accent nite:id="sw4830.A.acc25.aw69" nite:start="20.783006" nite:end="20.783006" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms5A_pw54)"/>
+</accent>
+<accent nite:id="sw4830.A.acc26.aw70" nite:start="21.52320341371061" nite:end="21.52320341371061" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms5A_pw55)"/>
+</accent>
+<accent nite:id="sw4830.A.acc27.aw72" nite:start="22.50714" nite:end="22.50714" strength="weak" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms5A_pw56)"/>
+</accent>
+<accent nite:id="sw4830.A.acc28.aw77" nite:start="23.723659" nite:end="23.723659" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms5A_pw61)"/>
+</accent>
+<accent nite:id="sw4830.A.acc29.aw79" nite:start="24.508698" nite:end="24.508698" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms5A_pw63)"/>
+</accent>
+<accent nite:id="sw4830.A.acc30.aw82" nite:start="26.532594" nite:end="26.532594" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms6A_pw64)"/>
+</accent>
+<accent nite:id="sw4830.A.acc31.aw84" nite:start="26.867104360974945" nite:end="26.867104360974945" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms6A_pw66)"/>
+</accent>
+<accent nite:id="sw4830.A.acc32.aw88" nite:start="27.687564013120657" nite:end="27.687564013120657" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms6A_pw70)"/>
+</accent>
+<accent nite:id="sw4830.A.acc33.aw90" nite:start="28.200841" nite:end="28.200841" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms6A_pw71)"/>
+</accent>
+<accent nite:id="sw4830.A.acc34.aw92" nite:start="29.080116" nite:end="29.080116" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms6A_pw73)"/>
+</accent>
+<accent nite:id="sw4830.A.acc35.aw93" nite:start="29.389059" nite:end="29.389059" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms6A_pw74)"/>
+</accent>
+<accent nite:id="sw4830.A.acc36.aw94" nite:start="29.959055" nite:end="29.959055" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms6A_pw75)"/>
+</accent>
+<accent nite:id="sw4830.A.acc37.aw95" nite:start="30.273087" nite:end="30.273087" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms6A_pw76)"/>
+</accent>
+<accent nite:id="sw4830.A.acc38.aw100" nite:start="31.955592" nite:end="31.955592" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms7A_pw79)"/>
+</accent>
+<accent nite:id="sw4830.A.acc39.aw103" nite:start="32.277379" nite:end="32.277379" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms7A_pw82)"/>
+</accent>
+<accent nite:id="sw4830.A.acc40.aw107" nite:start="36.060850364796636" nite:end="36.060850364796636" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms9A_pw83)"/>
+</accent>
+<accent nite:id="sw4830.A.acc41.aw111" nite:start="42.291981751427414" nite:end="42.291981751427414" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms11A_pw84)"/>
+</accent>
+<accent nite:id="sw4830.A.acc42.aw116" nite:start="49.06102294458224" nite:end="49.06102294458224" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms13A_pw86)"/>
+</accent>
+<accent nite:id="sw4830.A.acc43.aw121" nite:start="56.442287" nite:end="56.442287" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms15A_pw88)"/>
+</accent>
+<accent nite:id="sw4830.A.acc44.aw123" nite:start="56.832138" nite:end="56.832138" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms15A_pw90)"/>
+</accent>
+<accent nite:id="sw4830.A.acc45.aw125" nite:start="57.17475416659741" nite:end="57.17475416659741" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms15A_pw92)"/>
+</accent>
+<accent nite:id="sw4830.A.acc46.aw127" nite:start="57.754071" nite:end="57.754071" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms15A_pw94)"/>
+</accent>
+<accent nite:id="sw4830.A.acc47.aw129" nite:start="58.291593043315025" nite:end="58.291593043315025" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms15A_pw96)"/>
+</accent>
+<accent nite:id="sw4830.A.acc48.aw131" nite:start="58.59437273716711" nite:end="58.59437273716711" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms15A_pw98)"/>
+</accent>
+<accent nite:id="sw4830.A.acc49.aw133" nite:start="59.51240076892665" nite:end="59.51240076892665" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms15A_pw99)"/>
+</accent>
+<accent nite:id="sw4830.A.acc50.aw135" nite:start="60.005114" nite:end="60.005114" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms15A_pw100)"/>
+</accent>
+<accent nite:id="sw4830.A.acc51.aw137" nite:start="60.311107" nite:end="60.311107" strength="weak" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms15A_pw102)"/>
+</accent>
+<accent nite:id="sw4830.A.acc52.aw138" nite:start="60.61712830851319" nite:end="60.61712830851319" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms15A_pw103)"/>
+</accent>
+<accent nite:id="sw4830.A.acc53.aw139" nite:start="60.85208535094241" nite:end="60.85208535094241" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms15A_pw104)"/>
+</accent>
+<accent nite:id="sw4830.A.acc54.aw141" nite:start="61.729784" nite:end="61.729784" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms15A_pw105)"/>
+</accent>
+<accent nite:id="sw4830.A.acc55.aw143" nite:start="62.169907" nite:end="62.169907" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms15A_pw107)"/>
+</accent>
+<accent nite:id="sw4830.A.acc56.aw146" nite:start="62.73677353126891" nite:end="62.73677353126891" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms15A_pw109)"/>
+</accent>
+<accent nite:id="sw4830.A.acc57.aw147" nite:start="63.091093" nite:end="63.091093" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms15A_pw110)"/>
+</accent>
+<accent nite:id="sw4830.A.acc58.aw149" nite:start="63.595328" nite:end="63.595328" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms15A_pw112)"/>
+</accent>
+<accent nite:id="sw4830.A.acc59.aw151" nite:start="64.11874060330658" nite:end="64.11874060330658" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms15A_pw114)"/>
+</accent>
+<accent nite:id="sw4830.A.acc60.aw154" nite:start="65.192287" nite:end="65.192287" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms16A_pw115)"/>
+</accent>
+<accent nite:id="sw4830.A.acc61.aw156" nite:start="65.598771" nite:end="65.598771" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms16A_pw117)"/>
+</accent>
+<accent nite:id="sw4830.A.acc62.aw158" nite:start="66.17521506525217" nite:end="66.17521506525217" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms16A_pw119)"/>
+</accent>
+<accent nite:id="sw4830.A.acc63.aw160" nite:start="66.69713367425413" nite:end="66.69713367425413" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms16A_pw120)"/>
+</accent>
+<accent nite:id="sw4830.A.acc64.aw162" nite:start="67.207491" nite:end="67.207491" strength="weak" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms16A_pw121)"/>
+</accent>
+<accent nite:id="sw4830.A.acc65.aw163" nite:start="67.678022" nite:end="67.678022" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms16A_pw122)"/>
+</accent>
+<accent nite:id="sw4830.A.acc66.aw167" nite:start="68.443238" nite:end="68.443238" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms16A_pw126)"/>
+</accent>
+<accent nite:id="sw4830.A.acc67.aw170" nite:start="70.37346202731959" nite:end="70.37346202731959" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms16A_pw128)"/>
+</accent>
+<accent nite:id="sw4830.A.acc68.aw172" nite:start="71.1582989809938" nite:end="71.1582989809938" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms16A_pw130)"/>
+</accent>
+<accent nite:id="sw4830.A.acc69.aw174" nite:start="71.857725" nite:end="71.857725" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms16A_pw132)"/>
+</accent>
+<accent nite:id="sw4830.A.acc70.aw176" nite:start="72.563968" nite:end="72.563968" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms16A_pw134)"/>
+</accent>
+<accent nite:id="sw4830.A.acc71.aw178" nite:start="73.239505" nite:end="73.239505" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms16A_pw136)"/>
+</accent>
+<accent nite:id="sw4830.A.acc72.aw181" nite:start="73.72912385909743" nite:end="73.72912385909743" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms16A_pw139)"/>
+</accent>
+<accent nite:id="sw4830.A.acc73.aw183" nite:start="74.06911395643807" nite:end="74.06911395643807" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms16A_pw141)"/>
+</accent>
+<accent nite:id="sw4830.A.acc74.aw185" nite:start="74.43159208997706" nite:end="74.43159208997706" strength="full" type="pre-nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms16A_pw142)"/>
+</accent>
+<accent nite:id="sw4830.A.acc75.aw188" nite:start="74.93681101967017" nite:end="74.93681101967017" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms16A_pw145)"/>
+</accent>
+<accent nite:id="sw4830.A.acc76.aw189" nite:start="75.453691" nite:end="75.453691" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms16A_pw146)"/>
+</accent>
+<accent nite:id="sw4830.A.acc77.aw190" nite:start="75.74071283861583" nite:end="75.74071283861583" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms16A_pw147)"/>
+</accent>
+<accent nite:id="sw4830.A.acc78.aw194" nite:start="77.967951" nite:end="77.967951" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms17A_pw149)"/>
+</accent>
+<accent nite:id="sw4830.A.acc79.aw197" nite:start="78.909022" nite:end="78.909022" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms17A_pw152)"/>
+</accent>
+<accent nite:id="sw4830.A.acc80.aw198" nite:start="79.283518" nite:end="79.283518" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms17A_pw153)"/>
+</accent>
+<accent nite:id="sw4830.A.acc81.aw199" nite:start="79.79305" nite:end="79.79305" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms17A_pw154)"/>
+</accent>
+<accent nite:id="sw4830.A.acc82.aw202" nite:start="81.435114" nite:end="81.435114" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms17A_pw157)"/>
+</accent>
+<accent nite:id="sw4830.A.acc83.aw205" nite:start="81.960345" nite:end="81.960345" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms17A_pw159)"/>
+</accent>
+<accent nite:id="sw4830.A.acc84.aw207" nite:start="83.042882" nite:end="83.042882" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms17A_pw160)"/>
+</accent>
+<accent nite:id="sw4830.A.acc85.aw209" nite:start="83.406239" nite:end="83.406239" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms17A_pw162)"/>
+</accent>
+<accent nite:id="sw4830.A.acc86.aw211" nite:start="83.803057" nite:end="83.803057" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms17A_pw163)"/>
+</accent>
+<accent nite:id="sw4830.A.acc87.aw212" nite:start="84.216561" nite:end="84.216561" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms17A_pw164)"/>
+</accent>
+<accent nite:id="sw4830.A.acc88.aw214" nite:start="84.598664" nite:end="84.598664" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms17A_pw166)"/>
+</accent>
+<accent nite:id="sw4830.A.acc89.aw218" nite:start="86.50757" nite:end="86.50757" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms17A_pw169)"/>
+</accent>
+<accent nite:id="sw4830.A.acc90.aw219" nite:start="86.844881" nite:end="86.844881" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms17A_pw170)"/>
+</accent>
+<accent nite:id="sw4830.A.acc91.aw221" nite:start="87.938043" nite:end="87.938043" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms17A_pw172)"/>
+</accent>
+<accent nite:id="sw4830.A.acc92.aw223" nite:start="88.342035" nite:end="88.342035" strength="full" type="pre-nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms17A_pw174)"/>
+</accent>
+<accent nite:id="sw4830.A.acc93.aw224" nite:start="88.923125" nite:end="88.923125" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms17A_pw175)"/>
+</accent>
+<accent nite:id="sw4830.A.acc94.aw228" nite:start="90.499831" nite:end="90.499831" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms18A_pw177)"/>
+</accent>
+<accent nite:id="sw4830.A.acc95.aw230" nite:start="90.959976" nite:end="90.959976" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms18A_pw179)"/>
+</accent>
+<accent nite:id="sw4830.A.acc96.aw231" nite:start="91.210743" nite:end="91.210743" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms18A_pw180)"/>
+</accent>
+<accent nite:id="sw4830.A.acc97.aw233" nite:start="91.456393" nite:end="91.456393" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms18A_pw182)"/>
+</accent>
+<accent nite:id="sw4830.A.acc98.aw235" nite:start="91.69630175355448" nite:end="91.69630175355448" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms18A_pw184)"/>
+</accent>
+<accent nite:id="sw4830.A.acc99.aw237" nite:start="91.957928" nite:end="91.957928" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms18A_pw185)"/>
+</accent>
+<accent nite:id="sw4830.A.acc100.aw239" nite:start="92.3198971759103" nite:end="92.3198971759103" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms18A_pw187)"/>
+</accent>
+<accent nite:id="sw4830.A.acc101.aw241" nite:start="92.720466" nite:end="92.720466" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms18A_pw189)"/>
+</accent>
+<accent nite:id="sw4830.A.acc102.aw243" nite:start="93.02994485925416" nite:end="93.02994485925416" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms18A_pw191)"/>
+</accent>
+<accent nite:id="sw4830.A.acc103.aw247" nite:start="94.50173" nite:end="94.50173" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms19A_pw193)"/>
+</accent>
+<accent nite:id="sw4830.A.acc104.aw249" nite:start="95.228143" nite:end="95.228143" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms19A_pw194)"/>
+</accent>
+<accent nite:id="sw4830.A.acc105.aw252" nite:start="96.017886" nite:end="96.017886" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms19A_pw197)"/>
+</accent>
+<accent nite:id="sw4830.A.acc106.aw254" nite:start="97.096789" nite:end="97.096789" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms19A_pw199)"/>
+</accent>
+<accent nite:id="sw4830.A.acc107.aw256" nite:start="97.781198" nite:end="97.781198" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms19A_pw200)"/>
+</accent>
+<accent nite:id="sw4830.A.acc108.aw260" nite:start="98.855339" nite:end="98.855339" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms19A_pw203)"/>
+</accent>
+<accent nite:id="sw4830.A.acc109.aw265" nite:start="99.6279651947547" nite:end="99.6279651947547" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms19A_pw208)"/>
+</accent>
+<accent nite:id="sw4830.A.acc110.aw267" nite:start="100.471312" nite:end="100.471312" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms19A_pw209)"/>
+</accent>
+<accent nite:id="sw4830.A.acc111.aw271" nite:start="102.343931" nite:end="102.343931" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms20A_pw211)"/>
+</accent>
+<accent nite:id="sw4830.A.acc112.aw273" nite:start="102.774198" nite:end="102.774198" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms20A_pw213)"/>
+</accent>
+<accent nite:id="sw4830.A.acc113.aw275" nite:start="103.32932621009566" nite:end="103.32932621009566" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms20A_pw215)"/>
+</accent>
+<accent nite:id="sw4830.A.acc114.aw277" nite:start="104.01694" nite:end="104.01694" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms20A_pw216)"/>
+</accent>
+<accent nite:id="sw4830.A.acc115.aw282" nite:start="105.091082" nite:end="105.091082" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms20A_pw221)"/>
+</accent>
+<accent nite:id="sw4830.A.acc116.aw286" nite:start="107.980817" nite:end="107.980817" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms22A_pw222)"/>
+</accent>
+<accent nite:id="sw4830.A.acc117.aw288" nite:start="108.484618" nite:end="108.484618" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms22A_pw224)"/>
+</accent>
+<accent nite:id="sw4830.A.acc118.aw291" nite:start="109.126251" nite:end="109.126251" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms22A_pw227)"/>
+</accent>
+<accent nite:id="sw4830.A.acc119.aw294" nite:start="109.84522267747362" nite:end="109.84522267747362" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms22A_pw230)"/>
+</accent>
+<accent nite:id="sw4830.A.acc120.aw298" nite:start="111.077636" nite:end="111.077636" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms22A_pw234)"/>
+</accent>
+<accent nite:id="sw4830.A.acc121.aw301" nite:start="111.6994533642698" nite:end="111.6994533642698" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms22A_pw237)"/>
+</accent>
+<accent nite:id="sw4830.A.acc122.aw303" nite:start="112.747933" nite:end="112.747933" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms22A_pw238)"/>
+</accent>
+<accent nite:id="sw4830.A.acc123.aw305" nite:start="113.1947" nite:end="113.1947" strength="weak" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms22A_pw240)"/>
+</accent>
+<accent nite:id="sw4830.A.acc124.aw306" nite:start="113.48362347262932" nite:end="113.48362347262932" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms22A_pw241)"/>
+</accent>
+<accent nite:id="sw4830.A.acc125.aw311" nite:start="114.33168180308854" nite:end="114.33168180308854" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms22A_pw246)"/>
+</accent>
+<accent nite:id="sw4830.A.acc126.aw313" nite:start="115.081577" nite:end="115.081577" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms22A_pw248)"/>
+</accent>
+<accent nite:id="sw4830.A.acc127.aw316" nite:start="116.135134" nite:end="116.135134" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms22A_pw250)"/>
+</accent>
+<accent nite:id="sw4830.A.acc128.aw317" nite:start="116.350585" nite:end="116.350585" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms22A_pw251)"/>
+</accent>
+<accent nite:id="sw4830.A.acc129.aw320" nite:start="117.82215024154691" nite:end="117.82215024154691" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms23A_pw252)"/>
+</accent>
+<accent nite:id="sw4830.A.acc130.aw323" nite:start="118.42713630125016" nite:end="118.42713630125016" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms23A_pw255)"/>
+</accent>
+<accent nite:id="sw4830.A.acc131.aw329" nite:start="121.67598756957119" nite:end="121.67598756957119" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms25A_pw257)"/>
+</accent>
+<accent nite:id="sw4830.A.acc132.aw333" nite:start="126.09662081369588" nite:end="126.09662081369588" strength="weak" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms27A_pw258)"/>
+</accent>
+<accent nite:id="sw4830.A.acc133.aw335" nite:start="126.553038" nite:end="126.553038" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms27A_pw260)"/>
+</accent>
+<accent nite:id="sw4830.A.acc134.aw336" nite:start="126.83851015670227" nite:end="126.83851015670227" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms27A_pw261)"/>
+</accent>
+<accent nite:id="sw4830.A.acc135.aw337" nite:start="127.02163573106823" nite:end="127.02163573106823" strength="weak" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms27A_pw262)"/>
+</accent>
+<accent nite:id="sw4830.A.acc136.aw340" nite:start="127.417328" nite:end="127.417328" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms27A_pw265)"/>
+</accent>
+<accent nite:id="sw4830.A.acc137.aw343" nite:start="127.88527525107938" nite:end="127.88527525107938" strength="weak" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms27A_pw268)"/>
+</accent>
+<accent nite:id="sw4830.A.acc138.aw345" nite:start="128.215805" nite:end="128.215805" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms27A_pw270)"/>
+</accent>
+<accent nite:id="sw4830.A.acc139.aw348" nite:start="128.738626" nite:end="128.738626" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms27A_pw272)"/>
+</accent>
+<accent nite:id="sw4830.A.acc140.aw352" nite:start="129.556114" nite:end="129.556114" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms27A_pw276)"/>
+</accent>
+<accent nite:id="sw4830.A.acc141.aw353" nite:start="130.045656" nite:end="130.045656" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms27A_pw277)"/>
+</accent>
+<accent nite:id="sw4830.A.acc142.aw356" nite:start="131.5162240506844" nite:end="131.5162240506844" strength="weak" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms27A_pw279)"/>
+</accent>
+<accent nite:id="sw4830.A.acc143.aw357" nite:start="131.870747" nite:end="131.870747" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms27A_pw280)"/>
+</accent>
+<accent nite:id="sw4830.A.acc144.aw362" nite:start="133.577026" nite:end="133.577026" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms28A_pw283)"/>
+</accent>
+<accent nite:id="sw4830.A.acc145.aw363" nite:start="133.962006" nite:end="133.962006" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms28A_pw284)"/>
+</accent>
+<accent nite:id="sw4830.A.acc146.aw366" nite:start="134.56808709132315" nite:end="134.56808709132315" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms28A_pw286)"/>
+</accent>
+<accent nite:id="sw4830.A.acc147.aw368" nite:start="134.84469099228738" nite:end="134.84469099228738" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms28A_pw288)"/>
+</accent>
+<accent nite:id="sw4830.A.acc148.aw369" nite:start="135.112193" nite:end="135.112193" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms28A_pw289)"/>
+</accent>
+<accent nite:id="sw4830.A.acc149.aw372" nite:start="135.962961" nite:end="135.962961" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms28A_pw291)"/>
+</accent>
+<accent nite:id="sw4830.A.acc150.aw375" nite:start="137.445846" nite:end="137.445846" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms28A_pw293)"/>
+</accent>
+<accent nite:id="sw4830.A.acc151.aw377" nite:start="138.0536529007047" nite:end="138.0536529007047" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms28A_pw295)"/>
+</accent>
+<accent nite:id="sw4830.A.acc152.aw380" nite:start="138.99907288623135" nite:end="138.99907288623135" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms28A_pw297)"/>
+</accent>
+<accent nite:id="sw4830.A.acc153.aw382" nite:start="139.470565" nite:end="139.470565" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms28A_pw299)"/>
+</accent>
+<accent nite:id="sw4830.A.acc154.aw384" nite:start="139.84271478417227" nite:end="139.84271478417227" strength="weak" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms28A_pw301)"/>
+</accent>
+<accent nite:id="sw4830.A.acc155.aw385" nite:start="140.354593" nite:end="140.354593" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms28A_pw302)"/>
+</accent>
+<accent nite:id="sw4830.A.acc156.aw386" nite:start="140.82004856757925" nite:end="140.82004856757925" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms28A_pw303)"/>
+</accent>
+<accent nite:id="sw4830.A.acc157.aw389" nite:start="141.58025762225537" nite:end="141.58025762225537" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms28A_pw305)"/>
+</accent>
+<accent nite:id="sw4830.A.acc158.aw392" nite:start="142.041851" nite:end="142.041851" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms28A_pw308)"/>
+</accent>
+<accent nite:id="sw4830.A.acc159.aw393" nite:start="142.53770666818323" nite:end="142.53770666818323" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms28A_pw309)"/>
+</accent>
+<accent nite:id="sw4830.A.acc160.aw397" nite:start="143.857445" nite:end="143.857445" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms28A_pw311)"/>
+</accent>
+<accent nite:id="sw4830.A.acc161.aw401" nite:start="144.76152620401208" nite:end="144.76152620401208" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms28A_pw315)"/>
+</accent>
+<accent nite:id="sw4830.A.acc162.aw405" nite:start="145.497174" nite:end="145.497174" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms28A_pw319)"/>
+</accent>
+<accent nite:id="sw4830.A.acc163.aw407" nite:start="146.034254" nite:end="146.034254" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms28A_pw321)"/>
+</accent>
+<accent nite:id="sw4830.A.acc164.aw409" nite:start="146.7010845680873" nite:end="146.7010845680873" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms28A_pw322)"/>
+</accent>
+<accent nite:id="sw4830.A.acc165.aw415" nite:start="148.548506" nite:end="148.548506" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms29A_pw326)"/>
+</accent>
+<accent nite:id="sw4830.A.acc166.aw418" nite:start="149.175881" nite:end="149.175881" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms29A_pw329)"/>
+</accent>
+<accent nite:id="sw4830.A.acc167.aw420" nite:start="149.812771" nite:end="149.812771" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms29A_pw330)"/>
+</accent>
+<accent nite:id="sw4830.A.acc168.aw423" nite:start="150.534614" nite:end="150.534614" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms29A_pw332)"/>
+</accent>
+<accent nite:id="sw4830.A.acc169.aw427" nite:start="151.271564" nite:end="151.271564" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms29A_pw335)"/>
+</accent>
+<accent nite:id="sw4830.A.acc170.aw429" nite:start="151.84210892351806" nite:end="151.84210892351806" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms29A_pw337)"/>
+</accent>
+<accent nite:id="sw4830.A.acc171.aw433" nite:start="153.184426" nite:end="153.184426" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms29A_pw340)"/>
+</accent>
+<accent nite:id="sw4830.A.acc172.aw435" nite:start="153.630825" nite:end="153.630825" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms29A_pw342)"/>
+</accent>
+<accent nite:id="sw4830.A.acc173.aw438" nite:start="153.97519015733008" nite:end="153.97519015733008" strength="weak" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms29A_pw344)"/>
+</accent>
+<accent nite:id="sw4830.A.acc174.aw441" nite:start="154.572265" nite:end="154.572265" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms29A_pw347)"/>
+</accent>
+<accent nite:id="sw4830.A.acc175.aw447" nite:start="156.46263812305602" nite:end="156.46263812305602" strength="weak" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms30A_pw351)"/>
+</accent>
+<accent nite:id="sw4830.A.acc176.aw451" nite:start="156.8179647444218" nite:end="156.8179647444218" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms30A_pw355)"/>
+</accent>
+<accent nite:id="sw4830.A.acc177.aw454" nite:start="157.423046" nite:end="157.423046" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms30A_pw358)"/>
+</accent>
+<accent nite:id="sw4830.A.acc178.aw456" nite:start="157.861238" nite:end="157.861238" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms30A_pw360)"/>
+</accent>
+<accent nite:id="sw4830.A.acc179.aw457" nite:start="158.47353045444052" nite:end="158.47353045444052" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms30A_pw361)"/>
+</accent>
+<accent nite:id="sw4830.A.acc180.aw461" nite:start="159.985757" nite:end="159.985757" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms30A_pw364)"/>
+</accent>
+<accent nite:id="sw4830.A.acc181.aw464" nite:start="160.68994923646477" nite:end="160.68994923646477" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms30A_pw367)"/>
+</accent>
+<accent nite:id="sw4830.A.acc182.aw467" nite:start="161.415897" nite:end="161.415897" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms30A_pw370)"/>
+</accent>
+<accent nite:id="sw4830.A.acc183.aw470" nite:start="163.00951410051653" nite:end="163.00951410051653" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms31A_pw371)"/>
+</accent>
+<accent nite:id="sw4830.A.acc184.aw475" nite:start="165.128348" nite:end="165.128348" strength="weak" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms32A_pw374)"/>
+</accent>
+<accent nite:id="sw4830.A.acc185.aw476" nite:start="165.34798911409212" nite:end="165.34798911409212" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms32A_pw375)"/>
+</accent>
+<accent nite:id="sw4830.A.acc186.aw478" nite:start="165.801774" nite:end="165.801774" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms32A_pw377)"/>
+</accent>
+<accent nite:id="sw4830.A.acc187.aw486" nite:start="167.281384" nite:end="167.281384" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms32A_pw384)"/>
+</accent>
+<accent nite:id="sw4830.A.acc188.aw489" nite:start="168.13547566388394" nite:end="168.13547566388394" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms32A_pw386)"/>
+</accent>
+<accent nite:id="sw4830.A.acc189.aw491" nite:start="168.53881728444253" nite:end="168.53881728444253" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms32A_pw388)"/>
+</accent>
+<accent nite:id="sw4830.A.acc190.aw493" nite:start="169.291846" nite:end="169.291846" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms32A_pw390)"/>
+</accent>
+<accent nite:id="sw4830.A.acc191.aw498" nite:start="170.356482" nite:end="170.356482" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms32A_pw394)"/>
+</accent>
+<accent nite:id="sw4830.A.acc192.aw502" nite:start="171.492932" nite:end="171.492932" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms32A_pw398)"/>
+</accent>
+<accent nite:id="sw4830.A.acc193.aw503" nite:start="171.796592" nite:end="171.796592" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms32A_pw399)"/>
+</accent>
+<accent nite:id="sw4830.A.acc194.aw508" nite:start="173.930627" nite:end="173.930627" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms32A_pw403)"/>
+</accent>
+<accent nite:id="sw4830.A.acc195.aw510" nite:start="174.496215" nite:end="174.496215" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms32A_pw405)"/>
+</accent>
+<accent nite:id="sw4830.A.acc196.aw511" nite:start="175.02923975546764" nite:end="175.02923975546764" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms32A_pw406)"/>
+</accent>
+<accent nite:id="sw4830.A.acc197.aw513" nite:start="175.82685913994302" nite:end="175.82685913994302" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms32A_pw407)"/>
+</accent>
+<accent nite:id="sw4830.A.acc198.aw517" nite:start="177.560634" nite:end="177.560634" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms33A_pw409)"/>
+</accent>
+<accent nite:id="sw4830.A.acc199.aw519" nite:start="177.89376908671454" nite:end="177.89376908671454" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms33A_pw411)"/>
+</accent>
+<accent nite:id="sw4830.A.acc200.aw523" nite:start="179.23956" nite:end="179.23956" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms33A_pw414)"/>
+</accent>
+<accent nite:id="sw4830.A.acc201.aw526" nite:start="179.82890247973157" nite:end="179.82890247973157" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms33A_pw417)"/>
+</accent>
+<accent nite:id="sw4830.A.acc202.aw528" nite:start="180.4501820890265" nite:end="180.4501820890265" strength="weak" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms33A_pw419)"/>
+</accent>
+<accent nite:id="sw4830.A.acc203.aw530" nite:start="180.836816" nite:end="180.836816" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms33A_pw421)"/>
+</accent>
+<accent nite:id="sw4830.A.acc204.aw532" nite:start="181.254773" nite:end="181.254773" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms33A_pw423)"/>
+</accent>
+<accent nite:id="sw4830.A.acc205.aw536" nite:start="182.526746" nite:end="182.526746" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms33A_pw425)"/>
+</accent>
+<accent nite:id="sw4830.A.acc206.aw537" nite:start="182.75775229855586" nite:end="182.75775229855586" strength="weak" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms33A_pw426)"/>
+</accent>
+<accent nite:id="sw4830.A.acc207.aw539" nite:start="183.198684" nite:end="183.198684" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms33A_pw428)"/>
+</accent>
+<accent nite:id="sw4830.A.acc208.aw541" nite:start="183.6271402375611" nite:end="183.6271402375611" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms33A_pw430)"/>
+</accent>
+<accent nite:id="sw4830.A.acc209.aw543" nite:start="184.179392" nite:end="184.179392" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms33A_pw431)"/>
+</accent>
+<accent nite:id="sw4830.A.acc210.aw546" nite:start="184.702205" nite:end="184.702205" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms33A_pw433)"/>
+</accent>
+<accent nite:id="sw4830.A.acc211.aw550" nite:start="185.438719" nite:end="185.438719" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms33A_pw437)"/>
+</accent>
+<accent nite:id="sw4830.A.acc212.aw551" nite:start="185.67900799476894" nite:end="185.67900799476894" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms33A_pw438)"/>
+</accent>
+<accent nite:id="sw4830.A.acc213.aw555" nite:start="190.996325" nite:end="190.996325" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms35A_pw439)"/>
+</accent>
+<accent nite:id="sw4830.A.acc214.aw559" nite:start="194.60846268464192" nite:end="194.60846268464192" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms37A_pw440)"/>
+</accent>
+<accent nite:id="sw4830.A.acc215.aw564" nite:start="201.800445" nite:end="201.800445" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms39A_pw442)"/>
+</accent>
+<accent nite:id="sw4830.A.acc216.aw573" nite:start="207.5180815639108" nite:end="207.5180815639108" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms42A_pw445)"/>
+</accent>
+<accent nite:id="sw4830.A.acc217.aw577" nite:start="211.52532011818923" nite:end="211.52532011818923" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms44A_pw446)"/>
+</accent>
+<accent nite:id="sw4830.A.acc218.aw579" nite:start="212.03695748923536" nite:end="212.03695748923536" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms44A_pw448)"/>
+</accent>
+<accent nite:id="sw4830.A.acc219.aw585" nite:start="215.72532019045303" nite:end="215.72532019045303" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms46A_pw450)"/>
+</accent>
+<accent nite:id="sw4830.A.acc220.aw589" nite:start="217.35603116059948" nite:end="217.35603116059948" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms47A_pw452)"/>
+</accent>
+<accent nite:id="sw4830.A.acc221.aw594" nite:start="218.369692" nite:end="218.369692" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms47A_pw457)"/>
+</accent>
+<accent nite:id="sw4830.A.acc222.aw596" nite:start="218.7879642366081" nite:end="218.7879642366081" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms47A_pw459)"/>
+</accent>
+<accent nite:id="sw4830.A.acc223.aw598" nite:start="218.998262" nite:end="218.998262" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms47A_pw461)"/>
+</accent>
+<accent nite:id="sw4830.A.acc224.aw599" nite:start="219.564927" nite:end="219.564927" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms47A_pw462)"/>
+</accent>
+<accent nite:id="sw4830.A.acc225.aw602" nite:start="220.16297302113003" nite:end="220.16297302113003" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms47A_pw465)"/>
+</accent>
+<accent nite:id="sw4830.A.acc226.aw604" nite:start="220.536645" nite:end="220.536645" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms47A_pw467)"/>
+</accent>
+<accent nite:id="sw4830.A.acc227.aw609" nite:start="236.59874126274156" nite:end="236.59874126274156" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms49A_pw469)"/>
+</accent>
+<accent nite:id="sw4830.A.acc228.aw612" nite:start="237.42972300246197" nite:end="237.42972300246197" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms49A_pw471)"/>
+</accent>
+<accent nite:id="sw4830.A.acc229.aw613" nite:start="237.730564" nite:end="237.730564" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms49A_pw472)"/>
+</accent>
+<accent nite:id="sw4830.A.acc230.aw615" nite:start="238.23915201588346" nite:end="238.23915201588346" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms49A_pw474)"/>
+</accent>
+<accent nite:id="sw4830.A.acc231.aw619" nite:start="238.87851" nite:end="238.87851" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms49A_pw478)"/>
+</accent>
+<accent nite:id="sw4830.A.acc232.aw623" nite:start="242.224639" nite:end="242.224639" strength="weak" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms51A_pw479)"/>
+</accent>
+<accent nite:id="sw4830.A.acc233.aw625" nite:start="242.69632" nite:end="242.69632" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms51A_pw481)"/>
+</accent>
+<accent nite:id="sw4830.A.acc234.aw629" nite:start="243.6807773620068" nite:end="243.6807773620068" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms51A_pw485)"/>
+</accent>
+<accent nite:id="sw4830.A.acc235.aw631" nite:start="244.0405235901941" nite:end="244.0405235901941" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms51A_pw487)"/>
+</accent>
+<accent nite:id="sw4830.A.acc236.aw634" nite:start="244.630656" nite:end="244.630656" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms51A_pw489)"/>
+</accent>
+<accent nite:id="sw4830.A.acc237.aw635" nite:start="244.912285" nite:end="244.912285" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms51A_pw490)"/>
+</accent>
+<accent nite:id="sw4830.A.acc238.aw637" nite:start="245.55847221426194" nite:end="245.55847221426194" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms51A_pw491)"/>
+</accent>
+<accent nite:id="sw4830.A.acc239.aw641" nite:start="246.367597" nite:end="246.367597" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms51A_pw494)"/>
+</accent>
+<accent nite:id="sw4830.A.acc240.aw642" nite:start="246.910453" nite:end="246.910453" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms51A_pw495)"/>
+</accent>
+<accent nite:id="sw4830.A.acc241.aw644" nite:start="247.3287329424542" nite:end="247.3287329424542" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms51A_pw497)"/>
+</accent>
+<accent nite:id="sw4830.A.acc242.aw645" nite:start="247.55454799154646" nite:end="247.55454799154646" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms51A_pw498)"/>
+</accent>
+<accent nite:id="sw4830.A.acc243.aw649" nite:start="248.965509" nite:end="248.965509" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms51A_pw500)"/>
+</accent>
+<accent nite:id="sw4830.A.acc244.aw652" nite:start="249.524732" nite:end="249.524732" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms51A_pw503)"/>
+</accent>
+<accent nite:id="sw4830.A.acc245.aw654" nite:start="250.146977465374" nite:end="250.146977465374" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms51A_pw505)"/>
+</accent>
+<accent nite:id="sw4830.A.acc246.aw658" nite:start="251.258115" nite:end="251.258115" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms51A_pw508)"/>
+</accent>
+<accent nite:id="sw4830.A.acc247.aw661" nite:start="251.772399" nite:end="251.772399" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms51A_pw511)"/>
+</accent>
+<accent nite:id="sw4830.A.acc248.aw663" nite:start="252.42127328225604" nite:end="252.42127328225604" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms51A_pw513)"/>
+</accent>
+<accent nite:id="sw4830.A.acc249.aw664" nite:start="252.655377" nite:end="252.655377" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms51A_pw514)"/>
+</accent>
+<accent nite:id="sw4830.A.acc250.aw666" nite:start="253.202972" nite:end="253.202972" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms51A_pw516)"/>
+</accent>
+<accent nite:id="sw4830.A.acc251.aw669" nite:start="255.352211" nite:end="255.352211" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms52A_pw517)"/>
+</accent>
+<accent nite:id="sw4830.A.acc252.aw670" nite:start="255.64951119011647" nite:end="255.64951119011647" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms52A_pw518)"/>
+</accent>
+<accent nite:id="sw4830.A.acc253.aw672" nite:start="256.056971" nite:end="256.056971" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms52A_pw520)"/>
+</accent>
+<accent nite:id="sw4830.A.acc254.aw679" nite:start="265.772061" nite:end="265.772061" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms54A_pw524)"/>
+</accent>
+<accent nite:id="sw4830.A.acc255.aw681" nite:start="266.14981681790914" nite:end="266.14981681790914" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms54A_pw526)"/>
+</accent>
+<accent nite:id="sw4830.A.acc256.aw683" nite:start="266.698365" nite:end="266.698365" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms54A_pw528)"/>
+</accent>
+<accent nite:id="sw4830.A.acc257.aw685" nite:start="267.15503697738564" nite:end="267.15503697738564" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms54A_pw530)"/>
+</accent>
+<accent nite:id="sw4830.A.acc258.aw688" nite:start="267.97552817462434" nite:end="267.97552817462434" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms54A_pw533)"/>
+</accent>
+<accent nite:id="sw4830.A.acc259.aw691" nite:start="268.6711672071984" nite:end="268.6711672071984" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms54A_pw536)"/>
+</accent>
+<accent nite:id="sw4830.A.acc260.aw692" nite:start="269.066988964421" nite:end="269.066988964421" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms54A_pw537)"/>
+</accent>
+<accent nite:id="sw4830.A.acc261.aw696" nite:start="274.37762552238576" nite:end="274.37762552238576" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms56A_pw538)"/>
+</accent>
+<accent nite:id="sw4830.A.acc262.aw699" nite:start="275.225119" nite:end="275.225119" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms56A_pw540)"/>
+</accent>
+<accent nite:id="sw4830.A.acc263.aw701" nite:start="275.887022" nite:end="275.887022" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms56A_pw541)"/>
+</accent>
+<accent nite:id="sw4830.A.acc264.aw705" nite:start="276.580101" nite:end="276.580101" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms56A_pw545)"/>
+</accent>
+<accent nite:id="sw4830.A.acc265.aw709" nite:start="277.642801" nite:end="277.642801" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms56A_pw549)"/>
+</accent>
+<accent nite:id="sw4830.A.acc266.aw711" nite:start="277.980569" nite:end="277.980569" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms56A_pw550)"/>
+</accent>
+<accent nite:id="sw4830.A.acc267.aw713" nite:start="278.766818" nite:end="278.766818" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms56A_pw551)"/>
+</accent>
+<accent nite:id="sw4830.A.acc268.aw718" nite:start="281.08949" nite:end="281.08949" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms57A_pw554)"/>
+</accent>
+<accent nite:id="sw4830.A.acc269.aw719" nite:start="281.2875557378144" nite:end="281.2875557378144" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms57A_pw555)"/>
+</accent>
+<accent nite:id="sw4830.A.acc270.aw721" nite:start="281.7143391860364" nite:end="281.7143391860364" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms57A_pw557)"/>
+</accent>
+<accent nite:id="sw4830.A.acc271.aw723" nite:start="282.0807630637539" nite:end="282.0807630637539" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms57A_pw559)"/>
+</accent>
+<accent nite:id="sw4830.A.acc272.aw725" nite:start="282.475201" nite:end="282.475201" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms57A_pw561)"/>
+</accent>
+<accent nite:id="sw4830.A.acc273.aw727" nite:start="282.720380283473" nite:end="282.720380283473" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms57A_pw563)"/>
+</accent>
+<accent nite:id="sw4830.A.acc274.aw731" nite:start="283.75884626377734" nite:end="283.75884626377734" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms57A_pw567)"/>
+</accent>
+<accent nite:id="sw4830.A.acc275.aw732" nite:start="284.52025159062254" nite:end="284.52025159062254" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms57A_pw568)"/>
+</accent>
+<accent nite:id="sw4830.A.acc276.aw734" nite:start="285.146659" nite:end="285.146659" strength="weak" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms57A_pw569)"/>
+</accent>
+<accent nite:id="sw4830.A.acc277.aw736" nite:start="285.546712" nite:end="285.546712" strength="full" type="plain">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms57A_pw571)"/>
+</accent>
+<accent nite:id="sw4830.A.acc278.aw737" nite:start="286.35445659204987" nite:end="286.35445659204987" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms57A_pw572)"/>
+</accent>
+<accent nite:id="sw4830.A.acc279.aw741" nite:start="289.6253" nite:end="289.6253" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms59A_pw573)"/>
+</accent>
+<accent nite:id="sw4830.A.acc280.aw745" nite:start="293.4271425747645" nite:end="293.4271425747645" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms61A_pw574)"/>
+</accent>
+<accent nite:id="sw4830.A.acc281.aw751" nite:start="298.242038749413" nite:end="298.242038749413" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms63A_pw577)"/>
+</accent>
+<accent nite:id="sw4830.A.acc282.aw752" nite:start="298.5473110038415" nite:end="298.5473110038415" strength="full" type="nuclear">
+	<nite:pointer role="at" href="sw4830.A.phonwords.xml#id(ms63A_pw578)"/>
+</accent>
+</nite:accent_stream>
+

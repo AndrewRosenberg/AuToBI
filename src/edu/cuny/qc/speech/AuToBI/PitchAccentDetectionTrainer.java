@@ -38,6 +38,7 @@ import java.util.List;
  * PitchAccentDetectionTrainer trains and serializes a pitch accent detection classifier.  This class trains a Logistic
  * Regression model.  This is the classifier delivered with the first version of AuToBI.
  */
+@Deprecated
 public class PitchAccentDetectionTrainer extends AuToBITrainer {
 
   /**

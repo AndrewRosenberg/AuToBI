@@ -1,0 +1,49 @@
+        class = "IntervalTier" 
+        name = "words" 
+        xmin = 0 
+        xmax = 8.3773 
+        intervals: size = 11 
+        intervals [1]:
+            xmin = 0 
+            xmax = 4.36744 
+            text = "#" 
+        intervals [2]:
+            xmin = 4.36744 
+            xmax = 4.51463 
+            text = "My" 
+        intervals [3]:
+            xmin = 4.51463 
+            xmax = 4.71869 
+            text = "name" 
+        intervals [4]:
+            xmin = 4.71869 
+            xmax = 4.90456 
+            text = "is" 
+        intervals [5]:
+            xmin = 4.90456 
+            xmax = 5.14825 
+            text = "Randy" 
+        intervals [6]:
+            xmin = 5.14825 
+            xmax = 5.60306 
+            text = "Keller" 
+        intervals [7]:
+            xmin = 5.60306 
+            xmax = 5.67506 
+            text = "and" 
+        intervals [8]:
+            xmin = 5.67506 
+            xmax = 5.77944 
+            text = "it" 
+        intervals [9]:
+            xmin = 5.77944 
+            xmax = 5.94325 
+            text = "is" 
+        intervals [10]:
+            xmin = 5.94325 
+            xmax = 6.30319 
+            text = "June" 
+        intervals [11]:
+            xmin = 6.30319 
+            xmax = 6.74775 
+            text = "third" 

@@ -30,9 +30,14 @@ import java.util.ArrayList;
  * <p/>
  * This feature extractor assumes the presence of previously extracted subregions identifying the region of analysis to
  * calculate the amount of change across the boundary.
+ * <p/>
+ * The reset feature calculates the difference between the mean value of a current region and the mean value of another.
+ * This can be calculated over the full region, or a previously identified subregion that is stored as an
+ * "van_subregion" (right-most), "trail_subregion" (left-most) attribute on subsequent regions.
  *
  * @see SubregionResetFeatureExtractor
  */
+@SuppressWarnings("unchecked")
 public class ResetContourFeatureExtractor extends FeatureExtractor {
   private String feature_name;       // the prefix of the stored feature name
   private String subregion_name;       // the name of the subregion
@@ -65,6 +70,17 @@ public class ResetContourFeatureExtractor extends FeatureExtractor {
   }
 
   /**
+   * Default ResetContourFeatureExtractor with no subregion.
+   * <p/>
+   * The reset feature is stored in "<feature_name>_reset"
+   *
+   * @param feature_name The prefix of the stored feature name
+   */
+  public ResetContourFeatureExtractor(String feature_name) {
+    this(feature_name, null);
+  }
+
+  /**
    * Extracts reset feature over the contour for each region.
    * <p/>
    * If the subregion name is null or an empty string, the full region will be used as the domain to calculate reset
@@ -74,10 +90,13 @@ public class ResetContourFeatureExtractor extends FeatureExtractor {
    * @throws FeatureExtractorException if any region doesn't have a valid subregion.
    */
   public void extractFeatures(List regions) throws FeatureExtractorException {
-
     List<Region> van_subregions;
     List<Region> trail_subregions;
+
+    String destination_feature = feature_name + "_reset";
     if (subregion_name != null && !subregion_name.equals("")) {
+      destination_feature = feature_name + "_" + subregion_name + "_reset";
+
       van_subregions = new ArrayList<Region>();
       trail_subregions = new ArrayList<Region>();
       for (Region r : (List<Region>) regions) {
@@ -122,12 +141,8 @@ public class ResetContourFeatureExtractor extends FeatureExtractor {
         trail_agg.insert(tvp.second);
       }
 
-      ((Region) regions.get(regions.size() - 1))
-          .setAttribute(feature_name + "_reset", trail_agg.getMean() - van_agg.getMean());
+      ((Region) regions.get(i))
+          .setAttribute(destination_feature, trail_agg.getMean() - van_agg.getMean());
     }
-
-    // Sets the reset of the final attribute to "undefined".
-    ((Region) regions.get(regions.size() - 1)).setAttribute(feature_name + "_reset", "?");
-
   }
 }

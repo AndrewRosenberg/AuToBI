@@ -30,6 +30,7 @@ import java.util.List;
 /**
  * Constructs a subcontour object based on an acoustic contour and a defined subregion.
  */
+@SuppressWarnings("unchecked")
 public class SubregionContourExtractor extends FeatureExtractor {
 
   private String contour_feature; // the acoustic contour feature

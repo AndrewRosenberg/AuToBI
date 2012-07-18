@@ -31,6 +31,7 @@ import java.util.List;
  * <p/>
  * The features extracted include each polynomial coefficient and the mean squared error of the fit.
  */
+@SuppressWarnings("unchecked")
 public class ContourPolyFitFeatureExtractor extends FeatureExtractor {
   private ContourPolynomialFitter fitter;  // the fitter responsible for calculating coefficients
   private String feature_name; // the root of the destination features
@@ -42,7 +43,7 @@ public class ContourPolyFitFeatureExtractor extends FeatureExtractor {
     this.acoustic_feature = acoustic_feature;
 
     this.required_features.add(acoustic_feature);
-    for (int i = 0; i < fitter.getOrder(); ++i) {
+    for (int i = 0; i <= fitter.getOrder(); ++i) {
       this.extracted_features.add(feature_name + "_" + i);
     }
     this.extracted_features.add(feature_name + "_mse");

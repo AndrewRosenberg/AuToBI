@@ -32,6 +32,7 @@ import java.util.ArrayList;
  * <p/>
  * The frequency range is defined in bark scale.
  */
+@SuppressWarnings("unchecked")
 public class SpectrumBandFeatureExtractor extends ContourFeatureExtractor {
   private String spectrum_feature;  // the spectrum feature
 
@@ -39,16 +40,6 @@ public class SpectrumBandFeatureExtractor extends ContourFeatureExtractor {
   // asn associated feature extractor responsible for the feature calculation
   private Integer low;                          // the low boundary of the frequency bandwidth
   private Integer high;                         // the high boundary of the frequency bandwidth
-
-  /**
-   * Constructs a new SpectrumBandFeatureExtractor with an associated Spectrum object.
-   *
-   * @param spectrum_feature the spectrum feature
-   */
-  public SpectrumBandFeatureExtractor(String spectrum_feature) {
-    super();
-    this.spectrum_feature = spectrum_feature;
-  }
 
   /**
    * Constructs a new SpectrumBandFeatureExtractor with associated spectrum, feature prefix and frequency region.

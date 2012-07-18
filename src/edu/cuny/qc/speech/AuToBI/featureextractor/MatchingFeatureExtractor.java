@@ -26,12 +26,13 @@ import java.util.List;
 
 /**
  * MatchingFeatureExtractor extracts a feature that determines if two other features match, or differ.
- *
- * Currently, if two variables match the resulting feature value is "CORRECT" and if they differ it is "INCORRECT".
- * This decision was made because this feature extractor is typicaly used to compare predicted values to hypothesized
- * values.  A reasonable extension to this will be to allow a user to specify the values for matching and differing
- * feature values.
+ * <p/>
+ * Currently, if two variables match the resulting feature value is "CORRECT" and if they differ it is "INCORRECT". This
+ * decision was made because this feature extractor is typicaly used to compare predicted values to hypothesized values.
+ * A reasonable extension to this will be to allow a user to specify the values for matching and differing feature
+ * values.
  */
+@SuppressWarnings("unchecked")
 public class MatchingFeatureExtractor extends FeatureExtractor {
   private String feature1;     // One of the feature names
   private String feature2;     // The second feature name
@@ -39,10 +40,11 @@ public class MatchingFeatureExtractor extends FeatureExtractor {
 
   /**
    * Constructs a new MatchingFeatureExtractor to compare the values of two features, feature1, and feature2.
-   *
+   * <p/>
    * The result "CORRECT" or "INCORRECT" is stored in a feature indicated by destination_feature.
-   * @param feature1 The first feature
-   * @param feature2 The second feature
+   *
+   * @param feature1            The first feature
+   * @param feature2            The second feature
    * @param destination_feature The feature to store the result
    */
   public MatchingFeatureExtractor(String feature1, String feature2, String destination_feature) {
@@ -57,20 +59,22 @@ public class MatchingFeatureExtractor extends FeatureExtractor {
 
   /**
    * Extracts matching feature for each region.
+   * <p/>
+   * If the two features are equal the destination feature is "CORRECT" otherwise "INCORRECT"
+   * <p/>
+   * No destination feature is set if either feature is not present on a region.
    *
    * @param regions The regions to extract features from.
    * @throws FeatureExtractorException if any region does not have one of the matching features.
    */
   public void extractFeatures(List regions) throws FeatureExtractorException {
     for (Region r : (List<Region>) regions) {
-      if (!r.hasAttribute(feature1))
-        throw new FeatureExtractorException("Region has no feature: " + feature1 + " -- " + r.toString());
-      if (!r.hasAttribute(feature2))
-        throw new FeatureExtractorException("Region has no feature: " + feature2 + " -- " + r.toString());
-      if (r.getAttribute(feature1).equals(r.getAttribute(feature2))) {
-        r.setAttribute(destination, "CORRECT");
-      } else {
-        r.setAttribute(destination, "INCORRECT");
+      if (r.hasAttribute(feature1) && r.hasAttribute(feature2)) {
+        if (r.getAttribute(feature1).equals(r.getAttribute(feature2))) {
+          r.setAttribute(destination, "CORRECT");
+        } else {
+          r.setAttribute(destination, "INCORRECT");
+        }
       }
     }
   }

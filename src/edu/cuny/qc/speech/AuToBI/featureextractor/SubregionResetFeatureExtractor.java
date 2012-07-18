@@ -34,10 +34,9 @@ import java.util.List;
  * While developed as a utility for subregions, this can operate on regions longer than the initial region.  For
  * example, if the initial region is 100ms, and a 200ms subregion is requested, the subregion boundary will fall earlier
  * than the initial region boundary
- *
  */
+@SuppressWarnings("unchecked")
 public class SubregionResetFeatureExtractor extends FeatureExtractor {
-
   private String subregion_name;    // the name of the subregion
   private Double subregion_length;  // the length (in seconds) of the subregion
 
@@ -49,7 +48,8 @@ public class SubregionResetFeatureExtractor extends FeatureExtractor {
    * Subregions are described as a number of seconds "2s" or milliseconds "50ms".  Other names will raise an exception
    *
    * @param subregion_name the subregion label
-   * @throws edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException if something goes wrong with the subregion name
+   * @throws edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException
+   *          if something goes wrong with the subregion name
    */
   public SubregionResetFeatureExtractor(String subregion_name) throws FeatureExtractorException {
     extracted_features.add("van_" + subregion_name);
@@ -63,13 +63,14 @@ public class SubregionResetFeatureExtractor extends FeatureExtractor {
    * Extracts subregion reset regions for each region.
    *
    * @param regions the regions to process
-   * @throws edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException if something goes wrong with the extraction.
+   * @throws edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException
+   *          if something goes wrong with the extraction.
    */
   public void extractFeatures(List regions) throws FeatureExtractorException {
     for (Region r : (List<Region>) regions) {
       // construct subregions
-      Region van_region = new Region(r.getStart(), r.getStart() + subregion_length);
-      Region trail_region = new Region(r.getEnd() - subregion_length, r.getEnd());
+      Region trail_region = new Region(r.getStart(), r.getStart() + subregion_length);
+      Region van_region = new Region(r.getEnd() - subregion_length, r.getEnd());
 
       r.setAttribute("van_" + subregion_name, van_region);
       r.setAttribute("trail_" + subregion_name, trail_region);

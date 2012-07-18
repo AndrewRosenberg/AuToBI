@@ -20,7 +20,6 @@
 package edu.cuny.qc.speech.AuToBI.core;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.HashMap;
 
 /**
@@ -33,6 +32,8 @@ public class SpeakerNormalizationParameter implements Serializable {
   // an association from the normalization attribute to the aggregation used for the normalization
   private HashMap<String, Aggregation> params;
   private String speaker_id;  // a speaker identifier for the parameters
+
+  // TODO: include getter methods for better inspection of parameters.
 
   /**
    * Constructs an empty SpeakerNormalizationParameter.

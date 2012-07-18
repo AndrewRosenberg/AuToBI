@@ -1,6 +1,6 @@
 /*  WordReaderUtils.java
 
-    Copyright (c) 20092010 Andrew Rosenberg
+    Copyright (c) 2009-2012 Andrew Rosenberg
 
     This file is part of the AuToBI prosodic analysis package.
 
@@ -19,6 +19,7 @@
  */
 package edu.cuny.qc.speech.AuToBI.util;
 
+import edu.cuny.qc.speech.AuToBI.core.AuToBIParameters;
 import edu.cuny.qc.speech.AuToBI.io.*;
 
 /**
@@ -65,15 +66,19 @@ public class WordReaderUtils {
    * @param file The formatted file
    * @return A reader capable of reading this file.
    */
-  public static AuToBIWordReader getAppropriateReader(FormattedFile file) {
+  public static AuToBIWordReader getAppropriateReader(FormattedFile file, AuToBIParameters params) {
     String filename = file.getFilename();
     AuToBIWordReader reader;
     switch (file.getFormat()) {
       case TEXTGRID:
-        reader = new TextGridReader(filename);
+        reader = new TextGridReader(filename, params.getOptionalParameter("words_tier_name"),
+            params.getOptionalParameter("tones_tier_name"), params.getOptionalParameter("breaks_tier_name"),
+            params.getOptionalParameter("charset"));
+
         break;
       case CPROM:
-        reader = new CPromTextGridReader(filename, "words", "delivery", "UTF16", true);
+        reader = new CPromTextGridReader(filename, "words", "delivery", "UTF16", params.booleanParameter(
+            "cprom_include_secondary", true));
         break;
       case BURNC:
         reader = new BURNCReader(filename.replace(".ala", ""));
@@ -86,6 +91,9 @@ public class WordReaderUtils {
         break;
       case BUCKEYE:
         reader = new BuckeyeReader(filename);
+        break;
+      case DUR:
+        reader = new DURReader(filename);
         break;
       default:
         reader = new TextGridReader(filename);

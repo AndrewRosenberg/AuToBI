@@ -1,0 +1,1748 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<nite:break_stream xmlns:nite="http://nite.sourceforge.net/" nite:id="sw4830.A-breaks">
+<!-- File generated from the UW files. -->
+<break nite:id="sw4830A.break.1" nite:start="0.080000" nite:end="0.080000" UWtime="0.080000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms1A_pw1)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.2" nite:start="0.200000" nite:end="0.200000" UWtime="0.200000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms1A_pw2)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.3" nite:start="0.316750" nite:end="0.316750" UWtime="0.330000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms1A_pw3)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.4" nite:start="0.670000" nite:end="0.670000" UWtime="0.670000" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms1A_pw4)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.5" nite:start="2.774500" nite:end="2.774500" UWtime="2.734625" index="4" phraseTone="L" boundaryTone="H">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms2A_pw5)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.6" nite:start="3.242250" nite:end="3.242250" UWtime="3.284625" index="X">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms2A_pw6)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.7" nite:start="3.714625" nite:end="3.714625" UWtime="3.714625" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms2A_pw8)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.8" nite:start="3.784625" nite:end="3.784625" UWtime="3.804625" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms2A_pw9)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.9" nite:start="4.174625" nite:end="4.174625" UWtime="3.884625" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms2A_pw10)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.10" nite:start="4.174625" nite:end="4.174625" UWtime="4.134625" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms2A_pw10)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.11" nite:start="4.314625" nite:end="4.314625" UWtime="4.314625" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms2A_pw11)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.12" nite:start="4.644625" nite:end="4.644625" UWtime="4.624625" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms2A_pw12)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.13" nite:start="4.914625" nite:end="4.914625" UWtime="4.904625" index="4-" phraseTone="L" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms2A_pw13)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.14" nite:start="5.294625" nite:end="5.294625" UWtime="5.114625" index="2p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms2A_pw14)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.15" nite:start="5.516125" nite:end="5.516125" UWtime="5.534625" index="X">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms2A_pw15)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.16" nite:start="6.824875" nite:end="6.824875" UWtime="6.804875" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms3A_pw16)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.17" nite:start="7.144875" nite:end="7.144875" UWtime="7.154875" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms3A_pw17)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.18" nite:start="7.444875" nite:end="7.444875" UWtime="7.304875" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms3A_pw18)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.19" nite:start="7.568375" nite:end="7.568375" UWtime="7.554875" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms3A_pw19)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.20" nite:start="7.873500" nite:end="7.873500" UWtime="7.744875" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms3A_pw20)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.21" nite:start="8.164875" nite:end="8.164875" UWtime="8.164875" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms3A_pw21)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.22" nite:start="8.264875" nite:end="8.264875" UWtime="8.274875" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms3A_pw22)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.23" nite:start="8.454875" nite:end="8.454875" UWtime="8.494875" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms3A_pw23)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.24" nite:start="8.814875" nite:end="8.814875" UWtime="8.784875" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms3A_pw24)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.25" nite:start="9.114875" nite:end="9.114875" UWtime="9.084875" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms3A_pw25)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.26" nite:start="9.234875" nite:end="9.234875" UWtime="9.204875" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms3A_pw26)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.27" nite:start="9.614875" nite:end="9.614875" UWtime="9.634875" index="2">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms3A_pw27)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.28" nite:start="10.114875" nite:end="10.114875" UWtime="10.094875" index="2">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms3A_pw28)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.29" nite:start="10.234875" nite:end="10.234875" UWtime="10.194875" index="2p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms3A_pw29)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.30" nite:start="10.956625" nite:end="10.956625" UWtime="10.944875" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms3A_pw30)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.31" nite:start="11.854875" nite:end="11.854875" UWtime="11.844875" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms3A_pw31)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.32" nite:start="11.944875" nite:end="11.944875" UWtime="11.964875" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms3A_pw32)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.33" nite:start="12.204875" nite:end="12.204875" UWtime="12.204875" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms3A_pw33)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.34" nite:start="12.444875" nite:end="12.444875" UWtime="12.404875" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms3A_pw34)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.35" nite:start="12.704875" nite:end="12.704875" UWtime="12.694875" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms3A_pw35)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.36" nite:start="12.944875" nite:end="12.944875" UWtime="12.874875" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms3A_pw36)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.37" nite:start="13.174875" nite:end="13.174875" UWtime="13.174875" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms3A_pw37)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.38" nite:start="14.103000" nite:end="14.103000" UWtime="14.094000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms4A_pw38)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.39" nite:start="14.341625" nite:end="14.341625" UWtime="14.334000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms4A_pw39)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.40" nite:start="14.604000" nite:end="14.604000" UWtime="14.604000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms4A_pw40)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.41" nite:start="14.664000" nite:end="14.664000" UWtime="14.674000" index="2">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms4A_pw41)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.42" nite:start="15.004000" nite:end="15.004000" UWtime="15.004000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms4A_pw42)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.43" nite:start="15.184000" nite:end="15.184000" UWtime="15.184000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms4A_pw43)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.44" nite:start="15.720750" nite:end="15.720750" UWtime="15.664000" index="2p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms4A_pw44)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.45" nite:start="16.734000" nite:end="16.734000" UWtime="16.644000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms4A_pw45)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.46" nite:start="17.084000" nite:end="17.084000" UWtime="17.104000" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms4A_pw46)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.47" nite:start="18.756500" nite:end="18.756500" UWtime="18.446500" index="X">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms5A_pw47)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.49" nite:start="19.046500" nite:end="19.046500" UWtime="19.046500" index="1-">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms5A_pw48)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.50" nite:start="19.226500" nite:end="19.226500" UWtime="19.346500" index="4" phraseTone="L" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms5A_pw49)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.51" nite:start="19.790500" nite:end="19.790500" UWtime="19.656500" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms5A_pw50)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.52" nite:start="20.020250" nite:end="20.020250" UWtime="20.026500" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms5A_pw51)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.53" nite:start="20.426500" nite:end="20.426500" UWtime="20.406500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms5A_pw52)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.54" nite:start="20.516500" nite:end="20.516500" UWtime="20.526500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms5A_pw53)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.55" nite:start="21.136500" nite:end="21.136500" UWtime="21.146500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms5A_pw54)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.56" nite:start="21.806500" nite:end="21.806500" UWtime="21.866500" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms5A_pw55)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.57" nite:start="22.756500" nite:end="22.756500" UWtime="22.766500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms5A_pw56)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.58" nite:start="22.946500" nite:end="22.946500" UWtime="22.956500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms5A_pw57)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.59" nite:start="23.066500" nite:end="23.066500" UWtime="23.056500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms5A_pw58)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.60" nite:start="23.346500" nite:end="23.346500" UWtime="23.306500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms5A_pw59)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.61" nite:start="23.556500" nite:end="23.556500" UWtime="23.576500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms5A_pw60)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.62" nite:start="24.006500" nite:end="24.006500" UWtime="23.996500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms5A_pw61)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.63" nite:start="24.126500" nite:end="24.126500" UWtime="24.146500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms5A_pw62)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.64" nite:start="25.046500" nite:end="25.046500" UWtime="25.046500" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms5A_pw63)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.65" nite:start="26.550250" nite:end="26.550250" UWtime="26.570250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms6A_pw64)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.66" nite:start="26.780250" nite:end="26.780250" UWtime="26.770250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms6A_pw65)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.67" nite:start="27.010250" nite:end="27.010250" UWtime="26.980250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms6A_pw66)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.68" nite:start="27.200250" nite:end="27.200250" UWtime="27.170250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms6A_pw67)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.69" nite:start="27.340500" nite:end="27.340500" UWtime="27.330250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms6A_pw68)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.70" nite:start="27.558875" nite:end="27.558875" UWtime="27.550250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms6A_pw69)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.71" nite:start="27.861500" nite:end="27.861500" UWtime="27.870250" index="2p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms6A_pw70)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.72" nite:start="28.719000" nite:end="28.719000" UWtime="28.710250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms6A_pw71)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.73" nite:start="28.884750" nite:end="28.884750" UWtime="28.890250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms6A_pw72)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.74" nite:start="29.268250" nite:end="29.268250" UWtime="29.270250" index="2">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms6A_pw73)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.75" nite:start="29.837000" nite:end="29.837000" UWtime="29.690250" index="4" phraseTone="H" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms6A_pw74)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.76" nite:start="30.160250" nite:end="30.160250" UWtime="30.170250" index="2">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms6A_pw75)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.77" nite:start="30.700250" nite:end="30.700250" UWtime="30.710250" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms6A_pw76)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.78" nite:start="31.725500" nite:end="31.725500" UWtime="31.775500" index="0">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms7A_pw77)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.79" nite:start="31.915500" nite:end="31.915500" UWtime="31.855500" index="1-">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms7A_pw78)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.80" nite:start="32.005500" nite:end="32.005500" UWtime="32.015500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms7A_pw79)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.81" nite:start="32.105500" nite:end="32.105500" UWtime="32.105500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms7A_pw80)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.82" nite:start="32.155500" nite:end="32.155500" UWtime="32.155500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms7A_pw81)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.83" nite:start="32.425500" nite:end="32.425500" UWtime="32.445500" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms7A_pw82)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.84" nite:start="36.250250" nite:end="36.250250" UWtime="36.238250" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms9A_pw83)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.85" nite:start="42.504750" nite:end="42.504750" UWtime="42.515625" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms11A_pw84)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.86" nite:start="48.996875" nite:end="48.996875" UWtime="48.976875" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms13A_pw85)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.87" nite:start="49.256875" nite:end="49.256875" UWtime="49.256875" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms13A_pw86)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.88" nite:start="56.354000" nite:end="56.354000" UWtime="56.335375" index="2p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms15A_pw87)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.89" nite:start="56.540125" nite:end="56.540125" UWtime="56.525375" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms15A_pw88)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.90" nite:start="56.695625" nite:end="56.695625" UWtime="56.665375" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms15A_pw89)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.91" nite:start="56.929125" nite:end="56.929125" UWtime="56.945375" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms15A_pw90)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.92" nite:start="57.038375" nite:end="57.038375" UWtime="57.035375" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms15A_pw91)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.93" nite:start="57.335375" nite:end="57.335375" UWtime="57.295375" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms15A_pw92)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.94" nite:start="57.605375" nite:end="57.605375" UWtime="57.635375" index="4-" phraseTone="H" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms15A_pw93)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.95" nite:start="57.955375" nite:end="57.955375" UWtime="57.925375" index="4" phraseTone="L" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms15A_pw94)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.96" nite:start="58.195375" nite:end="58.195375" UWtime="58.185375" index="X" boundaryTone="X">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms15A_pw95)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.97" nite:start="58.345375" nite:end="58.345375" UWtime="58.315375" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms15A_pw96)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.98" nite:start="58.435375" nite:end="58.435375" UWtime="58.475375" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms15A_pw97)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.99" nite:start="58.815375" nite:end="58.815375" UWtime="58.825375" index="2p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms15A_pw98)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.100" nite:start="59.723250" nite:end="59.723250" UWtime="59.645375" index="X">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms15A_pw99)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.101" nite:start="60.055375" nite:end="60.055375" UWtime="60.051174" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms15A_pw100)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.102" nite:start="60.165375" nite:end="60.165375" UWtime="60.175375" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms15A_pw101)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.103" nite:start="60.445375" nite:end="60.445375" UWtime="60.395375" index="2">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms15A_pw102)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.104" nite:start="60.685375" nite:end="60.685375" UWtime="60.745375" index="2">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms15A_pw103)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.105" nite:start="61.381000" nite:end="61.381000" UWtime="61.165375" index="3p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms15A_pw104)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.106" nite:start="61.875375" nite:end="61.875375" UWtime="61.865375" index="1-">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms15A_pw105)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.107" nite:start="62.005375" nite:end="62.005375" UWtime="61.995375" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms15A_pw106)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.108" nite:start="62.245375" nite:end="62.245375" UWtime="62.225375" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms15A_pw107)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.109" nite:start="62.375375" nite:end="62.375375" UWtime="62.395375" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms15A_pw108)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.110" nite:start="63.175375" nite:end="63.175375" UWtime="62.985375" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms15A_pw110)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.111" nite:start="63.175375" nite:end="63.175375" UWtime="63.165375" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms15A_pw110)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.112" nite:start="63.315375" nite:end="63.315375" UWtime="63.315375" index="4" phraseTone="L" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms15A_pw111)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.113" nite:start="63.825375" nite:end="63.825375" UWtime="63.815375" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms15A_pw112)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.114" nite:start="63.997750" nite:end="63.997750" UWtime="63.935375" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms15A_pw113)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.115" nite:start="64.437625" nite:end="64.437625" UWtime="64.465375" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms15A_pw114)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.116" nite:start="65.283625" nite:end="65.283625" UWtime="65.265000" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms16A_pw115)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.117" nite:start="65.435000" nite:end="65.435000" UWtime="65.455000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms16A_pw116)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.118" nite:start="65.715000" nite:end="65.715000" UWtime="65.735000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms16A_pw117)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.119" nite:start="66.075000" nite:end="66.075000" UWtime="66.015000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms16A_pw118)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.120" nite:start="66.342375" nite:end="66.342375" UWtime="66.335000" index="2p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms16A_pw119)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.121" nite:start="66.921250" nite:end="66.921250" UWtime="67.025000" index="X">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms16A_pw120)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.122" nite:start="67.405000" nite:end="67.405000" UWtime="67.445000" index="2p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms16A_pw121)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.123" nite:start="67.835000" nite:end="67.835000" UWtime="67.815000" index="2">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms16A_pw122)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.124" nite:start="67.905000" nite:end="67.905000" UWtime="67.845000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms16A_pw123)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.125" nite:start="68.135000" nite:end="68.135000" UWtime="68.135000" index="0">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms16A_pw124)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.126" nite:start="68.205000" nite:end="68.205000" UWtime="68.215000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms16A_pw125)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.127" nite:start="68.728750" nite:end="68.728750" UWtime="68.825000" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms16A_pw126)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.128" nite:start="70.275000" nite:end="70.275000" UWtime="70.215000" index="X" boundaryTone="X">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms16A_pw127)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.129" nite:start="70.575000" nite:end="70.575000" UWtime="70.635000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms16A_pw128)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.130" nite:start="70.825000" nite:end="70.825000" UWtime="70.795000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms16A_pw129)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.131" nite:start="71.335000" nite:end="71.335000" UWtime="71.305000" index="3" phraseTone="!H">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms16A_pw130)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.132" nite:start="71.595000" nite:end="71.595000" UWtime="71.615000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms16A_pw131)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.133" nite:start="72.045000" nite:end="72.045000" UWtime="72.015000" index="3" phraseTone="!H">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms16A_pw132)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.134" nite:start="72.355000" nite:end="72.355000" UWtime="72.355000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms16A_pw133)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.135" nite:start="72.805000" nite:end="72.805000" UWtime="72.785000" index="3" phraseTone="!H">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms16A_pw134)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.136" nite:start="73.065000" nite:end="73.065000" UWtime="73.125000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms16A_pw135)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.137" nite:start="73.335500" nite:end="73.335500" UWtime="73.345000" index="4" phraseTone="L" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms16A_pw136)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.138" nite:start="73.440875" nite:end="73.440875" UWtime="73.405000" index="0">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms16A_pw137)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.139" nite:start="73.626500" nite:end="73.626500" UWtime="73.625000" index="0">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms16A_pw138)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.140" nite:start="73.852500" nite:end="73.852500" UWtime="73.765000" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms16A_pw139)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.141" nite:start="73.995000" nite:end="73.995000" UWtime="73.965000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms16A_pw140)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.142" nite:start="74.155000" nite:end="74.155000" UWtime="74.195000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms16A_pw141)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.143" nite:start="74.465000" nite:end="74.465000" UWtime="74.475000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms16A_pw142)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.144" nite:start="74.645000" nite:end="74.645000" UWtime="74.595000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms16A_pw143)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.145" nite:start="74.715000" nite:end="74.715000" UWtime="74.685000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms16A_pw144)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.146" nite:start="75.205000" nite:end="75.205000" UWtime="75.225000" index="4-" phraseTone="H" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms16A_pw145)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.147" nite:start="75.495000" nite:end="75.495000" UWtime="75.495000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms16A_pw146)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.148" nite:start="76.065000" nite:end="76.065000" UWtime="76.095000" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms16A_pw147)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.149" nite:start="77.587000" nite:end="77.587000" UWtime="77.567000" index="2">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms17A_pw148)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.150" nite:start="78.507000" nite:end="78.507000" UWtime="78.457000" index="4-" phraseTone="L" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms17A_pw149)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.151" nite:start="78.637000" nite:end="78.637000" UWtime="78.607000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms17A_pw150)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.152" nite:start="78.697000" nite:end="78.697000" UWtime="78.697000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms17A_pw151)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.153" nite:start="79.167000" nite:end="79.167000" UWtime="79.167000" index="2">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms17A_pw152)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.154" nite:start="79.437000" nite:end="79.437000" UWtime="79.427000" index="2">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms17A_pw153)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.155" nite:start="80.767000" nite:end="80.767000" UWtime="79.997000" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms17A_pw154)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.156" nite:start="81.157000" nite:end="81.157000" UWtime="80.987000" index="2p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms17A_pw155)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.157" nite:start="81.357000" nite:end="81.357000" UWtime="81.357000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms17A_pw156)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.158" nite:start="81.537000" nite:end="81.537000" UWtime="81.537000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms17A_pw157)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.159" nite:start="81.777000" nite:end="81.777000" UWtime="81.757000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms17A_pw158)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.160" nite:start="82.157000" nite:end="82.157000" UWtime="82.167000" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms17A_pw159)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.161" nite:start="83.107000" nite:end="83.107000" UWtime="83.094059" index="0">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms17A_pw160)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.162" nite:start="83.207000" nite:end="83.207000" UWtime="83.207000" index="4" phraseTone="L" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms17A_pw161)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.163" nite:start="83.587000" nite:end="83.587000" UWtime="83.617000" index="2">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms17A_pw162)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.164" nite:start="84.147000" nite:end="84.147000" UWtime="84.097000" index="4-" phraseTone="H" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms17A_pw163)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.165" nite:start="84.307000" nite:end="84.307000" UWtime="84.287000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms17A_pw164)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.166" nite:start="84.367000" nite:end="84.367000" UWtime="84.367000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms17A_pw165)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.167" nite:start="84.887000" nite:end="84.887000" UWtime="85.007000" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms17A_pw166)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.168" nite:start="86.181250" nite:end="86.181250" UWtime="85.977000" index="2p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms17A_pw167)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.169" nite:start="86.387000" nite:end="86.387000" UWtime="86.357000" index="X" boundaryTone="X">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms17A_pw168)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.170" nite:start="86.577000" nite:end="86.577000" UWtime="86.567000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms17A_pw169)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.171" nite:start="87.307000" nite:end="87.307000" UWtime="87.287000" index="4-" phraseTone="H" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms17A_pw170)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.172" nite:start="87.617000" nite:end="87.617000" UWtime="87.517000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms17A_pw171)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.173" nite:start="88.097000" nite:end="88.097000" UWtime="88.087000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms17A_pw172)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.174" nite:start="88.177000" nite:end="88.177000" UWtime="88.167000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms17A_pw173)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.175" nite:start="88.797000" nite:end="88.797000" UWtime="88.797000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms17A_pw174)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.176" nite:start="89.167000" nite:end="89.167000" UWtime="89.167000" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms17A_pw175)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.177" nite:start="90.389125" nite:end="90.389125" UWtime="90.309125" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms18A_pw176)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.178" nite:start="90.629125" nite:end="90.629125" UWtime="90.629125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms18A_pw177)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.179" nite:start="90.799125" nite:end="90.799125" UWtime="90.869125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms18A_pw178)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.180" nite:start="91.169125" nite:end="91.169125" UWtime="91.149125" index="2p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms18A_pw179)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.181" nite:start="91.229125" nite:end="91.229125" UWtime="91.239125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms18A_pw180)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.182" nite:start="91.409125" nite:end="91.409125" UWtime="91.409125" index="4" phraseTone="L" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms18A_pw181)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.183" nite:start="91.509125" nite:end="91.509125" UWtime="91.489125" index="1-">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms18A_pw182)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.184" nite:start="91.609125" nite:end="91.609125" UWtime="91.599125" index="4" phraseTone="L" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms18A_pw183)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.185" nite:start="91.769125" nite:end="91.769125" UWtime="91.769125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms18A_pw184)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.186" nite:start="92.079125" nite:end="92.079125" UWtime="92.089125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms18A_pw185)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.187" nite:start="92.219125" nite:end="92.219125" UWtime="92.229125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms18A_pw186)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.188" nite:start="92.469125" nite:end="92.469125" UWtime="92.439125" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms18A_pw187)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.189" nite:start="92.529125" nite:end="92.529125" UWtime="92.579125" index="X" boundaryTone="X">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms18A_pw188)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.190" nite:start="92.899125" nite:end="92.899125" UWtime="92.899125" index="0">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms18A_pw189)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.191" nite:start="92.989125" nite:end="92.989125" UWtime="92.989125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms18A_pw190)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.192" nite:start="93.189125" nite:end="93.189125" UWtime="93.209125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms18A_pw191)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.193" nite:start="93.489125" nite:end="93.489125" UWtime="93.549125" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms18A_pw192)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.194" nite:start="94.795000" nite:end="94.795000" UWtime="94.672125" index="2p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms19A_pw193)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.195" nite:start="95.292125" nite:end="95.292125" UWtime="95.282125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms19A_pw194)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.196" nite:start="95.512125" nite:end="95.512125" UWtime="95.512125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms19A_pw195)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.197" nite:start="95.882125" nite:end="95.882125" UWtime="95.802125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms19A_pw196)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.198" nite:start="96.363750" nite:end="96.363750" UWtime="96.372125" index="4" phraseTone="L" boundaryTone="H">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms19A_pw197)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.199" nite:start="96.921250" nite:end="96.921250" UWtime="96.852125" index="2">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms19A_pw198)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.200" nite:start="97.464625" nite:end="97.464625" UWtime="97.512125" index="3">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms19A_pw199)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.201" nite:start="98.032125" nite:end="98.032125" UWtime="98.022125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms19A_pw200)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.202" nite:start="98.404750" nite:end="98.404750" UWtime="98.422125" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms19A_pw201)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.203" nite:start="98.682125" nite:end="98.682125" UWtime="98.712125" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms19A_pw202)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.204" nite:start="98.882125" nite:end="98.882125" UWtime="98.912125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms19A_pw203)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.205" nite:start="99.132125" nite:end="99.132125" UWtime="99.142125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms19A_pw204)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.206" nite:start="99.332125" nite:end="99.332125" UWtime="99.302125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms19A_pw205)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.207" nite:start="99.422125" nite:end="99.422125" UWtime="99.402125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms19A_pw206)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.208" nite:start="99.522125" nite:end="99.522125" UWtime="99.532125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms19A_pw207)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.209" nite:start="99.862125" nite:end="99.862125" UWtime="99.932125" index="2p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms19A_pw208)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.210" nite:start="101.282125" nite:end="101.282125" UWtime="101.252125" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms19A_pw209)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.211" nite:start="102.317250" nite:end="102.317250" UWtime="102.276125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms20A_pw210)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.212" nite:start="102.530750" nite:end="102.530750" UWtime="102.486125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms20A_pw211)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.213" nite:start="102.706125" nite:end="102.706125" UWtime="102.636125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms20A_pw212)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.214" nite:start="102.896125" nite:end="102.896125" UWtime="102.886125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms20A_pw213)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.215" nite:start="103.226125" nite:end="103.226125" UWtime="103.216125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms20A_pw214)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.216" nite:start="103.523500" nite:end="103.523500" UWtime="103.516125" index="2p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms20A_pw215)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.217" nite:start="104.306125" nite:end="104.306125" UWtime="104.306125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms20A_pw216)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.218" nite:start="104.486125" nite:end="104.486125" UWtime="104.486125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms20A_pw217)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.219" nite:start="104.716125" nite:end="104.716125" UWtime="104.706125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms20A_pw218)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.220" nite:start="104.716125" nite:end="104.716125" UWtime="104.676125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms20A_pw218)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.221" nite:start="104.786125" nite:end="104.786125" UWtime="104.796125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms20A_pw219)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.222" nite:start="105.584625" nite:end="105.584625" UWtime="105.406125" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms20A_pw221)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.223" nite:start="108.048250" nite:end="108.048250" UWtime="108.058250" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms22A_pw222)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.224" nite:start="108.308250" nite:end="108.308250" UWtime="108.258250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms22A_pw223)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.225" nite:start="108.778250" nite:end="108.778250" UWtime="108.738250" index="4" phraseTone="L" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms22A_pw224)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.226" nite:start="108.898250" nite:end="108.898250" UWtime="108.888250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms22A_pw225)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.227" nite:start="109.058250" nite:end="109.058250" UWtime="109.008250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms22A_pw226)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.228" nite:start="109.278250" nite:end="109.278250" UWtime="109.228250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms22A_pw227)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.229" nite:start="109.468250" nite:end="109.468250" UWtime="109.468250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms22A_pw228)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.230" nite:start="109.558250" nite:end="109.558250" UWtime="109.528250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms22A_pw229)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.231" nite:start="110.068250" nite:end="110.068250" UWtime="110.048250" index="2">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms22A_pw230)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.232" nite:start="110.378250" nite:end="110.378250" UWtime="110.358250" index="2">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms22A_pw231)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.233" nite:start="110.848250" nite:end="110.848250" UWtime="110.788250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms22A_pw232)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.234" nite:start="110.918250" nite:end="110.918250" UWtime="110.938250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms22A_pw233)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.235" nite:start="111.158250" nite:end="111.158250" UWtime="111.158250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms22A_pw234)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.236" nite:start="111.298250" nite:end="111.298250" UWtime="111.278250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms22A_pw235)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.237" nite:start="111.368250" nite:end="111.368250" UWtime="111.388250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms22A_pw236)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.238" nite:start="112.206875" nite:end="112.206875" UWtime="112.108250" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms22A_pw237)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.239" nite:start="112.778250" nite:end="112.778250" UWtime="112.798250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms22A_pw238)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.240" nite:start="112.938250" nite:end="112.938250" UWtime="112.908250" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms22A_pw239)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.241" nite:start="113.226625" nite:end="113.226625" UWtime="113.228250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms22A_pw240)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.242" nite:start="113.588250" nite:end="113.588250" UWtime="113.578250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms22A_pw241)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.243" nite:start="113.748250" nite:end="113.748250" UWtime="113.788250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms22A_pw242)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.244" nite:start="113.958250" nite:end="113.958250" UWtime="113.928250" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms22A_pw243)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.245" nite:start="114.088250" nite:end="114.088250" UWtime="114.098250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms22A_pw244)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.246" nite:start="114.158250" nite:end="114.158250" UWtime="114.178250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms22A_pw245)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.247" nite:start="114.528250" nite:end="114.528250" UWtime="114.548250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms22A_pw246)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.248" nite:start="114.898250" nite:end="114.898250" UWtime="114.918250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms22A_pw247)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.249" nite:start="115.334250" nite:end="115.334250" UWtime="115.338250" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms22A_pw248)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.250" nite:start="115.958250" nite:end="115.958250" UWtime="115.928250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms22A_pw249)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.251" nite:start="116.218250" nite:end="116.218250" UWtime="116.198250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms22A_pw250)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.252" nite:start="116.878250" nite:end="116.878250" UWtime="116.898250" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms22A_pw251)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.253" nite:start="117.853125" nite:end="117.853125" UWtime="117.826844" index="0">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms23A_pw252)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.254" nite:start="118.053125" nite:end="118.053125" UWtime="118.013125" index="4" phraseTone="L" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms23A_pw253)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.255" nite:start="118.173125" nite:end="118.173125" UWtime="118.193125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms23A_pw254)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.256" nite:start="118.524375" nite:end="118.524375" UWtime="118.533125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms23A_pw255)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.257" nite:start="118.783625" nite:end="118.783625" UWtime="118.703125" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms23A_pw256)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.258" nite:start="119.124375" nite:end="119.124375" UWtime="119.403125" index="X">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(sw4830A_nw1)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.259" nite:start="121.841875" nite:end="121.841875" UWtime="121.841125" index="2p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms25A_pw257)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.260" nite:start="126.277750" nite:end="126.277750" UWtime="126.197750" index="2-">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms27A_pw258)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.261" nite:start="126.404000" nite:end="126.404000" UWtime="126.397750" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms27A_pw259)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.262" nite:start="126.735500" nite:end="126.735500" UWtime="126.697750" index="4" phraseTone="L" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms27A_pw260)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.263" nite:start="126.927750" nite:end="126.927750" UWtime="126.837750" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms27A_pw261)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.264" nite:start="127.137750" nite:end="127.137750" UWtime="126.977750" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms27A_pw262)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.265" nite:start="127.137750" nite:end="127.137750" UWtime="127.077750" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms27A_pw262)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.266" nite:start="127.267750" nite:end="127.267750" UWtime="127.277750" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms27A_pw263)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.267" nite:start="127.567750" nite:end="127.567750" UWtime="127.567750" index="4" phraseTone="L" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms27A_pw265)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.268" nite:start="127.657750" nite:end="127.657750" UWtime="127.657750" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms27A_pw266)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.269" nite:start="127.737750" nite:end="127.737750" UWtime="127.757750" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms27A_pw267)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.270" nite:start="127.987750" nite:end="127.987750" UWtime="127.967750" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms27A_pw268)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.271" nite:start="128.057750" nite:end="128.057750" UWtime="127.997750" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms27A_pw269)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.272" nite:start="128.357750" nite:end="128.357750" UWtime="128.357750" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms27A_pw270)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.273" nite:start="128.457750" nite:end="128.457750" UWtime="128.507750" index="2p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms27A_pw271)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.274" nite:start="128.877750" nite:end="128.877750" UWtime="128.867750" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms27A_pw272)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.275" nite:start="129.007750" nite:end="129.007750" UWtime="128.987750" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms27A_pw273)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.276" nite:start="129.107750" nite:end="129.107750" UWtime="129.127750" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms27A_pw274)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.277" nite:start="129.347750" nite:end="129.347750" UWtime="129.367750" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms27A_pw275)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.278" nite:start="129.807750" nite:end="129.807750" UWtime="129.807750" index="3-" phraseTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms27A_pw276)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.279" nite:start="130.542625" nite:end="130.542625" UWtime="130.417750" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms27A_pw277)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.280" nite:start="131.357750" nite:end="131.357750" UWtime="131.147750" index="2p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms27A_pw278)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.281" nite:start="131.777750" nite:end="131.777750" UWtime="131.737750" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms27A_pw279)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.282" nite:start="132.167125" nite:end="132.167125" UWtime="132.067750" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms27A_pw280)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.283" nite:start="133.465250" nite:end="133.465250" UWtime="133.285250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw282)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.284" nite:start="133.465250" nite:end="133.465250" UWtime="133.465250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw282)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.285" nite:start="133.705250" nite:end="133.705250" UWtime="133.675250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw283)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.286" nite:start="134.264375" nite:end="134.264375" UWtime="134.255250" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw284)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.287" nite:start="134.485250" nite:end="134.485250" UWtime="134.485250" index="0">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw285)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.288" nite:start="134.685250" nite:end="134.685250" UWtime="134.685250" index="3" phraseTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw286)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.289" nite:start="134.785250" nite:end="134.785250" UWtime="134.745250" index="0">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw287)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.290" nite:start="134.935250" nite:end="134.935250" UWtime="134.965250" index="4" phraseTone="L" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw288)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.291" nite:start="135.395250" nite:end="135.395250" UWtime="135.395250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw289)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.292" nite:start="135.605250" nite:end="135.605250" UWtime="135.645250" index="2p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw290)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.293" nite:start="136.066500" nite:end="136.066500" UWtime="136.215250" index="2p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw291)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.294" nite:start="137.185250" nite:end="137.185250" UWtime="137.205250" index="X" boundaryTone="X">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw292)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.295" nite:start="137.715250" nite:end="137.715250" UWtime="137.715250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw293)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.296" nite:start="137.955250" nite:end="137.955250" UWtime="137.885250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw294)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.297" nite:start="138.266125" nite:end="138.266125" UWtime="138.265250" index="2p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw295)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.298" nite:start="138.935250" nite:end="138.935250" UWtime="138.955250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw296)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.299" nite:start="139.115250" nite:end="139.115250" UWtime="139.105250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw297)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.300" nite:start="139.355250" nite:end="139.355250" UWtime="139.275250" index="4" phraseTone="L" boundaryTone="H">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw298)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.301" nite:start="139.635250" nite:end="139.635250" UWtime="139.585250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw299)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.302" nite:start="139.755250" nite:end="139.755250" UWtime="139.725250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw300)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.303" nite:start="140.115250" nite:end="140.115250" UWtime="140.055250" index="4" phraseTone="L" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw301)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.304" nite:start="140.675250" nite:end="140.675250" UWtime="140.685250" index="3-" phraseTone="H">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw302)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.305" nite:start="141.015250" nite:end="141.015250" UWtime="140.895250" index="2p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw303)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.306" nite:start="141.535250" nite:end="141.535250" UWtime="141.522331" index="0">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw304)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.307" nite:start="141.625250" nite:end="141.625250" UWtime="141.625250" index="4" phraseTone="L" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw305)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.308" nite:start="141.735250" nite:end="141.735250" UWtime="141.735250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw306)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.309" nite:start="141.925250" nite:end="141.925250" UWtime="141.905250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw307)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.310" nite:start="142.275250" nite:end="142.275250" UWtime="142.305250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw308)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.311" nite:start="142.985250" nite:end="142.985250" UWtime="143.025250" index="3">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw309)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.312" nite:start="143.304875" nite:end="143.304875" UWtime="143.295250" index="2p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw310)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.313" nite:start="143.895250" nite:end="143.895250" UWtime="143.885250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw311)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.314" nite:start="144.405250" nite:end="144.405250" UWtime="144.405250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw312)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.315" nite:start="144.525250" nite:end="144.525250" UWtime="144.515250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw313)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.316" nite:start="144.605250" nite:end="144.605250" UWtime="144.615250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw314)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.317" nite:start="144.975250" nite:end="144.975250" UWtime="144.935250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw315)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.318" nite:start="145.035250" nite:end="145.035250" UWtime="145.075250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw316)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.319" nite:start="145.275250" nite:end="145.275250" UWtime="145.265250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw317)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.320" nite:start="145.335250" nite:end="145.335250" UWtime="145.355250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw318)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.321" nite:start="145.815250" nite:end="145.815250" UWtime="145.795250" index="4" phraseTone="H" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw319)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.322" nite:start="145.955250" nite:end="145.955250" UWtime="145.965250" index="0">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw320)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.323" nite:start="146.189875" nite:end="146.189875" UWtime="146.205250" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw321)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.324" nite:start="146.972875" nite:end="146.972875" UWtime="146.855250" index="X">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms28A_pw322)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.325" nite:start="148.205250" nite:end="148.205250" UWtime="148.195250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms29A_pw323)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.326" nite:start="148.355250" nite:end="148.355250" UWtime="148.355250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms29A_pw324)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.327" nite:start="148.485250" nite:end="148.485250" UWtime="148.475250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms29A_pw325)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.328" nite:start="148.665250" nite:end="148.665250" UWtime="148.665250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms29A_pw326)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.329" nite:start="148.805250" nite:end="148.805250" UWtime="148.805250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms29A_pw327)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.330" nite:start="148.965250" nite:end="148.965250" UWtime="148.965250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms29A_pw328)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.331" nite:start="149.535250" nite:end="149.535250" UWtime="149.645250" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms29A_pw329)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.332" nite:start="149.975250" nite:end="149.975250" UWtime="149.965250" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms29A_pw330)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.333" nite:start="150.355250" nite:end="150.355250" UWtime="150.365250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms29A_pw331)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.334" nite:start="150.735250" nite:end="150.735250" UWtime="150.675250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms29A_pw332)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.335" nite:start="150.985250" nite:end="150.985250" UWtime="150.985250" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms29A_pw333)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.336" nite:start="151.155250" nite:end="151.155250" UWtime="151.135250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms29A_pw334)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.337" nite:start="151.545250" nite:end="151.545250" UWtime="151.545250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms29A_pw335)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.338" nite:start="151.755250" nite:end="151.755250" UWtime="151.675250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms29A_pw336)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.339" nite:start="151.895250" nite:end="151.895250" UWtime="151.915250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms29A_pw337)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.340" nite:start="152.296250" nite:end="152.296250" UWtime="152.385250" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms29A_pw338)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.341" nite:start="152.810875" nite:end="152.810875" UWtime="152.805250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms29A_pw339)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.342" nite:start="153.375250" nite:end="153.375250" UWtime="153.325250" index="4" phraseTone="L" boundaryTone="H">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms29A_pw340)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.343" nite:start="153.495250" nite:end="153.495250" UWtime="153.505250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms29A_pw341)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.344" nite:start="153.725250" nite:end="153.725250" UWtime="153.725250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms29A_pw342)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.345" nite:start="153.855250" nite:end="153.855250" UWtime="153.875250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms29A_pw343)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.346" nite:start="154.015250" nite:end="154.015250" UWtime="154.025250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms29A_pw344)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.347" nite:start="154.265250" nite:end="154.265250" UWtime="154.285250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms29A_pw345)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.348" nite:start="154.415250" nite:end="154.415250" UWtime="154.405250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms29A_pw346)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.349" nite:start="154.685250" nite:end="154.685250" UWtime="154.615250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms29A_pw347)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.350" nite:start="154.835250" nite:end="154.835250" UWtime="154.815250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms29A_pw348)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.351" nite:start="154.975250" nite:end="154.975250" UWtime="154.975250" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms29A_pw349)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.352" nite:start="156.498125" nite:end="156.498125" UWtime="155.828125" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms30A_pw351)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.353" nite:start="156.498125" nite:end="156.498125" UWtime="156.388125" index="0">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms30A_pw351)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.354" nite:start="156.648125" nite:end="156.648125" UWtime="156.608125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms30A_pw353)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.355" nite:start="156.718125" nite:end="156.718125" UWtime="156.708125" index="0">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms30A_pw354)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.356" nite:start="156.978125" nite:end="156.978125" UWtime="156.768125" index="0">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms30A_pw355)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.357" nite:start="156.978125" nite:end="156.978125" UWtime="156.978125" index="4" phraseTone="H" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms30A_pw355)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.358" nite:start="157.118125" nite:end="157.118125" UWtime="157.048125" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms30A_pw356)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.359" nite:start="157.468125" nite:end="157.468125" UWtime="157.278125" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms30A_pw358)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.360" nite:start="157.468125" nite:end="157.468125" UWtime="157.478125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms30A_pw358)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.361" nite:start="157.755000" nite:end="157.755000" UWtime="157.728125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms30A_pw359)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.362" nite:start="158.308625" nite:end="158.308625" UWtime="158.168125" index="2p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms30A_pw360)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.363" nite:start="158.698125" nite:end="158.698125" UWtime="158.768125" index="X">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms30A_pw361)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.364" nite:start="159.868125" nite:end="159.868125" UWtime="159.858125" index="2-">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms30A_pw363)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.365" nite:start="160.078125" nite:end="160.078125" UWtime="159.888125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms30A_pw364)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.366" nite:start="160.078125" nite:end="160.078125" UWtime="160.088125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms30A_pw364)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.367" nite:start="160.158125" nite:end="160.158125" UWtime="160.198125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms30A_pw365)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.368" nite:start="160.478125" nite:end="160.478125" UWtime="160.498125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms30A_pw366)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.369" nite:start="160.698125" nite:end="160.698125" UWtime="160.658125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms30A_pw367)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.370" nite:start="160.858125" nite:end="160.858125" UWtime="160.848125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms30A_pw368)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.371" nite:start="161.228125" nite:end="161.228125" UWtime="161.238125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms30A_pw369)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.372" nite:start="161.928125" nite:end="161.928125" UWtime="161.938125" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms30A_pw370)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.373" nite:start="163.168500" nite:end="163.168500" UWtime="163.178500" index="2p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms31A_pw371)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.374" nite:start="163.578500" nite:end="163.578500" UWtime="163.578500" index="X">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms31A_pw372)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.375" nite:start="165.036125" nite:end="165.036125" UWtime="165.016125" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw373)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.376" nite:start="165.196125" nite:end="165.196125" UWtime="165.216125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw374)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.377" nite:start="165.496125" nite:end="165.496125" UWtime="165.466125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw375)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.378" nite:start="165.616125" nite:end="165.616125" UWtime="165.616125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw376)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.379" nite:start="166.027625" nite:end="166.027625" UWtime="165.946125" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw377)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.380" nite:start="166.306125" nite:end="166.306125" UWtime="166.306125" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw378)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.381" nite:start="166.586125" nite:end="166.586125" UWtime="166.576125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw379)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.382" nite:start="166.666125" nite:end="166.666125" UWtime="166.676125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw380)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.383" nite:start="166.896125" nite:end="166.896125" UWtime="166.886125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw381)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.384" nite:start="167.016125" nite:end="167.016125" UWtime="166.986125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw382)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.385" nite:start="167.100500" nite:end="167.100500" UWtime="167.066125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw383)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.386" nite:start="167.646625" nite:end="167.646625" UWtime="167.586125" index="3">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw384)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.387" nite:start="167.866125" nite:end="167.866125" UWtime="167.866125" index="2p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw385)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.388" nite:start="168.336125" nite:end="168.336125" UWtime="168.346125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw386)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.389" nite:start="168.396125" nite:end="168.396125" UWtime="168.406125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw387)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.390" nite:start="168.776125" nite:end="168.776125" UWtime="168.796125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw388)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.391" nite:start="169.216125" nite:end="169.216125" UWtime="169.166125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw389)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.392" nite:start="169.566125" nite:end="169.566125" UWtime="169.486125" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw390)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.393" nite:start="169.946125" nite:end="169.946125" UWtime="169.946125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw391)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.394" nite:start="170.116125" nite:end="170.116125" UWtime="170.106125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw392)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.395" nite:start="170.216125" nite:end="170.216125" UWtime="170.236125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw393)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.396" nite:start="170.486125" nite:end="170.486125" UWtime="170.466125" index="4" phraseTone="L" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw394)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.397" nite:start="171.066125" nite:end="171.066125" UWtime="170.636125" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw396)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.398" nite:start="171.066125" nite:end="171.066125" UWtime="171.016125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw396)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.399" nite:start="171.326125" nite:end="171.326125" UWtime="171.306125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw397)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.400" nite:start="171.616125" nite:end="171.616125" UWtime="171.606125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw398)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.401" nite:start="171.916125" nite:end="171.916125" UWtime="171.916125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw399)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.402" nite:start="172.610625" nite:end="172.610625" UWtime="172.566125" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw400)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.403" nite:start="173.406125" nite:end="173.406125" UWtime="173.356125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw401)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.404" nite:start="173.716125" nite:end="173.716125" UWtime="173.726125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw402)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.405" nite:start="174.186125" nite:end="174.186125" UWtime="174.136125" index="3-" phraseTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw403)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.406" nite:start="174.356125" nite:end="174.356125" UWtime="174.326125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw404)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.407" nite:start="174.606125" nite:end="174.606125" UWtime="174.616125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw405)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.408" nite:start="175.191875" nite:end="175.191875" UWtime="175.226125" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw406)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.409" nite:start="176.016125" nite:end="176.016125" UWtime="176.016125" index="2p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw407)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.410" nite:start="176.375750" nite:end="176.375750" UWtime="176.396125" index="X">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms32A_pw408)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.411" nite:start="177.600000" nite:end="177.600000" UWtime="177.600000" index="0">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms33A_pw409)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.412" nite:start="177.780000" nite:end="177.780000" UWtime="177.780000" index="4" phraseTone="L" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms33A_pw410)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.413" nite:start="178.010000" nite:end="178.010000" UWtime="178.020000" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms33A_pw411)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.414" nite:start="178.885125" nite:end="178.885125" UWtime="178.840000" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms33A_pw412)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.415" nite:start="179.035750" nite:end="179.035750" UWtime="179.000000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms33A_pw413)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.416" nite:start="179.460000" nite:end="179.460000" UWtime="179.400000" index="2">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms33A_pw414)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.417" nite:start="179.690000" nite:end="179.690000" UWtime="179.670000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms33A_pw415)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.418" nite:start="179.820000" nite:end="179.820000" UWtime="179.830000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms33A_pw416)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.419" nite:start="180.160000" nite:end="180.160000" UWtime="180.120000" index="4" phraseTone="L" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms33A_pw417)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.420" nite:start="180.360000" nite:end="180.360000" UWtime="180.290000" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms33A_pw418)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.421" nite:start="180.480000" nite:end="180.480000" UWtime="180.480000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms33A_pw419)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.422" nite:start="180.770000" nite:end="180.770000" UWtime="180.730000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms33A_pw420)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.423" nite:start="180.990000" nite:end="180.990000" UWtime="180.970000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms33A_pw421)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.424" nite:start="181.170000" nite:end="181.170000" UWtime="181.140000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms33A_pw422)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.425" nite:start="181.700000" nite:end="181.700000" UWtime="181.690000" index="2p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms33A_pw423)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.426" nite:start="182.310000" nite:end="182.310000" UWtime="182.390000" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms33A_pw424)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.427" nite:start="182.610000" nite:end="182.610000" UWtime="182.610000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms33A_pw425)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.428" nite:start="183.010000" nite:end="183.010000" UWtime="183.000000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms33A_pw426)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.429" nite:start="183.090000" nite:end="183.090000" UWtime="183.030000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms33A_pw427)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.430" nite:start="183.400000" nite:end="183.400000" UWtime="183.370000" index="4" phraseTone="L" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms33A_pw428)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.431" nite:start="183.610000" nite:end="183.610000" UWtime="183.600000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms33A_pw429)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.432" nite:start="183.780000" nite:end="183.780000" UWtime="183.730000" index="2p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms33A_pw430)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.433" nite:start="184.250000" nite:end="184.250000" UWtime="184.250000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms33A_pw431)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.434" nite:start="184.460000" nite:end="184.460000" UWtime="184.490000" index="2p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms33A_pw432)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.435" nite:start="184.770000" nite:end="184.770000" UWtime="184.780000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms33A_pw433)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.436" nite:start="185.040000" nite:end="185.040000" UWtime="185.030000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms33A_pw434)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.437" nite:start="185.170000" nite:end="185.170000" UWtime="185.120000" index="4" phraseTone="L" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms33A_pw435)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.438" nite:start="185.360000" nite:end="185.360000" UWtime="185.310000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms33A_pw436)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.439" nite:start="185.510000" nite:end="185.510000" UWtime="185.470000" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms33A_pw437)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.440" nite:start="185.860000" nite:end="185.860000" UWtime="185.850000" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms33A_pw438)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.441" nite:start="191.240125" nite:end="191.240125" UWtime="191.260125" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms35A_pw439)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.442" nite:start="194.869500" nite:end="194.869500" UWtime="194.899500" index="X">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms37A_pw440)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.443" nite:start="201.714125" nite:end="201.714125" UWtime="201.664125" index="X" boundaryTone="X">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms39A_pw441)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.444" nite:start="202.074125" nite:end="202.074125" UWtime="202.234125" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms39A_pw442)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.445" nite:start="205.936250" nite:end="205.936250" UWtime="205.866250" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms41A_pw443)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.446" nite:start="206.415625" nite:end="206.415625" UWtime="206.296250" index="X">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(sw4830A_nw2)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.448" nite:start="207.765875" nite:end="207.765875" UWtime="207.805875" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms42A_pw445)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.449" nite:start="211.545375" nite:end="211.545375" UWtime="211.531500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms44A_pw446)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.450" nite:start="211.851500" nite:end="211.851500" UWtime="211.841500" index="4" phraseTone="L" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms44A_pw447)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.451" nite:start="212.131500" nite:end="212.131500" UWtime="212.121500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms44A_pw448)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.452" nite:start="212.221500" nite:end="212.221500" UWtime="212.191500" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms44A_pw449)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.453" nite:start="212.700000" nite:end="212.700000" UWtime="213.111500" index="X">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(sw4830A_nw3)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.454" nite:start="215.952875" nite:end="215.952875" UWtime="216.016250" index="X">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms46A_pw450)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.455" nite:start="217.182125" nite:end="217.182125" UWtime="217.082125" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms47A_pw451)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.456" nite:start="217.282125" nite:end="217.282125" UWtime="217.292125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms47A_pw452)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.457" nite:start="217.495875" nite:end="217.495875" UWtime="217.492125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms47A_pw453)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.458" nite:start="217.758875" nite:end="217.758875" UWtime="217.692125" index="4" phraseTone="L" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms47A_pw454)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.459" nite:start="218.052625" nite:end="218.052625" UWtime="217.992125" index="X" boundaryTone="X">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms47A_pw455)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.460" nite:start="218.272125" nite:end="218.272125" UWtime="218.172125" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms47A_pw456)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.461" nite:start="218.502125" nite:end="218.502125" UWtime="218.502125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms47A_pw457)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.462" nite:start="218.672125" nite:end="218.672125" UWtime="218.682125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms47A_pw458)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.463" nite:start="218.842125" nite:end="218.842125" UWtime="218.862125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms47A_pw459)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.464" nite:start="218.992125" nite:end="218.992125" UWtime="219.152125" index="4" phraseTone="L" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms47A_pw460)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.465" nite:start="219.352125" nite:end="219.352125" UWtime="219.332125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms47A_pw461)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.466" nite:start="219.772125" nite:end="219.772125" UWtime="219.772125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms47A_pw462)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.467" nite:start="219.972125" nite:end="219.972125" UWtime="219.922125" index="4" phraseTone="L" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms47A_pw463)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.468" nite:start="220.092125" nite:end="220.092125" UWtime="220.082125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms47A_pw464)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.469" nite:start="220.312125" nite:end="220.312125" UWtime="220.272125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms47A_pw465)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.470" nite:start="220.422125" nite:end="220.422125" UWtime="220.422125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms47A_pw466)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.471" nite:start="220.802125" nite:end="220.802125" UWtime="220.792125" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms47A_pw467)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.472" nite:start="236.523500" nite:end="236.523500" UWtime="236.453375" index="X" boundaryTone="X">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms49A_pw468)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.473" nite:start="236.742750" nite:end="236.742750" UWtime="236.693375" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms49A_pw469)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.474" nite:start="236.742750" nite:end="236.742750" UWtime="236.663375" index="4" phraseTone="L" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms49A_pw469)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.475" nite:start="237.803375" nite:end="237.803375" UWtime="237.563375" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms49A_pw472)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.476" nite:start="237.803375" nite:end="237.803375" UWtime="237.823375" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms49A_pw472)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.477" nite:start="238.113375" nite:end="238.113375" UWtime="238.063375" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms49A_pw473)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.478" nite:start="238.313375" nite:end="238.313375" UWtime="238.303375" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms49A_pw474)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.479" nite:start="238.483375" nite:end="238.483375" UWtime="238.463375" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms49A_pw475)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.480" nite:start="238.653375" nite:end="238.653375" UWtime="238.663375" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms49A_pw476)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.481" nite:start="238.833375" nite:end="238.833375" UWtime="238.783375" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms49A_pw477)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.482" nite:start="239.123375" nite:end="239.123375" UWtime="239.063375" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms49A_pw478)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.483" nite:start="242.450500" nite:end="242.450500" UWtime="242.430500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw479)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.484" nite:start="242.560500" nite:end="242.560500" UWtime="242.550500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw480)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.485" nite:start="242.880500" nite:end="242.880500" UWtime="242.840500" index="2-">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw481)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.486" nite:start="243.060500" nite:end="243.060500" UWtime="243.050500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw482)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.487" nite:start="243.460500" nite:end="243.460500" UWtime="243.450500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw483)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.488" nite:start="243.610500" nite:end="243.610500" UWtime="243.610500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw484)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.489" nite:start="243.832125" nite:end="243.832125" UWtime="243.820500" index="4" phraseTone="L" boundaryTone="H">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw485)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.490" nite:start="243.956375" nite:end="243.956375" UWtime="243.950500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw486)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.491" nite:start="244.139500" nite:end="244.139500" UWtime="244.120500" index="3p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw487)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.492" nite:start="244.470500" nite:end="244.470500" UWtime="244.420500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw488)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.493" nite:start="244.840500" nite:end="244.840500" UWtime="244.780500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw489)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.494" nite:start="245.100500" nite:end="245.100500" UWtime="245.130500" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw490)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.495" nite:start="245.620500" nite:end="245.620500" UWtime="245.620500" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw491)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.496" nite:start="246.110500" nite:end="246.110500" UWtime="246.070500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw492)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.497" nite:start="246.230500" nite:end="246.230500" UWtime="246.230500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw493)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.498" nite:start="246.800500" nite:end="246.800500" UWtime="246.750500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw494)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.499" nite:start="247.050500" nite:end="247.050500" UWtime="247.040500" index="4" phraseTone="L" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw495)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.500" nite:start="247.190500" nite:end="247.190500" UWtime="247.190500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw496)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.501" nite:start="247.440500" nite:end="247.440500" UWtime="247.440500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw497)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.502" nite:start="247.730500" nite:end="247.730500" UWtime="247.710500" index="2p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw498)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.503" nite:start="248.710500" nite:end="248.710500" UWtime="248.840500" index="0">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw499)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.504" nite:start="249.000500" nite:end="249.000500" UWtime="249.000500" index="1-">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw500)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.505" nite:start="249.130500" nite:end="249.130500" UWtime="249.140500" index="4" phraseTone="L" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw501)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.506" nite:start="249.420500" nite:end="249.420500" UWtime="249.430500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw502)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.507" nite:start="249.610500" nite:end="249.610500" UWtime="249.590500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw503)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.508" nite:start="249.890500" nite:end="249.890500" UWtime="249.850500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw504)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.509" nite:start="250.370500" nite:end="250.370500" UWtime="250.350500" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw505)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.510" nite:start="251.050500" nite:end="251.050500" UWtime="250.990500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw506)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.511" nite:start="251.190500" nite:end="251.190500" UWtime="251.150500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw507)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.512" nite:start="251.330500" nite:end="251.330500" UWtime="251.320500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw508)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.513" nite:start="251.460500" nite:end="251.460500" UWtime="251.460500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw509)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.514" nite:start="251.640500" nite:end="251.640500" UWtime="251.650500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw510)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.515" nite:start="252.130500" nite:end="252.130500" UWtime="252.100500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw511)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.516" nite:start="252.350500" nite:end="252.350500" UWtime="252.310500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw512)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.517" nite:start="252.540500" nite:end="252.540500" UWtime="252.550500" index="4" phraseTone="L" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw513)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.518" nite:start="252.730500" nite:end="252.730500" UWtime="252.740500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw514)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.519" nite:start="253.030500" nite:end="253.030500" UWtime="253.040500" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw515)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.520" nite:start="253.370500" nite:end="253.370500" UWtime="253.400500" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms51A_pw516)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.521" nite:start="255.552250" nite:end="255.552250" UWtime="255.552250" index="4" phraseTone="L" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms52A_pw517)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.522" nite:start="255.692250" nite:end="255.692250" UWtime="255.712250" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms52A_pw518)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.523" nite:start="255.942250" nite:end="255.942250" UWtime="255.922250" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms52A_pw519)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.524" nite:start="256.342250" nite:end="256.342250" UWtime="256.342250" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms52A_pw520)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.525" nite:start="265.459750" nite:end="265.459750" UWtime="265.439750" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms54A_pw521)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.526" nite:start="265.569750" nite:end="265.569750" UWtime="265.569750" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms54A_pw522)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.527" nite:start="265.699750" nite:end="265.699750" UWtime="265.699750" index="0">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms54A_pw523)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.528" nite:start="265.829750" nite:end="265.829750" UWtime="265.849750" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms54A_pw524)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.529" nite:start="266.069750" nite:end="266.069750" UWtime="266.059750" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms54A_pw525)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.530" nite:start="266.339750" nite:end="266.339750" UWtime="266.349750" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms54A_pw526)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.531" nite:start="266.569750" nite:end="266.569750" UWtime="266.559750" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms54A_pw527)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.532" nite:start="266.829750" nite:end="266.829750" UWtime="266.789750" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms54A_pw528)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.533" nite:start="266.889750" nite:end="266.889750" UWtime="266.879750" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms54A_pw529)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.534" nite:start="267.378375" nite:end="267.378375" UWtime="267.339750" index="4" phraseTone="L" boundaryTone="H">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms54A_pw530)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.535" nite:start="267.589250" nite:end="267.589250" UWtime="267.559750" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms54A_pw531)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.536" nite:start="267.779750" nite:end="267.779750" UWtime="267.769750" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms54A_pw532)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.537" nite:start="268.189750" nite:end="268.189750" UWtime="268.149750" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms54A_pw533)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.538" nite:start="268.389750" nite:end="268.389750" UWtime="268.369750" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms54A_pw534)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.539" nite:start="268.539750" nite:end="268.539750" UWtime="268.469750" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms54A_pw535)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.540" nite:start="268.989750" nite:end="268.989750" UWtime="268.919750" index="4" phraseTone="L" boundaryTone="H">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms54A_pw536)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.541" nite:start="269.239750" nite:end="269.239750" UWtime="269.229750" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms54A_pw537)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.542" nite:start="274.416500" nite:end="274.416500" UWtime="274.391875" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms56A_pw538)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.543" nite:start="274.601875" nite:end="274.601875" UWtime="274.601875" index="2p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms56A_pw539)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.544" nite:start="275.552000" nite:end="275.552000" UWtime="275.511875" index="2p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms56A_pw540)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.545" nite:start="275.971875" nite:end="275.971875" UWtime="275.991875" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms56A_pw541)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.546" nite:start="276.211875" nite:end="276.211875" UWtime="276.201875" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms56A_pw542)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.547" nite:start="276.431875" nite:end="276.431875" UWtime="276.381875" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms56A_pw543)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.548" nite:start="276.511875" nite:end="276.511875" UWtime="276.541875" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms56A_pw544)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.549" nite:start="276.751875" nite:end="276.751875" UWtime="276.761875" index="4" phraseTone="L" boundaryTone="H">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms56A_pw545)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.550" nite:start="277.051875" nite:end="277.051875" UWtime="277.031875" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms56A_pw546)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.551" nite:start="277.191875" nite:end="277.191875" UWtime="277.201875" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms56A_pw547)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.552" nite:start="277.481875" nite:end="277.481875" UWtime="277.461875" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms56A_pw548)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.553" nite:start="277.791875" nite:end="277.791875" UWtime="277.811875" index="2">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms56A_pw549)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.554" nite:start="278.191875" nite:end="278.191875" UWtime="278.331875" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms56A_pw550)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.555" nite:start="278.841875" nite:end="278.841875" UWtime="278.851875" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms56A_pw551)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.556" nite:start="279.031875" nite:end="279.031875" UWtime="279.071875" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms56A_pw552)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.557" nite:start="281.001125" nite:end="281.001125" UWtime="280.991125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms57A_pw553)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.558" nite:start="281.211125" nite:end="281.211125" UWtime="281.151125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms57A_pw554)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.559" nite:start="281.391125" nite:end="281.391125" UWtime="281.391125" index="4" phraseTone="L" boundaryTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms57A_pw555)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.560" nite:start="281.611125" nite:end="281.611125" UWtime="281.571125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms57A_pw556)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.561" nite:start="281.851125" nite:end="281.851125" UWtime="281.921125" index="3" phraseTone="L">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms57A_pw557)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.562" nite:start="282.027500" nite:end="282.027500" UWtime="282.031125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms57A_pw558)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.563" nite:start="282.219625" nite:end="282.219625" UWtime="282.141125" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms57A_pw559)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.564" nite:start="282.371125" nite:end="282.371125" UWtime="282.371125" index="0">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms57A_pw560)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.565" nite:start="282.511125" nite:end="282.511125" UWtime="282.511125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms57A_pw561)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.566" nite:start="282.601125" nite:end="282.601125" UWtime="282.601125" index="0">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms57A_pw562)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.567" nite:start="282.811125" nite:end="282.811125" UWtime="282.801125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms57A_pw563)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.568" nite:start="282.911125" nite:end="282.911125" UWtime="282.911125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms57A_pw564)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.569" nite:start="283.131125" nite:end="283.131125" UWtime="283.101125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms57A_pw565)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.570" nite:start="283.331125" nite:end="283.331125" UWtime="283.271125" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms57A_pw566)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.571" nite:start="284.341125" nite:end="284.341125" UWtime="284.301125" index="3-" phraseTone="H">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms57A_pw567)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.572" nite:start="284.621125" nite:end="284.621125" UWtime="284.641125" index="4-">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms57A_pw568)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.573" nite:start="285.251125" nite:end="285.251125" UWtime="285.261125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms57A_pw569)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.574" nite:start="285.332250" nite:end="285.332250" UWtime="285.351125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms57A_pw570)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.575" nite:start="286.213500" nite:end="286.213500" UWtime="286.141125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms57A_pw571)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.576" nite:start="286.590375" nite:end="286.590375" UWtime="286.561125" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms57A_pw572)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.577" nite:start="289.863250" nite:end="289.863250" UWtime="289.883250" index="4">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms59A_pw573)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.578" nite:start="293.637125" nite:end="293.637125" UWtime="293.595625" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms61A_pw574)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.579" nite:start="298.010125" nite:end="298.010125" UWtime="297.990125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms63A_pw575)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.580" nite:start="298.130125" nite:end="298.130125" UWtime="298.120125" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms63A_pw576)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.581" nite:start="298.408500" nite:end="298.408500" UWtime="298.200125" index="1p">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms63A_pw577)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.582" nite:start="298.408500" nite:end="298.408500" UWtime="298.330125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms63A_pw577)" role="at"/>
+</break>
+<break nite:id="sw4830A.break.583" nite:start="298.630250" nite:end="298.630250" UWtime="298.540125" index="1">
+	<nite:pointer href="sw4830.A.phonwords.xml#id(ms63A_pw578)" role="at"/>
+</break>
+</nite:break_stream>
+

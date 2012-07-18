@@ -138,7 +138,7 @@ public class BURNCReader extends AuToBIWordReader {
    *
    * @return A list of words.
    */
-  private List<Word> readALAWords() {
+  protected List<Word> readALAWords() {
     String line;
     Double word_start_time = -1.0;
     Double end_time = -1.0;
@@ -182,7 +182,17 @@ public class BURNCReader extends AuToBIWordReader {
           end_time = ((Double.parseDouble(data[1]) - 1) + Double.parseDouble(data[2])) / 100.0;
 
           if (read_phones) {
-            phones.add(new Region((Double.parseDouble(data[1]) - 1) / 100.0, end_time, data[0]));
+            String label = data[0];
+            boolean stressed = false;
+            if (label.endsWith("+1")) {
+              label = label.substring(0, label.length() - 2);
+              stressed = true;
+            }
+            Region r = new Region((Double.parseDouble(data[1]) - 1) / 100.0, end_time, label);
+            if (stressed) {
+              r.setAttribute("lexical_stress", true);
+            }
+            phones.add(r);
           }
         }
       }
