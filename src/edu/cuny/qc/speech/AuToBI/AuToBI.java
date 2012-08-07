@@ -499,6 +499,30 @@ public class AuToBI {
   public void propagateFeatureSet(Collection<FormattedFile> filenames, FeatureSet fs)
       throws UnsupportedAudioFileException {
 
+    if (fs.getClassAttribute() == null) {
+      AuToBIUtils.warn("FeatureSet has null class attribute.  Classification experiments will generate errors.");
+    }
+
+    Set<Pair<String, String>> attr_omit = new HashSet<Pair<String, String>>();
+    Set<String> temp_features = new HashSet<String>();
+    if (hasParameter("attribute_omit")) {
+      try {
+        String[] omission = getParameter("attribute_omit").split(",");
+        for (String pair : omission) {
+          String[] av_pair = pair.split(":");
+          attr_omit.add(new Pair<String, String>(av_pair[0], av_pair[1]));
+
+          if (!fs.getRequiredFeatures().contains(av_pair[0])) {
+            temp_features.add(av_pair[0]);
+            fs.insertRequiredFeature(av_pair[0]);
+          }
+
+        }
+      } catch (AuToBIException e) {
+        e.printStackTrace();
+      }
+    }
+
     ExecutorService threadpool = newFixedThreadPool(Integer.parseInt(getOptionalParameter("num_threads", "1")));
     List<Future<FeatureSet>> results = new ArrayList<Future<FeatureSet>>();
     for (FormattedFile filename : filenames) {
@@ -515,13 +539,11 @@ public class AuToBI {
           // Attribute omission by attribute values.
           // This allows a user to omit data points with particular attributes, for
           // example, to classify only phrase ending words.
-          if (hasParameter("attribute_omit")) {
-            String[] omission = getParameter("attribute_omit").split(",");
+          if (attr_omit.size() > 0) {
             for (Word w : words) {
               boolean include = true;
-              for (String pair : omission) {
-                String[] av_pair = pair.split(":");
-                if (w.hasAttribute(av_pair[0]) && w.getAttribute(av_pair[0]).equals(av_pair[1])) {
+              for (Pair<String,String> e : attr_omit) {
+                if (w.hasAttribute(e.first) && w.getAttribute(e.first).equals(e.second)) {
                   include = false;
                 }
               }
@@ -536,10 +558,12 @@ public class AuToBI {
           e.printStackTrace();
         } catch (ExecutionException e) {
           e.printStackTrace();
-        } catch (AuToBIException e) {
-          e.printStackTrace();
         }
       }
+    }
+
+    for(String f : temp_features) {
+      fs.getRequiredFeatures().remove(f);
     }
 
     threadpool.shutdown();
@@ -893,9 +917,9 @@ public class AuToBI {
     }
     registerFeatureExtractor(new DifferenceFeatureExtractor(difference_features));
 
-    if (hasParameter("spectral_pitch_accent_detector_collection")) {
-      registerPitchAccentCollectionFeatureExtractors();
-    }
+//    if (hasParameter("spectral_pitch_accent_detector_collection")) {
+//      registerPitchAccentCollectionFeatureExtractors();
+//    }
   }
 
   @Deprecated
