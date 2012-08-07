@@ -26,7 +26,7 @@ package edu.cuny.qc.speech.AuToBI.io;
  * formatting.
  */
 public class FormattedFile {
-  public static enum Format {TEXTGRID, CPROM, BURNC, SIMPLE_WORD, SWB_NXT, BUCKEYE, DUR}
+  public static enum Format {TEXTGRID, CPROM, BURNC, SIMPLE_WORD, SWB_NXT, BUCKEYE, KOH, DUR}
 
   public String filename;
   public Format format;
@@ -54,7 +54,9 @@ public class FormattedFile {
       this.format = FormattedFile.Format.SIMPLE_WORD;
     } else if (filename.toLowerCase().endsWith("terminals.xml")) {
       this.format = FormattedFile.Format.SWB_NXT;
-    } else if (filename.toLowerCase().endsWith(".in")) {
+    } else if (filename.endsWith("augocc")) {
+      this.format = FormattedFile.Format.KOH;
+    } else if (filename.endsWith("in")) {
       this.format = FormattedFile.Format.DUR;
     }
   }
