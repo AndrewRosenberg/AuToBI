@@ -22,13 +22,13 @@ package edu.cuny.qc.speech.AuToBI.util;
 import edu.cuny.qc.speech.AuToBI.core.*;
 
 import java.util.List;
-import java.util.ArrayList;
 
 /**
  * ContourUtils is a utility class to store static methods relating to Contours.
  *
  * @see Contour
  */
+@SuppressWarnings("unchecked")
 public class ContourUtils {
 
   // Utility classes cannot be constructed.
@@ -281,7 +281,8 @@ public class ContourUtils {
    * @param feature_name The normalization feature
    * @return a normalized list of time value pairs
    */
-  public static Contour zScoreNormalizeContour(Contour values, SpeakerNormalizationParameter norm_params,
+  public static Contour zScoreNormalizeContour(Contour values,
+                                               SpeakerNormalizationParameter norm_params,
                                                String feature_name) {
     Contour normalized_values = new Contour(values.getStart(), values.getStep(), values.size());
 
@@ -294,6 +295,29 @@ public class ContourUtils {
     }
 
     return normalized_values;
+  }
+
+  /**
+   * Performs range normalization of teh supplied values, using the parameters in norm_params.
+   *
+   * @param contour      the contour to normalize
+   * @param norm_params  the normalization parameters
+   * @param feature_name the normalization feature
+   * @return a normalized contours
+   */
+  public static Contour rangeNormalizeContour(Contour contour,
+                                              SpeakerNormalizationParameter norm_params,
+                                              String feature_name) {
+    Contour norm_c = new Contour(contour.getStart(), contour.getStep(), contour.size());
+    for (int i = 0; i < contour.size(); ++i) {
+      if (contour.isEmpty(i)) {
+        norm_c.setEmpty(i);
+      } else {
+        norm_c.set(i, norm_params.rangeNormalize(feature_name, contour.get(i)));
+      }
+    }
+
+    return norm_c;
   }
 
   /**
@@ -322,5 +346,36 @@ public class ContourUtils {
     }
 
     return d_contour;
+  }
+
+  /**
+   * Linearly interpolates contour.
+   * <p/>
+   * Only interpolates across non-silence regions as determined by an intensity contour over a threshold Also does not
+   * interpolate at edges of a contour
+   */
+  public static Contour interpolate(Contour c, Contour intensity, double threshold) {
+    Contour ic = new Contour(c.getStart(), c.getStep(), c.size());
+
+    int start_idx = -1;
+    for (int i = 0; i < c.size(); ++i) {
+      if (!c.isEmpty(i)) {
+        // interpolate, if necessary.
+        if (start_idx >= 0 && start_idx < i - 1) {
+          int gap_length = i - start_idx;
+          for (int j = 1; j < gap_length; j++) {
+            double t = j * 1.0 / gap_length;
+            ic.set(start_idx + j, (1 - t) * c.get(start_idx) + t * c.get(i));
+          }
+        }
+        ic.set(i, c.get(i));
+        start_idx = i;
+      }
+      if (intensity.get(c.timeFromIndex(i)) < threshold) {
+        start_idx = -1;
+      }
+    }
+
+    return ic;
   }
 }

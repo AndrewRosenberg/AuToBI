@@ -242,7 +242,7 @@ public class EvaluationSummary {
     s += "         -- Sterr: " + getStdevAccuracy() / Math.sqrt(results.size()) + "\n";
     s += "         -- Conf : " + getStdevAccuracy() * 1.64 / Math.sqrt(results.size()) + "\n";
 
-    if (class_values != null)
+    if (class_values != null) {
       for (String class_value : class_values.split(",")) {
         if (class_value != null && class_value.length() > 0) {
           try {
@@ -254,20 +254,67 @@ public class EvaluationSummary {
           }
         }
       }
+    }
     s += "Contingency Matrix\n";
     s += printContingencyMatrix() + "\n";
 
+    double ar = 0.0;
     if (results.size() > 0) {
       for (String class_name : results.get(0).getClassNames()) {
         try {
           s += class_name + " - FMeasure: " + getFMeasure(class_name) + "\n";
+          if (!Double.isNaN(getRecall(class_name)))
+            ar += getRecall(class_name);
         } catch (AuToBIException e) {
           e.printStackTrace();
         }
       }
     }
+    ar /= results.get(0).getClassNames().length;
     s += "Mutual Information: " + getMutualInformation() + "\n";
+    s += "Average Recall: " + ar + "\n";
+    s += "Entropy Weighted Recall: " + getEntropyWeightedRecall() + "\n";
     return s;
+  }
+
+  /**
+   * Calculates Entropy Weighted Recall.
+   * <p/>
+   * This measure takes the average recall of each class weighted by the entropy of the class.
+   *
+   * @return Entropy Weighted Recall
+   */
+  private String getEntropyWeightedRecall() {
+
+    Distribution distribution = new Distribution();
+    String[] classnames = results.get(0).getClassNames();
+    for (String c : classnames) {
+      try {
+        distribution.put(c, getNumClassInstances(c).doubleValue());
+      } catch (AuToBIException e) {
+        distribution.put(c, 0.0);
+      }
+    }
+    distribution.normalize();
+
+    double recall = 0.0;
+    double denom = 0.0;
+    for (String c : classnames) {
+      for (EvaluationResults r : results) {
+        try {
+          double p = distribution.get(c);
+          if (p > 0) {
+            recall += r.getInstances(c, c) * (-p * Math.log(p)) / r.getNumClassInstances(c);
+            denom += (-p * Math.log(p));
+          }
+        } catch (AuToBIException ignored) {
+        }
+      }
+    }
+
+    Double ewr = recall / denom;
+
+    return ewr.toString();
   }
 
   /**

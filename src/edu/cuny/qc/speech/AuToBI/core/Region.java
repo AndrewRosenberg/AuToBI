@@ -19,8 +19,6 @@
  */
 package edu.cuny.qc.speech.AuToBI.core;
 
-import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
-
 import java.util.*;
 import java.io.Serializable;
 
@@ -254,7 +252,6 @@ public class Region implements Serializable {
       removeAttribute(f);
       setAttribute(f, value);
     }
-
   }
 
   /**

@@ -41,7 +41,7 @@ public class AggregationTest {
 
     assertEquals(0.0, agg.getMean(), 0.0001);
     assertEquals(0.0, agg.getStdev(), 0.0001);
-    assertEquals(0, agg.getSize());
+    assertEquals(0.0, agg.getSize(), 0.0001);
     assertEquals(-Double.MAX_VALUE, agg.getMax(), 0.0001);
     assertEquals(Double.MAX_VALUE, agg.getMin(), 0.0001);
   }
@@ -70,7 +70,7 @@ public class AggregationTest {
     assertEquals(2.0, agg.getMean(), 0.0001);
     assertEquals(0.0, agg.getStdev(), 0.0001);
     assertEquals(0.0, agg.getVariance(), 0.0001);
-    assertEquals(1, agg.getSize());
+    assertEquals(1.0, agg.getSize(), 0.0001);
     assertEquals(2.0, agg.getMax(), 0.0001);
     assertEquals(2.0, agg.getMin(), 0.0001);
   }
@@ -82,7 +82,7 @@ public class AggregationTest {
     agg.insert(2.0);
 
     agg.remove(2.0);
-    assertEquals(0, agg.getSize());
+    assertEquals(0, agg.getSize(), 0.0001);
   }
 
   @Test
@@ -126,7 +126,7 @@ public class AggregationTest {
     list.add(1.0);
     list.add(2.0);
     agg.remove(list);
-    assertEquals(0, agg.getSize());
+    assertEquals(0, agg.getSize(), 0.0001);
     assertEquals(0.0, agg.getMean(), 0.0001);
   }
 
