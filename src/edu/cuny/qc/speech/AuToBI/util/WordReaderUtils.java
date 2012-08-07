@@ -92,6 +92,9 @@ public class WordReaderUtils {
       case BUCKEYE:
         reader = new BuckeyeReader(filename);
         break;
+      case KOH:
+        reader = new KOHReader(filename);
+        break;
       case DUR:
         reader = new DURReader(filename);
         break;
