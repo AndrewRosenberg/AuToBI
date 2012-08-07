@@ -77,7 +77,7 @@ public class FeatureSetPropagator implements Callable<FeatureSet> {
 
       autobi.extractFeatures(current_fs);
 
-      if (autobi.getBooleanParameter("aggressive_feature_elimination", false)) {
+      if (!autobi.getBooleanParameter("feature_preservation", false)) {
         for (Word w : current_fs.getDataPoints()) {
           Set<String> attrs = w.getAttributeNames();
           for (String attr : attrs) {
