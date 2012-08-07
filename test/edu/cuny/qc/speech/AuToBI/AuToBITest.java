@@ -539,7 +539,46 @@ public class AuToBITest {
       filenames.add(new FormattedFile(TEST_DIR + "/test.txt", FormattedFile.Format.SIMPLE_WORD));
       autobi.propagateFeatureSet(filenames, fs);
       for (Word w : fs.getDataPoints()) {
-        // The two extracted features and the wav feature
+        // Only the two required features, not the wav feature
+        assertEquals(2, w.getAttributeNames().size());
+      }
+    } catch (AuToBIException e) {
+      fail(e.getMessage());
+    } catch (UnsupportedAudioFileException e) {
+      fail(e.getMessage());
+    }
+  }
+
+  @Test
+  public void testPropagateFeatureSetPreserveFeaturesPropagatesFeatures() {
+    // Set up Test Feature Extraction Configuration
+    FeatureSet fs = new FeatureSet();
+    fs.setClassAttribute("feature1");
+    fs.insertRequiredFeature("feature2");
+
+    FeatureExtractor fe = new FeatureExtractor() {
+      @Override
+      public void extractFeatures(List regions) throws FeatureExtractorException {
+        for (Region r : (List<Region>) regions) {
+          r.setAttribute("feature1", true);
+          r.setAttribute("feature2", true);
+        }
+      }
+    };
+    fe.getExtractedFeatures().add("feature1");
+    fe.getExtractedFeatures().add("feature2");
+
+    autobi.registerFeatureExtractor(fe);
+
+    try {
+      autobi.initializeReferenceCounting(fs);
+
+      List<FormattedFile> filenames = new ArrayList<FormattedFile>();
+      filenames.add(new FormattedFile(TEST_DIR + "/test.txt", FormattedFile.Format.SIMPLE_WORD));
+      autobi.getParameters().setParameter("feature_preservation", "true");
+      autobi.propagateFeatureSet(filenames, fs);
+      for (Word w : fs.getDataPoints()) {
+        // Only the two required features, not the wav feature
         assertEquals(3, w.getAttributeNames().size());
       }
     } catch (AuToBIException e) {
