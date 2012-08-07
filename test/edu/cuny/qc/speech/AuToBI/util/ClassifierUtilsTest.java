@@ -23,11 +23,12 @@ import edu.cuny.qc.speech.AuToBI.classifier.AuToBIClassifier;
 import edu.cuny.qc.speech.AuToBI.classifier.MockClassifier;
 import edu.cuny.qc.speech.AuToBI.core.*;
 import org.junit.Test;
-import weka.core.FastVector;
+import weka.core.Attribute;
 import weka.core.Instance;
 import weka.core.Instances;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -113,7 +114,7 @@ public class ClassifierUtilsTest {
     s.add(f1);
 
     try {
-      FastVector fv = ClassifierUtils.generateWekaAttributes(s);
+      ArrayList<Attribute> fv = ClassifierUtils.generateWekaAttributes(s);
 
       assertEquals(1, fv.size());
     } catch (Exception e) {
@@ -131,7 +132,7 @@ public class ClassifierUtilsTest {
     s.add(f1);
 
     try {
-      FastVector fv = ClassifierUtils.generateWekaAttributes(s);
+      ArrayList<Attribute> fv = ClassifierUtils.generateWekaAttributes(s);
 
       assertEquals(1, fv.size());
     } catch (Exception e) {
