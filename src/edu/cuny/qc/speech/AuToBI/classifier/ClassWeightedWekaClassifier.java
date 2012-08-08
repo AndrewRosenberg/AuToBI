@@ -19,7 +19,6 @@
  */
 package edu.cuny.qc.speech.AuToBI.classifier;
 
-import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
 import edu.cuny.qc.speech.AuToBI.core.FeatureSet;
 import edu.cuny.qc.speech.AuToBI.util.ClassifierUtils;
 import weka.classifiers.Classifier;
@@ -41,7 +40,7 @@ public class ClassWeightedWekaClassifier extends WekaClassifier {
    *
    * @param classifier the weka Classifier.
    */
-  public ClassWeightedWekaClassifier(Classifier classifier) throws AuToBIException {
+  public ClassWeightedWekaClassifier(Classifier classifier) {
     super(classifier);
   }
 
