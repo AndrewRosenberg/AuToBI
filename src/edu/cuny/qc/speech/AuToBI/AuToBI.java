@@ -956,7 +956,7 @@ public class AuToBI {
         if (!c.equals("norm_log_f0")) {
           for (String subregion : new String[]{"pseudosyllable", "200ms", "400ms"}) {
             registerFeatureExtractor(new SubregionContourExtractor(delta + c, subregion));
-            registerFeatureExtractor(new ContourFeatureExtractor(delta + c + subregion));
+            registerFeatureExtractor(new ContourFeatureExtractor(delta + c + "_" + subregion));
           }
         }
         for (String subregion : new String[]{"", "_pseudosyllable", "_200ms", "_400ms"}) {
