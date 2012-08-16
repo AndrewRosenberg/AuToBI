@@ -123,6 +123,8 @@ public class WavReader {
       int length = end_sample - start_sample;
 
 
+      // TODO: read directly into data.samples.  there's no reason to read everything into bytes just to convert it to
+      // sample.  It'd be a lot more efficient to read in smaller blocks.
       bytes = new byte[length * stream.getFormat().getFrameSize()];
 
       try {
@@ -137,29 +139,24 @@ public class WavReader {
     // Wave files are by default little endian.  Currently does not support big endian formatted wave files.
     // Convert endian-ness of raw data to sample data
     // Currently only supports 16-bit raw_samples
-    int[][] raw_samples = new int[data.numberOfChannels][bytes.length / (2 * data.numberOfChannels)];
     data.samples = new double[data.numberOfChannels][bytes.length / (2 * data.numberOfChannels)];
 
     int i = 0;
     int index = 0;
     while (i < bytes.length) {
       for (int channel = 0; channel < data.numberOfChannels; ++channel) {
+        // Convert 16-bit little endian wav data to a double.
         int low = (int) bytes[i];
         ++i;
         int high = (int) bytes[i];
         ++i;
 
         int sample = (high << 8) + (low & 0x00ff);
-        raw_samples[channel][index] = sample;
+        data.samples[channel][index] = sample * 1.0 / (1 << (data.sampleSize - 1));
       }
       ++index;
     }
 
-    for (int channel = 0; channel < raw_samples.length; ++channel) {
-      for (int j = 0; j < raw_samples[channel].length; ++j) {
-        data.samples[channel][j] = raw_samples[channel][j] * 1.0 / (1 << (data.sampleSize - 1));
-      }
-    }
     return data;
   }
 }
