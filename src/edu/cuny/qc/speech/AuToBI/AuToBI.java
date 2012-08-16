@@ -508,7 +508,7 @@ public class AuToBI {
 
     Set<Pair<String, String>> attr_omit = new HashSet<Pair<String, String>>();
     Set<String> temp_features = new HashSet<String>();
-    if (hasParameter("attribute_omit")) {
+    if (hasParameter("attribute_omit") && getOptionalParameter("attribute_omit", "").contains(":")) {
       try {
         String[] omission = getParameter("attribute_omit").split(",");
         for (String pair : omission) {
@@ -953,12 +953,13 @@ public class AuToBI {
 
     for (String c : new String[]{"rnorm_I", "norm_log_f0", "norm_log_f0rnorm_I"}) {
       for (String delta : new String[]{"delta_", ""}) {
-        for (String subregion : new String[]{"pseudosyllable", "200ms", "400ms"}) {
-          registerFeatureExtractor(new SubregionContourExtractor(delta + c, subregion));
-
+        if (!c.equals("norm_log_f0")) {
+          for (String subregion : new String[]{"pseudosyllable", "200ms", "400ms"}) {
+            registerFeatureExtractor(new SubregionContourExtractor(delta + c, subregion));
+            registerFeatureExtractor(new ContourFeatureExtractor(delta + c + subregion));
+          }
         }
         for (String subregion : new String[]{"", "_pseudosyllable", "_200ms", "_400ms"}) {
-          registerFeatureExtractor(new ContourFeatureExtractor(delta + c + subregion));
           registerFeatureExtractor(new PVALFeatureExtractor(delta + c + subregion));
           registerFeatureExtractor(new CurveShapeFeatureExtractor(delta + c + subregion));
           registerFeatureExtractor(new CurveShapeLikelihoodFeatureExtractor(delta + c + subregion));
@@ -970,8 +971,10 @@ public class AuToBI {
           registerFeatureExtractor(new TiltFeatureExtractor(delta + c + subregion));
         }
 
-        for (String agg : new String[]{"max", "mean", "stdev", "zMax"}) {
-          difference_features.add(delta + c + "__" + agg);
+        if (!c.equals("norm_log_f0")) {
+          for (String agg : new String[]{"max", "mean", "stdev", "zMax"}) {
+            difference_features.add(delta + c + "__" + agg);
+          }
         }
       }
     }
