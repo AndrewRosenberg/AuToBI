@@ -22,6 +22,9 @@ package edu.cuny.qc.speech.AuToBI;
 import edu.cuny.qc.speech.AuToBI.classifier.AuToBIClassifier;
 import edu.cuny.qc.speech.AuToBI.core.*;
 import edu.cuny.qc.speech.AuToBI.featureextractor.*;
+import edu.cuny.qc.speech.AuToBI.featureextractor.shapemodeling.CurveShapeFeatureExtractor;
+import edu.cuny.qc.speech.AuToBI.featureextractor.shapemodeling.CurveShapeLikelihoodFeatureExtractor;
+import edu.cuny.qc.speech.AuToBI.featureextractor.shapemodeling.PVALFeatureExtractor;
 import edu.cuny.qc.speech.AuToBI.featureset.*;
 import edu.cuny.qc.speech.AuToBI.io.*;
 import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
@@ -499,6 +502,30 @@ public class AuToBI {
   public void propagateFeatureSet(Collection<FormattedFile> filenames, FeatureSet fs)
       throws UnsupportedAudioFileException {
 
+    if (fs.getClassAttribute() == null) {
+      AuToBIUtils.warn("FeatureSet has null class attribute.  Classification experiments will generate errors.");
+    }
+
+    Set<Pair<String, String>> attr_omit = new HashSet<Pair<String, String>>();
+    Set<String> temp_features = new HashSet<String>();
+    if (hasParameter("attribute_omit") && getOptionalParameter("attribute_omit", "").contains(":")) {
+      try {
+        String[] omission = getParameter("attribute_omit").split(",");
+        for (String pair : omission) {
+          String[] av_pair = pair.split(":");
+          attr_omit.add(new Pair<String, String>(av_pair[0], av_pair[1]));
+
+          if (!fs.getRequiredFeatures().contains(av_pair[0])) {
+            temp_features.add(av_pair[0]);
+            fs.insertRequiredFeature(av_pair[0]);
+          }
+
+        }
+      } catch (AuToBIException e) {
+        e.printStackTrace();
+      }
+    }
+
     ExecutorService threadpool = newFixedThreadPool(Integer.parseInt(getOptionalParameter("num_threads", "1")));
     List<Future<FeatureSet>> results = new ArrayList<Future<FeatureSet>>();
     for (FormattedFile filename : filenames) {
@@ -515,13 +542,11 @@ public class AuToBI {
           // Attribute omission by attribute values.
           // This allows a user to omit data points with particular attributes, for
           // example, to classify only phrase ending words.
-          if (hasParameter("attribute_omit")) {
-            String[] omission = getParameter("attribute_omit").split(",");
+          if (attr_omit.size() > 0) {
             for (Word w : words) {
               boolean include = true;
-              for (String pair : omission) {
-                String[] av_pair = pair.split(":");
-                if (w.hasAttribute(av_pair[0]) && w.getAttribute(av_pair[0]).equals(av_pair[1])) {
+              for (Pair<String, String> e : attr_omit) {
+                if (w.hasAttribute(e.first) && w.getAttribute(e.first).equals(e.second)) {
                   include = false;
                 }
               }
@@ -536,10 +561,12 @@ public class AuToBI {
           e.printStackTrace();
         } catch (ExecutionException e) {
           e.printStackTrace();
-        } catch (AuToBIException e) {
-          e.printStackTrace();
         }
       }
+    }
+
+    for (String f : temp_features) {
+      fs.getRequiredFeatures().remove(f);
     }
 
     threadpool.shutdown();
@@ -776,6 +803,26 @@ public class AuToBI {
   public void registerAllFeatureExtractors()
       throws FeatureExtractorException {
 
+    /** TODO: This approach needs to be rethought.  As AuToBI's capabilities are increased, this function grows, and the
+     * size of the "default" feature registry increases.
+     *
+     * There are two approaches that seem possible:
+     * 1. Move this functionality to a config file.  Only those feature extractors that are in the config file are
+     * constructed and registered.  However, this won't help the issue of a cumbersome feature registry.
+     *
+     * 2. On-demand feature registry propagation.  The idea here would be that you would need to know which
+     * features can be extracted from which feature extractor.  But this information can be stored in a config file.
+     * Rather than constructing objects for every possible feature extractor, at extraction time, read the mapping of
+     * feature names and FeatureExtractor object names (and parameters).  "Register" each of those feature extractors
+     * that are needed -- and recurse up the required features dependency graph.  The run feature extraction as usual.
+     *
+     * This will keep the registry small, though there is more overhead when you read the config file.  The other issue
+     * is how is config file gets propagated.  Can it be done automatically? or does the author of a new feature extractor
+     * need to write it manually?  Or one better, can we scan the featureextractor contents in memory?  This last step is
+     * a reach goal and will need to be a part of the next version.  I believe that it will require a more precise templating
+     * of derived feature names.  This will require re-writing a lot of the feature extractors.  While worth it, this
+     * will take some person hours.  Possibly a good
+     */
     registerNullFeatureExtractor("wav");
     String[] acoustic_features = new String[]{"f0", "log_f0", "I"};
 
@@ -893,9 +940,76 @@ public class AuToBI {
     }
     registerFeatureExtractor(new DifferenceFeatureExtractor(difference_features));
 
-    if (hasParameter("spectral_pitch_accent_detector_collection")) {
-      registerPitchAccentCollectionFeatureExtractors();
+    // Feature Extractors developed based on Mishra et al. INTERSPEECH 2012 and Rosenberg SLT 2012
+    registerFeatureExtractor(new AUContourFeatureExtractor("log_f0"));
+    registerFeatureExtractor(new AUContourFeatureExtractor("I"));
+
+    try {
+      registerFeatureExtractor(new SubregionFeatureExtractor("400ms"));
+    } catch (FeatureExtractorException e) {
+      e.printStackTrace();
     }
+    difference_features = new ArrayList<String>();
+
+    for (String c : new String[]{"rnorm_I", "norm_log_f0", "norm_log_f0rnorm_I"}) {
+      for (String delta : new String[]{"delta_", ""}) {
+        if (!c.equals("norm_log_f0")) {
+          for (String subregion : new String[]{"pseudosyllable", "200ms", "400ms"}) {
+            registerFeatureExtractor(new SubregionContourExtractor(delta + c, subregion));
+            registerFeatureExtractor(new ContourFeatureExtractor(delta + c + subregion));
+          }
+        }
+        for (String subregion : new String[]{"", "_pseudosyllable", "_200ms", "_400ms"}) {
+          registerFeatureExtractor(new PVALFeatureExtractor(delta + c + subregion));
+          registerFeatureExtractor(new CurveShapeFeatureExtractor(delta + c + subregion));
+          registerFeatureExtractor(new CurveShapeLikelihoodFeatureExtractor(delta + c + subregion));
+
+          registerFeatureExtractor(new HighLowComponentFeatureExtractor(delta + c + subregion));
+          registerFeatureExtractor(new HighLowDifferenceFeatureExtractor(delta + c + subregion));
+          registerFeatureExtractor(new ContourCenterOfGravityFeatureExtractor(delta + c + subregion));
+          registerFeatureExtractor(new AUContourFeatureExtractor(delta + c + subregion));
+          registerFeatureExtractor(new TiltFeatureExtractor(delta + c + subregion));
+        }
+
+        if (!c.equals("norm_log_f0")) {
+          for (String agg : new String[]{"max", "mean", "stdev", "zMax"}) {
+            difference_features.add(delta + c + "__" + agg);
+          }
+        }
+      }
+    }
+    registerFeatureExtractor(new DifferenceFeatureExtractor(difference_features));
+
+    registerFeatureExtractor(new VoicingRatioFeatureExtractor("log_f0"));
+
+    // Range normalization for I
+    registerFeatureExtractor(new RangeNormalizedContourFeatureExtractor("I", "normalization_parameters"));
+
+    // Combined contour
+    registerFeatureExtractor(new CombinedContourFeatureExtractor("norm_log_f0", "rnorm_I", 1));
+    registerFeatureExtractor(new DeltaContourFeatureExtractor("norm_log_f0rnorm_I"));
+    registerFeatureExtractor(new DeltaContourFeatureExtractor("rnorm_I"));
+    registerFeatureExtractor(new ContourFeatureExtractor("delta_rnorm_I"));
+    registerFeatureExtractor(new ContourFeatureExtractor("rnorm_I"));
+    registerFeatureExtractor(new ContourFeatureExtractor("norm_log_f0rnorm_I"));
+    registerFeatureExtractor(new ContourFeatureExtractor("delta_norm_log_f0rnorm_I"));
+
+    // Skew
+    registerFeatureExtractor(new SkewFeatureExtractor("norm_log_f0", "rnorm_I"));
+
+    registerFeatureExtractor(new RatioFeatureExtractor("norm_log_f0__area", "rnorm_I__area"));
+    registerFeatureExtractor(new FeatureDifferenceFeatureExtractor("norm_log_f0__area", "rnorm_I__area"));
+
+    // Contour peak
+    registerFeatureExtractor(new RatioFeatureExtractor("norm_log_f0__PVLocation", "rnorm_I__PVLocation"));
+    registerFeatureExtractor(
+        new FeatureDifferenceFeatureExtractor("norm_log_f0__PVLocation", "rnorm_I__PVLocation"));
+
+    // Contour RMSE and Contour Error
+    registerFeatureExtractor(new ContourDifferenceFeatureExtractor("norm_log_f0", "rnorm_I"));
+
+    // Combined curve likelihood
+    registerFeatureExtractor(new TwoWayCurveLikelihoodShapeFeatureExtractor("norm_log_f0", "rnorm_I"));
   }
 
   @Deprecated

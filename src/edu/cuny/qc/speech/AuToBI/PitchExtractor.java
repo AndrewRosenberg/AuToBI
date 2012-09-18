@@ -23,20 +23,9 @@
 package edu.cuny.qc.speech.AuToBI;
 
 import edu.cuny.qc.speech.AuToBI.core.*;
-import edu.cuny.qc.speech.AuToBI.io.WavReader;
 import jnt.FFT.RealDoubleFFT_Radix2;
 
-import javax.sound.sampled.AudioInputStream;
-
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import java.lang.instrument.Instrumentation;
-import java.util.List;
 import java.util.ArrayList;
-import java.io.File;
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
 
 /**
  * A class to extract Pitch from WavData using Paul Boersma's Sound_to_Pitch algorithm included in Praat.
@@ -520,7 +509,7 @@ public class PitchExtractor extends SampledDataAnalyzer {
         PitchCandidate candidate = frame.getCandidate(icand);
         boolean voiceless = candidate.frequency == 0 || candidate.frequency > maxPitch;
         delta[iframe][icand] = voiceless ? unvoicedStrength :
-            candidate.frequency -
+            candidate.strength -
                 octaveCost * Math.log(maxPitch / candidate.frequency) / Math.log(2);
       }
     }
@@ -569,7 +558,6 @@ public class PitchExtractor extends SampledDataAnalyzer {
     }
 
     /* Find the end of the most probable path. */
-
     place = 0;
     maximum = delta[pitchFrames.size() - 1][place];
     for (int icand = 1; icand < pitchFrames.get(pitchFrames.size() - 1).getNumCandidates(); icand++) {
@@ -590,24 +578,6 @@ public class PitchExtractor extends SampledDataAnalyzer {
     }
 
     /* Pull formants: devoice frames with frequencies between maxPitch and ceiling2. */
-
-    if (maxPitch > maxPitch) {
-      for (int iframe = pitchFrames.size() - 1; iframe >= 0; iframe--) {
-        PitchFrame frame = pitchFrames.get(iframe);
-        PitchCandidate winner = frame.getCandidate(0);
-        double f = winner.frequency;
-        if (f > maxPitch && f <= maxPitch) {
-          for (int icand = 1; icand < frame.getNumCandidates(); icand++) {
-            PitchCandidate loser = frame.getCandidate(icand);
-            if (loser.frequency == 0.0) {
-              frame.setCandidate(0, loser);
-              frame.setCandidate(icand, winner);
-              break;
-            }
-          }
-        }
-      }
-    }
 
     for (int i = 0; i < pitchFrames.size(); ++i) {
       if (pitchFrames.get(i).getCandidate(0).frequency > 0) { // voiced

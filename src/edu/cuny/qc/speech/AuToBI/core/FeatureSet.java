@@ -59,7 +59,7 @@ public class FeatureSet implements Serializable {
   /**
    * FeatureSet copy constructor.
    *
-   * @return a new instance of the FeatureSet with copied internal variables.
+   * @return a new instance of the FeatureSet with copied internal variables and data points.
    */
   public FeatureSet newInstance() {
     FeatureSet newfs = new FeatureSet();
@@ -232,6 +232,28 @@ public class FeatureSet implements Serializable {
   }
 
   /**
+   * Removes a required feature from the set of required features
+   *
+   * @param feature_name the feature to remove
+   */
+  public void removeRequiredFeature(String feature_name) {
+    if (data_points != null && data_points.size() > 0) {
+      //TODO: figure out the best way to do this.
+      AuToBIUtils.error("Cannot remove a required feature from a FeatureSet that has associated data points..");
+    }
+    if (required_features.containsKey(feature_name)) {
+      // The class attribute is stored at index 0
+      Integer value = required_features.get(feature_name);
+      for (String s : required_features.keySet()) {
+        if (required_features.get(s) >= value) {
+          required_features.put(s, required_features.get(s) - 1);
+        }
+      }
+      required_features.remove(feature_name);
+    }
+  }
+
+  /**
    * Gets a unique index corresponding to feature name.  If there is no associated index, returns -1
    *
    * @param feature_name the feature name
@@ -308,7 +330,7 @@ public class FeatureSet implements Serializable {
    * @return a string contining an arff description of the included features
    */
   protected String generateArffAttributes() {
-    StringBuffer attrString = new StringBuffer();
+    StringBuilder attrString = new StringBuilder();
 
     for (Feature f : this.features) {
 
@@ -375,7 +397,7 @@ public class FeatureSet implements Serializable {
           f.addNominalValue(r.getAttribute(f.getName()).toString());
         }
       }
-
+      // TODO: Include instance weighting
       sb.append("\n");
     }
     return sb.toString();

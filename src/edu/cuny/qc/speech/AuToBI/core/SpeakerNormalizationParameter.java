@@ -92,10 +92,21 @@ public class SpeakerNormalizationParameter implements Serializable {
    *
    * @param feature the type of feature
    * @param value   the value of the feature
-   * @return the zscore speaker normalized value
+   * @return the zscore normalized value
    */
   public double normalize(String feature, double value) {
     return (value - params.get(feature).getMean()) / params.get(feature).getStdev();
+  }
+
+  /**
+   * Range normalizes a value
+   *
+   * @param feature the type of feature
+   * @param v       the value of the feature
+   * @return the range normalized value
+   */
+  public double rangeNormalize(String feature, double v) {
+    return (v - params.get(feature).getMin()) / (params.get(feature).getMax() - params.get(feature).getMin());
   }
 
   /**

@@ -78,9 +78,59 @@ public class PitchAccentDetectionFeatureSet extends FeatureSet {
           }
         }
       }
-
-
     }
+
+    /**
+     * AT&T Specific features
+     */
+    insertRequiredFeature("log_f0__voicingRatio");
+
+    insertRequiredFeature("duration__duration");
+
+    // Aggregations, center of gravity, area
+    for (String acoustic : new String[]{"norm_log_f0", "rnorm_I", "norm_log_f0rnorm_I"}) {
+      for (String slope : new String[]{"", "delta_"}) {
+        for (String agg : new String[]{"max", "mean", "min", "stdev", "zMax", "cog", "area", "tilt_amp", "tilt_dur",
+            "highLowDiff", "PVAmp", "PVLocation", "risingCurveLikelihood", "fallingCurveLikelihood",
+            "peakCurveLikelihood", "valleyCurveLikelihood"}) {
+          insertRequiredFeature(slope + acoustic + "__" + agg);
+        }
+      }
+    }
+
+
+    // skew
+    insertRequiredFeature("norm_log_f0rnorm_I__skew_amp");
+    insertRequiredFeature("norm_log_f0rnorm_I__skew_dur");
+
+    // location and area difference features
+    insertRequiredFeature("norm_log_f0__area_minus_rnorm_I__area");
+    insertRequiredFeature("norm_log_f0__area_ratio_rnorm_I__area");
+    insertRequiredFeature("norm_log_f0__PVLocation_minus_rnorm_I__PVLocation");
+    insertRequiredFeature("norm_log_f0__PVLocation_ratio_rnorm_I__PVLocation");
+
+    // rmse and error features
+    insertRequiredFeature("norm_log_f0_rnorm_I__rmse");
+    insertRequiredFeature("norm_log_f0_rnorm_I__meanError");
+
+    // twoway shape likelihood features
+    insertRequiredFeature("norm_log_f0rnorm_I__rrCurveLikelihood");
+    insertRequiredFeature("norm_log_f0rnorm_I__rfCurveLikelihood");
+    insertRequiredFeature("norm_log_f0rnorm_I__rpCurveLikelihood");
+    insertRequiredFeature("norm_log_f0rnorm_I__rvCurveLikelihood");
+    insertRequiredFeature("norm_log_f0rnorm_I__frCurveLikelihood");
+    insertRequiredFeature("norm_log_f0rnorm_I__ffCurveLikelihood");
+    insertRequiredFeature("norm_log_f0rnorm_I__fpCurveLikelihood");
+    insertRequiredFeature("norm_log_f0rnorm_I__fvCurveLikelihood");
+    insertRequiredFeature("norm_log_f0rnorm_I__prCurveLikelihood");
+    insertRequiredFeature("norm_log_f0rnorm_I__pfCurveLikelihood");
+    insertRequiredFeature("norm_log_f0rnorm_I__ppCurveLikelihood");
+    insertRequiredFeature("norm_log_f0rnorm_I__pvCurveLikelihood");
+    insertRequiredFeature("norm_log_f0rnorm_I__vrCurveLikelihood");
+    insertRequiredFeature("norm_log_f0rnorm_I__vfCurveLikelihood");
+    insertRequiredFeature("norm_log_f0rnorm_I__vpCurveLikelihood");
+    insertRequiredFeature("norm_log_f0rnorm_I__vvCurveLikelihood");
+
     this.class_attribute = "nominal_PitchAccent";
   }
 }

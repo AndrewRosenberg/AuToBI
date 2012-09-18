@@ -30,6 +30,7 @@ import java.util.List;
  * <p/>
  * Here we allow any contour -- intensity, spectral tilt, etc -- to be processed using the same notion.
  */
+@SuppressWarnings("unchecked")
 public class ContourCenterOfGravityFeatureExtractor extends FeatureExtractor {
   private String attribute_name;       // the contour attribute name
 
@@ -56,7 +57,7 @@ public class ContourCenterOfGravityFeatureExtractor extends FeatureExtractor {
           num += tvp.first * tvp.second;
           denom += tvp.second;
         }
-        if (denom > 0.0) {
+        if (denom != 0.0) {
           r.setAttribute(attribute_name + "__cog", ((num / denom) - r.getStart()) / r.getDuration());
         }
       }

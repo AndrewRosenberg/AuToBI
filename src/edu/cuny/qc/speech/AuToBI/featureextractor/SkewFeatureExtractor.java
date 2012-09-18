@@ -38,17 +38,23 @@ import java.util.List;
 @SuppressWarnings("unchecked")
 public class SkewFeatureExtractor extends FeatureExtractor {
 
+  private String f1;
+  private String f2;
+
   /**
    * Constructs a new SkewFeatureExtractor.
    */
-  public SkewFeatureExtractor() {
-    required_features.add("f0__tilt_amp");
-    required_features.add("f0__tilt_dur");
-    required_features.add("I__tilt_amp");
-    required_features.add("I__tilt_dur");
+  public SkewFeatureExtractor(String f1, String f2) {
+    this.f1 = f1;
+    this.f2 = f2;
 
-    extracted_features.add("skew_amp");
-    extracted_features.add("skew_dur");
+    required_features.add(f1 + "__tilt_amp");
+    required_features.add(f1 + "__tilt_dur");
+    required_features.add(f2 + "__tilt_amp");
+    required_features.add(f2 + "__tilt_dur");
+
+    extracted_features.add(f1 + f2 + "__skew_amp");
+    extracted_features.add(f1 + f2 + "__skew_dur");
   }
 
   /**
@@ -61,12 +67,12 @@ public class SkewFeatureExtractor extends FeatureExtractor {
   @Override
   public void extractFeatures(List regions) throws FeatureExtractorException {
     for (Region r : (List<Region>) regions) {
-      if (r.hasAttribute("f0__tilt_amp") && r.hasAttribute("f0__tilt_dur") && r.hasAttribute("I__tilt_amp") &&
-          r.hasAttribute("I__tilt_dur")) {
-        r.setAttribute("skew_amp",
-            ((Double) r.getAttribute("f0__tilt_amp")) - ((Double) r.getAttribute("I__tilt_amp")));
-        r.setAttribute("skew_dur",
-            ((Double) r.getAttribute("f0__tilt_dur")) - ((Double) r.getAttribute("I__tilt_dur")));
+      if (r.hasAttribute(f1 + "__tilt_amp") && r.hasAttribute(f1 + "__tilt_dur") && r.hasAttribute(f2 + "__tilt_amp") &&
+          r.hasAttribute(f2 + "__tilt_dur")) {
+        r.setAttribute(f1 + f2 + "__skew_amp",
+            ((Double) r.getAttribute(f1 + "__tilt_amp")) - ((Double) r.getAttribute(f2 + "__tilt_amp")));
+        r.setAttribute(f1 + f2 + "__skew_dur",
+            ((Double) r.getAttribute(f1 + "__tilt_dur")) - ((Double) r.getAttribute(f2 + "__tilt_dur")));
       }
     }
   }

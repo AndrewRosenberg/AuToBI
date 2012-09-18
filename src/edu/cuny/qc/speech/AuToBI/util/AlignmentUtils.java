@@ -185,7 +185,7 @@ public class AlignmentUtils {
       Region b = breaks.get(break_idx);
       Word word = words.get(word_idx);
 
-      if (b.getEnd() < word.getStart()) {
+      if (b.getEnd() <= word.getStart()) {
         break_idx++;
       } else if (word.getEnd() < b.getStart()) {
         if (word.getBreakAfter() == null) {
@@ -199,9 +199,16 @@ public class AlignmentUtils {
         word.setBreakBefore(previous_break);
         String current_break = breaks.get(break_idx).getLabel();
         word.setBreakAfter(current_break);
+        if ((current_break.startsWith("3") || current_break.startsWith("4")) && !word.hasPhraseAccent()) {
+          word.setPhraseAccent("X-");
+        }
+        if (current_break.startsWith("4") && !word.hasBoundaryTone()) {
+          word.setBoundaryTone("X%");
+        }
         previous_break = current_break;
 
         break_idx++;
+        word_idx++;
       }
     }
   }
@@ -252,8 +259,12 @@ public class AlignmentUtils {
             boundary_tones.add(boundaryTone);
           }
         } else {
-          word.setAccent(tone);
-          word.setAccentTime(toneRegion.getStart());
+          if (word.isAccented()) {
+            AuToBIUtils.warn("Multiply accented word, " + word + ". Only keeping the first accent.");
+          } else {
+            word.setAccent(tone);
+            word.setAccentTime(toneRegion.getStart());
+          }
         }
 
         toneRegion = getNextRegionBeforeTime(word.getEnd(), toneIter);

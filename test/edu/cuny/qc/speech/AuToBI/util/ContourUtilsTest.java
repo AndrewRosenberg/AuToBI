@@ -170,7 +170,7 @@ public class ContourUtilsTest {
   }
 
   @Test
-   public void testDeltaContourWithEmptyContour() {
+  public void testDeltaContourWithEmptyContour() {
 
     Contour c = new Contour(0.0, 0.1, 0);
 
@@ -370,11 +370,64 @@ public class ContourUtilsTest {
 
   }
 
-   @Test
+  @Test
   public void testAssignValuesToOrderedRegionsWithNoRegions() {
     Contour c = new Contour(0.0, 0.1, new double[]{1, 2, 6, 5, 3});
     List<Region> regions = new ArrayList<Region>();
 
     ContourUtils.assignValuesToOrderedRegions(regions, c, "feature");
+  }
+
+  @Test
+  public void testInterpolateWorks() {
+    Contour c = new Contour(0.0, 0.1, 5);
+    Contour intensity = new Contour(0.0, 0.1, new double[]{1, 1, 1, 1, 1});
+    c.set(0, 1);
+    c.set(4, 5);
+
+    Contour ic = ContourUtils.interpolate(c, intensity, 0);
+    assertEquals(2.0, ic.get(1), 0.00001);
+    assertEquals(3.0, ic.get(2), 0.00001);
+    assertEquals(4.0, ic.get(3), 0.00001);
+  }
+
+  @Test
+  public void testInterpolateOmitsRightEdge() {
+    Contour c = new Contour(0.0, 0.1, 7);
+    Contour intensity = new Contour(0.0, 0.1, new double[]{1, 1, 1, 1, 1, 1, 1});
+    c.set(0, 1);
+    c.set(4, 5);
+
+    Contour ic = ContourUtils.interpolate(c, intensity, 0);
+    assertTrue(ic.isEmpty(5));
+    assertTrue(ic.isEmpty(6));
+  }
+
+  @Test
+  public void testInterpolateOmitsLeftEdge() {
+    Contour c = new Contour(0.0, 0.1, 7);
+    Contour intensity = new Contour(0.0, 0.1, new double[]{1, 1, 1, 1, 1, 1, 1});
+    c.set(2, 1);
+    c.set(6, 5);
+
+    Contour ic = ContourUtils.interpolate(c, intensity, 0);
+    assertTrue(ic.isEmpty(0));
+    assertTrue(ic.isEmpty(1));
+  }
+
+  @Test
+  public void testInterpolateOmitsAcrossAGap() {
+    Contour c = new Contour(0.0, 0.1, 7);
+    Contour intensity = new Contour(0.0, 0.1, new double[]{1, 1, 1, 0, 0, 1, 1});
+    c.set(0, 1);
+    c.set(1, 1);
+    c.set(2, 1);
+
+    c.set(5, 5);
+    c.set(6, 5);
+
+    Contour ic = ContourUtils.interpolate(c, intensity, 0.5);
+    assertTrue(ic.isEmpty(3));
+    assertTrue(ic.isEmpty(4));
   }
 }

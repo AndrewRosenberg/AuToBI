@@ -40,50 +40,25 @@ import static org.junit.Assert.*;
  */
 public class PitchExtractorTest {
 
-
-//  TODO: write tests for this functionality
-//  public static void main(String[] args) throws IOException, UnsupportedAudioFileException, AuToBIException {
-//    File file = new File(args[0]);
-//    AudioInputStream soundIn = AudioSystem.getAudioInputStream(new BufferedInputStream(new FileInputStream(file)));
-//
-//    WavReader reader = new WavReader();
-//    WavData wav;
-//    if (args.length > 1)
-//      wav = reader.read(soundIn, Double.parseDouble(args[1]), Double.parseDouble(args[2]));
-//    else
-//      wav = reader.read(soundIn);
-//
-//
-//    System.out.println(wav.sampleRate);
-//    System.out.println(wav.sampleSize);
-//    System.out.println(wav.getFrameSize());
-//    System.out.println(wav.getDuration());
-//
-//    PitchExtractor pitchFactory = new PitchExtractor(wav);
-//    Contour pitch = pitchFactory.soundToPitch();
-//    System.out.println("wav length: " + wav.getDuration());
-//
-//    wav = null;
-//
-//    System.gc();
-//    System.gc();
-//    System.gc();
-//    System.gc();
-//    System.gc();
-//    System.gc();
-//    System.gc();
-//    System.gc();
-//    System.gc();
-//    System.gc();
-//    System.gc();
-//    System.gc();
-//    System.gc();
-//    System.gc();
-//    System.gc();
-//    System.gc();
-//    long memory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
-//    System.out.println("Memory Used (Mb): " + (memory / 1024.0 / 1024));
-//
-//    System.out.println("pitch points:" + pitch.contentSize());
-//  }
+  @Test
+  public void testPitchExtractorRunsWithoutException() {
+    String inFile = "/Users/andrew/projects/bdc/read/h1r0.wav";
+    WavReader reader = new WavReader();
+    WavData inWave = null;
+    try {
+      inWave = reader.read(inFile);
+    } catch (UnsupportedAudioFileException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (AuToBIException e) {
+      e.printStackTrace();
+    }
+    PitchExtractor pe = new PitchExtractor(inWave);
+    try {
+      Contour c = pe.soundToPitch();
+    } catch (AuToBIException e) {
+      e.printStackTrace();
+    }
+  }
 }

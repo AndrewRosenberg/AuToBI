@@ -24,6 +24,7 @@ import edu.cuny.qc.speech.AuToBI.core.Feature;
 import edu.cuny.qc.speech.AuToBI.core.FeatureSet;
 import edu.cuny.qc.speech.AuToBI.core.Word;
 import edu.cuny.qc.speech.AuToBI.util.ClassifierUtils;
+import weka.classifiers.AbstractClassifier;
 import weka.classifiers.Classifier;
 import weka.core.Instance;
 import weka.core.Instances;
@@ -37,10 +38,10 @@ public class WekaClassifier extends AuToBIClassifier {
 
   private static final long serialVersionUID = 1633315748323749801L;
 
-  private Classifier weka_classifier; // the weka classifier
+  protected Classifier weka_classifier; // the weka classifier
   // Stored features are necessary for classifying a single data point.
-  private Set<Feature> features;
-  private String class_attribute;
+  protected Set<Feature> features;
+  protected String class_attribute;
 
   /**
    * Constructs a new WekaClassifier given a weka Classfiier object.
@@ -96,7 +97,7 @@ public class WekaClassifier extends AuToBIClassifier {
    */
   public AuToBIClassifier newInstance() {
     try {
-      return new WekaClassifier(Classifier.makeCopy(weka_classifier));
+      return new WekaClassifier(AbstractClassifier.makeCopy(weka_classifier));
     } catch (Exception e) {
       e.printStackTrace();
     }

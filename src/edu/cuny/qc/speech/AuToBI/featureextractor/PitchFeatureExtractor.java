@@ -19,6 +19,7 @@
  */
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
+import edu.cuny.qc.speech.AuToBI.IntensityExtractor;
 import edu.cuny.qc.speech.AuToBI.PitchExtractor;
 import edu.cuny.qc.speech.AuToBI.core.*;
 import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
@@ -35,6 +36,7 @@ import java.util.List;
 public class PitchFeatureExtractor extends FeatureExtractor {
 
   private String feature_name;  // the name of the feature to hold pitch information
+  private double threshold;     // the intensity threshold to determine silence.
 
   public PitchFeatureExtractor(String feature_name) {
 
@@ -42,6 +44,15 @@ public class PitchFeatureExtractor extends FeatureExtractor {
 
     this.required_features.add("wav");
     this.extracted_features.add(feature_name);
+    this.threshold = Double.NaN;
+  }
+
+  public PitchFeatureExtractor(String feature_name, double threshold) {
+    this.feature_name = feature_name;
+
+    this.required_features.add("wav");
+    this.extracted_features.add(feature_name);
+    this.threshold = threshold;
   }
 
   @Override
@@ -63,6 +74,11 @@ public class PitchFeatureExtractor extends FeatureExtractor {
       for (WavData wav : wave_region_map.keySet()) {
         PitchExtractor extractor = new PitchExtractor(wav);
         Contour pitch_contour = extractor.soundToPitch();
+        if (!Double.isNaN(threshold)) {
+          IntensityExtractor int_extractor = new IntensityExtractor(wav);
+          Contour intensity = int_extractor.soundToIntensity();
+          pitch_contour = ContourUtils.interpolate(pitch_contour, intensity, threshold);
+        }
         ContourUtils.assignValuesToRegions(wave_region_map.get(wav), pitch_contour, feature_name);
       }
     } catch (AuToBIException e) {

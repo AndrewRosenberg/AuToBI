@@ -23,6 +23,7 @@ import java.util.*;
 import java.io.File;
 import java.io.FilenameFilter;
 
+import edu.cuny.qc.speech.AuToBI.classifier.ClassWeightedWekaClassifier;
 import edu.cuny.qc.speech.AuToBI.classifier.WekaClassifier;
 import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
 import edu.cuny.qc.speech.AuToBI.core.AuToBIParameters;
@@ -33,8 +34,8 @@ import org.apache.oro.io.GlobFilenameFilter;
 import weka.classifiers.functions.Logistic;
 
 import org.apache.log4j.Logger;
-import weka.classifiers.functions.SMO;
 import weka.classifiers.meta.AdaBoostM1;
+import weka.classifiers.trees.RandomForest;
 
 /**
  * Stores general utility functions for AuToBI.
@@ -349,7 +350,7 @@ public class AuToBIUtils {
    */
   public static AuToBITask getPitchAccentDetectionTask() {
     AuToBITask task = new AuToBITask();
-    task.setClassifier(new WekaClassifier(new Logistic()));
+    task.setClassifier(new ClassWeightedWekaClassifier(new Logistic()));
     String hyp = "hyp_pitch_accent_location";
     task.setHypFeature(hyp);
     task.setConfFeature(hyp + "_conf");
@@ -367,7 +368,7 @@ public class AuToBIUtils {
    */
   public static AuToBITask getPitchAccentClassificationTask() {
     AuToBITask task = new AuToBITask();
-    task.setClassifier(new WekaClassifier(new SMO()));
+    task.setClassifier(new ClassWeightedWekaClassifier(new AdaBoostM1()));
     String hyp = "hyp_pitch_accent_type";
     task.setHypFeature(hyp);
     task.setConfFeature(hyp + "_conf");
@@ -385,7 +386,7 @@ public class AuToBIUtils {
    */
   public static AuToBITask getIntonationalPhraseDetectionTask() {
     AuToBITask task = new AuToBITask();
-    task.setClassifier(new WekaClassifier(new AdaBoostM1()));
+    task.setClassifier(new WekaClassifier(new Logistic()));
     String hyp = "hyp_intonational_phrase_boundary";
     task.setHypFeature(hyp);
     task.setConfFeature(hyp + "_conf");
@@ -403,7 +404,7 @@ public class AuToBIUtils {
    */
   public static AuToBITask getIntermediatePhraseDetectionTask() {
     AuToBITask task = new AuToBITask();
-    task.setClassifier(new WekaClassifier(new AdaBoostM1()));
+    task.setClassifier(new ClassWeightedWekaClassifier(new Logistic()));
     String hyp = "hyp_intermediate_phrase_boundary";
     task.setHypFeature(hyp);
     task.setConfFeature(hyp + "_conf");
@@ -421,7 +422,7 @@ public class AuToBIUtils {
    */
   public static AuToBITask getPhraseAccentClassificationTask() {
     AuToBITask task = new AuToBITask();
-    task.setClassifier(new WekaClassifier(new SMO()));
+    task.setClassifier(new ClassWeightedWekaClassifier(new RandomForest()));
     String hyp = "hyp_phrase_accent";
     task.setHypFeature(hyp);
     task.setConfFeature(hyp + "_conf");
@@ -439,7 +440,7 @@ public class AuToBIUtils {
    */
   public static AuToBITask getPABTClassificationTask() {
     AuToBITask task = new AuToBITask();
-    task.setClassifier(new WekaClassifier(new SMO()));
+    task.setClassifier(new WekaClassifier(new RandomForest()));
     String hyp = "hyp_phrase_accent_boundary_tone";
     task.setHypFeature(hyp);
     task.setConfFeature(hyp + "_conf");

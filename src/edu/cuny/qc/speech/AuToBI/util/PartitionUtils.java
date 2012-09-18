@@ -209,4 +209,62 @@ public class PartitionUtils {
     }
     return class_histogram;
   }
+
+  /**
+   * Undersamples the data points of with majority class (as determined by class_attribute) down to the size of the next most
+   * represented class value
+   * <p/>
+   * If there are two majority classes, this operation does not effect the data points.
+   *
+   * @param data_points     The source set of data points to undersample.
+   * @param class_attribute The attribute containing the class which determines the undersampling
+   * @return A list of data points with undersampled majority class
+   */
+  public static List<Word> performUnderSampling(List<Word> data_points, String class_attribute) {
+    // Construct class distribution
+    Distribution class_histogram = generateAttributeDistribution(data_points, class_attribute);
+
+    // Identify the majority class and target size.
+    String majority_class = "";
+    Double majority_size = 0.0;
+    Double target_size = 0.0;
+
+    for (String key : class_histogram.keySet()) {
+      if (class_histogram.get(key) > majority_size) {
+        target_size = majority_size;
+        majority_size = class_histogram.get(key);
+        majority_class = key;
+      } else if (class_histogram.get(key) > target_size){
+        target_size = class_histogram.get(key);
+      }
+    }
+
+    // Construct understampled set of data_points
+    ArrayList<Word> new_data_points = new ArrayList<Word>();
+    ArrayList<Word> undersampled_points = new ArrayList<Word>();
+
+    Integer n = 0;
+    for (Word w : data_points) {
+
+      if (w.getAttribute(class_attribute).equals(majority_class)) {
+        if (undersampled_points.size() < target_size) {
+          undersampled_points.add(w);
+          ++n;
+        } else {
+          // randomly select if the current point is a member of the undersampled set.
+          Double x = Math.random();
+          if (x < target_size / n) {
+            // replace an existing point withe equal probability
+            int idx = (int) Math.floor(target_size * Math.random());
+            undersampled_points.set(idx, w);
+          }
+        }
+      } else {
+        new_data_points.add(w);
+      }
+    }
+
+    new_data_points.addAll(undersampled_points);
+    return new_data_points;
+  }
 }

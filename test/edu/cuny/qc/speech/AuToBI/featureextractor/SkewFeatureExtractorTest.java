@@ -40,15 +40,15 @@ public class SkewFeatureExtractorTest {
 
   @Before
   public void setUp() throws Exception {
-    fe = new SkewFeatureExtractor();
+    fe = new SkewFeatureExtractor("f0", "I");
     regions = new ArrayList<Region>();
   }
 
   @Test
   public void testConstructorSetsExtractedFeaturesCorrectly() {
     assertEquals(2, fe.getExtractedFeatures().size());
-    assertTrue(fe.getExtractedFeatures().contains("skew_amp"));
-    assertTrue(fe.getExtractedFeatures().contains("skew_dur"));
+    assertTrue(fe.getExtractedFeatures().contains("f0I__skew_amp"));
+    assertTrue(fe.getExtractedFeatures().contains("f0I__skew_dur"));
   }
 
   @Test
@@ -71,8 +71,8 @@ public class SkewFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertTrue(w.hasAttribute("skew_amp"));
-      assertTrue(w.hasAttribute("skew_dur"));
+      assertTrue(w.hasAttribute("f0I__skew_amp"));
+      assertTrue(w.hasAttribute("f0I__skew_dur"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -89,8 +89,8 @@ public class SkewFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertEquals(2.0, (Double) w.getAttribute("skew_amp"), 0.0001);
-      assertEquals(3.0, (Double) w.getAttribute("skew_dur"), 0.0001);
+      assertEquals(2.0, (Double) w.getAttribute("f0I__skew_amp"), 0.0001);
+      assertEquals(3.0, (Double) w.getAttribute("f0I__skew_dur"), 0.0001);
     } catch (FeatureExtractorException e) {
       fail();
     }

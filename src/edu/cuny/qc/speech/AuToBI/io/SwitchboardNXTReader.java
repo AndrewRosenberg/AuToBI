@@ -71,7 +71,7 @@ public class SwitchboardNXTReader extends AuToBIWordReader {
 
     List<Region> break_indices = new ArrayList<Region>();
     for (Region r : breaks_tier.getRegions()) {
-      if (!r.getLabel().matches("\\s+!?[LH][-%]")) {
+      if (r.getLabel().startsWith("0") || r.getLabel().startsWith("1") || r.getLabel().startsWith("2") || r.getLabel().startsWith("3") || r.getLabel().startsWith("4")) {
         break_indices.add(r);
       }
     }
@@ -96,6 +96,9 @@ public class SwitchboardNXTReader extends AuToBIWordReader {
       if (!WordReaderUtils.isSilentRegion(r.getLabel(), silence_regex)) {
         Word w = new Word(r.getStart(), r.getEnd(), r.getLabel(), null, r.getFile());
         words.add(w);
+        if (r.hasAttribute("following_punc")) {
+          w.setAttribute("following_punc", r.getAttribute("following_punc"));
+        }
       }
     }
     return words;

@@ -20,11 +20,10 @@
 package edu.cuny.qc.speech.AuToBI.util;
 
 import edu.cuny.qc.speech.AuToBI.classifier.AuToBIClassifier;
+import edu.cuny.qc.speech.AuToBI.classifier.ClassBasedWeightFunction;
+import edu.cuny.qc.speech.AuToBI.classifier.WeightFunction;
 import edu.cuny.qc.speech.AuToBI.core.*;
-import weka.core.Instance;
-import weka.core.Instances;
-import weka.core.FastVector;
-import weka.core.Attribute;
+import weka.core.*;
 
 import java.util.*;
 import java.io.*;
@@ -106,7 +105,7 @@ public class ClassifierUtils {
    */
   public static Instance convertWordToInstance(Word point, Set<Feature> features, String class_attribute)
       throws Exception {
-    FastVector attributes = generateWekaAttributes(features);
+    ArrayList<Attribute> attributes = generateWekaAttributes(features);
     return constructWekaInstance(attributes, point, class_attribute);
   }
 
@@ -116,21 +115,21 @@ public class ClassifierUtils {
    * @param features the set of features
    * @return a FastVector of weka attributes
    */
-  public static FastVector generateWekaAttributes(Set<Feature> features) {
-    FastVector attributes = new FastVector();
+  public static ArrayList<Attribute> generateWekaAttributes(Set<Feature> features) {
+    ArrayList<Attribute> attributes = new ArrayList<Attribute>();
 
     for (Feature f : features) {
       String attribute_name = f.getName();
       if (f.isNominal()) {
-        FastVector attribute_values = new FastVector();
+        List<String> attribute_values = new ArrayList<String>();
         for (String s : f.getNominalValues()) {
-          attribute_values.addElement(s);
+          attribute_values.add(s);
         }
-        attributes.addElement(new Attribute(attribute_name, attribute_values, attributes.size()));
+        attributes.add(new Attribute(attribute_name, attribute_values, attributes.size()));
       } else if (f.isString()) {
-        attributes.addElement(new weka.core.Attribute(attribute_name, (FastVector) null, attributes.size()));
+        attributes.add(new weka.core.Attribute(attribute_name, (List<String>) null, attributes.size()));
       } else {
-        attributes.addElement(new weka.core.Attribute(attribute_name, attributes.size()));
+        attributes.add(new weka.core.Attribute(attribute_name, attributes.size()));
       }
     }
     return attributes;
@@ -146,10 +145,33 @@ public class ClassifierUtils {
    * @throws Exception If the arff file can't be written or read.
    */
   public static Instances convertFeatureSetToWekaInstances(FeatureSet feature_set) throws Exception {
-    FastVector attributes = generateWekaAttributes(feature_set.getFeatures());
+    ArrayList<Attribute> attributes = generateWekaAttributes(feature_set.getFeatures());
     Instances instances = new Instances("AuToBI_feature_set", attributes, feature_set.getDataPoints().size());
     for (Word w : feature_set.getDataPoints()) {
       Instance inst = ClassifierUtils.assignWekaAttributes(instances, w);
+      instances.add(inst);
+    }
+
+    ClassifierUtils.setWekaClassAttribute(instances, feature_set.getClassAttribute());
+    return instances;
+  }
+
+  /**
+   * Converts a feature set object to a weka Instances object.
+   *
+   * Use wekas instance weighting capability to assign weights for each data point.
+   *
+   * @param feature_set the feature set to convert
+   * @param fn a weight function
+   * @return a weka instances object
+   */
+  public static Instances convertFeatureSetToWeightedWekaInstances(FeatureSet feature_set,
+                                                                   WeightFunction fn) {
+    ArrayList<Attribute> attributes = generateWekaAttributes(feature_set.getFeatures());
+    Instances instances = new Instances("AuToBI_feature_set", attributes, feature_set.getDataPoints().size());
+    for (Word w : feature_set.getDataPoints()) {
+      Instance inst = ClassifierUtils.assignWekaAttributes(instances, w);
+      inst.setWeight(fn.weight(w));
       instances.add(inst);
     }
 
@@ -165,7 +187,7 @@ public class ClassifierUtils {
    * @param class_attribute the class attribute
    * @return a weka instance.
    */
-  protected static Instance constructWekaInstance(FastVector attributes, Word data_point, String class_attribute) {
+  protected static Instance constructWekaInstance(ArrayList<Attribute> attributes, Word data_point, String class_attribute) {
     Instances instances = new Instances("single_instance_set", attributes, 0);
 
     setWekaClassAttribute(instances, class_attribute);
@@ -207,11 +229,11 @@ public class ClassifierUtils {
             AuToBIUtils.error("Unknown attribute type");
         }
       } else {
-        instance[i] = Instance.missingValue();
+        instance[i] = Utils.missingValue();
       }
     }
 
-    Instance inst = new Instance(1, instance);
+    Instance inst = new DenseInstance(1, instance);
     inst.setDataset(instances);
     return inst;
   }

@@ -112,10 +112,14 @@ public class EnsembleSampledClassifier extends AuToBIClassifier {
     Double majority_size = 0.0;
     Double second_largest_size = 0.0;
     for (String s : class_distribution.keySet()) {
-      if (class_distribution.get(s) > majority_size) {
-        second_largest_size = majority_size;
-        majority_size = class_distribution.get(s);
-        majority_class = s;
+      if (class_distribution.get(s) > second_largest_size) {
+        if (class_distribution.get(s) > majority_size) {
+          second_largest_size = majority_size;
+          majority_size = class_distribution.get(s);
+          majority_class = s;
+        } else {
+          second_largest_size = class_distribution.get(s);
+        }
       }
     }
 
@@ -130,8 +134,8 @@ public class EnsembleSampledClassifier extends AuToBIClassifier {
     for (int i = 0; i < num_folds; ++i) {
       FeatureSet sampled_training_set = training_set.newInstance();
       for (Word w : training_set.getDataPoints()) {
-        if (!w.hasAttribute("ensemble_sampling_fold") || w.getAttribute("ensemble_sampling_fold").equals(i)) {
-          sampled_training_set.getDataPoints().add(w);
+        if (w.hasAttribute("ensemble_sampling_fold") && !w.getAttribute("ensemble_sampling_fold").equals(i)) {
+          sampled_training_set.getDataPoints().remove(w);
         }
       }
 

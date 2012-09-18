@@ -121,6 +121,7 @@ public class AuToBITrainer {
         }
         trainer.trainClassifier(filenames, task.getFeatureSet(), task.getClassifier());
       } catch (Exception e) {
+        e.printStackTrace();
         AuToBIUtils.error("Error training classifier for " + task_label);
         continue;
       }
