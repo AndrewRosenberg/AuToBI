@@ -57,11 +57,8 @@ public class AlignmentUtils {
       } else {
         // Assign tones to word
         String[] tone_data = ToBIUtils.parseToneString(tone.getLabel());
-        
-        //AuToBIUtils.info("Parsing "+ tone.getLabel() + " into: tone_data[0] = " + tone_data[0] + " tone_data[1] = " + tone_data[1] + " tone_data[2] = " + tone_data[2]);
         if ((tone_data[0] == null) && (tone_data[1] == null) && (tone_data[2] == null)) {
-          //if (!(tone.getLabel().equals("HiF0") || tone.getLabel().equals("%H"))) {
-        	{
+          if (!(tone.getLabel().equals("HiF0") || tone.getLabel().equals("%H"))) {
             AuToBIUtils.warn("Label, " + tone.getLabel()
                 +
                 ", doesn't match any pattern (accent_pattern, phrase_accent_pattern, boundary_tone_pattern). Word reference: "
@@ -228,8 +225,6 @@ public class AlignmentUtils {
     List<String> phrase_accents = new ArrayList<String>();
     List<String> boundary_tones = new ArrayList<String>();
 
-    System.out.println("copyToBITonesByIndex");
-    
     ListIterator<Region> toneIter = tones.listIterator();
     for (Word word : words) {
       // Gets the next tone region within the end point of the word.
