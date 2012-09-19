@@ -1180,6 +1180,10 @@ public class AuToBI {
       extractFeatures(autobi_fs);
       autobi_fs.constructFeatures();
 
+      if (hasParameter("arff_file")) {
+        autobi_fs.writeArff(getParameter("arff_file"), "AuToBIGenerated");
+      }
+
       for (String task : getClassificationTasks()) {
         AuToBIUtils.info(evaluateTaskPerformance(task, autobi_fs));
       }
