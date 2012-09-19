@@ -960,6 +960,7 @@ public class AuToBI {
           }
         }
         for (String subregion : new String[]{"", "_pseudosyllable", "_200ms", "_400ms"}) {
+          registerFeatureExtractor(new ContourFeatureExtractor(delta + c + subregion));
           registerFeatureExtractor(new PVALFeatureExtractor(delta + c + subregion));
           registerFeatureExtractor(new CurveShapeFeatureExtractor(delta + c + subregion));
           registerFeatureExtractor(new CurveShapeLikelihoodFeatureExtractor(delta + c + subregion));
