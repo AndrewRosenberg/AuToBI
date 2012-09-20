@@ -956,7 +956,7 @@ public class AuToBI {
         if (!c.equals("norm_log_f0")) {
           for (String subregion : new String[]{"pseudosyllable", "200ms", "400ms"}) {
             registerFeatureExtractor(new SubregionContourExtractor(delta + c, subregion));
-            registerFeatureExtractor(new ContourFeatureExtractor(delta + c + subregion));
+            registerFeatureExtractor(new ContourFeatureExtractor(delta + c + "_" + subregion));
           }
         }
         for (String subregion : new String[]{"", "_pseudosyllable", "_200ms", "_400ms"}) {
@@ -1180,6 +1180,10 @@ public class AuToBI {
 
       extractFeatures(autobi_fs);
       autobi_fs.constructFeatures();
+
+      if (hasParameter("arff_file")) {
+        autobi_fs.writeArff(getParameter("arff_file"), "AuToBIGenerated");
+      }
 
       for (String task : getClassificationTasks()) {
         AuToBIUtils.info(evaluateTaskPerformance(task, autobi_fs));
