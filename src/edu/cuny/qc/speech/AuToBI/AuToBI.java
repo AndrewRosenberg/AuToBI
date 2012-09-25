@@ -747,7 +747,8 @@ public class AuToBI {
           text += w.getAttribute(class_dist_feature).toString();
         }
       } else {
-        if (w.hasAttribute(tasks.get("pitch_accent_detection").getHypFeature())) {
+        if (tasks.containsKey("pitch_accent_detection") &&
+            w.hasAttribute(tasks.get("pitch_accent_detection").getHypFeature())) {
           text = w.getAttribute(tasks.get("pitch_accent_detection").getHypFeature()).toString();
         }
       }
@@ -1173,7 +1174,13 @@ public class AuToBI {
           registerFeatureExtractor(new HypothesizedDistributionFeatureExtractor(dist_feature, classifier, fs));
           autobi_fs.insertRequiredFeature(dist_feature);
         }
-
+        if (hasParameter("arff_file")) {
+          // If a user is writing the features to an arff file, make the classification features "required" so
+          // they persist.
+          for (String s : fs.getRequiredFeatures()) {
+            autobi_fs.insertRequiredFeature(s);
+          }
+        }
         autobi_fs.insertRequiredFeature(fs.getClassAttribute());
       }
 
