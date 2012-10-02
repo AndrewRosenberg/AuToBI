@@ -451,12 +451,42 @@ public class AuToBI {
    * @return a string for the hypothesized name
    * @throws AuToBIException If there is no FeatureSet defined for the task identifier
    */
-  public String getHypotheizedFeature(String task) throws AuToBIException {
+  public String getHypothesizedFeature(String task) throws AuToBIException {
     if (tasks.containsKey(task)) {
       AuToBITask autobi_task = tasks.get(task);
       return autobi_task.getHypFeature();
     } else throw new AuToBIException(
-        "Task, " + task + ", is unavailable. Either no classifier has been set, or there is some other problem");
+        "Task, " + task + ", is unavailable. Either no feature name has been set, or there is some other problem");
+  }
+
+  /**
+   * Retrieves a default true feature name set for the given task.
+   *
+   * @param task a task identifier.
+   * @return a string for the true feature name
+   * @throws AuToBIException If there is no FeatureSet defined for the task identifier
+   */
+  public String getTrueFeature(String task) throws AuToBIException {
+    if (tasks.containsKey(task)) {
+      AuToBITask autobi_task = tasks.get(task);
+      return autobi_task.getTrueFeature();
+    } else throw new AuToBIException(
+        "Task, " + task + ", is unavailable. Either no feature name has been set, or there is some other problem");
+  }
+
+  /**
+   * Retrieves a default class value for the given task.
+   *
+   * @param task a task identifier.
+   * @return a string for the default value
+   * @throws AuToBIException If there is no FeatureSet defined for the task identifier
+   */
+  public String getDefaultValue(String task) throws AuToBIException {
+    if (tasks.containsKey(task)) {
+      AuToBITask autobi_task = tasks.get(task);
+      return autobi_task.getDefaultValue();
+    } else throw new AuToBIException(
+        "Task, " + task + ", is unavailable. Either no feature name has been set, or there is some other problem");
   }
 
   /**
@@ -470,6 +500,21 @@ public class AuToBI {
     if (tasks.containsKey(task)) {
       AuToBITask autobi_task = tasks.get(task);
       return autobi_task.getDistFeature();
+    } else throw new AuToBIException(
+        "Task, " + task + ", is unavailable. Either no classifier has been set, or there is some other problem");
+  }
+
+  /**
+   * Retrieves a default feature confidence name set for the given task.
+   *
+   * @param task a task identifier.
+   * @return a string for the confidence features name
+   * @throws AuToBIException If there is no FeatureSet defined for the task identifier
+   */
+  public String getConfidenceFeature(String task) throws AuToBIException {
+    if (tasks.containsKey(task)) {
+      AuToBITask autobi_task = tasks.get(task);
+      return autobi_task.getConfFeature();
     } else throw new AuToBIException(
         "Task, " + task + ", is unavailable. Either no classifier has been set, or there is some other problem");
   }
@@ -575,7 +620,8 @@ public class AuToBI {
   }
 
   /**
-   * Initializes the Autobi task list.  This is driven by loading classifiers from serialized objects.
+   * TODO: This is duplicating work in AuToBIUtils.createTaskListFromParameters() clean this up. Initializes the Autobi
+   * task list.  This is driven by loading classifiers from serialized objects.
    * <p/>
    * When a classifier is correctly loaded a corresponding task object is created to handle the appropriate bookkeeping
    * <p/>
@@ -584,93 +630,7 @@ public class AuToBI {
    * -boundary_tone_classifier
    */
   public void initializeAuToBITasks() {
-    try {
-      String pad_filename = getParameter("pitch_accent_detector");
-      AuToBIClassifier pitch_accent_detector = ClassifierUtils.readAuToBIClassifier(pad_filename);
-      AuToBITask task = new AuToBITask();
-      task.setClassifier(pitch_accent_detector);
-      task.setTrueFeature("nominal_PitchAccent");
-      task.setHypFeature("hyp_pitch_accent");
-      task.setConfFeature("hyp_pitch_accent_conf");
-      task.setDistFeature("hyp_pitch_accent_dist");
-      task.setFeatureSet(new PitchAccentDetectionFeatureSet());
-      tasks.put("pitch_accent_detection", task);
-    } catch (AuToBIException ignored) {
-    }
-
-    try {
-      String pac_filename = getParameter("pitch_accent_classifier");
-      AuToBIClassifier pitch_accent_classifier = ClassifierUtils.readAuToBIClassifier(pac_filename);
-      AuToBITask task = new AuToBITask();
-      task.setClassifier(pitch_accent_classifier);
-      task.setTrueFeature("nominal_PitchAccentType");
-      task.setHypFeature("hyp_pitch_accent_type");
-      task.setConfFeature("hyp_pitch_accent_type_conf");
-      task.setDistFeature("hyp_pitch_accent_type_dist");
-      task.setFeatureSet(new PitchAccentClassificationFeatureSet());
-      tasks.put("pitch_accent_classification", task);
-    } catch (AuToBIException ignored) {
-    }
-
-    try {
-      String intonational_phrase_detector_filename = getParameter("IP_detector");
-      AuToBIClassifier intonational_phrase_boundary_detector =
-          ClassifierUtils.readAuToBIClassifier(intonational_phrase_detector_filename);
-      AuToBITask task = new AuToBITask();
-      task.setClassifier(intonational_phrase_boundary_detector);
-      task.setTrueFeature("nominal_IntonationalPhraseBoundary");
-      task.setHypFeature("hyp_IP_location");
-      task.setConfFeature("hyp_IP_location_conf");
-      task.setDistFeature("hyp_IP_location_dist");
-      task.setFeatureSet(new IntonationalPhraseBoundaryDetectionFeatureSet());
-      tasks.put("intonational_phrase_boundary_detection", task);
-    } catch (AuToBIException ignored) {
-    }
-
-    try {
-      String intermediate_phrase_detector_filename = getParameter("ip_detector");
-      AuToBIClassifier intermediate_phrase_boundary_detector =
-          ClassifierUtils.readAuToBIClassifier(intermediate_phrase_detector_filename);
-      AuToBITask task = new AuToBITask();
-      task.setClassifier(intermediate_phrase_boundary_detector);
-      task.setTrueFeature("nominal_IntermediatePhraseBoundary");
-      task.setHypFeature("hyp_ip_location");
-      task.setConfFeature("hyp_ip_location_conf");
-      task.setDistFeature("hyp_ip_location_dist");
-      task.setFeatureSet(new IntermediatePhraseBoundaryDetectionFeatureSet());
-      tasks.put("intermediate_phrase_boundary_detection", task);
-    } catch (AuToBIException ignored) {
-    }
-
-    try {
-      String phrase_accent_classifier_name = getParameter("phrase_accent_classifier");
-      AuToBIClassifier phrase_accent_classifier =
-          ClassifierUtils.readAuToBIClassifier(phrase_accent_classifier_name);
-      AuToBITask task = new AuToBITask();
-      task.setClassifier(phrase_accent_classifier);
-      task.setTrueFeature("nominal_PhraseAccent");
-      task.setHypFeature("hyp_phrase_accent");
-      task.setConfFeature("hyp_phrase_accent_conf");
-      task.setDistFeature("hyp_phrase_accent_dist");
-      task.setFeatureSet(new PhraseAccentClassificationFeatureSet());
-      tasks.put("phrase_accent_classification", task);
-    } catch (AuToBIException ignored) {
-    }
-
-    try {
-      String boundary_tone_classifier_name = getParameter("boundary_tone_classifier");
-      AuToBIClassifier boundary_tone_classifier =
-          ClassifierUtils.readAuToBIClassifier(boundary_tone_classifier_name);
-      AuToBITask task = new AuToBITask();
-      task.setClassifier(boundary_tone_classifier);
-      task.setTrueFeature("nominal_PhraseAccentBoundaryTone");
-      task.setHypFeature("hyp_pabt");
-      task.setConfFeature("hyp_pabt_conf");
-      task.setDistFeature("hyp_pabt_dist");
-      task.setFeatureSet(new PhraseAccentBoundaryToneClassificationFeatureSet());
-      tasks.put("boundary_tone_classification", task);
-    } catch (AuToBIException ignored) {
-    }
+    tasks = AuToBIUtils.createTaskListFromParameters(getParameters(), true);
   }
 
   /**
@@ -682,6 +642,15 @@ public class AuToBI {
    */
   public Set<String> getClassificationTasks() {
     return tasks.keySet();
+  }
+
+  /**
+   * Gets the AuToBI task map.
+   *
+   * @return the task map.
+   */
+  public HashMap<String, AuToBITask> getTasks() {
+    return tasks;
   }
 
   /**
@@ -829,7 +798,7 @@ public class AuToBI {
 
     registerFeatureExtractor(new PitchAccentFeatureExtractor("nominal_PitchAccent"));
     registerFeatureExtractor(new PitchAccentTypeFeatureExtractor("nominal_PitchAccentType"));
-    registerFeatureExtractor(new PhraseAccentFeatureExtractor("nominal_PhraseAccentType"));
+    registerFeatureExtractor(new PhraseAccentFeatureExtractor("nominal_PhraseAccent"));
     registerFeatureExtractor(new PhraseAccentBoundaryToneFeatureExtractor("nominal_PhraseAccentBoundaryTone"));
     registerFeatureExtractor(new IntonationalPhraseBoundaryFeatureExtractor("nominal_IntonationalPhraseBoundary"));
     registerFeatureExtractor(new IntermediatePhraseBoundaryFeatureExtractor("nominal_IntermediatePhraseBoundary"));
@@ -1196,7 +1165,7 @@ public class AuToBI {
       }
 
       if (hasParameter("out_file")) {
-        AuToBIUtils.mergeAuToBIHypotheses(words);
+        AuToBIUtils.mergeAuToBIHypotheses(this, words);
         String hypothesis_file = getParameter("out_file");
         AuToBIUtils.info("Writing hypotheses to " + hypothesis_file);
         writeTextGrid(words, hypothesis_file);

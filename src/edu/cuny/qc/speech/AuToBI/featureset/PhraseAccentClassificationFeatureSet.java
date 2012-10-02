@@ -103,6 +103,6 @@ public class PhraseAccentClassificationFeatureSet extends FeatureSet {
     insertRequiredFeature("norm_log_f0rnorm_I__vpCurveLikelihood");
     insertRequiredFeature("norm_log_f0rnorm_I__vvCurveLikelihood");
 
-    class_attribute = "nominal_PhraseAccentType";
+    class_attribute = "nominal_PhraseAccent";
   }
 }

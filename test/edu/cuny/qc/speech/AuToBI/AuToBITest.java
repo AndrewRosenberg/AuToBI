@@ -453,12 +453,12 @@ public class AuToBITest {
     fs.insertDataPoint(w);
 
     try {
-      assertNotNull(autobi.getHypotheizedFeature("pitch_accent_detection"));
-      assertNotNull(autobi.getHypotheizedFeature("pitch_accent_classification"));
-      assertNotNull(autobi.getHypotheizedFeature("intonational_phrase_boundary_detection"));
-      assertNotNull(autobi.getHypotheizedFeature("intermediate_phrase_boundary_detection"));
-      assertNotNull(autobi.getHypotheizedFeature("boundary_tone_classification"));
-      assertNotNull(autobi.getHypotheizedFeature("phrase_accent_classification"));
+      assertNotNull(autobi.getHypothesizedFeature("pitch_accent_detection"));
+      assertNotNull(autobi.getHypothesizedFeature("pitch_accent_classification"));
+      assertNotNull(autobi.getHypothesizedFeature("intonational_phrase_boundary_detection"));
+      assertNotNull(autobi.getHypothesizedFeature("intermediate_phrase_boundary_detection"));
+      assertNotNull(autobi.getHypothesizedFeature("boundary_tone_classification"));
+      assertNotNull(autobi.getHypothesizedFeature("phrase_accent_classification"));
     } catch (AuToBIException expected) {
       fail();
     }
@@ -688,7 +688,8 @@ public class AuToBITest {
     } catch (IOException e) {
       fail();
     }
-    autobi.getParameters().setParameter("IP_detector", TEST_DIR + "/intonational_phrase_boundary_detection.classifier");
+    autobi.getParameters().setParameter("intonational_phrase_boundary_detector",
+        TEST_DIR + "/intonational_phrase_boundary_detection.classifier");
     autobi.initializeAuToBITasks();
     assertEquals(1, autobi.tasks.size());
     assertTrue(autobi.tasks.containsKey("intonational_phrase_boundary_detection"));
@@ -702,7 +703,8 @@ public class AuToBITest {
     } catch (IOException e) {
       fail();
     }
-    autobi.getParameters().setParameter("ip_detector", TEST_DIR + "/intermediate_phrase_boundary_detection.classifier");
+    autobi.getParameters().setParameter("intermediate_phrase_boundary_detector",
+        TEST_DIR + "/intermediate_phrase_boundary_detection.classifier");
     autobi.initializeAuToBITasks();
     assertEquals(1, autobi.tasks.size());
     assertTrue(autobi.tasks.containsKey("intermediate_phrase_boundary_detection"));
