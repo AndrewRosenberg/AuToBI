@@ -20,10 +20,12 @@
 
 package edu.cuny.qc.speech.AuToBI.util;
 
+import edu.cuny.qc.speech.AuToBI.AuToBI;
 import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
 import edu.cuny.qc.speech.AuToBI.core.AuToBITask;
 import edu.cuny.qc.speech.AuToBI.core.Word;
 import edu.cuny.qc.speech.AuToBI.featureset.*;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -37,6 +39,63 @@ import static org.junit.Assert.*;
 public class AuToBIUtilsTest {
 
   private final String TEST_DIR = "/Users/andrew/code/AuToBI/release/test_data";
+  private AuToBI autobi;
+
+  @Before
+  public void setup() {
+    autobi = new AuToBI();
+    initializeAuToBITasksWithoutClassifiers(autobi);
+  }
+
+  public void initializeAuToBITasksWithoutClassifiers(AuToBI autobi) {
+    AuToBITask task = new AuToBITask();
+    task.setTrueFeature("nominal_PitchAccent");
+    task.setHypFeature("hyp_pitch_accent_location");
+    task.setConfFeature("hyp_pitch_accent_location_conf");
+    task.setDistFeature("hyp_pitch_accent_location_dist");
+    task.setFeatureSet(new PitchAccentDetectionFeatureSet());
+    autobi.getTasks().put("pitch_accent_detection", task);
+
+    task = new AuToBITask();
+    task.setTrueFeature("nominal_PitchAccentType");
+    task.setHypFeature("hyp_pitch_accent_type");
+    task.setConfFeature("hyp_pitch_accent_type_conf");
+    task.setDistFeature("hyp_pitch_accent_type_dist");
+    task.setFeatureSet(new PitchAccentClassificationFeatureSet());
+    autobi.getTasks().put("pitch_accent_classification", task);
+
+    task = new AuToBITask();
+    task.setTrueFeature("nominal_IntonationalPhraseBoundary");
+    task.setHypFeature("hyp_IP_location");
+    task.setConfFeature("hyp_IP_location_conf");
+    task.setDistFeature("hyp_IP_location_dist");
+    task.setFeatureSet(new IntonationalPhraseBoundaryDetectionFeatureSet());
+    autobi.getTasks().put("intonational_phrase_boundary_detection", task);
+
+    task = new AuToBITask();
+    task.setTrueFeature("nominal_IntermediatePhraseBoundary");
+    task.setHypFeature("hyp_ip_location");
+    task.setConfFeature("hyp_ip_location_conf");
+    task.setDistFeature("hyp_ip_location_dist");
+    task.setFeatureSet(new IntermediatePhraseBoundaryDetectionFeatureSet());
+    autobi.getTasks().put("intermediate_phrase_boundary_detection", task);
+
+    task = new AuToBITask();
+    task.setTrueFeature("nominal_PhraseAccent");
+    task.setHypFeature("hyp_phrase_accent");
+    task.setConfFeature("hyp_phrase_accent_conf");
+    task.setDistFeature("hyp_phrase_accent_dist");
+    task.setFeatureSet(new PhraseAccentClassificationFeatureSet());
+    autobi.getTasks().put("phrase_accent_classification", task);
+
+    task = new AuToBITask();
+    task.setTrueFeature("nominal_PhraseAccentBoundaryTone");
+    task.setHypFeature("hyp_pabt");
+    task.setConfFeature("hyp_pabt_conf");
+    task.setDistFeature("hyp_pabt_dist");
+    task.setFeatureSet(new PhraseAccentBoundaryToneClassificationFeatureSet());
+    autobi.getTasks().put("boundary_tone_classification", task);
+  }
 
   @Test
   public void testLog() {
@@ -121,7 +180,7 @@ public class AuToBIUtilsTest {
       String file = AuToBIUtils.globSingleFile(TEST_DIR + "/sineWithNoise.wav");
       assertEquals(TEST_DIR + "/sineWithNoise.wav", file);
     } catch (AuToBIException e) {
-      fail();
+      fail(e.getMessage());
     }
   }
 
@@ -161,7 +220,11 @@ public class AuToBIUtilsTest {
 
     w.setAttribute("hyp_pitch_accent_location", "ACCENTED");
 
-    AuToBIUtils.mergeAuToBIHypotheses(words);
+    try {
+      AuToBIUtils.mergeAuToBIHypotheses(autobi, words);
+    } catch (AuToBIException e) {
+      fail(e.getMessage());
+    }
 
     assertEquals("ACCENTED", w.getAttribute("hyp_pitch_accent"));
   }
@@ -174,7 +237,11 @@ public class AuToBIUtilsTest {
 
     w.setAttribute("hyp_pitch_accent_location", "DEACCENTED");
 
-    AuToBIUtils.mergeAuToBIHypotheses(words);
+    try {
+      AuToBIUtils.mergeAuToBIHypotheses(autobi, words);
+    } catch (AuToBIException e) {
+      fail(e.getMessage());
+    }
 
     assertEquals("DEACCENTED", w.getAttribute("hyp_pitch_accent"));
   }
@@ -188,7 +255,11 @@ public class AuToBIUtilsTest {
     w.setAttribute("hyp_pitch_accent_location", "DEACCENTED");
     w.setAttribute("hyp_pitch_accent_type", "L+H*");
 
-    AuToBIUtils.mergeAuToBIHypotheses(words);
+    try {
+      AuToBIUtils.mergeAuToBIHypotheses(autobi, words);
+    } catch (AuToBIException e) {
+      fail(e.getMessage());
+    }
 
     assertEquals("DEACCENTED", w.getAttribute("hyp_pitch_accent"));
   }
@@ -202,7 +273,11 @@ public class AuToBIUtilsTest {
     w.setAttribute("hyp_pitch_accent_location", "ACCENTED");
     w.setAttribute("hyp_pitch_accent_type", "L+H*");
 
-    AuToBIUtils.mergeAuToBIHypotheses(words);
+    try {
+      AuToBIUtils.mergeAuToBIHypotheses(autobi, words);
+    } catch (AuToBIException e) {
+      fail(e.getMessage());
+    }
 
     assertEquals("L+H*", w.getAttribute("hyp_pitch_accent"));
   }
@@ -216,7 +291,11 @@ public class AuToBIUtilsTest {
     w.setAttribute("hyp_pitch_accent_location", "ACCENTED");
     w.setAttribute("hyp_pitch_accent_location_conf", 0.7);
 
-    AuToBIUtils.mergeAuToBIHypotheses(words);
+    try {
+      AuToBIUtils.mergeAuToBIHypotheses(autobi, words);
+    } catch (AuToBIException e) {
+      fail(e.getMessage());
+    }
 
     assertEquals("ACCENTED: 0.7", w.getAttribute("hyp_pitch_accent"));
   }
@@ -230,7 +309,11 @@ public class AuToBIUtilsTest {
     w.setAttribute("hyp_pitch_accent_location", "DEACCENTED");
     w.setAttribute("hyp_pitch_accent_location_conf", 0.7);
 
-    AuToBIUtils.mergeAuToBIHypotheses(words);
+    try {
+      AuToBIUtils.mergeAuToBIHypotheses(autobi, words);
+    } catch (AuToBIException e) {
+      fail(e.getMessage());
+    }
 
     // Bit of a floating point error here.
     assertEquals("ACCENTED: 0.30000000000000004", w.getAttribute("hyp_pitch_accent"));
@@ -244,7 +327,11 @@ public class AuToBIUtilsTest {
 
     w.setAttribute("hyp_IP_location", "INTONATIONAL_BOUNDARY");
 
-    AuToBIUtils.mergeAuToBIHypotheses(words);
+    try {
+      AuToBIUtils.mergeAuToBIHypotheses(autobi, words);
+    } catch (AuToBIException e) {
+      fail(e.getMessage());
+    }
 
     // Bit of a floating point error here.
     assertEquals("INTONATIONAL_BOUNDARY", w.getAttribute("hyp_phrase_boundary"));
@@ -259,7 +346,11 @@ public class AuToBIUtilsTest {
     w.setAttribute("hyp_IP_location", "INTONATIONAL_BOUNDARY");
     w.setAttribute("hyp_IP_location_conf", 0.7);
 
-    AuToBIUtils.mergeAuToBIHypotheses(words);
+    try {
+      AuToBIUtils.mergeAuToBIHypotheses(autobi, words);
+    } catch (AuToBIException e) {
+      fail(e.getMessage());
+    }
 
     assertEquals("BOUNDARY: 0.7", w.getAttribute("hyp_phrase_boundary"));
   }
@@ -273,7 +364,11 @@ public class AuToBIUtilsTest {
     w.setAttribute("hyp_IP_location", "NONBOUNDARY");
     w.setAttribute("hyp_IP_location_conf", 0.7);
 
-    AuToBIUtils.mergeAuToBIHypotheses(words);
+    try {
+      AuToBIUtils.mergeAuToBIHypotheses(autobi, words);
+    } catch (AuToBIException e) {
+      fail(e.getMessage());
+    }
 
     // Bit of a floating point error here.
     assertEquals("BOUNDARY: 0.30000000000000004", w.getAttribute("hyp_phrase_boundary"));
@@ -287,7 +382,11 @@ public class AuToBIUtilsTest {
 
     w.setAttribute("hyp_ip_location", "INTERMEDIATE_BOUNDARY");
 
-    AuToBIUtils.mergeAuToBIHypotheses(words);
+    try {
+      AuToBIUtils.mergeAuToBIHypotheses(autobi, words);
+    } catch (AuToBIException e) {
+      fail(e.getMessage());
+    }
 
     assertEquals("INTERMEDIATE_BOUNDARY", w.getAttribute("hyp_phrase_boundary"));
   }
@@ -301,7 +400,11 @@ public class AuToBIUtilsTest {
     w.setAttribute("hyp_IP_location", "NONBOUNDARY");
     w.setAttribute("hyp_ip_location", "INTERMEDIATE_BOUNDARY");
 
-    AuToBIUtils.mergeAuToBIHypotheses(words);
+    try {
+      AuToBIUtils.mergeAuToBIHypotheses(autobi, words);
+    } catch (AuToBIException e) {
+      fail(e.getMessage());
+    }
 
     assertEquals("INTERMEDIATE_BOUNDARY", w.getAttribute("hyp_phrase_boundary"));
   }
@@ -315,7 +418,11 @@ public class AuToBIUtilsTest {
     w.setAttribute("hyp_IP_location", "INTONATIONAL_BOUNDARY");
     w.setAttribute("hyp_ip_location", "INTERMEDIATE_BOUNDARY");
 
-    AuToBIUtils.mergeAuToBIHypotheses(words);
+    try {
+      AuToBIUtils.mergeAuToBIHypotheses(autobi, words);
+    } catch (AuToBIException e) {
+      fail(e.getMessage());
+    }
 
     assertEquals("INTONATIONAL_BOUNDARY", w.getAttribute("hyp_phrase_boundary"));
   }
@@ -327,11 +434,15 @@ public class AuToBIUtilsTest {
     words.add(w);
 
     w.setAttribute("hyp_IP_location", "INTONATIONAL_BOUNDARY");
-    w.setAttribute("hyp_boundary_tone", "H%");
+    w.setAttribute("hyp_pabt", "L-H%");
 
-    AuToBIUtils.mergeAuToBIHypotheses(words);
+    try {
+      AuToBIUtils.mergeAuToBIHypotheses(autobi, words);
+    } catch (AuToBIException e) {
+      fail(e.getMessage());
+    }
 
-    assertEquals("H%", w.getAttribute("hyp_phrase_boundary"));
+    assertEquals("L-H%", w.getAttribute("hyp_phrase_boundary"));
   }
 
   @Test
@@ -343,7 +454,11 @@ public class AuToBIUtilsTest {
     w.setAttribute("hyp_IP_location", "NONBOUNDARY");
     w.setAttribute("hyp_boundary_tone", "H%");
 
-    AuToBIUtils.mergeAuToBIHypotheses(words);
+    try {
+      AuToBIUtils.mergeAuToBIHypotheses(autobi, words);
+    } catch (AuToBIException e) {
+      fail(e.getMessage());
+    }
 
     assertEquals("NONBOUNDARY", w.getAttribute("hyp_phrase_boundary"));
   }
@@ -354,11 +469,15 @@ public class AuToBIUtilsTest {
     List<Word> words = new ArrayList<Word>();
     words.add(w);
 
-    w.setAttribute("hyp_boundary_tone", "H%");
+    w.setAttribute("hyp_pabt", "L-H%");
 
-    AuToBIUtils.mergeAuToBIHypotheses(words);
+    try {
+      AuToBIUtils.mergeAuToBIHypotheses(autobi, words);
+    } catch (AuToBIException e) {
+      fail(e.getMessage());
+    }
 
-    assertEquals("H%", w.getAttribute("hyp_phrase_boundary"));
+    assertEquals("L-H%", w.getAttribute("hyp_phrase_boundary"));
   }
 
 
@@ -371,7 +490,11 @@ public class AuToBIUtilsTest {
     w.setAttribute("hyp_ip_location", "INTERMEDIATE_BOUNDARY");
     w.setAttribute("hyp_phrase_accent", "L-");
 
-    AuToBIUtils.mergeAuToBIHypotheses(words);
+    try {
+      AuToBIUtils.mergeAuToBIHypotheses(autobi, words);
+    } catch (AuToBIException e) {
+      fail(e.getMessage());
+    }
 
     assertEquals("L-", w.getAttribute("hyp_phrase_boundary"));
   }
@@ -385,7 +508,11 @@ public class AuToBIUtilsTest {
     w.setAttribute("hyp_ip_location", "NONBOUNDARY");
     w.setAttribute("hyp_phrase_accent", "H-");
 
-    AuToBIUtils.mergeAuToBIHypotheses(words);
+    try {
+      AuToBIUtils.mergeAuToBIHypotheses(autobi, words);
+    } catch (AuToBIException e) {
+      fail(e.getMessage());
+    }
 
     assertEquals("NONBOUNDARY", w.getAttribute("hyp_phrase_boundary"));
   }
@@ -398,14 +525,18 @@ public class AuToBIUtilsTest {
 
     w.setAttribute("hyp_phrase_accent", "L-");
 
-    AuToBIUtils.mergeAuToBIHypotheses(words);
+    try {
+      AuToBIUtils.mergeAuToBIHypotheses(autobi, words);
+    } catch (AuToBIException e) {
+      fail(e.getMessage());
+    }
 
     assertEquals("L-", w.getAttribute("hyp_phrase_boundary"));
   }
 
   @Test
   public void testGetPitchAccentDetectionTask() {
-    AuToBITask task = AuToBIUtils.getPitchAccentDetectionTask();
+    AuToBITask task = AuToBIUtils.getPitchAccentDetectionTask(null);
     assertEquals("nominal_PitchAccent", task.getTrueFeature());
     assertEquals("hyp_pitch_accent_location", task.getHypFeature());
     assertTrue(task.getFeatureSet() instanceof PitchAccentDetectionFeatureSet);
@@ -413,7 +544,7 @@ public class AuToBIUtilsTest {
 
   @Test
   public void testGetPitchAccentClassificationTask() {
-    AuToBITask task = AuToBIUtils.getPitchAccentClassificationTask();
+    AuToBITask task = AuToBIUtils.getPitchAccentClassificationTask(null);
     assertEquals("nominal_PitchAccentType", task.getTrueFeature());
     assertEquals("hyp_pitch_accent_type", task.getHypFeature());
     assertTrue(task.getFeatureSet() instanceof PitchAccentClassificationFeatureSet);
@@ -421,7 +552,7 @@ public class AuToBIUtilsTest {
 
   @Test
   public void testGetIntonationalPhraseDetectionTask() {
-    AuToBITask task = AuToBIUtils.getIntonationalPhraseDetectionTask();
+    AuToBITask task = AuToBIUtils.getIntonationalPhraseDetectionTask(null);
     assertEquals("nominal_IntonationalPhraseBoundary", task.getTrueFeature());
     assertEquals("hyp_intonational_phrase_boundary", task.getHypFeature());
     assertTrue(task.getFeatureSet() instanceof IntonationalPhraseBoundaryDetectionFeatureSet);
@@ -429,7 +560,7 @@ public class AuToBIUtilsTest {
 
   @Test
   public void testGetIntermediatePhraseDetectionTask() {
-    AuToBITask task = AuToBIUtils.getIntermediatePhraseDetectionTask();
+    AuToBITask task = AuToBIUtils.getIntermediatePhraseDetectionTask(null);
     assertEquals("nominal_IntermediatePhraseBoundary", task.getTrueFeature());
     assertEquals("hyp_intermediate_phrase_boundary", task.getHypFeature());
     assertTrue(task.getFeatureSet() instanceof IntermediatePhraseBoundaryDetectionFeatureSet);
@@ -437,7 +568,7 @@ public class AuToBIUtilsTest {
 
   @Test
   public void testGetPhraseAccentClassificationTask() {
-    AuToBITask task = AuToBIUtils.getPhraseAccentClassificationTask();
+    AuToBITask task = AuToBIUtils.getPhraseAccentClassificationTask(null);
     assertEquals("nominal_PhraseAccent", task.getTrueFeature());
     assertEquals("hyp_phrase_accent", task.getHypFeature());
     assertTrue(task.getFeatureSet() instanceof PhraseAccentClassificationFeatureSet);
@@ -445,7 +576,7 @@ public class AuToBIUtilsTest {
 
   @Test
   public void testGetPABTClassificationTask() {
-    AuToBITask task = AuToBIUtils.getPABTClassificationTask();
+    AuToBITask task = AuToBIUtils.getPABTClassificationTask(null);
     assertEquals("nominal_PhraseAccentBoundaryTone", task.getTrueFeature());
     assertEquals("hyp_phrase_accent_boundary_tone", task.getHypFeature());
     assertTrue(task.getFeatureSet() instanceof PhraseAccentBoundaryToneClassificationFeatureSet);
