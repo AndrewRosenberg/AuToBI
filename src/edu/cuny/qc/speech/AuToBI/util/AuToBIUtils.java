@@ -291,7 +291,7 @@ public class AuToBIUtils {
         if (!word.hasAttribute("hyp_phrase_boundary") ||
             word.getAttribute("hyp_phrase_boundary").equals("INTONATIONAL_BOUNDARY")) {
           word.setAttribute("hyp_phrase_boundary",
-              word.getAttribute(autobi.getHypothesizedFeature("boundary_tone_classification")));
+              word.getAttribute(autobi.getHypothesizedFeature("boundary_tone_classification").replace("x", "%")));
         }
       }
 
