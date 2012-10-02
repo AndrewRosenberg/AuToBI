@@ -102,8 +102,8 @@ public class AuToBITrainer {
       }
     }
 
-    HashMap<String, AuToBITask> tasks = AuToBIUtils.createTaskListFromParameters(autobi.getParameters(), true);
-
+    HashMap<String, AuToBITask> tasks = AuToBIUtils.createTaskListFromParameters(autobi.getParameters(), false);
+    autobi.tasks = tasks;
     for (String task_label : tasks.keySet()) {
       AuToBITask task = tasks.get(task_label);
       AuToBITrainer trainer = new AuToBITrainer(autobi);
