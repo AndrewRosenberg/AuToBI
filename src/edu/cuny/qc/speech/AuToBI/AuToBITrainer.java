@@ -112,7 +112,7 @@ public class AuToBITrainer {
         // Tone classification tasks ignore those points that do not have any associated prosodic event
         if (task_label.equals("phrase_accent_classifier")) {
           autobi.getParameters()
-              .setParameter("attribute_omit", autobi.getTrueFeature("pitch_accent_classifier") + ":NOTONE");
+              .setParameter("attribute_omit", autobi.getTrueFeature("phrase_accent_classifier") + ":NOTONE");
         } else if (task_label.equals("boundary_tone_classifier")) {
           autobi.getParameters()
               .setParameter("attribute_omit", autobi.getTrueFeature("boundary_tone_classifier") + ":NOTONE");
