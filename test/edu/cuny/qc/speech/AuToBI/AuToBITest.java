@@ -662,7 +662,7 @@ public class AuToBITest {
     autobi.getParameters().setParameter("pitch_accent_detector", TEST_DIR + "/pitch_accent_detection.classifier");
     autobi.initializeAuToBITasks();
     assertEquals(1, autobi.tasks.size());
-    assertTrue(autobi.tasks.containsKey("pitch_accent_detection"));
+    assertTrue(autobi.tasks.containsKey("pitch_accent_detector"));
   }
 
   @Test
@@ -677,7 +677,7 @@ public class AuToBITest {
         .setParameter("pitch_accent_classifier", TEST_DIR + "/pitch_accent_classification.classifier");
     autobi.initializeAuToBITasks();
     assertEquals(1, autobi.tasks.size());
-    assertTrue(autobi.tasks.containsKey("pitch_accent_classification"));
+    assertTrue(autobi.tasks.containsKey("pitch_accent_classifier"));
   }
 
   @Test
@@ -692,7 +692,7 @@ public class AuToBITest {
         TEST_DIR + "/intonational_phrase_boundary_detection.classifier");
     autobi.initializeAuToBITasks();
     assertEquals(1, autobi.tasks.size());
-    assertTrue(autobi.tasks.containsKey("intonational_phrase_boundary_detection"));
+    assertTrue(autobi.tasks.containsKey("intonational_phrase_boundary_detector"));
   }
 
   @Test
@@ -707,7 +707,7 @@ public class AuToBITest {
         TEST_DIR + "/intermediate_phrase_boundary_detection.classifier");
     autobi.initializeAuToBITasks();
     assertEquals(1, autobi.tasks.size());
-    assertTrue(autobi.tasks.containsKey("intermediate_phrase_boundary_detection"));
+    assertTrue(autobi.tasks.containsKey("intermediate_phrase_boundary_detector"));
   }
 
   @Test
@@ -722,7 +722,7 @@ public class AuToBITest {
         .setParameter("phrase_accent_classifier", TEST_DIR + "/phrase_accent_classification.classifier");
     autobi.initializeAuToBITasks();
     assertEquals(1, autobi.tasks.size());
-    assertTrue(autobi.tasks.containsKey("phrase_accent_classification"));
+    assertTrue(autobi.tasks.containsKey("phrase_accent_classifier"));
   }
 
   @Test
@@ -737,7 +737,7 @@ public class AuToBITest {
         .setParameter("boundary_tone_classifier", TEST_DIR + "/boundary_tone_classification.classifier");
     autobi.initializeAuToBITasks();
     assertEquals(1, autobi.tasks.size());
-    assertTrue(autobi.tasks.containsKey("boundary_tone_classification"));
+    assertTrue(autobi.tasks.containsKey("boundary_tone_classifier"));
   }
 
   @Test
