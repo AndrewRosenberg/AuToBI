@@ -37,7 +37,7 @@ public class AuToBITrainTest {
           // Tone classification tasks ignore those points that do not have any associated prosodic event
           if (task_label.equals("phrase_accent_classifier")) {
             autobi.getParameters().setParameter("attribute_omit", "nominal_PitchAccentType:NOTONE");
-          } else if (task_label.equals("boundary_tone_classifier")) {
+          } else if (task_label.equals("phrase_accent_boundary_tone_classifier")) {
             autobi.getParameters().setParameter("attribute_omit", "nominal_PhraseAccentBoundaryTone:NOTONE");
           } else if (task_label.equals("phrase_accent_classifier")) {
             autobi.getParameters().setParameter("attribute_omit", "nominal_PhraseAccent:NOTONE");

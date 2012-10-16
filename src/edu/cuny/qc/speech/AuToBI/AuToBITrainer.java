@@ -113,9 +113,9 @@ public class AuToBITrainer {
         if (task_label.equals("phrase_accent_classifier")) {
           autobi.getParameters()
               .setParameter("attribute_omit", autobi.getTrueFeature("phrase_accent_classifier") + ":NOTONE");
-        } else if (task_label.equals("boundary_tone_classifier")) {
+        } else if (task_label.equals("phrase_accent_boundary_tone_classifier")) {
           autobi.getParameters()
-              .setParameter("attribute_omit", autobi.getTrueFeature("boundary_tone_classifier") + ":NOTONE");
+              .setParameter("attribute_omit", autobi.getTrueFeature("phrase_accent_boundary_tone_classifier") + ":NOTONE");
         } else if (task_label.equals("phrase_accent_classifier")) {
           autobi.getParameters()
               .setParameter("attribute_omit", autobi.getTrueFeature("phrase_accent_classifier") + ":NOTONE");
