@@ -716,10 +716,9 @@ public class AuToBI {
           text += w.getAttribute(class_dist_feature).toString();
         }
       } else {
-        if (tasks.containsKey("pitch_accent_detector") &&
-            w.hasAttribute(tasks.get("pitch_accent_detector").getHypFeature())) {
-          text = w.getAttribute(tasks.get("pitch_accent_detector").getHypFeature()).toString();
-        }
+    	  if (w.hasAttribute("hyp_pitch_accent")) {
+              text = w.getAttribute("hyp_pitch_accent").toString();
+    	  }
       }
 
       text_grid += "intervals [" + (i + 1) + "]:\n";
