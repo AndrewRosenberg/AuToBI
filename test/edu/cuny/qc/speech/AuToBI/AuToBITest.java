@@ -736,6 +736,8 @@ public class AuToBITest {
     w.setAttribute("IPd_hyp", "BOUNDARY");
     w.setAttribute("IPc_hyp", "H%");
     words.add(w);
+    // Approximate mergeAuToBIHypotheses
+    w.setAttribute("hyp_pitch_accent", "ACCENTED");
     String text_grid = autobi.generateTextGridString(words);
     assertEquals("File type = \"ooTextFile\"\n" +
         "Object class = \"TextGrid\"\n" +
