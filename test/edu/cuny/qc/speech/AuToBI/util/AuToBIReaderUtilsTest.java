@@ -20,15 +20,10 @@
 
 package edu.cuny.qc.speech.AuToBI.util;
 
-import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
-import edu.cuny.qc.speech.AuToBI.core.Region;
-import edu.cuny.qc.speech.AuToBI.core.Word;
 import edu.cuny.qc.speech.AuToBI.io.FormattedFile;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 import static org.junit.Assert.*;
 
@@ -37,7 +32,7 @@ import static org.junit.Assert.*;
  */
 public class AuToBIReaderUtilsTest {
 
-  private final String TEST_DIR = "/Users/andrew/code/AuToBI/release/test_data";
+  private static final String TEST_DIR = System.getenv().get("AUTOBI_TEST_DIR");
 
   @Test
   public void testRemoveTabsAndTrim() {

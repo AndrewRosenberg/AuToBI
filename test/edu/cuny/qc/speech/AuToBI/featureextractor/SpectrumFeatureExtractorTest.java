@@ -40,7 +40,7 @@ public class SpectrumFeatureExtractorTest {
   private SpectrumFeatureExtractor fe;
   private List<Region> regions;
 
-  private static final String TEST_DIR = "/Users/andrew/code/AuToBI/release/test_data/";
+  private static final String TEST_DIR = System.getenv().get("AUTOBI_TEST_DIR");
 
   @Before
   public void setUp() throws Exception {

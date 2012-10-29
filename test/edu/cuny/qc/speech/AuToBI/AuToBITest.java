@@ -44,7 +44,7 @@ import static org.junit.Assert.*;
 @SuppressWarnings("unchecked")
 public class AuToBITest {
   private AuToBI autobi;
-  private static final String TEST_DIR = "/Users/andrew/code/AuToBI/release/test_data";
+  private static final String TEST_DIR = System.getenv().get("AUTOBI_TEST_DIR");
 
   @Before
   public void setUp() throws Exception {

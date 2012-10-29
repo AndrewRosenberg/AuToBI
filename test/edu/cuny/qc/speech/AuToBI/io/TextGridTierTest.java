@@ -35,7 +35,7 @@ import static junit.framework.Assert.fail;
  */
 public class TextGridTierTest {
 
-  private final String TEST_DIR = "/Users/andrew/code/AuToBI/release/test_data";
+  private static final String TEST_DIR = System.getenv().get("AUTOBI_TEST_DIR");
 
   private TextGridTier t;
 

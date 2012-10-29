@@ -47,7 +47,7 @@ import static junit.framework.Assert.assertTrue;
 @SuppressWarnings("unchecked")
 public class FeatureSetPropagatorTest {
 
-  final String TEST_DIR = "/Users/andrew/code/AuToBI/release/test_data";
+  private static final String TEST_DIR = System.getenv().get("AUTOBI_TEST_DIR");
 
   @SuppressWarnings("UnusedDeclaration")
   @Test

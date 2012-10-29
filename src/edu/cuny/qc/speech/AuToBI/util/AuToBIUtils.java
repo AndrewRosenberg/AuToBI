@@ -239,7 +239,9 @@ public class AuToBIUtils {
    * @param words  the words to analyse
    */
   public static void mergeAuToBIHypotheses(AuToBI autobi, List<Word> words) throws AuToBIException {
-
+    // TODO: deprecate this function and move the behavior into smaller utility functions
+    // Convert each word to the desired string, one at a time.  Call these utilities from writeTextGridString
+    // instead of using this as a pre-processing step.
     for (Word word : words) {
       // Assigns pitch accents to words.  If only accent detection is available, a binary True/False hypothesis
       // will be assigned.  If location and type hypotheses are available, the hypothesized type will be assigned.

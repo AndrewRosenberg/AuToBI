@@ -36,7 +36,7 @@ import static org.junit.Assert.fail;
  * Test class for PseudosyllableWordReader
  */
 public class PseudosyllableWordReaderTest {
-  private final String TEST_DIR = "/Users/andrew/code/AuToBI/release/test_data";
+  private static final String TEST_DIR = System.getenv().get("AUTOBI_TEST_DIR");
   private WavData wavData;
 
   @Before
