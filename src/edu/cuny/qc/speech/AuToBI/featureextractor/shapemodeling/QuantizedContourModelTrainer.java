@@ -19,9 +19,11 @@
  */
 package edu.cuny.qc.speech.AuToBI.featureextractor.shapemodeling;
 
+import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
 import edu.cuny.qc.speech.AuToBI.core.ConditionalDistribution;
 import edu.cuny.qc.speech.AuToBI.core.Pair;
 import edu.cuny.qc.speech.AuToBI.core.Contour;
+import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
 
 import java.util.List;
 
@@ -30,7 +32,6 @@ import java.util.List;
  */
 public class QuantizedContourModelTrainer {
 
-  private ContourQuantizer cq;  // The quantizer.
   public int time_bins; // the number of time bins
   public int value_bins; // the number of value bins
   public double omit_rate; // omit the top and bottom n% of data points when quantizing value
@@ -85,7 +86,11 @@ public class QuantizedContourModelTrainer {
 
     // Normalize to use as a QCM.
     for (ConditionalDistribution cd : slices) {
-      cd.normalize();
+      try {
+        cd.normalize();
+      } catch (AuToBIException e) {
+        AuToBIUtils.error("Error normalizing QCM distributions: " + e.getMessage());
+      }
     }
 
     return new QuantizedContourModel(cq, slices);

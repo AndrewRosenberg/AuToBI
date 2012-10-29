@@ -87,18 +87,14 @@ public class Distribution extends HashMap<String, Double> {
    * <p/>
    * Before normalization, the object represents a histogram rather than a multinomial distribution
    */
-  public void normalize() {
+  public void normalize() throws AuToBIException {
     Double sum = 0.0;
     for (String s : keySet()) {
       sum += get(s);
     }
 
     if (sum == 0) {
-      AuToBIUtils.warn("sum is zero!");
-      for (String s : keySet()) {
-        AuToBIUtils.warn(s + "-" + get(s));
-      }
-      return;
+      throw new AuToBIException("sum is zero. no normalization possible.");
     }
 
     for (String s : keySet()) {

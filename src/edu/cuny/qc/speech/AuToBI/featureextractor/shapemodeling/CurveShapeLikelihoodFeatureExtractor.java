@@ -1,5 +1,6 @@
 package edu.cuny.qc.speech.AuToBI.featureextractor.shapemodeling;
 
+import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
 import edu.cuny.qc.speech.AuToBI.core.Distribution;
 import edu.cuny.qc.speech.AuToBI.core.FeatureExtractor;
 import edu.cuny.qc.speech.AuToBI.core.Region;
@@ -50,7 +51,12 @@ public class CurveShapeLikelihoodFeatureExtractor extends FeatureExtractor {
         d.add("falling", maxrmse - falling.rmse);
         d.add("peak", maxrmse - peak.rmse);
         d.add("valley", maxrmse - valley.rmse);
-        d.normalize();
+        try {
+          d.normalize();
+        } catch (AuToBIException e) {
+          // This exception is thrown when the distribution is even.  Since this happens so often, we'll do nothing here.
+          // TODO: consider a different calculation of the likelihood
+        }
 
         r.setAttribute(feature + "__risingCurveLikelihood", d.get("rising"));
         r.setAttribute(feature + "__fallingCurveLikelihood", d.get("falling"));

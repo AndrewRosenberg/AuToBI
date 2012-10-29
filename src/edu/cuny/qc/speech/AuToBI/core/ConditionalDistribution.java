@@ -60,7 +60,7 @@ public class ConditionalDistribution extends HashMap<String, Distribution> {
   /**
    * Normalizes the conditional distributions.
    */
-  public void normalize() {
+  public void normalize() throws AuToBIException {
     for (String key : keySet()) {
       get(key).normalize();
     }

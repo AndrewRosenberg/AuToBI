@@ -19,12 +19,11 @@
  */
 package edu.cuny.qc.speech.AuToBI.core;
 
-import junit.framework.Assert;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertNull;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Created by IntelliJ IDEA. User: andrew Date: Dec 11, 2010 Time: 6:37:35 PM To change this template use File |
@@ -76,7 +75,11 @@ public class DistributionTest {
     d.add("two", 1.0);
     d.add("three", 1.0);
 
-    d.normalize();
+    try {
+      d.normalize();
+    } catch (AuToBIException e) {
+      e.printStackTrace();
+    }
 
     assertEquals(0.33333, d.get("hello"), 0.0001);
   }
@@ -88,8 +91,25 @@ public class DistributionTest {
     d.add("hello", 0.5);
     d.add("two", -0.5);
 
-    d.normalize();
+    try {
+      d.normalize();
+    } catch (AuToBIException ignored) {
+    }
 
     assertEquals(-0.5, d.get("two"), 0.0001);
+  }
+
+  @Test
+  public void testNormalizeThrowsAnExceptionWhenSumEqualsZero() {
+    Distribution d = new Distribution();
+
+    d.add("hello", 0.5);
+    d.add("two", -0.5);
+
+    try {
+      d.normalize();
+      fail();
+    } catch (AuToBIException ignored) {
+    }
   }
 }
