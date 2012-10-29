@@ -287,11 +287,12 @@ public class AuToBIUtils {
         }
       }
 
-      if (word.hasAttribute(autobi.getHypothesizedFeature("boundary_tone_classification"))) {
+      if (word.hasAttribute(autobi.getHypothesizedFeature("phrase_accent_boundary_tone_classification"))) {
         if (!word.hasAttribute("hyp_phrase_boundary") ||
             word.getAttribute("hyp_phrase_boundary").equals("INTONATIONAL_BOUNDARY")) {
           word.setAttribute("hyp_phrase_boundary",
-              word.getAttribute(autobi.getHypothesizedFeature("boundary_tone_classification").replace("x", "%")));
+              word.getAttribute(
+                  autobi.getHypothesizedFeature("phrase_accent_boundary_tone_classification").replace("x", "%")));
         }
       }
 
@@ -333,27 +334,27 @@ public class AuToBIUtils {
 
     try {
       if (params.hasParameter("pitch_accent_detector")) {
-        map.put("pitch_accent_detector",
+        map.put("pitch_accent_detection",
             getPitchAccentDetectionTask(serialized ? params.getParameter("pitch_accent_detector") : null));
       }
       if (params.hasParameter("pitch_accent_classifier")) {
-        map.put("pitch_accent_classifier",
+        map.put("pitch_accent_classification",
             getPitchAccentClassificationTask(serialized ? params.getParameter("pitch_accent_classifier") : null));
       }
       if (params.hasParameter("intonational_phrase_boundary_detector")) {
-        map.put("intonational_phrase_boundary_detector", getIntonationalPhraseDetectionTask(
+        map.put("intonational_phrase_boundary_detection", getIntonationalPhraseDetectionTask(
             serialized ? params.getParameter("intonational_phrase_boundary_detector") : null));
       }
       if (params.hasParameter("intermediate_phrase_boundary_detector")) {
-        map.put("intermediate_phrase_boundary_detector", getIntermediatePhraseDetectionTask(
+        map.put("intermediate_phrase_boundary_detection", getIntermediatePhraseDetectionTask(
             serialized ? params.getParameter("intermediate_phrase_boundary_detector") : null));
       }
       if (params.hasParameter("phrase_accent_classifier")) {
-        map.put("phrase_accent_classifier",
+        map.put("phrase_accent_classification",
             getPhraseAccentClassificationTask(serialized ? params.getParameter("phrase_accent_classifier") : null));
       }
       if (params.hasParameter("boundary_tone_classifier")) {
-        map.put("boundary_tone_classifier", getPABTClassificationTask(
+        map.put("phrase_accent_boundary_tone_classification", getPABTClassificationTask(
             serialized ? params.getParameter("boundary_tone_classifier") : null));
       }
 

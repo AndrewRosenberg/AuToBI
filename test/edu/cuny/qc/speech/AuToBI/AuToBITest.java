@@ -662,7 +662,7 @@ public class AuToBITest {
     autobi.getParameters().setParameter("pitch_accent_detector", TEST_DIR + "/pitch_accent_detection.classifier");
     autobi.initializeAuToBITasks();
     assertEquals(1, autobi.tasks.size());
-    assertTrue(autobi.tasks.containsKey("pitch_accent_detector"));
+    assertTrue(autobi.tasks.containsKey("pitch_accent_detection"));
   }
 
   @Test
@@ -677,7 +677,7 @@ public class AuToBITest {
         .setParameter("pitch_accent_classifier", TEST_DIR + "/pitch_accent_classification.classifier");
     autobi.initializeAuToBITasks();
     assertEquals(1, autobi.tasks.size());
-    assertTrue(autobi.tasks.containsKey("pitch_accent_classifier"));
+    assertTrue(autobi.tasks.containsKey("pitch_accent_classification"));
   }
 
   @Test
@@ -692,52 +692,34 @@ public class AuToBITest {
         TEST_DIR + "/intonational_phrase_boundary_detection.classifier");
     autobi.initializeAuToBITasks();
     assertEquals(1, autobi.tasks.size());
-    assertTrue(autobi.tasks.containsKey("intonational_phrase_boundary_detector"));
+    assertTrue(autobi.tasks.containsKey("intonational_phrase_boundary_detection"));
   }
 
   @Test
   public void testInitializeAuToBITasksGeneratesipDTask() {
-    HashMap<String, AuToBITask> tasks = initializeMockTasks();
-    try {
-      writeMockClassifiersToTestDir(tasks);
-    } catch (IOException e) {
-      fail();
-    }
     autobi.getParameters().setParameter("intermediate_phrase_boundary_detector",
         TEST_DIR + "/intermediate_phrase_boundary_detection.classifier");
     autobi.initializeAuToBITasks();
     assertEquals(1, autobi.tasks.size());
-    assertTrue(autobi.tasks.containsKey("intermediate_phrase_boundary_detector"));
+    assertTrue(autobi.tasks.containsKey("intermediate_phrase_boundary_detection"));
   }
 
   @Test
   public void testInitializeAuToBITasksGeneratesPhraseAccentClassificationTask() {
-    HashMap<String, AuToBITask> tasks = initializeMockTasks();
-    try {
-      writeMockClassifiersToTestDir(tasks);
-    } catch (IOException e) {
-      fail();
-    }
     autobi.getParameters()
         .setParameter("phrase_accent_classifier", TEST_DIR + "/phrase_accent_classification.classifier");
     autobi.initializeAuToBITasks();
     assertEquals(1, autobi.tasks.size());
-    assertTrue(autobi.tasks.containsKey("phrase_accent_classifier"));
+    assertTrue(autobi.tasks.containsKey("phrase_accent_classification"));
   }
 
   @Test
   public void testInitializeAuToBITasksGeneratesPABTTask() {
-    HashMap<String, AuToBITask> tasks = initializeMockTasks();
-    try {
-      writeMockClassifiersToTestDir(tasks);
-    } catch (IOException e) {
-      fail(e.getMessage());
-    }
     autobi.getParameters()
         .setParameter("boundary_tone_classifier", TEST_DIR + "/boundary_tone_classification.classifier");
     autobi.initializeAuToBITasks();
     assertEquals(1, autobi.tasks.size());
-    assertTrue(autobi.tasks.containsKey("boundary_tone_classifier"));
+    assertTrue(autobi.tasks.containsKey("phrase_accent_boundary_tone_classification"));
   }
 
   @Test

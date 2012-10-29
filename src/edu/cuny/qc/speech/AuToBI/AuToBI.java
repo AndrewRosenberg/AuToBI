@@ -716,9 +716,8 @@ public class AuToBI {
           text += w.getAttribute(class_dist_feature).toString();
         }
       } else {
-        if (tasks.containsKey("pitch_accent_detection") &&
-            w.hasAttribute(tasks.get("pitch_accent_detection").getHypFeature())) {
-          text = w.getAttribute(tasks.get("pitch_accent_detection").getHypFeature()).toString();
+        if (w.hasAttribute("hyp_pitch_accent")) {
+          text = w.getAttribute("hyp_pitch_accent").toString();
         }
       }
 
@@ -1161,6 +1160,7 @@ public class AuToBI {
       }
 
       for (String task : getClassificationTasks()) {
+        AuToBIUtils.info(task);
         AuToBIUtils.info(evaluateTaskPerformance(task, autobi_fs));
       }
 

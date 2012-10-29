@@ -94,7 +94,7 @@ public class AuToBIUtilsTest {
     task.setConfFeature("hyp_pabt_conf");
     task.setDistFeature("hyp_pabt_dist");
     task.setFeatureSet(new PhraseAccentBoundaryToneClassificationFeatureSet());
-    autobi.getTasks().put("boundary_tone_classification", task);
+    autobi.getTasks().put("phrase_accent_boundary_tone_classification", task);
   }
 
   @Test
