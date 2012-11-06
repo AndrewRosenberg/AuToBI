@@ -16,20 +16,20 @@
     </path>
 
     <target name="compile">
-        <mkdir dir="out/production/Release"/>
-        <javac srcdir="src" destdir="out/production/Release" classpathref="project.classpath" debug="true"
+        <mkdir dir="${classes}"/>
+        <javac srcdir="src" destdir="${classes}" classpathref="project.classpath" debug="true"
                includeantruntime="false"/>
     </target>
 
     <target name="compile-test" depends="compile">
-        <mkdir dir="out/test"/>
-        <javac srcdir="test" destdir="out/test/Release" classpathref="test.classpath" debug="true"
+        <mkdir dir="${test-classes}"/>
+        <javac srcdir="test" destdir="${test-classes}" classpathref="test.classpath" debug="true"
                includeantruntime="false"/>
     </target>
 
     <target name="jar" depends="compile">
         <jar destfile="AuToBI.jar">
-            <zipfileset dir="out/production/Release/" prefix=""/>
+            <zipfileset dir="${classes}/" prefix=""/>
             <zipfileset src="lib/commons-math-2.1.jar"/>
             <zipfileset src="lib/jakarta-oro-2.1-dev-1.jar"/>
             <zipfileset src="lib/jnt_fft.jar"/>
