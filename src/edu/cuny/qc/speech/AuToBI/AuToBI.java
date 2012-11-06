@@ -707,8 +707,8 @@ public class AuToBI {
       Word w = words.get(i);
       String text = "";
       if (getBooleanParameter("distributions", false)) {
-        String det_dist_feature = tasks.get("pitch_accent_detector").getDistFeature();
-        String class_dist_feature = tasks.get("pitch_accent_classifier").getDistFeature();
+        String det_dist_feature = tasks.get("pitch_accent_detection").getDistFeature();
+        String class_dist_feature = tasks.get("pitch_accent_classification").getDistFeature();
         if (w.hasAttribute(det_dist_feature)) {
           text = w.getAttribute(det_dist_feature).toString();
         }
@@ -716,9 +716,9 @@ public class AuToBI {
           text += w.getAttribute(class_dist_feature).toString();
         }
       } else {
-    	  if (w.hasAttribute("hyp_pitch_accent")) {
-              text = w.getAttribute("hyp_pitch_accent").toString();
-    	  }
+        if (w.hasAttribute("hyp_pitch_accent")) {
+          text = w.getAttribute("hyp_pitch_accent").toString();
+        }
       }
 
       text_grid += "intervals [" + (i + 1) + "]:\n";
@@ -738,17 +738,17 @@ public class AuToBI {
 
       String text = "";
       if (getBooleanParameter("distributions", false)) {
-        if (w.hasAttribute(tasks.get("intonational_phrase_boundary_detector").getDistFeature())) {
-          text = w.getAttribute(tasks.get("intonational_phrase_boundary_detector").getDistFeature()).toString();
+        if (w.hasAttribute(tasks.get("intonational_phrase_boundary_detection").getDistFeature())) {
+          text = w.getAttribute(tasks.get("intonational_phrase_boundary_detection").getDistFeature()).toString();
         }
-        if (w.hasAttribute(tasks.get("intermediate_phrase_boundary_detector").getDistFeature())) {
-          text = w.getAttribute(tasks.get("intermediate_phrase_boundary_detector").getDistFeature()).toString();
+        if (w.hasAttribute(tasks.get("intermediate_phrase_boundary_detection").getDistFeature())) {
+          text = w.getAttribute(tasks.get("intermediate_phrase_boundary_detection").getDistFeature()).toString();
         }
-        if (w.hasAttribute(tasks.get("phrase_accent_boundary_tone_classifier").getDistFeature())) {
-          text += w.getAttribute(tasks.get("phrase_accent_boundary_tone_classifier").getDistFeature()).toString();
+        if (w.hasAttribute(tasks.get("boundary_tone_classification").getDistFeature())) {
+          text += w.getAttribute(tasks.get("boundary_tone_classification").getDistFeature()).toString();
         }
-        if (w.hasAttribute(tasks.get("phrase_accent_classifier").getDistFeature())) {
-          text += w.getAttribute(tasks.get("phrase_accent_classifier").getDistFeature()).toString();
+        if (w.hasAttribute(tasks.get("phrase_accent_classification").getDistFeature())) {
+          text += w.getAttribute(tasks.get("phrase_accent_classification").getDistFeature()).toString();
         }
       } else {
         if (w.hasAttribute("hyp_phrase_boundary")) {
@@ -1160,6 +1160,7 @@ public class AuToBI {
       }
 
       for (String task : getClassificationTasks()) {
+        AuToBIUtils.info(task);
         AuToBIUtils.info(evaluateTaskPerformance(task, autobi_fs));
       }
 

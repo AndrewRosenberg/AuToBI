@@ -44,7 +44,7 @@ import static org.junit.Assert.*;
 @SuppressWarnings("unchecked")
 public class AuToBITest {
   private AuToBI autobi;
-  private static final String TEST_DIR = "/Users/andrew/code/AuToBI/release/test_data";
+  private static final String TEST_DIR = System.getenv().get("AUTOBI_TEST_DIR");
 
   @Before
   public void setUp() throws Exception {
@@ -107,12 +107,12 @@ public class AuToBITest {
     ipc_task.setTrueFeature("ipc_true");
 
     HashMap<String, AuToBITask> tasks = new HashMap<String, AuToBITask>();
-    tasks.put("pitch_accent_detector", pad_task);
-    tasks.put("pitch_accent_classifier", pac_task);
-    tasks.put("intonational_phrase_boundary_detector", IPd_task);
-    tasks.put("phrase_accent_boundary_tone_classifier", IPc_task);
-    tasks.put("intermediate_phrase_boundary_detector", ipd_task);
-    tasks.put("phrase_accent_classifier", ipc_task);
+    tasks.put("pitch_accent_detection", pad_task);
+    tasks.put("pitch_accent_classification", pac_task);
+    tasks.put("intonational_phrase_boundary_detection", IPd_task);
+    tasks.put("boundary_tone_classification", IPc_task);
+    tasks.put("intermediate_phrase_boundary_detection", ipd_task);
+    tasks.put("phrase_accent_classification", ipc_task);
     return tasks;
   }
 
@@ -364,14 +364,14 @@ public class AuToBITest {
   public void testEvaluateTaskPerformanceWorksForValidTasks() {
     autobi.tasks = initializeMockTasks();
     try {
-      assertTrue(autobi.evaluateTaskPerformance("pitch_accent_detector", new FeatureSet()).length() > 0);
-      assertTrue(autobi.evaluateTaskPerformance("pitch_accent_classifier", new FeatureSet()).length() > 0);
+      assertTrue(autobi.evaluateTaskPerformance("pitch_accent_detection", new FeatureSet()).length() > 0);
+      assertTrue(autobi.evaluateTaskPerformance("pitch_accent_classification", new FeatureSet()).length() > 0);
       assertTrue(
-          autobi.evaluateTaskPerformance("intonational_phrase_boundary_detector", new FeatureSet()).length() > 0);
+          autobi.evaluateTaskPerformance("intonational_phrase_boundary_detection", new FeatureSet()).length() > 0);
       assertTrue(
-          autobi.evaluateTaskPerformance("intermediate_phrase_boundary_detector", new FeatureSet()).length() > 0);
-      assertTrue(autobi.evaluateTaskPerformance("phrase_accent_boundary_tone_classifier", new FeatureSet()).length() > 0);
-      assertTrue(autobi.evaluateTaskPerformance("phrase_accent_classifier", new FeatureSet()).length() > 0);
+          autobi.evaluateTaskPerformance("intermediate_phrase_boundary_detection", new FeatureSet()).length() > 0);
+      assertTrue(autobi.evaluateTaskPerformance("boundary_tone_classification", new FeatureSet()).length() > 0);
+      assertTrue(autobi.evaluateTaskPerformance("phrase_accent_classification", new FeatureSet()).length() > 0);
     } catch (AuToBIException expected) {
       fail();
     }
@@ -396,12 +396,12 @@ public class AuToBITest {
     fs.insertDataPoint(w);
 
     try {
-      autobi.generatePredictions("pitch_accent_detector", fs);
-      autobi.generatePredictions("pitch_accent_classifier", fs);
-      autobi.generatePredictions("intonational_phrase_boundary_detector", fs);
-      autobi.generatePredictions("intermediate_phrase_boundary_detector", fs);
-      autobi.generatePredictions("phrase_accent_boundary_tone_classifier", fs);
-      autobi.generatePredictions("phrase_accent_classifier", fs);
+      autobi.generatePredictions("pitch_accent_detection", fs);
+      autobi.generatePredictions("pitch_accent_classification", fs);
+      autobi.generatePredictions("intonational_phrase_boundary_detection", fs);
+      autobi.generatePredictions("intermediate_phrase_boundary_detection", fs);
+      autobi.generatePredictions("boundary_tone_classification", fs);
+      autobi.generatePredictions("phrase_accent_classification", fs);
     } catch (AuToBIException expected) {
       fail();
     }
@@ -415,12 +415,12 @@ public class AuToBITest {
     fs.insertDataPoint(w);
 
     try {
-      autobi.generatePredictionsWithConfidenceScores("pitch_accent_detector", fs);
-      autobi.generatePredictionsWithConfidenceScores("pitch_accent_classifier", fs);
-      autobi.generatePredictionsWithConfidenceScores("intonational_phrase_boundary_detector", fs);
-      autobi.generatePredictionsWithConfidenceScores("intermediate_phrase_boundary_detector", fs);
-      autobi.generatePredictionsWithConfidenceScores("phrase_accent_boundary_tone_classifier", fs);
-      autobi.generatePredictionsWithConfidenceScores("phrase_accent_classifier", fs);
+      autobi.generatePredictionsWithConfidenceScores("pitch_accent_detection", fs);
+      autobi.generatePredictionsWithConfidenceScores("pitch_accent_classification", fs);
+      autobi.generatePredictionsWithConfidenceScores("intonational_phrase_boundary_detection", fs);
+      autobi.generatePredictionsWithConfidenceScores("intermediate_phrase_boundary_detection", fs);
+      autobi.generatePredictionsWithConfidenceScores("boundary_tone_classification", fs);
+      autobi.generatePredictionsWithConfidenceScores("phrase_accent_classification", fs);
     } catch (AuToBIException expected) {
       fail();
     }
@@ -434,12 +434,12 @@ public class AuToBITest {
     fs.insertDataPoint(w);
 
     try {
-      assertNotNull(autobi.getTaskFeatureSet("pitch_accent_detector"));
-      assertNotNull(autobi.getTaskFeatureSet("pitch_accent_classifier"));
-      assertNotNull(autobi.getTaskFeatureSet("intonational_phrase_boundary_detector"));
-      assertNotNull(autobi.getTaskFeatureSet("intermediate_phrase_boundary_detector"));
-      assertNotNull(autobi.getTaskFeatureSet("phrase_accent_boundary_tone_classifier"));
-      assertNotNull(autobi.getTaskFeatureSet("phrase_accent_classifier"));
+      assertNotNull(autobi.getTaskFeatureSet("pitch_accent_detection"));
+      assertNotNull(autobi.getTaskFeatureSet("pitch_accent_classification"));
+      assertNotNull(autobi.getTaskFeatureSet("intonational_phrase_boundary_detection"));
+      assertNotNull(autobi.getTaskFeatureSet("intermediate_phrase_boundary_detection"));
+      assertNotNull(autobi.getTaskFeatureSet("boundary_tone_classification"));
+      assertNotNull(autobi.getTaskFeatureSet("phrase_accent_classification"));
     } catch (AuToBIException expected) {
       fail();
     }
@@ -453,12 +453,12 @@ public class AuToBITest {
     fs.insertDataPoint(w);
 
     try {
-      assertNotNull(autobi.getHypothesizedFeature("pitch_accent_detector"));
-      assertNotNull(autobi.getHypothesizedFeature("pitch_accent_classifier"));
-      assertNotNull(autobi.getHypothesizedFeature("intonational_phrase_boundary_detector"));
-      assertNotNull(autobi.getHypothesizedFeature("intermediate_phrase_boundary_detector"));
-      assertNotNull(autobi.getHypothesizedFeature("phrase_accent_boundary_tone_classifier"));
-      assertNotNull(autobi.getHypothesizedFeature("phrase_accent_classifier"));
+      assertNotNull(autobi.getHypothesizedFeature("pitch_accent_detection"));
+      assertNotNull(autobi.getHypothesizedFeature("pitch_accent_classification"));
+      assertNotNull(autobi.getHypothesizedFeature("intonational_phrase_boundary_detection"));
+      assertNotNull(autobi.getHypothesizedFeature("intermediate_phrase_boundary_detection"));
+      assertNotNull(autobi.getHypothesizedFeature("boundary_tone_classification"));
+      assertNotNull(autobi.getHypothesizedFeature("phrase_accent_classification"));
     } catch (AuToBIException expected) {
       fail();
     }
@@ -472,12 +472,12 @@ public class AuToBITest {
     fs.insertDataPoint(w);
 
     try {
-      assertNotNull(autobi.getDistributionFeature("pitch_accent_detector"));
-      assertNotNull(autobi.getDistributionFeature("pitch_accent_classifier"));
-      assertNotNull(autobi.getDistributionFeature("intonational_phrase_boundary_detector"));
-      assertNotNull(autobi.getDistributionFeature("intermediate_phrase_boundary_detector"));
-      assertNotNull(autobi.getDistributionFeature("phrase_accent_boundary_tone_classifier"));
-      assertNotNull(autobi.getDistributionFeature("phrase_accent_classifier"));
+      assertNotNull(autobi.getDistributionFeature("pitch_accent_detection"));
+      assertNotNull(autobi.getDistributionFeature("pitch_accent_classification"));
+      assertNotNull(autobi.getDistributionFeature("intonational_phrase_boundary_detection"));
+      assertNotNull(autobi.getDistributionFeature("intermediate_phrase_boundary_detection"));
+      assertNotNull(autobi.getDistributionFeature("boundary_tone_classification"));
+      assertNotNull(autobi.getDistributionFeature("phrase_accent_classification"));
     } catch (AuToBIException expected) {
       fail();
     }
@@ -491,12 +491,12 @@ public class AuToBITest {
     fs.insertDataPoint(w);
 
     try {
-      assertNotNull(autobi.getTaskClassifier("pitch_accent_detector"));
-      assertNotNull(autobi.getTaskClassifier("pitch_accent_classifier"));
-      assertNotNull(autobi.getTaskClassifier("intonational_phrase_boundary_detector"));
-      assertNotNull(autobi.getTaskClassifier("intermediate_phrase_boundary_detector"));
-      assertNotNull(autobi.getTaskClassifier("phrase_accent_boundary_tone_classifier"));
-      assertNotNull(autobi.getTaskClassifier("phrase_accent_classifier"));
+      assertNotNull(autobi.getTaskClassifier("pitch_accent_detection"));
+      assertNotNull(autobi.getTaskClassifier("pitch_accent_classification"));
+      assertNotNull(autobi.getTaskClassifier("intonational_phrase_boundary_detection"));
+      assertNotNull(autobi.getTaskClassifier("intermediate_phrase_boundary_detection"));
+      assertNotNull(autobi.getTaskClassifier("boundary_tone_classification"));
+      assertNotNull(autobi.getTaskClassifier("phrase_accent_classification"));
     } catch (AuToBIException expected) {
       fail();
     }
@@ -659,10 +659,10 @@ public class AuToBITest {
     } catch (IOException e) {
       fail();
     }
-    autobi.getParameters().setParameter("pitch_accent_detector", TEST_DIR + "/pitch_accent_detector.classifier");
+    autobi.getParameters().setParameter("pitch_accent_detector", TEST_DIR + "/pitch_accent_detection.classifier");
     autobi.initializeAuToBITasks();
     assertEquals(1, autobi.tasks.size());
-    assertTrue(autobi.tasks.containsKey("pitch_accent_detector"));
+    assertTrue(autobi.tasks.containsKey("pitch_accent_detection"));
   }
 
   @Test
@@ -674,10 +674,10 @@ public class AuToBITest {
       fail();
     }
     autobi.getParameters()
-        .setParameter("pitch_accent_classifier", TEST_DIR + "/pitch_accent_classifier.classifier");
+        .setParameter("pitch_accent_classifier", TEST_DIR + "/pitch_accent_classification.classifier");
     autobi.initializeAuToBITasks();
     assertEquals(1, autobi.tasks.size());
-    assertTrue(autobi.tasks.containsKey("pitch_accent_classifier"));
+    assertTrue(autobi.tasks.containsKey("pitch_accent_classification"));
   }
 
   @Test
@@ -689,55 +689,37 @@ public class AuToBITest {
       fail();
     }
     autobi.getParameters().setParameter("intonational_phrase_boundary_detector",
-        TEST_DIR + "/intonational_phrase_boundary_detector.classifier");
+        TEST_DIR + "/intonational_phrase_boundary_detection.classifier");
     autobi.initializeAuToBITasks();
     assertEquals(1, autobi.tasks.size());
-    assertTrue(autobi.tasks.containsKey("intonational_phrase_boundary_detector"));
+    assertTrue(autobi.tasks.containsKey("intonational_phrase_boundary_detection"));
   }
 
   @Test
   public void testInitializeAuToBITasksGeneratesipDTask() {
-    HashMap<String, AuToBITask> tasks = initializeMockTasks();
-    try {
-      writeMockClassifiersToTestDir(tasks);
-    } catch (IOException e) {
-      fail();
-    }
     autobi.getParameters().setParameter("intermediate_phrase_boundary_detector",
-        TEST_DIR + "/intermediate_phrase_boundary_detector.classifier");
+        TEST_DIR + "/intermediate_phrase_boundary_detection.classifier");
     autobi.initializeAuToBITasks();
     assertEquals(1, autobi.tasks.size());
-    assertTrue(autobi.tasks.containsKey("intermediate_phrase_boundary_detector"));
+    assertTrue(autobi.tasks.containsKey("intermediate_phrase_boundary_detection"));
   }
 
   @Test
   public void testInitializeAuToBITasksGeneratesPhraseAccentClassificationTask() {
-    HashMap<String, AuToBITask> tasks = initializeMockTasks();
-    try {
-      writeMockClassifiersToTestDir(tasks);
-    } catch (IOException e) {
-      fail();
-    }
     autobi.getParameters()
-        .setParameter("phrase_accent_classifier", TEST_DIR + "/phrase_accent_classifier.classifier");
+        .setParameter("phrase_accent_classifier", TEST_DIR + "/phrase_accent_classification.classifier");
     autobi.initializeAuToBITasks();
     assertEquals(1, autobi.tasks.size());
-    assertTrue(autobi.tasks.containsKey("phrase_accent_classifier"));
+    assertTrue(autobi.tasks.containsKey("phrase_accent_classification"));
   }
 
   @Test
   public void testInitializeAuToBITasksGeneratesPABTTask() {
-    HashMap<String, AuToBITask> tasks = initializeMockTasks();
-    try {
-      writeMockClassifiersToTestDir(tasks);
-    } catch (IOException e) {
-      fail(e.getMessage());
-    }
     autobi.getParameters()
-        .setParameter("phrase_accent_boundary_tone_classifier", TEST_DIR + "/phrase_accent_boundary_tone_classifier.classifier");
+        .setParameter("boundary_tone_classifier", TEST_DIR + "/boundary_tone_classification.classifier");
     autobi.initializeAuToBITasks();
     assertEquals(1, autobi.tasks.size());
-    assertTrue(autobi.tasks.containsKey("phrase_accent_boundary_tone_classifier"));
+    assertTrue(autobi.tasks.containsKey("phrase_accent_boundary_tone_classification"));
   }
 
   @Test
@@ -754,6 +736,8 @@ public class AuToBITest {
     w.setAttribute("IPd_hyp", "BOUNDARY");
     w.setAttribute("IPc_hyp", "H%");
     words.add(w);
+    // Approximate mergeAuToBIHypotheses
+    w.setAttribute("hyp_pitch_accent", "ACCENTED");
     String text_grid = autobi.generateTextGridString(words);
     assertEquals("File type = \"ooTextFile\"\n" +
         "Object class = \"TextGrid\"\n" +

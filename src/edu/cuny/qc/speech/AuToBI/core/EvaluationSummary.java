@@ -295,7 +295,11 @@ public class EvaluationSummary {
         distribution.put(c, 0.0);
       }
     }
-    distribution.normalize();
+    try {
+      distribution.normalize();
+    } catch (AuToBIException e) {
+      AuToBIUtils.error("Error normalizing class distribution in entropy calculation: " + e.getMessage());
+    }
 
     double recall = 0.0;
     double denom = 0.0;

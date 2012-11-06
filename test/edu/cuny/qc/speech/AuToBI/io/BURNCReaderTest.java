@@ -37,7 +37,7 @@ import static org.junit.Assert.*;
  */
 @SuppressWarnings("unchecked")
 public class BURNCReaderTest {
-  private final String TEST_DIR = "/Users/andrew/code/AuToBI/release/test_data";
+  private static final String TEST_DIR = System.getenv().get("AUTOBI_TEST_DIR");
   private final String testfile_stem = TEST_DIR + "/test";
   private BURNCReader reader;
 

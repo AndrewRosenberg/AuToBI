@@ -36,7 +36,7 @@ import static org.junit.Assert.fail;
  */
 public class WavReaderTest {
 
-  private final String TEST_DIR = "/Users/andrew/code/AuToBI/release/test_data";
+  private static final String TEST_DIR = System.getenv().get("AUTOBI_TEST_DIR");
 
   @Test
   public void testReadsWavFile() {

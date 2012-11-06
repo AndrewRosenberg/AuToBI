@@ -38,7 +38,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class IntensityFeatureExtractorTest {
 
-  private static final String TEST_DIR = "/Users/andrew/code/AuToBI/release/test_data/";
+  private static final String TEST_DIR = System.getenv().get("AUTOBI_TEST_DIR");
 
   @Test
   public void testConstructorSetsExtractedFeaturesCorrectly() {

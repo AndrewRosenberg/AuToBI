@@ -38,7 +38,7 @@ import static org.junit.Assert.*;
  */
 public class AuToBIUtilsTest {
 
-  private final String TEST_DIR = "/Users/andrew/code/AuToBI/release/test_data";
+  private static final String TEST_DIR = System.getenv().get("AUTOBI_TEST_DIR");
   private AuToBI autobi;
 
   @Before
@@ -54,7 +54,7 @@ public class AuToBIUtilsTest {
     task.setConfFeature("hyp_pitch_accent_location_conf");
     task.setDistFeature("hyp_pitch_accent_location_dist");
     task.setFeatureSet(new PitchAccentDetectionFeatureSet());
-    autobi.getTasks().put("pitch_accent_detector", task);
+    autobi.getTasks().put("pitch_accent_detection", task);
 
     task = new AuToBITask();
     task.setTrueFeature("nominal_PitchAccentType");
@@ -62,7 +62,7 @@ public class AuToBIUtilsTest {
     task.setConfFeature("hyp_pitch_accent_type_conf");
     task.setDistFeature("hyp_pitch_accent_type_dist");
     task.setFeatureSet(new PitchAccentClassificationFeatureSet());
-    autobi.getTasks().put("pitch_accent_classifier", task);
+    autobi.getTasks().put("pitch_accent_classification", task);
 
     task = new AuToBITask();
     task.setTrueFeature("nominal_IntonationalPhraseBoundary");
@@ -70,7 +70,7 @@ public class AuToBIUtilsTest {
     task.setConfFeature("hyp_IP_location_conf");
     task.setDistFeature("hyp_IP_location_dist");
     task.setFeatureSet(new IntonationalPhraseBoundaryDetectionFeatureSet());
-    autobi.getTasks().put("intonational_phrase_boundary_detector", task);
+    autobi.getTasks().put("intonational_phrase_boundary_detection", task);
 
     task = new AuToBITask();
     task.setTrueFeature("nominal_IntermediatePhraseBoundary");
@@ -78,7 +78,7 @@ public class AuToBIUtilsTest {
     task.setConfFeature("hyp_ip_location_conf");
     task.setDistFeature("hyp_ip_location_dist");
     task.setFeatureSet(new IntermediatePhraseBoundaryDetectionFeatureSet());
-    autobi.getTasks().put("intermediate_phrase_boundary_detector", task);
+    autobi.getTasks().put("intermediate_phrase_boundary_detection", task);
 
     task = new AuToBITask();
     task.setTrueFeature("nominal_PhraseAccent");
@@ -86,7 +86,7 @@ public class AuToBIUtilsTest {
     task.setConfFeature("hyp_phrase_accent_conf");
     task.setDistFeature("hyp_phrase_accent_dist");
     task.setFeatureSet(new PhraseAccentClassificationFeatureSet());
-    autobi.getTasks().put("phrase_accent_classifier", task);
+    autobi.getTasks().put("phrase_accent_classification", task);
 
     task = new AuToBITask();
     task.setTrueFeature("nominal_PhraseAccentBoundaryTone");
@@ -94,7 +94,7 @@ public class AuToBIUtilsTest {
     task.setConfFeature("hyp_pabt_conf");
     task.setDistFeature("hyp_pabt_dist");
     task.setFeatureSet(new PhraseAccentBoundaryToneClassificationFeatureSet());
-    autobi.getTasks().put("phrase_accent_boundary_tone_classifier", task);
+    autobi.getTasks().put("phrase_accent_boundary_tone_classification", task);
   }
 
   @Test

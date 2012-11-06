@@ -36,8 +36,6 @@ import static org.junit.Assert.*;
  */
 public class AlignmentUtilsTest {
 
-  private final String TEST_DIR = "/Users/andrew/code/AuToBI/release/test_data";
-
   @Test
   public void testCopyToBITonesByTimePitchAccent() {
     List<Word> words = new ArrayList<Word>();

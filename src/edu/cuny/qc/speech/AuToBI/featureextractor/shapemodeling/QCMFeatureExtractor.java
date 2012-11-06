@@ -30,6 +30,7 @@ import java.util.List;
 /**
  * QCMFeatureExtractor extracts QuantizedContourModel log likelihood features.
  */
+@SuppressWarnings("unchecked")
 public class QCMFeatureExtractor extends FeatureExtractor {
   private QuantizedContourModel qcm; // the model
   private String acoustic_feature; // the acoustic contour feature
@@ -54,8 +55,7 @@ public class QCMFeatureExtractor extends FeatureExtractor {
   }
 
   /**
-   * Calculates the log likelihood of the contour stored in acoustic_feature and stores this
-   * value in feature_name
+   * Calculates the log likelihood of the contour stored in acoustic_feature and stores this value in feature_name
    *
    * @param regions The regions to extract features from.
    * @throws FeatureExtractorException

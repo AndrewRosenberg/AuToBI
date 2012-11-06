@@ -75,7 +75,11 @@ public class ConditionalDistributionTest {
     cd.add("one", "a", 3);
     cd.add("one", "b");
 
-    cd.normalize();
+    try {
+      cd.normalize();
+    } catch (AuToBIException e) {
+      fail();
+    }
     assertEquals(2, cd.size());
     assertEquals(2, cd.get("one").size());
     assertEquals(0.8, cd.get("one").get("a"), 0.0001);
@@ -95,7 +99,11 @@ public class ConditionalDistributionTest {
     assertEquals(2, cd.get("one").size());
     assertEquals(0.0, cd.get("one").get("a"), 0.0001);
 
-    cd.normalize();
+    try {
+      cd.normalize();
+    } catch (AuToBIException e) {
+      fail();
+    }
     // With zero mass, normalization should not change the value.
     assertEquals(0.0, cd.get("one").get("a"), 0.0001);
   }

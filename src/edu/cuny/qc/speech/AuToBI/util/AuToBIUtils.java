@@ -239,67 +239,70 @@ public class AuToBIUtils {
    * @param words  the words to analyse
    */
   public static void mergeAuToBIHypotheses(AuToBI autobi, List<Word> words) throws AuToBIException {
-
+    // TODO: deprecate this function and move the behavior into smaller utility functions
+    // Convert each word to the desired string, one at a time.  Call these utilities from writeTextGridString
+    // instead of using this as a pre-processing step.
     for (Word word : words) {
       // Assigns pitch accents to words.  If only accent detection is available, a binary True/False hypothesis
       // will be assigned.  If location and type hypotheses are available, the hypothesized type will be assigned.
       // Finally, if only type information is available, every word will be assigned its best guess for accent type.
-      if (word.hasAttribute(autobi.getHypothesizedFeature("pitch_accent_detector"))) {
-        if (word.hasAttribute(autobi.getConfidenceFeature("pitch_accent_detector"))) {
-          Double conf = (Double) word.getAttribute(autobi.getConfidenceFeature("pitch_accent_detector"));
-          if (!word.getAttribute(autobi.getHypothesizedFeature("pitch_accent_detector")).equals("ACCENTED")) {
+      if (word.hasAttribute(autobi.getHypothesizedFeature("pitch_accent_detection"))) {
+        if (word.hasAttribute(autobi.getConfidenceFeature("pitch_accent_detection"))) {
+          Double conf = (Double) word.getAttribute(autobi.getConfidenceFeature("pitch_accent_detection"));
+          if (!word.getAttribute(autobi.getHypothesizedFeature("pitch_accent_detection")).equals("ACCENTED")) {
             conf = 1 - conf;
           }
           word.setAttribute("hyp_pitch_accent", "ACCENTED: " + conf);
         } else {
           word.setAttribute("hyp_pitch_accent", word.getAttribute(autobi.getHypothesizedFeature(
-              "pitch_accent_detector")));
+              "pitch_accent_detection")));
         }
       }
-      if (word.hasAttribute(autobi.getHypothesizedFeature("pitch_accent_classifier"))) {
+      if (word.hasAttribute(autobi.getHypothesizedFeature("pitch_accent_classification"))) {
         if (!word.hasAttribute("hyp_pitch_accent") || word.getAttribute("hyp_pitch_accent").equals("ACCENTED")) {
           word.setAttribute("hyp_pitch_accent", word.getAttribute(autobi.getHypothesizedFeature(
-              "pitch_accent_classifier")));
+              "pitch_accent_classification")));
         }
       }
 
       // Assigns phrase ending tones.
-      if (word.hasAttribute(autobi.getHypothesizedFeature("intonational_phrase_boundary_detector"))) {
-        if (word.hasAttribute(autobi.getConfidenceFeature("intonational_phrase_boundary_detector"))) {
+      if (word.hasAttribute(autobi.getHypothesizedFeature("intonational_phrase_boundary_detection"))) {
+        if (word.hasAttribute(autobi.getConfidenceFeature("intonational_phrase_boundary_detection"))) {
           Double conf =
-              (Double) word.getAttribute(autobi.getConfidenceFeature("intonational_phrase_boundary_detector"));
-          if (!word.getAttribute(autobi.getHypothesizedFeature("intonational_phrase_boundary_detector"))
+              (Double) word.getAttribute(autobi.getConfidenceFeature("intonational_phrase_boundary_detection"));
+          if (!word.getAttribute(autobi.getHypothesizedFeature("intonational_phrase_boundary_detection"))
               .equals("INTONATIONAL_BOUNDARY")) {
             conf = 1 - conf;
           }
           word.setAttribute("hyp_phrase_boundary", "BOUNDARY: " + conf);
         } else {
           word.setAttribute("hyp_phrase_boundary",
-              word.getAttribute(autobi.getHypothesizedFeature("intonational_phrase_boundary_detector")));
+              word.getAttribute(autobi.getHypothesizedFeature("intonational_phrase_boundary_detection")));
         }
       }
 
-      if (word.hasAttribute(autobi.getHypothesizedFeature("intermediate_phrase_boundary_detector"))) {
+      if (word.hasAttribute(autobi.getHypothesizedFeature("intermediate_phrase_boundary_detection"))) {
         if (!word.hasAttribute("hyp_phrase_boundary") ||
             word.getAttribute("hyp_phrase_boundary").equals("NONBOUNDARY")) {
           word.setAttribute("hyp_phrase_boundary",
-              word.getAttribute(autobi.getHypothesizedFeature("intermediate_phrase_boundary_detector")));
+              word.getAttribute(autobi.getHypothesizedFeature("intermediate_phrase_boundary_detection")));
         }
       }
 
-      if (word.hasAttribute(autobi.getHypothesizedFeature("phrase_accent_boundary_tone_classifier"))) {
+      if (word.hasAttribute(autobi.getHypothesizedFeature("phrase_accent_boundary_tone_classification"))) {
         if (!word.hasAttribute("hyp_phrase_boundary") ||
             word.getAttribute("hyp_phrase_boundary").equals("INTONATIONAL_BOUNDARY")) {
           word.setAttribute("hyp_phrase_boundary",
-              word.getAttribute(autobi.getHypothesizedFeature("phrase_accent_boundary_tone_classifier").replace("x", "%")));
+              word.getAttribute(
+                  autobi.getHypothesizedFeature("phrase_accent_boundary_tone_classification").replace("x", "%")));
         }
       }
 
-      if (word.hasAttribute(autobi.getHypothesizedFeature("phrase_accent_classifier"))) {
+      if (word.hasAttribute(autobi.getHypothesizedFeature("phrase_accent_classification"))) {
         if (!word.hasAttribute("hyp_phrase_boundary") ||
             word.getAttribute("hyp_phrase_boundary").equals("INTERMEDIATE_BOUNDARY")) {
           word.setAttribute("hyp_phrase_boundary",
-              word.getAttribute(autobi.getHypothesizedFeature("phrase_accent_classifier")));
+              word.getAttribute(autobi.getHypothesizedFeature("phrase_accent_classification")));
         }
       }
     }
@@ -315,9 +318,9 @@ public class AuToBIUtils {
    * <p/>
    * pitch_accent_classifier
    * <p/>
-   * intonational_phrase_boundary_detector
+   * intonational_phrase_detector
    * <p/>
-   * intermediate_phrase_boundary_detector
+   * intermediate_phrase_detector
    * <p/>
    * phrase_accent_classifier
    * <p/>
@@ -332,49 +335,31 @@ public class AuToBIUtils {
     HashMap<String, AuToBITask> map = new HashMap<String, AuToBITask>();
 
     try {
-    	
-      boolean atLeastOneTaskRequired = false;	
-    	
       if (params.hasParameter("pitch_accent_detector")) {
-        map.put("pitch_accent_detector",
+        map.put("pitch_accent_detection",
             getPitchAccentDetectionTask(serialized ? params.getParameter("pitch_accent_detector") : null));
-        atLeastOneTaskRequired =true;
       }
       if (params.hasParameter("pitch_accent_classifier")) {
-        map.put("pitch_accent_classifier",
+        map.put("pitch_accent_classification",
             getPitchAccentClassificationTask(serialized ? params.getParameter("pitch_accent_classifier") : null));
-        atLeastOneTaskRequired =true;
       }
       if (params.hasParameter("intonational_phrase_boundary_detector")) {
-        map.put("intonational_phrase_boundary_detector", getIntonationalPhraseDetectionTask(
+        map.put("intonational_phrase_boundary_detection", getIntonationalPhraseDetectionTask(
             serialized ? params.getParameter("intonational_phrase_boundary_detector") : null));
-        atLeastOneTaskRequired =true;
       }
       if (params.hasParameter("intermediate_phrase_boundary_detector")) {
-        map.put("intermediate_phrase_boundary_detector", getIntermediatePhraseDetectionTask(
+        map.put("intermediate_phrase_boundary_detection", getIntermediatePhraseDetectionTask(
             serialized ? params.getParameter("intermediate_phrase_boundary_detector") : null));
-        atLeastOneTaskRequired =true;
       }
       if (params.hasParameter("phrase_accent_classifier")) {
-        map.put("phrase_accent_classifier",
+        map.put("phrase_accent_classification",
             getPhraseAccentClassificationTask(serialized ? params.getParameter("phrase_accent_classifier") : null));
-        atLeastOneTaskRequired =true;
       }
-      if (params.hasParameter("phrase_accent_boundary_tone_classifier")) {
-        map.put("phrase_accent_boundary_tone_classifier", getPABTClassificationTask(
-            serialized ? params.getParameter("phrase_accent_boundary_tone_classifier") : null));
-        atLeastOneTaskRequired =true;
+      if (params.hasParameter("boundary_tone_classifier")) {
+        map.put("phrase_accent_boundary_tone_classification", getPABTClassificationTask(
+            serialized ? params.getParameter("boundary_tone_classifier") : null));
       }
 
-      if (!atLeastOneTaskRequired)
-    	  throw new AuToBIException("No task specified with one among:\n" +  
-       			 "-pitch_accent_detector=pitch_accent_detector.modelfilename\n" +  
-       		     "-pitch_accent_classifier=pitch_accent_classifier.modelfilename\n" + 
-       		     "-intonational_phrase_boundary_detector=intonational_phrase_boundary_detector.modelfilename\n"+ 
-       		     "-intermediate_phrase_boundary_detector=intermediate_phrase_boundary_detector.modelfilename\n"+ 
-       		     "-phrase_accent_classifier=phrase_accent_classifier.modelfilename\n"+ 
-       		     "-phrase_accent_boundary_tone_classifier=phrase_accent_boundary_tone_classifier.modelfilename");
-            
     } catch (AuToBIException e) {
       AuToBIUtils.error("Unexpected Exception thrown: " + e.getMessage());
     }

@@ -1,8 +1,10 @@
 package edu.cuny.qc.speech.AuToBI.classifier;
 
+import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
 import edu.cuny.qc.speech.AuToBI.core.Distribution;
 import edu.cuny.qc.speech.AuToBI.core.Region;
 import edu.cuny.qc.speech.AuToBI.core.Word;
+import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +35,11 @@ public class ClassBasedWeightFunctionTrainer {
         d.add(r.getAttribute(class_attribute).toString());
       }
     }
-    d.normalize();
+    try {
+      d.normalize();
+    } catch (AuToBIException e) {
+      AuToBIUtils.warn("Error in class weight calculation: " + e.getMessage());
+    }
 
     // Calculate the class weight
     Map<String, Double> weight_fn = new HashMap<String, Double>();

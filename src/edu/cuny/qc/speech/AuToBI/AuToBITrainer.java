@@ -110,15 +110,13 @@ public class AuToBITrainer {
       try {
 
         // Tone classification tasks ignore those points that do not have any associated prosodic event
-        if (task_label.equals("phrase_accent_classifier")) {
+        if (task_label.equals("phrase_accent_classification")) {
           autobi.getParameters()
-              .setParameter("attribute_omit", autobi.getTrueFeature("phrase_accent_classifier") + ":NOTONE");
-        } else if (task_label.equals("phrase_accent_boundary_tone_classifier")) {
+              .setParameter("attribute_omit", autobi.getTrueFeature("phrase_accent_classification") + ":NOTONE");
+        } else if (task_label.equals("phrase_accent_boundary_tone_classification")) {
           autobi.getParameters()
-              .setParameter("attribute_omit", autobi.getTrueFeature("phrase_accent_boundary_tone_classifier") + ":NOTONE");
-        } else if (task_label.equals("phrase_accent_classifier")) {
-          autobi.getParameters()
-              .setParameter("attribute_omit", autobi.getTrueFeature("phrase_accent_classifier") + ":NOTONE");
+              .setParameter("attribute_omit",
+                  autobi.getTrueFeature("phrase_accent_boundary_tone_classification") + ":NOTONE");
         } else {
           autobi.getParameters().setParameter("attribute_omit", "");
         }
