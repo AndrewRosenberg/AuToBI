@@ -1,0 +1,86 @@
+File type = "ooTextFile"
+Object class = "TextGrid"
+
+xmin = 0 
+xmax = 8.3773 
+tiers? <exists> 
+size = 3 
+item []: 
+    item [1]:
+        class = "TextTier" 
+        name = "tones" 
+        xmin = 0 
+        xmax = 8.3773 
+        points: size = 10 
+        points [1]:
+            time = 4.443236 
+            mark = "H*" 
+        points [2]:
+            time = 4.484864 
+            mark = "HiF0" 
+        points [3]:
+            time = 5.048724 
+            mark = "H*" 
+        points [4]:
+            time = 5.495271 
+            mark = "!H*" 
+        points [5]:
+            time = 5.540682 
+            mark = "L-" 
+        points [6]:
+            time = 5.570957 
+            mark = "H%" 
+        points [7]:
+            time = 6.184013 
+            mark = "H*" 
+        points [8]:
+            time = 6.199151 
+            mark = "HiF0" 
+        points [9]:
+            time = 6.5246 
+            mark = "!H*" 
+        points [10]:
+            time = 6.638129 
+            mark = "L-L%" 
+    item [2]:
+        class = "TextTier" 
+        name = "breaks" 
+        xmin = 0 
+        xmax = 8.3773 
+        points: size = 10 
+        points [1]:
+            time = 4.51463 
+            mark = "1" 
+        points [2]:
+            time = 4.71869 
+            mark = "1" 
+        points [3]:
+            time = 4.90456 
+            mark = "1" 
+        points [4]:
+            time = 5.14825 
+            mark = "1" 
+        points [5]:
+            time = 5.60306 
+            mark = "4" 
+        points [6]:
+            time = 5.67506 
+            mark = "0" 
+        points [7]:
+            time = 5.77944 
+            mark = "1" 
+        points [8]:
+            time = 5.94325 
+            mark = "1" 
+        points [9]:
+            time = 6.30319 
+            mark = "1" 
+        points [10]:
+            time = 6.74775 
+            mark = "4" 
+    item [3]:
+        class = "TextTier" 
+        name = "misc" 
+        xmin = 0 
+        xmax = 8.3773 
+        points: size = 0 
