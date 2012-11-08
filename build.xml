@@ -5,9 +5,9 @@
 		<fileset dir="lib" includes="*.jar"/>
 	</path>
 
-	<property name="classes" value="out/production/Release"/>
-	<property name="test-classes" value="out/test/Release"/>
-	<property name="test.data.dir" value="test_data"/>
+	<property name="classes" location="out/production/Release"/>
+	<property name="test-classes" location="out/test/Release"/>
+	<property name="test.data.dir" location="test_data"/>
 
 	<path id="test.classpath">
 		<fileset dir="lib" includes="*.jar"/>
