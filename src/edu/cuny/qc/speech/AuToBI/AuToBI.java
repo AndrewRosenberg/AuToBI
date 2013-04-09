@@ -223,8 +223,9 @@ public class AuToBI {
    */
   public void extractFeatures(FeatureSet fs) throws FeatureExtractorException, AuToBIException {
     initializeReferenceCounting(fs);
-    if (fs.getClassAttribute() != null)
+    if (fs.getClassAttribute() != null) {
       extractFeature(fs.getClassAttribute(), fs);
+    }
     extractFeatures(fs.getRequiredFeatures(), fs);
   }
 
@@ -258,8 +259,9 @@ public class AuToBI {
     dead_features = new HashSet<String>();
 
     Stack<String> features = new Stack<String>();
-    if (fs.getClassAttribute() != null)
+    if (fs.getClassAttribute() != null) {
       features.add(fs.getClassAttribute());
+    }
     features.addAll(fs.getRequiredFeatures());
 
     while (features.size() != 0) {
@@ -335,8 +337,9 @@ public class AuToBI {
    * @throws AuToBIException           If there are other problems
    */
   public void extractFeature(String feature, FeatureSet fs) throws FeatureExtractorException, AuToBIException {
-    if (!feature_registry.containsKey(feature))
+    if (!feature_registry.containsKey(feature)) {
       throw new AuToBIException("No feature extractor registered for feature: " + feature);
+    }
     FeatureExtractor extractor = feature_registry.get(feature);
     AuToBIUtils.debug("Start Feature Extraction for: " + feature);
     if (extractor != null) {
@@ -383,8 +386,10 @@ public class AuToBI {
     if (tasks.containsKey(task)) {
       AuToBITask autobi_task = tasks.get(task);
       return ClassifierUtils.evaluateClassification(autobi_task.getHypFeature(), autobi_task.getTrueFeature(), fs);
-    } else throw new AuToBIException(
-        "Task, " + task + ", is unavailable. Either no classifier has been set, or there is some other problem");
+    } else {
+      throw new AuToBIException(
+          "Task, " + task + ", is unavailable. Either no classifier has been set, or there is some other problem");
+    }
   }
 
   /**
@@ -402,8 +407,10 @@ public class AuToBI {
               autobi_task.getHypFeature(),
               autobi_task.getDefaultValue(),
               fs);
-    } else throw new AuToBIException(
-        "Task, " + task + ", is unavailable. Either no classifier has been set, or there is some other problem");
+    } else {
+      throw new AuToBIException(
+          "Task, " + task + ", is unavailable. Either no classifier has been set, or there is some other problem");
+    }
   }
 
   /**
@@ -422,8 +429,10 @@ public class AuToBI {
               autobi_task.getConfFeature(),
               autobi_task.getDefaultValue(),
               fs);
-    } else throw new AuToBIException(
-        "Task, " + task + ", is unavailable. Either no classifier has been set, or there is some other problem");
+    } else {
+      throw new AuToBIException(
+          "Task, " + task + ", is unavailable. Either no classifier has been set, or there is some other problem");
+    }
   }
 
   /**
@@ -440,8 +449,10 @@ public class AuToBI {
         throw new AuToBIException("Task, " + task + ", does not have an associated feature set");
       }
       return autobi_task.getFeatureSet().newInstance();
-    } else throw new AuToBIException(
-        "Task, " + task + ", is unavailable. Either no classifier has been set, or there is some other problem");
+    } else {
+      throw new AuToBIException(
+          "Task, " + task + ", is unavailable. Either no classifier has been set, or there is some other problem");
+    }
   }
 
   /**
@@ -455,8 +466,10 @@ public class AuToBI {
     if (tasks.containsKey(task)) {
       AuToBITask autobi_task = tasks.get(task);
       return autobi_task.getHypFeature();
-    } else throw new AuToBIException(
-        "Task, " + task + ", is unavailable. Either no feature name has been set, or there is some other problem");
+    } else {
+      throw new AuToBIException(
+          "Task, " + task + ", is unavailable. Either no feature name has been set, or there is some other problem");
+    }
   }
 
   /**
@@ -470,8 +483,10 @@ public class AuToBI {
     if (tasks.containsKey(task)) {
       AuToBITask autobi_task = tasks.get(task);
       return autobi_task.getTrueFeature();
-    } else throw new AuToBIException(
-        "Task, " + task + ", is unavailable. Either no feature name has been set, or there is some other problem");
+    } else {
+      throw new AuToBIException(
+          "Task, " + task + ", is unavailable. Either no feature name has been set, or there is some other problem");
+    }
   }
 
   /**
@@ -485,8 +500,10 @@ public class AuToBI {
     if (tasks.containsKey(task)) {
       AuToBITask autobi_task = tasks.get(task);
       return autobi_task.getDefaultValue();
-    } else throw new AuToBIException(
-        "Task, " + task + ", is unavailable. Either no feature name has been set, or there is some other problem");
+    } else {
+      throw new AuToBIException(
+          "Task, " + task + ", is unavailable. Either no feature name has been set, or there is some other problem");
+    }
   }
 
   /**
@@ -500,8 +517,10 @@ public class AuToBI {
     if (tasks.containsKey(task)) {
       AuToBITask autobi_task = tasks.get(task);
       return autobi_task.getDistFeature();
-    } else throw new AuToBIException(
-        "Task, " + task + ", is unavailable. Either no classifier has been set, or there is some other problem");
+    } else {
+      throw new AuToBIException(
+          "Task, " + task + ", is unavailable. Either no classifier has been set, or there is some other problem");
+    }
   }
 
   /**
@@ -515,8 +534,10 @@ public class AuToBI {
     if (tasks.containsKey(task)) {
       AuToBITask autobi_task = tasks.get(task);
       return autobi_task.getConfFeature();
-    } else throw new AuToBIException(
-        "Task, " + task + ", is unavailable. Either no classifier has been set, or there is some other problem");
+    } else {
+      throw new AuToBIException(
+          "Task, " + task + ", is unavailable. Either no classifier has been set, or there is some other problem");
+    }
   }
 
   /**
@@ -530,8 +551,10 @@ public class AuToBI {
     if (tasks.containsKey(task)) {
       AuToBITask autobi_task = tasks.get(task);
       return autobi_task.getClassifier();
-    } else throw new AuToBIException(
-        "Task, " + task + ", is unavailable. Either no classifier has been set, or there is some other problem");
+    } else {
+      throw new AuToBIException(
+          "Task, " + task + ", is unavailable. Either no classifier has been set, or there is some other problem");
+    }
   }
 
   /**
@@ -620,7 +643,7 @@ public class AuToBI {
   }
 
   /**
-   * TODO: This is duplicating work in AuToBIUtils.createTaskListFromParameters() clean this up. Initializes the Autobi
+   * Initializes the AutobI
    * task list.  This is driven by loading classifiers from serialized objects.
    * <p/>
    * When a classifier is correctly loaded a corresponding task object is created to handle the appropriate bookkeeping
@@ -786,11 +809,14 @@ public class AuToBI {
      * that are needed -- and recurse up the required features dependency graph.  The run feature extraction as usual.
      *
      * This will keep the registry small, though there is more overhead when you read the config file.  The other issue
-     * is how is config file gets propagated.  Can it be done automatically? or does the author of a new feature extractor
-     * need to write it manually?  Or one better, can we scan the featureextractor contents in memory?  This last step is
-     * a reach goal and will need to be a part of the next version.  I believe that it will require a more precise templating
+     * is how is config file gets propagated.  Can it be done automatically? or does the author of a new feature
+     * extractor
+     * need to write it manually?  Or one better, can we scan the featureextractor contents in memory?  This last
+     * step is
+     * a reach goal and will need to be a part of the next version.  I believe that it will require a more precise
+     * templating
      * of derived feature names.  This will require re-writing a lot of the feature extractors.  While worth it, this
-     * will take some person hours.  Possibly a good
+     * will take some person hours.  Possibly a good idea though.
      */
     registerNullFeatureExtractor("wav");
     String[] acoustic_features = new String[]{"f0", "log_f0", "I"};
@@ -1047,9 +1073,10 @@ public class AuToBI {
     String line;
     while ((line = reader.readLine()) != null) {
       String[] fields = line.split(",");
-      if (fields.length != 2)
+      if (fields.length != 2) {
         throw new AuToBIException("Malformed speaker normalization mapping file: " + speaker_normalization_file + "(" +
             reader.getLineNumber() + ") : " + line);
+      }
       speaker_norm_file_mapping.put(fields[0].trim(), fields[1].trim());
     }
   }
@@ -1078,9 +1105,14 @@ public class AuToBI {
             "Both -input_file and -cprom_file are entered.  Only one input file may be specified.");
       }
 
+      // TODO: support reading sph files.
       String wav_filename = getParameter("wav_file");
       WavReader reader = new WavReader();
       WavData wav = reader.read(wav_filename);
+
+      if (wav.getDuration() < 0.01) {
+        AuToBIUtils.warn("Input wave file is very short (less than 10ms).  This will likely cause problems.");
+      }
 
       String filename = getOptionalParameter("input_file");
       AuToBIWordReader word_reader;
@@ -1091,12 +1123,14 @@ public class AuToBI {
         file = new FormattedFile(getOptionalParameter("input_file"));
         word_reader = WordReaderUtils.getAppropriateReader(file, getParameters());
       } else if (hasParameter("cprom_file")) {
-        // Since both C-Prom files and other TextGrid files use the ".TextGrid" extension, the user needs to specify cprom files explicitly
+        // Since both C-Prom files and other TextGrid files use the ".TextGrid" extension,
+        // the user needs to specify cprom files explicitly
         file = new FormattedFile(getOptionalParameter("cprom_file"), FormattedFile.Format.CPROM);
         word_reader = WordReaderUtils.getAppropriateReader(file, getParameters());
       } else {
         AuToBIUtils.info(
-            "No -input_file or -cprom_file filename specified.  Generating segmentation based on acoustic pseudosyllabification.");
+            "No -input_file or -cprom_file filename specified.  Generating segmentation based on acoustic " +
+                "pseudosyllabification.");
         wav.setFilename(wav_filename);
         if (hasParameter("silence_threshold")) {
           Double threshold = Double.parseDouble(getParameter("silence_threshold"));
@@ -1132,6 +1166,11 @@ public class AuToBI {
       for (AuToBITask task : tasks.values()) {
         FeatureSet fs = task.getFeatureSet();
         AuToBIClassifier classifier = task.getClassifier();
+
+        if (classifier == null) {
+          AuToBIUtils.error("Classifier for task, " + task.getTrueFeature() + ", is unavailable. Check the filename.");
+          continue;
+        }
 
         String hyp_feature = task.getHypFeature();
         registerFeatureExtractor(new HypothesizedEventFeatureExtractor(hyp_feature, classifier, fs));

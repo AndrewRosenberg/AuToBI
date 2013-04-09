@@ -1,6 +1,6 @@
 /*  FormattedFile.java
 
-    Copyright (c) 2009-2011 Andrew Rosenberg
+    Copyright (c) 2009-2013 Andrew Rosenberg
 
     This file is part of the AuToBI prosodic analysis package.
 
@@ -26,7 +26,7 @@ package edu.cuny.qc.speech.AuToBI.io;
  * formatting.
  */
 public class FormattedFile {
-  public static enum Format {TEXTGRID, CPROM, BURNC, SIMPLE_WORD, SWB_NXT, BUCKEYE, KOH, DUR}
+  public static enum Format {TEXTGRID, CPROM, BURNC, SIMPLE_WORD, SWB_NXT, BUCKEYE, KOH, CONS_GZ, DUR, POSTING_LIST}
 
   public String filename;
   public Format format;
@@ -50,7 +50,7 @@ public class FormattedFile {
       this.format = FormattedFile.Format.BURNC;
     } else if (filestem.matches("s\\d\\d\\d\\d[ab].words")) {
       this.format = Format.BUCKEYE;
-    } else if (filename.toLowerCase().endsWith("words")) {
+    } else if (filename.toLowerCase().endsWith("words") || filename.toLowerCase().endsWith(".txt")) {
       this.format = FormattedFile.Format.SIMPLE_WORD;
     } else if (filename.toLowerCase().endsWith("terminals.xml")) {
       this.format = FormattedFile.Format.SWB_NXT;
@@ -58,6 +58,10 @@ public class FormattedFile {
       this.format = FormattedFile.Format.KOH;
     } else if (filename.endsWith("in")) {
       this.format = FormattedFile.Format.DUR;
+    } else if (filename.endsWith("cons.gz")) {
+      this.format = FormattedFile.Format.CONS_GZ;
+    } else if (filename.endsWith("kws_posting_list")) {
+      this.format = FormattedFile.Format.POSTING_LIST;
     }
   }
 

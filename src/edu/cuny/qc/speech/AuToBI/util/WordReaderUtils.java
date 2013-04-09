@@ -19,6 +19,7 @@
  */
 package edu.cuny.qc.speech.AuToBI.util;
 
+import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
 import edu.cuny.qc.speech.AuToBI.core.AuToBIParameters;
 import edu.cuny.qc.speech.AuToBI.io.*;
 
@@ -52,8 +53,9 @@ public class WordReaderUtils {
    * @return true if r is a silent region
    */
   public static boolean isSilentRegion(String label, String regex) {
-    if (regex == null)
+    if (regex == null) {
       regex = DEFAULT_SILENCE_REGEX;
+    }
     if (label != null && label.length() > 0 && !label.matches(regex)) {
       return false;
     }
@@ -84,7 +86,14 @@ public class WordReaderUtils {
         reader = new BURNCReader(filename.replace(".ala", ""));
         break;
       case SIMPLE_WORD:
-        reader = new SimpleWordReader(filename);
+        if (params.hasParameter("ortho_idx") && params.hasParameter("start_idx") && params.hasParameter("end_idx")) {
+          reader = new SimpleWordReader(filename, params.getOptionalParameter("charset"),
+              Integer.parseInt(params.getOptionalParameter("ortho_idx")),
+              Integer.parseInt(params.getOptionalParameter("start_idx")),
+              Integer.parseInt(params.getOptionalParameter("end_idx")));
+        } else {
+          reader = new SimpleWordReader(filename, params.getOptionalParameter("charset"));
+        }
         break;
       case SWB_NXT:
         reader = new SwitchboardNXTReader(filename.replace(".terminals.xml", ""));
@@ -97,6 +106,17 @@ public class WordReaderUtils {
         break;
       case DUR:
         reader = new DURReader(filename);
+        break;
+      case CONS_GZ:
+        reader = new ConsGZReader(filename, params.getOptionalParameter("charset"));
+        break;
+      case POSTING_LIST:
+        try {
+          reader = new PostingListReader(filename, params.getParameter("target_stem"));
+        } catch (AuToBIException e) {
+          AuToBIUtils.error(e.getMessage());
+          return null;
+        }
         break;
       default:
         reader = new TextGridReader(filename);

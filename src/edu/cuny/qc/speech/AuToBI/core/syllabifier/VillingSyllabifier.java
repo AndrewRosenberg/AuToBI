@@ -1,6 +1,6 @@
-/*  Syllabifier.java
+/*  VillingSyllabifier.java
 
-    Copyright 2009-2010 Andrew Rosenberg
+    Copyright 2009-2012 Andrew Rosenberg
     An implementation of a technique described in
       Villing et al. (2004) Automatic Blind Syllable Segmentation for Continuous Speech In: Irish Signals and Systems
       Conference 2004, 30 June - 2 July 2004, Queens University, Belfast.
@@ -20,7 +20,7 @@
     You should have received a copy of the GNU General Public License
     along with AuToBI.  If not, see <http://www.gnu.org/licenses/>.
  */
-package edu.cuny.qc.speech.AuToBI;
+package edu.cuny.qc.speech.AuToBI.core.syllabifier;
 
 import edu.cuny.qc.speech.AuToBI.core.Pair;
 import edu.cuny.qc.speech.AuToBI.core.Region;
@@ -38,17 +38,19 @@ import java.util.ArrayList;
 /**
  * A class to generate pseudosyllable hypotheses.
  * <p/>
- * This is based on a procedure described in Villing et al. (2004) Automatic Blind Syllable Segmentation for Continuous Speech
+ * This is based on a procedure described in Villing et al. (2004) Automatic Blind Syllable Segmentation for
+ * Continuous Speech
  * In: Irish Signals and Systems Conference 2004, 30 June - 2 July 2004, Queens University, Belfast.
  */
-public class Syllabifier {
+public class VillingSyllabifier extends Syllabifier {
 
   /**
    * Generate pseudosyllable regions based on the Villing (2004) envelope based approach.
    * <p/>
    * Note: currently only works with 16kHz wav files.
    * <p/>
-   * Also worth observing, the second normalized envelope and 'cs' coefficients are described in the initial Villing paper,
+   * Also worth observing, the second normalized envelope and 'cs' coefficients are described in the initial Villing
+   * paper,
    * though are not used in the generation of bypotheses.  For completeness, the calculation of this envelope and
    * coefficients are included in comments within this function.  If we find that there is a use for this information
    * this will facilitate insertion of this information with minimal implementation.
@@ -80,11 +82,11 @@ public class Syllabifier {
     double[] env_3 = fullWaveRectification(wav_3);
 
     env_3 = reverse(filter(smoothing_filter.first, smoothing_filter.second,
-                           reverse(filter(smoothing_filter.first, smoothing_filter.second, env_3))));
+        reverse(filter(smoothing_filter.first, smoothing_filter.second, env_3))));
     // env_2 = reverse(filter(smoothing_filter.first, smoothing_filter.second,
     //                        reverse(filter(smoothing_filter.first, smoothing_filter.second, env_2))));
     env_1 = reverse(filter(smoothing_filter.first, smoothing_filter.second,
-                           reverse(filter(smoothing_filter.first, smoothing_filter.second, env_1))));
+        reverse(filter(smoothing_filter.first, smoothing_filter.second, env_1))));
 
     env_3 = downsample(env_3, 160);
     // env_2 = downsample(env_2, 160);
@@ -97,13 +99,15 @@ public class Syllabifier {
     // double[] norm_env_2 = array_div(env_2, env_3);
     double[] norm_env_1 = array_div(env_1, env_3);
 
+
     double[] env_vel = array_diff(env_3);
     double[] onset_vel = env_vel;
 
     // Perform half wave rectification on the onset velocity.
     for (int i = 0; i < onset_vel.length; ++i) {
-      if (onset_vel[i] < 0)
+      if (onset_vel[i] < 0) {
         onset_vel[i] = 0;
+      }
     }
 
     // Identify boundaries
@@ -186,8 +190,9 @@ public class Syllabifier {
    */
   public ArrayList<Region> generateRegionsFromPoints(ArrayList<Double> boundary_list) {
     ArrayList<Region> regions = new ArrayList<Region>();
-    if (boundary_list.size() == 0)
+    if (boundary_list.size() == 0) {
       return regions;
+    }
     for (int i = 1; i < boundary_list.size(); ++i) {
       regions.add(new Region(boundary_list.get(i - 1), boundary_list.get(i)));
     }
@@ -208,8 +213,9 @@ public class Syllabifier {
           (idx < peak_frames.get(i) + 1600 && idx > peak_frames.get(i))) {
         response = true;
       }
-      if (idx.equals(peak_frames.get(i)))
+      if (idx.equals(peak_frames.get(i))) {
         return false;
+      }
     }
 
     return response;
@@ -256,10 +262,11 @@ public class Syllabifier {
     }
     if (in_peak) {
       onset_ends.add(onset_vel.length - 1);
-      if (max_idx == -1)
+      if (max_idx == -1) {
         onset_peaks.add(onset_vel.length - 1);
-      else
+      } else {
         onset_peaks.add(max_idx);
+      }
     }
   }
 
@@ -405,10 +412,11 @@ public class Syllabifier {
    * This is based on an SPL equal loundess filter, then generating a 8-order filter coefficients using
    * Yule-Walker equations.
    *
-   * @return yule walker filter coeffiencients, the first element is the numerator coefficients, the second the denominator
+   * @return yule walker filter coeffiencients, the first element is the numerator coefficients,
+   *         the second the denominator
    */
   private Pair<double[], double[]> getYuleWalkFilterCoefficients
-      () {
+  () {
     double[] numerator = {0.5265, -0.0254, -0.2860, -0.1221, -0.0060, 0.1186, 0.0975, -0.0884, -0.0849};
 
     double[] denominator = {1, -0.4667, 0.0691, -0.2148, -0.0706, 0.1136, 0.0974, -0.1088, 0.0437};
@@ -421,10 +429,11 @@ public class Syllabifier {
    * <p/>
    * Note: only appropriate if the sample rate is 16khz
    *
-   * @return butterworth filter coeffiencients, the first element is the numerator coefficients, the second the denominator
+   * @return butterworth filter coeffiencients, the first element is the numerator coefficients,
+   *         the second the denominator
    */
   private Pair<double[], double[]> get150hzHighPassFilterCoefficients
-      () {
+  () {
     double[] numerator = {0.9592, -1.9184, 0.9592};
 
     double[] denominator = {1, -1.9167, 0.9201};
@@ -436,10 +445,11 @@ public class Syllabifier {
    * <p/>
    * Note: only appropriate if the sample rate is 16khz
    *
-   * @return butterworth filter coeffiencients, the first element is the numerator coefficients, the second the denominator
+   * @return butterworth filter coeffiencients, the first element is the numerator coefficients,
+   *         the second the denominator
    */
   private Pair<double[], double[]> get1khzLowPassFilterCoefficients
-      () {
+  () {
     double[] numerator = {0.0300, 0.0599, 0.0300};
 
     double[] denominator = {1, -1.4542, 0.5741};
@@ -451,10 +461,11 @@ public class Syllabifier {
    * <p/>
    * Note: only appropriate if the sample rate is 16khz
    *
-   * @return butterworth filter coeffiencients, the first element is the numerator coefficients, the second the denominator
+   * @return butterworth filter coeffiencients, the first element is the numerator coefficients,
+   *         the second the denominator
    */
   private Pair<double[], double[]> get3khzLowPassFilterCoefficients
-      () {
+  () {
     double[] numerator = {0.1867, 0.3734, 0.1867};
 
     double[] denominator = {1, -0.4629, 0.2097};
@@ -466,7 +477,8 @@ public class Syllabifier {
    * <p/>
    * Note: only appropriate if the sample rate is 16khz
    *
-   * @return butterworth filter coeffiencients, the first element is the numerator coefficients, the second the denominator
+   * @return butterworth filter coeffiencients, the first element is the numerator coefficients,
+   *         the second the denominator
    */
   private Pair<double[], double[]> getSmoothingFilterCoefficients() {
     double[] numerator = {0.0024, 0.0024};
@@ -555,7 +567,7 @@ public class Syllabifier {
    * @param bottom    the bottom of the score range
    * @param top       the top of the score range
    * @return an array of scores
-   * @see Syllabifier#score(double[], int, double, double) score()
+   * @see VillingSyllabifier#score(double[], int, double, double) score()
    */
   public double[] array_score(double[] array, Integer[] idx_array, double bottom, double top) {
     double[] scores = new double[idx_array.length];
@@ -578,7 +590,7 @@ public class Syllabifier {
           "Syllabifier only operates on 16khz wav files. Consider changing the sample rate with an external tool.");
     }
 
-    Syllabifier syllableFactory = new Syllabifier();
+    VillingSyllabifier syllableFactory = new VillingSyllabifier();
     List<Region> syllables = syllableFactory.generatePseudosyllableRegions(wav);
 
     System.out.println("Hypothesized Syllable Regions");

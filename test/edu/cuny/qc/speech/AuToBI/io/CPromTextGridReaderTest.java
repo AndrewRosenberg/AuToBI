@@ -76,7 +76,8 @@ public class CPromTextGridReaderTest {
   @Test
   public void testReadWordsCorrectlySetsLabels() {
     String[] expected_labels =
-        "voilà donc vous avez bien perçu même intuitivement qu' il|y avait euh des choses issues de radios commerciales ou de radios classiques etcaetera"
+        ("voil√† donc vous avez bien per√ßu m√™me intuitivement qu' il|y avait euh des choses issues de radios " +
+            "commerciales ou de radios classiques etcaetera")
             .split(" ");
 
     try {

@@ -33,6 +33,8 @@ public class ContourFeatureExtractor extends FeatureExtractor {
   protected String attribute_name;  // the name of the feature name to analyze
 
   private List<ContextNormalizedFeatureExtractor> cnfes;  // associated context normalized feature extractors
+  private List<TemporalContextNormalizedFeatureExtractor> tcnfes;
+  // associated temporal context normalized feature extractors
 
   /**
    * Constructs a new ContourFeatureExtractor with associated values and attribute name.
@@ -73,6 +75,13 @@ public class ContourFeatureExtractor extends FeatureExtractor {
       cnfes.add(new ContextNormalizedFeatureExtractor(this.attribute_name, context));
     }
 
+    tcnfes = new ArrayList<TemporalContextNormalizedFeatureExtractor>();
+    for (int prev = 0; prev < 3; prev++) {
+      for (int foll = 0; foll < 3; foll++) {
+        tcnfes.add(new TemporalContextNormalizedFeatureExtractor(this.attribute_name, 400 * prev, 400 * foll));
+      }
+    }
+
     extracted_features = new ArrayList<String>();
     extracted_features.add(this.attribute_name + "__max");
     extracted_features.add(this.attribute_name + "__min");
@@ -84,6 +93,10 @@ public class ContourFeatureExtractor extends FeatureExtractor {
 
     for (ContextNormalizedFeatureExtractor cnfe : cnfes) {
       extracted_features.addAll(cnfe.getExtractedFeatures());
+    }
+
+    for (TemporalContextNormalizedFeatureExtractor tcnfe : tcnfes) {
+      extracted_features.addAll(tcnfe.getExtractedFeatures());
     }
 
     required_features.add(this.attribute_name);
@@ -126,6 +139,10 @@ public class ContourFeatureExtractor extends FeatureExtractor {
 
     for (ContextNormalizedFeatureExtractor cnfe : cnfes) {
       cnfe.extractFeatures(regions, context_regions);
+    }
+
+    for (TemporalContextNormalizedFeatureExtractor tcnfe : tcnfes) {
+      tcnfe.extractFeatures(regions);
     }
   }
 

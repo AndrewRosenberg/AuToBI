@@ -71,6 +71,10 @@ public class IntensityExtractor extends SampledDataAnalyzer {
    * @return a list of intensity points.
    */
   public Contour soundToIntensity(double min_pitch, double time_step, boolean subtract_mean_pressure) {
+    if (wav.getDuration() < time_step) {
+      // The wav data is empty, return an empty contour.
+      return new Contour(0.0, time_step, 0);
+    }
     if (time_step <= 0.0) time_step = 0.8 / min_pitch;   /* Default: four times oversampling Hanning-wise. */
 
     int i, iframe, numberOfFrames;
@@ -172,11 +176,11 @@ public class IntensityExtractor extends SampledDataAnalyzer {
     WavData wav;
     try {
 
-      if (args.length > 1)
+      if (args.length > 1) {
         wav = reader.read(soundIn, Double.parseDouble(args[1]), Double.parseDouble(args[2]));
-
-      else
+      } else {
         wav = reader.read(soundIn);
+      }
       System.out.println(wav.sampleRate);
       System.out.println(wav.sampleSize);
       System.out.println(wav.getFrameSize());

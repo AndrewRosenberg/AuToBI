@@ -1,10 +1,11 @@
 package edu.cuny.qc.speech.AuToBI.io;
 
-import edu.cuny.qc.speech.AuToBI.Syllabifier;
+import edu.cuny.qc.speech.AuToBI.core.syllabifier.Syllabifier;
 import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
 import edu.cuny.qc.speech.AuToBI.core.Region;
 import edu.cuny.qc.speech.AuToBI.core.WavData;
 import edu.cuny.qc.speech.AuToBI.core.Word;
+import edu.cuny.qc.speech.AuToBI.core.syllabifier.VillingSyllabifier;
 import edu.cuny.qc.speech.AuToBI.featureextractor.ContourFeatureExtractor;
 import edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException;
 import edu.cuny.qc.speech.AuToBI.featureextractor.IntensityFeatureExtractor;
@@ -20,7 +21,7 @@ import java.util.List;
  * The syllabified is based on the approach described in Villing et al. (2004) Automatic Blind Syllable Segmentation for
  * Continuous Speech In: Irish Signals and Systems Conference 2004, 30 June - 2 July 2004, Queens University, Belfast.
  *
- * @see edu.cuny.qc.speech.AuToBI.Syllabifier
+ * @see edu.cuny.qc.speech.AuToBI.core.syllabifier.Syllabifier
  * @see AuToBIWordReader
  */
 public class PseudosyllableWordReader extends AuToBIWordReader {
@@ -72,7 +73,7 @@ public class PseudosyllableWordReader extends AuToBIWordReader {
 
   @Override
   public List<Word> readWords() throws IOException, AuToBIException {
-    Syllabifier syllabifier = new Syllabifier();
+    Syllabifier syllabifier = new VillingSyllabifier();
     List<Region> regions = syllabifier.generatePseudosyllableRegions(wav_data);
     for (Region r : regions) {
       r.setAttribute("wav", wav_data);
@@ -96,7 +97,8 @@ public class PseudosyllableWordReader extends AuToBIWordReader {
     }
 
     if (annotation_file != null) {
-      // TODO: include a way to read ToBI annotations from an annotation file and align to the pseudosyllable words.
+      // TODO: include a way to read ToBI annotations from an annotation file and align to the pseudosyllable words
+      // for evaluation.
       // Sample code:
 //      TextGridReader reader = new TextGridReader(annotation_file);
 //      reader.readWords();

@@ -50,13 +50,13 @@ public class TextGridTier extends Tier {
       if (line.matches("item\\s\\[[\\d]+\\]:")) {
         return true;
       }
-      if (line.contains("class = \"IntervalTier\"")) {
+      if (line.matches("class = \"IntervalTier\"")) {
         is_point_tier = false;
       }
-      if (line.contains("class = \"TextTier\"")) {
+      if (line.matches("class ?= ?\"TextTier\"")) {
         is_point_tier = true;
-      } else if (line.contains("name = ")) {
-        name = line.replaceFirst("name = \"(.*?)\"", "$1");
+      } else if (line.matches("name ?= ?.*")) {
+        name = line.replaceFirst("name ?= ?\"(.*?)\"", "$1");
       } else if (line.matches("points\\s\\[[\\d]+\\]:")) {
         if (!is_point_tier) {
           throw new TextGridSyntaxErrorException("Found point label in interval tier.");
@@ -82,19 +82,21 @@ public class TextGridTier extends Tier {
   protected void addPoint(AuToBIFileReader reader)
       throws IOException, TextGridSyntaxErrorException {
     String time = AuToBIReaderUtils.removeTabsAndTrim(reader.readLine());
-    if (time == null || !(time.contains("time =") || time.contains("number =")))
+    if (time == null || !(time.matches("time ?=.*") || time.matches("number ?=.*"))) {
       throw new TextGridSyntaxErrorException("missing point at line: " + reader.getLineNumber());
+    }
 
-    time = time.replace("time = ", "").trim();
-    time = time.replace("number = ", "").trim();
+    time = time.replaceFirst("time ?= ?", "").trim();
+    time = time.replaceFirst("number ?= ?", "").trim();
     Region region = new Region(Double.valueOf(time));
     region.setFile(reader.getFilename());
 
     String mark = AuToBIReaderUtils.removeTabsAndTrim(reader.readLine());
-    if (mark == null || !mark.contains("mark ="))
+    if (mark == null || !mark.matches("mark ?=.*")) {
       throw new TextGridSyntaxErrorException("missing mark at line: " + reader.readLine());
+    }
 
-    mark = mark.replaceAll("mark = \"(.*?)\"", "$1").trim();
+    mark = mark.replaceAll("mark ?= ?\"(.*?)\"", "$1").trim();
     region.setLabel(mark);
     regions.add(region);
   }
@@ -109,25 +111,28 @@ public class TextGridTier extends Tier {
   protected void addInterval(AuToBIFileReader reader)
       throws IOException, TextGridSyntaxErrorException {
     String xmin = AuToBIReaderUtils.removeTabsAndTrim(reader.readLine());
-    if (xmin == null || !xmin.contains("xmin ="))
+    if (xmin == null || !xmin.matches("xmin ?=.*")) {
       throw new TextGridSyntaxErrorException("missing xmin at line: " + reader.getLineNumber());
+    }
 
-    xmin = xmin.replace("xmin = ", "").trim();
+    xmin = xmin.replaceFirst("xmin ?= ?", "").trim();
 
     String xmax = AuToBIReaderUtils.removeTabsAndTrim(reader.readLine());
-    if (xmax == null || !xmax.contains("xmax ="))
+    if (xmax == null || !xmax.matches("xmax ?=.*")) {
       throw new TextGridSyntaxErrorException("missing xmax at line: " + reader.getLineNumber());
+    }
 
-    xmax = xmax.replace("xmax = ", "").trim();
+    xmax = xmax.replaceFirst("xmax ?= ?", "").trim();
 
     Region region = new Region(Double.valueOf(xmin), Double.valueOf(xmax));
     region.setFile(reader.getFilename());
 
     String text = AuToBIReaderUtils.removeTabsAndTrim(reader.readLine());
-    if (text == null || !text.contains("text ="))
+    if (text == null || !text.matches("text ?=.*")) {
       throw new TextGridSyntaxErrorException("missing mark at line: " + reader.getLineNumber());
+    }
 
-    text = text.replaceAll("text = \"(.*?)\"", "$1").trim();
+    text = text.replaceAll("text ?= ?\"(.*?)\"", "$1").trim();
     region.setLabel(text);
 
     regions.add(region);

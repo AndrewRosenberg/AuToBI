@@ -20,20 +20,13 @@
 package edu.cuny.qc.speech.AuToBI;
 
 import edu.cuny.qc.speech.AuToBI.core.*;
-import edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException;
 import edu.cuny.qc.speech.AuToBI.io.WavReader;
 import org.junit.Test;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 /**
  * Test class for PitchExtractor.
@@ -42,7 +35,7 @@ public class PitchExtractorTest {
 
   @Test
   public void testPitchExtractorRunsWithoutException() {
-    String inFile = "/Users/andrew/projects/bdc/read/h1r0.wav";
+    String inFile = System.getenv().get("AUTOBI_TEST_DIR") + "/test.wav";
     WavReader reader = new WavReader();
     WavData inWave = null;
     try {
@@ -58,7 +51,7 @@ public class PitchExtractorTest {
     try {
       Contour c = pe.soundToPitch();
     } catch (AuToBIException e) {
-      e.printStackTrace();
+      fail();
     }
   }
 }

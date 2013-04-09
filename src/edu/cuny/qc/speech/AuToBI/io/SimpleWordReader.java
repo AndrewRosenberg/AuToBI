@@ -85,7 +85,8 @@ public class SimpleWordReader extends AuToBIWordReader {
 
     if (ortho_idx == start_idx || ortho_idx == end_idx || start_idx == end_idx) {
       AuToBIUtils.error(
-          "Orthographic, Start and End indices should be unique in SimpleWordReader.  Using defaults, ortho: 0, start: 1, end: 2");
+          "Orthographic, Start and End indices should be unique in SimpleWordReader.  Using defaults, ortho: 0, " +
+              "start: 1, end: 2");
       this.ortho_idx = 0;
       this.start_idx = 1;
       this.end_idx = 2;
@@ -124,7 +125,7 @@ public class SimpleWordReader extends AuToBIWordReader {
         throw new AuToBIException("End time before start time on line " + file_reader.getLineNumber() + " - " + line);
       }
 
-      words.add(new Word(start, end, data[ortho_idx]));
+      words.add(new Word(start, end, data[ortho_idx], null, filename));
     }
 
     return words;
