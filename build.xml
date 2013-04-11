@@ -1,63 +1,94 @@
 <?xml version="1.0"?>
 
 <project name="AuToBI" default="jar">
-    <path id="project.classpath">
-        <fileset dir="lib" includes="*.jar"/>
-    </path>
+	<path id="project.classpath">
+		<fileset dir="lib" includes="*.jar"/>
+	</path>
 
-    <property name="classes" value="out/production/Release"/>
-    <property name="test-classes" value="out/test/Release"/>
-    <property name="test.data.dir" value="test_data"/>
+	<property name="classes" location="out/production/Release"/>
+	<property name="test-classes" location="out/test/Release"/>
+	<property name="test.data.dir" location="test_data"/>
 
-    <path id="test.classpath">
-        <fileset dir="lib" includes="*.jar"/>
-        <pathelement location="${classes}"/>
-        <pathelement location="${test-classes}"/>
-    </path>
+	<path id="test.classpath">
+		<fileset dir="lib" includes="*.jar"/>
+		<pathelement location="${classes}"/>
+		<pathelement location="${test-classes}"/>
+	</path>
 
-    <target name="compile">
-        <mkdir dir="out/production/Release"/>
-        <javac srcdir="src" destdir="out/production/Release" classpathref="project.classpath" debug="true"
+	<target name="compile">
+		<mkdir dir="${classes}"/>
+		<javac srcdir="src" destdir="${classes}" classpathref="project.classpath" debug="true"
                includeantruntime="false"/>
-    </target>
+	</target>
 
-    <target name="compile-test" depends="compile">
-        <mkdir dir="out/test"/>
-        <javac srcdir="test" destdir="out/test/Release" classpathref="test.classpath" debug="true"
+	<target name="compile-test" depends="compile">
+		<mkdir dir="${test-classes}"/>
+		<mkdir dir="${test-classes}/results"/>
+		<javac srcdir="test" destdir="${test-classes}" classpathref="test.classpath" debug="true"
                includeantruntime="false"/>
-    </target>
+	</target>
 
-    <target name="jar" depends="compile">
-        <jar destfile="AuToBI.jar">
-            <zipfileset dir="out/production/Release/" prefix=""/>
-            <zipfileset src="lib/commons-math-2.1.jar"/>
-            <zipfileset src="lib/jakarta-oro-2.1-dev-1.jar"/>
-            <zipfileset src="lib/jnt_fft.jar"/>
-            <zipfileset src="lib/log4j-1.2.15.jar"/>
-            <zipfileset src="lib/weka.jar"/>
-            <manifest>
-                <attribute name="Main-Class" value="edu.cuny.qc.speech.AuToBI.AuToBI"/>
-            </manifest>
-        </jar>
-    </target>
+	<target name="jar" depends="compile">
+		<jar destfile="AuToBI.jar">
+			<zipfileset dir="${classes}/" prefix=""/>
+			<zipfileset src="lib/commons-math-2.1.jar"/>
+			<zipfileset src="lib/jakarta-oro-2.1-dev-1.jar"/>
+			<zipfileset src="lib/jnt_fft.jar"/>
+			<zipfileset src="lib/log4j-1.2.15.jar"/>
+			<zipfileset src="lib/weka.jar"/>
+			<manifest>
+				<attribute name="Main-Class" value="edu.cuny.qc.speech.AuToBI.AuToBI"/>
+			</manifest>
+		</jar>
+	</target>
 
-    <target name="clean">
-        <delete dir="out/"/>
-    </target>
+	<target name="clean">
+		<delete dir="out/"/>
+	</target>
 
-    <target name="test" depends="compile-test">
-        <property name="test.class.name" value="edu.cuny.qc.speech.AuToBI.AuToBITest"/>
-        <junit fork="yes" haltonfailure="no" printsummary="yes">
-            <env key="AUTOBI_TEST_DIR" value="${test.data.dir}"/>
-            <batchtest fork="yes">
-                <fileset dir="test">
-                    <include name="**/*Test*.java"/>
-                </fileset>
-            </batchtest>
+	<target name="test" depends="compile-test">
+		<property name="test.class.name" value="edu.cuny.qc.speech.AuToBI.AuToBITest"/>
+		<junit fork="yes" haltonfailure="no" printsummary="yes" failureProperty="test.failure">
+			<env key="AUTOBI_TEST_DIR" value="${test.data.dir}"/>
+			<batchtest fork="yes" todir="${test-classes}/results">
+				<fileset dir="test">
+					<include name="**/*Test*.java"/>
+				</fileset>
+			</batchtest>
 
-            <!-- only output failed tests -->
-            <formatter type="brief" usefile="false"/>
-            <classpath refid="test.classpath"/>
-        </junit>
-    </target>
+
+			<!-- use XML formatter and let it output to file and plain text file -->
+			<formatter type="plain"/>
+			<formatter type="xml"/>
+
+			<classpath refid="test.classpath"/>
+		</junit>
+
+		<!-- generate report with junitreport -->
+		<junitreport todir="${test-classes}">
+			<fileset dir="${test-classes}/results" />
+			<report todir="${test-classes}/report" />
+		</junitreport>
+
+		<!-- concat the report through a filter chain to extract what you want -->
+		<concat>
+			<fileset file="${test-classes}/report/overview-summary.html" />
+			<filterchain>
+				<linecontainsregexp>
+					<regexp pattern='title="Display all tests"' />
+				</linecontainsregexp>
+				<tokenfilter>
+					<replaceregex pattern='.*href="all-tests.html"&gt;(\d+)&lt;.*href="alltests-fails.html"&gt;(\d+)&lt;.*href="alltests-errors.html"&gt;(\d+).*' replace="Run: \1, Failed: \2, Errors: \3.
+					HTML Report generated on ${test-classes}/report/index.html" />
+				</tokenfilter>
+			</filterchain>
+		</concat>
+
+		<fail message="FAILING - JUnit tests failed." if="test.failure" />
+
+	</target>
+
+
+
+
 </project>
