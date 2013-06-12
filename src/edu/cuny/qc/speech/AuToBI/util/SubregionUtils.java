@@ -19,10 +19,7 @@
  */
 package edu.cuny.qc.speech.AuToBI.util;
 
-import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
-import edu.cuny.qc.speech.AuToBI.core.Region;
-import edu.cuny.qc.speech.AuToBI.core.WavData;
-import edu.cuny.qc.speech.AuToBI.core.Word;
+import edu.cuny.qc.speech.AuToBI.core.*;
 import edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException;
 
 import java.util.List;
@@ -89,8 +86,9 @@ public class SubregionUtils {
             best_subregion = current_subregion;
           }
           ++i;
-          if (i < subregions.size())
+          if (i < subregions.size()) {
             current_subregion = subregions.get(i);
+          }
         }
         w.setAttribute(feature_name, best_subregion);
       }

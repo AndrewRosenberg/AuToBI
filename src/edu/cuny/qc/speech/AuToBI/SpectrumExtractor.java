@@ -19,10 +19,7 @@
  */
 package edu.cuny.qc.speech.AuToBI;
 
-import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
-import edu.cuny.qc.speech.AuToBI.core.SampledDataAnalyzer;
-import edu.cuny.qc.speech.AuToBI.core.Spectrum;
-import edu.cuny.qc.speech.AuToBI.core.WavData;
+import edu.cuny.qc.speech.AuToBI.core.*;
 import edu.cuny.qc.speech.AuToBI.io.WavReader;
 import jnt.FFT.RealDoubleFFT_Radix2;
 
@@ -71,8 +68,9 @@ public class SpectrumExtractor extends SampledDataAnalyzer {
     double[] window = constructHanningWindow(hanning_window_samples);
 
     int nfft = 256;
-    while (nfft < window.length)
+    while (nfft < window.length) {
       nfft *= 2;
+    }
 
     if (n_frames < 1) {
       return null;

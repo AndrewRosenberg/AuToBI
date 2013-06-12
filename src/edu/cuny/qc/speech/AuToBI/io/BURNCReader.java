@@ -58,6 +58,7 @@ public class BURNCReader extends AuToBIWordReader {
    * word.
    */
   public BURNCReader(String filestem, String phone_feature) {
+    // TODO: clear any extension if present.
     this.filestem = filestem;
     this.phone_feature = phone_feature;
   }

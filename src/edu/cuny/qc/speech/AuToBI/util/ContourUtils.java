@@ -46,8 +46,9 @@ public class ContourUtils {
    * @param feature_name The feature name to store the contour on the regions
    */
   public static void assignValuesToOrderedRegions(List regions, Contour contour, String feature_name) {
-    if (regions.size() == 0)
+    if (regions.size() == 0) {
       return;
+    }
     int i = 0;
     Region current = (Region) regions.get(i);
     Contour attr = new Contour(current.getStart(), contour.getStep(),
@@ -155,8 +156,9 @@ public class ContourUtils {
     if (start > end) {
       throw new AuToBIException("start (" + start + ") greater than end (" + end + ")");
     }
-    if (contour == null)
+    if (contour == null) {
       throw new AuToBIException("Null Contour.");
+    }
     if (contour.size() == 0) return null;
     int start_idx = contour.indexFromTimeCeil(start);
     int end_idx = contour.indexFromTimeFloor(end);
@@ -323,29 +325,29 @@ public class ContourUtils {
   /**
    * Generates a delta contour from raw data.
    * <p/>
-   * The resulting points are the first order difference of subsequent values and they are placed in time between the
-   * surrounding points.
+   * The resulting points are the first order difference of subsequent values.  This is calculated as x[t+1] - x[t-1].
+   * The delta contour has the same size as the original contour.  The values at the start and end are set to empty.
    *
-   * @param values The initial values
+   * @param x The initial values
    * @return The delta values
    */
-  public static Contour generateDeltaContour(Contour values) {
-    Contour d_contour;
-    if (values.size() > 0) {
-      d_contour = new Contour(values.getStart() + values.getStep() / 2, values.getStep(), values.size() - 1);
-      for (int i = 0; i < values.size() - 1; ++i) {
-        if (values.isEmpty(i) || values.isEmpty(i + 1)) {
-          d_contour.setEmpty(i);
+  public static Contour generateDeltaContour(Contour x) {
+    Contour de_x;
+    if (x.size() > 0) {
+      de_x = new Contour(x.getStart(), x.getStep(), x.size());
+      for (int i = 0; i < x.size() - 1; ++i) {
+        if (x.isEmpty(i) || x.isEmpty(i + 1) || x.isEmpty(i - 1)) {
+          de_x.setEmpty(i);
         } else {
-          double value = (values.get(i + 1) - values.get(i)) / values.getStep();
-          d_contour.set(i, value);
+          double value = (x.get(i + 1) - x.get(i - 1));
+          de_x.set(i, value);
         }
       }
     } else {
-      d_contour = new Contour(values.getStart() + values.getStep() / 2, values.getStep(), 0);
+      de_x = new Contour(x.getStart(), x.getStep(), 0);
     }
 
-    return d_contour;
+    return de_x;
   }
 
   /**

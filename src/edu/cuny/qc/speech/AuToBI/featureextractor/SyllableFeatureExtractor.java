@@ -20,10 +20,7 @@
 
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
-import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
-import edu.cuny.qc.speech.AuToBI.core.FeatureExtractor;
-import edu.cuny.qc.speech.AuToBI.core.Region;
-import edu.cuny.qc.speech.AuToBI.core.Word;
+import edu.cuny.qc.speech.AuToBI.core.*;
 import edu.cuny.qc.speech.AuToBI.io.AuToBIFileReader;
 import edu.cuny.qc.speech.AuToBI.util.PhoneUtils;
 
@@ -110,7 +107,7 @@ public class SyllableFeatureExtractor extends FeatureExtractor {
   @Override
   public void extractFeatures(List regions) throws FeatureExtractorException {
     for (Word w : (List<Word>) regions) {
-      List<Region> syllables;
+      List<SubWord> syllables;
       if (lexicon.containsKey(lexiconKey(w.getLabel()))) {
         try {
           syllables =
@@ -135,10 +132,10 @@ public class SyllableFeatureExtractor extends FeatureExtractor {
    * @param phones a list of phones
    * @return a list of syllables
    */
-  private List<Region> constructCVSyllables(List<Region> phones) {
-    List<Region> syllables = new ArrayList<Region>();
+  private List<SubWord> constructCVSyllables(List<Region> phones) {
+    List<SubWord> syllables = new ArrayList<SubWord>();
 
-    Region current_syllable = new Region(0.0, 0.0);
+    SubWord current_syllable = new SubWord(0.0, 0.0, "");
     List<Region> current_phones = new ArrayList<Region>();
     for (Region phone : phones) {
       current_phones.add(phone);
@@ -155,7 +152,7 @@ public class SyllableFeatureExtractor extends FeatureExtractor {
         current_syllable.setAttribute(phone_feature, current_phones);
         syllables.add(current_syllable);
 
-        current_syllable = new Region(0.0, 0.0);
+        current_syllable = new SubWord(0.0, 0.0, "");
         current_phones = new ArrayList<Region>();
       }
     }
@@ -192,7 +189,7 @@ public class SyllableFeatureExtractor extends FeatureExtractor {
    * @return A list of syllable regions
    * @throws AuToBIException If the phone data does not align with the syllabification
    */
-  private List<Region> getBestSyllabification(Set<String> syllabifications, List<Region> phones)
+  private List<SubWord> getBestSyllabification(Set<String> syllabifications, List<Region> phones)
       throws AuToBIException {
     String[] best_syl_data = null;
     trace_symbol[][] best_trace = null;
@@ -247,8 +244,8 @@ public class SyllableFeatureExtractor extends FeatureExtractor {
 
     }
 
-    ArrayList<Region> syllables = new ArrayList<Region>();
-    Region syllable = null;
+    ArrayList<SubWord> syllables = new ArrayList<SubWord>();
+    SubWord syllable = null;
     int i = phones.size();
     int j = best_syl_data.length;
     boolean stress_set = false;
@@ -263,7 +260,7 @@ public class SyllableFeatureExtractor extends FeatureExtractor {
           if (best_trace[i][j] == trace_symbol.SUB || best_trace[i][j] == trace_symbol.DEL) {
             Region p = phones.get(i - 1);
             if (syllable == null) {
-              syllable = new Region(p.getStart(), p.getEnd(), p.getLabel());
+              syllable = new SubWord(p.getStart(), p.getEnd(), p.getLabel());
               syllable.setAttribute(this.phone_feature, new ArrayList<Region>());
             } else {
               syllable.setStart(p.getStart());

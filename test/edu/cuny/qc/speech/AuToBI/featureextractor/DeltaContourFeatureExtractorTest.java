@@ -125,14 +125,15 @@ public class DeltaContourFeatureExtractorTest {
 
       Contour delta_c = (Contour) w.getAttribute("delta_attr");
 
-      assertEquals(5, delta_c.size());
-      assertEquals(0.005, delta_c.getStart(), 0.0001);
+      assertEquals(6, delta_c.size());
+      assertEquals(0.0, delta_c.getStart(), 0.0001);
       assertEquals(0.01, delta_c.getStep(), 0.0001);
-      assertEquals(0.1 / 0.01, delta_c.get(0), 0.0001);
-      assertEquals(0.1 / 0.01, delta_c.get(1), 0.0001);
-      assertEquals(-0.1 / 0.01, delta_c.get(2), 0.0001);
-      assertEquals(0.2 / 0.01, delta_c.get(3), 0.0001);
-      assertEquals(-0.3 / 0.01, delta_c.get(4), 0.0001);
+      assertTrue(Double.isNaN(delta_c.get(0)));
+      assertEquals(0.2, delta_c.get(1), 0.0001);
+      assertEquals(0.0, delta_c.get(2), 0.0001);
+      assertEquals(0.1, delta_c.get(3), 0.0001);
+      assertEquals(-0.1, delta_c.get(4), 0.0001);
+      assertTrue(Double.isNaN(delta_c.get(5)));
 
     } catch (NullPointerException e) {
       fail();

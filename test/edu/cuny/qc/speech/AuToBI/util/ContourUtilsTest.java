@@ -166,7 +166,7 @@ public class ContourUtilsTest {
     Contour c = new Contour(0.0, 0.1, new double[]{1, 2, 3, 4, 5});
 
     Contour delta_c = ContourUtils.generateDeltaContour(c);
-    assertEquals(4, delta_c.size());
+    assertEquals(5, delta_c.size());
   }
 
   @Test
