@@ -42,7 +42,7 @@ public class VoicingRatioFeatureExtractorTest {
 
   @Test
   public void testExtractFeatureWorks() {
-    Region r = new Region(0, 1);
+    Region r = new Region(0, 0.9);
     Contour c = new Contour(0, 0.1, new double[]{0., 1., 1., 2., 10., 10, 10., 11., 12., 1.});
     c.setEmpty(3);
     c.setEmpty(4);
@@ -52,6 +52,23 @@ public class VoicingRatioFeatureExtractorTest {
       fe.extractFeatures(regions);
 
       assertEquals(0.8, (Double) r.getAttribute("contour__voicingRatio"), 0.0001);
+    } catch (FeatureExtractorException e) {
+      fail();
+    }
+  }
+
+  @Test
+  public void testExtractFeatureWorksOnSmallRegions() {
+    Region r = new Region(0.09, 0.51);
+    Contour c = new Contour(0, 0.1, new double[]{0., 1., 1., 2., 10., 10, 10., 11., 12., 1.});
+    c.setEmpty(3);
+    c.setEmpty(4);
+    r.setAttribute("contour", c);
+    regions.add(r);
+    try {
+      fe.extractFeatures(regions);
+
+      assertEquals(0.6, (Double) r.getAttribute("contour__voicingRatio"), 0.0001);
     } catch (FeatureExtractorException e) {
       fail();
     }

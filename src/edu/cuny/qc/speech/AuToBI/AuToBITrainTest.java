@@ -27,7 +27,16 @@ public class AuToBITrainTest {
       autobi.registerAllFeatureExtractors();
       autobi.registerNullFeatureExtractor("speaker_id");
 
-      HashMap<String, AuToBITask> tasks = AuToBIUtils.createTaskListFromParameters(autobi.getParameters(), true);
+      HashMap<String, AuToBITask> tasks = AuToBIUtils.createTaskListFromParameters(autobi.getParameters(), false);
+
+      if (tasks.size() == 0) {
+        AuToBIUtils.warn(
+            "No AuToBI tasks have been specified. Please indicate one or more tasks using one of the following:\n" +
+                "-pitch_accent_detector\n-pitch_accent_classifier\n-intontational_phrase_boundary_detector\n" +
+                "-intermediate_phrase_boundary_detector\n-phrase_accent_classifier\n" +
+                "-phrase_accent_boundary_tone_classifier");
+        return;
+      }
 
       for (String task_label : tasks.keySet()) {
         AuToBITask task = tasks.get(task_label);
@@ -35,11 +44,11 @@ public class AuToBITrainTest {
         try {
 
           // Tone classification tasks ignore those points that do not have any associated prosodic event
-          if (task_label.equals("phrase_accent_classifier")) {
+          if (task_label.equals("phrase_accent_classification")) {
             autobi.getParameters().setParameter("attribute_omit", "nominal_PitchAccentType:NOTONE");
-          } else if (task_label.equals("boundary_tone_classifier")) {
+          } else if (task_label.equals("phrase_accent_boundary_tone_classification")) {
             autobi.getParameters().setParameter("attribute_omit", "nominal_PhraseAccentBoundaryTone:NOTONE");
-          } else if (task_label.equals("phrase_accent_classifier")) {
+          } else if (task_label.equals("phrase_accent_classification")) {
             autobi.getParameters().setParameter("attribute_omit", "nominal_PhraseAccent:NOTONE");
           } else {
             autobi.getParameters().setParameter("attribute_omit", "");

@@ -21,8 +21,6 @@
 package edu.cuny.qc.speech.AuToBI.core;
 
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Contour is used to store time series data.
@@ -35,13 +33,13 @@ import java.util.Set;
  * Empty entries can be placed in the contour.  When iterating, these entries are skipped.
  */
 public class Contour implements Iterable<Pair<Double, Double>> {
-  private double x0;        // The starting time
-  private double dx;        // The time step
-  private int n;            // The number of steps in the contour
-  private double[] values;  // The values of the contour
+  protected double x0;        // The starting time
+  protected double dx;        // The time step
+  protected int n;            // The number of steps in the contour
+  protected double[] values;  // The values of the contour
 
-  private int num_empty;
-  private boolean[] empty_values;
+  protected int num_empty;
+  protected boolean[] empty_values;
 
   /**
    * Constructs a new contour, with a specified starting value, time step, and initial values.
@@ -173,8 +171,9 @@ public class Contour implements Iterable<Pair<Double, Double>> {
    * @return the value stored at the index
    */
   public double get(int index) {
-    if (index < 0 || index >= n || isEmpty(index))
+    if (index < 0 || index >= n || isEmpty(index)) {
       return Double.NaN;
+    }
     return values[index];
   }
 
@@ -227,10 +226,12 @@ public class Contour implements Iterable<Pair<Double, Double>> {
    * @param b     the boolean value to set
    */
   private void setEmpty(int index, boolean b) {
-    if (empty_values[index] && !b)
+    if (empty_values[index] && !b) {
       --num_empty;
-    if (!empty_values[index] && b)
+    }
+    if (!empty_values[index] && b) {
       ++num_empty;
+    }
     empty_values[index] = b;
   }
 
@@ -285,8 +286,9 @@ public class Contour implements Iterable<Pair<Double, Double>> {
    * @return a pair of time and value
    */
   public Pair<Double, Double> getPair(int i) {
-    if (i < 0 || i >= n || isEmpty(i))
+    if (i < 0 || i >= n || isEmpty(i)) {
       return null;
+    }
     return new Pair<Double, Double>(timeFromIndex(i), values[i]);
   }
 

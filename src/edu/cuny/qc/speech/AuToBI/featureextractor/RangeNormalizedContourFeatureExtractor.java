@@ -25,6 +25,7 @@ import edu.cuny.qc.speech.AuToBI.core.Region;
 import edu.cuny.qc.speech.AuToBI.core.SpeakerNormalizationParameter;
 import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -61,24 +62,31 @@ public class RangeNormalizedContourFeatureExtractor extends FeatureExtractor {
    * Performs z-score normalization on the specified contour, storing the result in a new list of TimeValuePairs
    *
    * @param regions The regions to extract features from.
-   * @throws edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException if the normalization parameters cannot normalize the features
+   * @throws edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException if the normalization parameters
+   *                                                                              cannot normalize the features
    */
   @Override
   public void extractFeatures(List regions) throws FeatureExtractorException {
+    HashMap<Contour, Contour> cache = new HashMap<Contour, Contour>();
+
     for (Region r : (List<Region>) regions) {
       if (r.hasAttribute(feature_name) && r.hasAttribute(norm_feature)) {
-        SpeakerNormalizationParameter norm_params = (SpeakerNormalizationParameter) r.getAttribute(norm_feature);
-        if (norm_params.canNormalize(feature_name)) {
-          Contour norm_contour =
-              ContourUtils.rangeNormalizeContour((Contour) r.getAttribute(feature_name), norm_params, feature_name);
-          r.setAttribute("rnorm_" + feature_name, norm_contour);
+        Contour c = (Contour) r.getAttribute(feature_name);
+        if (cache.containsKey(c)) {
+          r.setAttribute("rnorm_" + feature_name, cache.get(c));
         } else {
-          throw new FeatureExtractorException(
-              "Supplied normalization parameters cannot normalize values: " + feature_name);
+          SpeakerNormalizationParameter norm_params = (SpeakerNormalizationParameter) r.getAttribute(norm_feature);
+          if (norm_params.canNormalize(feature_name)) {
+            Contour norm_contour =
+                ContourUtils.rangeNormalizeContour(c, norm_params, feature_name);
+            r.setAttribute("rnorm_" + feature_name, norm_contour);
+            cache.put(c, norm_contour);
+          } else {
+            throw new FeatureExtractorException(
+                "Supplied normalization parameters cannot normalize values: " + feature_name);
+          }
         }
       }
     }
-
-
   }
 }

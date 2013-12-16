@@ -21,14 +21,15 @@ package edu.cuny.qc.speech.AuToBI.featureextractor;
 
 import edu.cuny.qc.speech.AuToBI.SpectrumExtractor;
 import edu.cuny.qc.speech.AuToBI.core.*;
-import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
-import edu.cuny.qc.speech.AuToBI.util.SubregionUtils;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
- * SpectrumFeatureExtractor extracts a spectrum from a given WavData object and aligns the appropriate sections to the
- * supplied regions.
+ * SpectrumFeatureExtractor extracts a spectrum from a given WavData object.
+ * <p/>
+ * v1.4 SpectrumFeatureExtractor has changed to attach spectra to each region rather than cutting down to size
+ * This is a more effective route to extracting context.
  */
 @SuppressWarnings("unchecked")
 public class SpectrumFeatureExtractor extends FeatureExtractor {
@@ -66,29 +67,28 @@ public class SpectrumFeatureExtractor extends FeatureExtractor {
    */
   @Override
   public void extractFeatures(List regions) throws FeatureExtractorException {
-
+    HashMap<WavData, Spectrum> cache = new HashMap<WavData, Spectrum>();
     for (Region r : (List<Region>) regions) {
       if (r.hasAttribute("wav")) {
         WavData wav = (WavData) r.getAttribute("wav");
-        Double epsilon = frame_size + hamming_window;
-        try {
-          WavData subwav = SubregionUtils.getSlice(wav, r.getStart() - epsilon, r.getEnd() + epsilon);
-          if (subwav != null) {
-            SpectrumExtractor extractor = new SpectrumExtractor(subwav);
+        if (cache.containsKey(wav)) {
+          r.setAttribute(feature_name, cache.get(wav));
+        } else {
+          if (wav != null) {
+            SpectrumExtractor extractor = new SpectrumExtractor(wav);
             Spectrum spectrum = extractor.getSpectrum(frame_size, hamming_window);
 
             if (spectrum == null) {
               // AR: When writing tests, I couldn't get this case to fire. It seems unwise to remove this failsafe
               // though. If it happens during runtime, write a test for it.
-              throw new AuToBIException(
-                  "Tried to extract the spectrum from segment with too few frames: " + r.getDuration() + " seconds. (" +
-                      subwav.getNumSamples() + " frames)");
+              throw new FeatureExtractorException(
+                  "Tried to extract the spectrum from segment with too few frames: " + r.getDuration() +
+                      " seconds. (" +
+                      wav.getNumSamples() + " frames)");
             }
-            Spectrum sub_spectrum = spectrum.getSlice(r.getStart(), r.getEnd());
-            r.setAttribute(feature_name, sub_spectrum);
+            r.setAttribute(feature_name, spectrum);
+            cache.put(wav, spectrum);
           }
-        } catch (AuToBIException e) {
-          AuToBIUtils.warn(e.getMessage());
         }
       }
     }

@@ -182,8 +182,8 @@ public class SubregionWrappedFeatureExtractorTest {
       fe.extractFeatures(regions);
       assertTrue(r.hasAttribute("sub_req"));
       Contour c = (Contour) r.getAttribute("sub_req");
-      assertEquals(3, c.size());
-      assertEquals(0.5, c.getStart());
+      assertEquals(6, c.size());
+      assertEquals(0.4, c.getStart());
     } catch (FeatureExtractorException e) {
       e.printStackTrace();
     }

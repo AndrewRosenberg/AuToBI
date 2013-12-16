@@ -28,9 +28,9 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * SubregionTimeValuePairFeatureExtractor extarcts standard time value pair features from subregions rather than from
+ * SubregionTimeValuePairFeatureExtractor extracts standard time value pair features from subregions rather than from
  * the entire supplied regions.
- *
+ * <p/>
  * This has been deprecated in favor of identifying the subcontour using SubregionContourExtractor and then
  * extracting features as usual with a ContourFeatureExtractor
  *

@@ -24,6 +24,7 @@ import edu.cuny.qc.speech.AuToBI.core.Contour;
 import edu.cuny.qc.speech.AuToBI.core.Region;
 import edu.cuny.qc.speech.AuToBI.core.Spectrum;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -74,17 +75,22 @@ public class SpectrumBandFeatureExtractor extends ContourFeatureExtractor {
    * @throws FeatureExtractorException if something goes wrong.
    */
   public void extractFeatures(List regions) throws FeatureExtractorException {
+    HashMap<Spectrum, Contour> cache = new HashMap<Spectrum, Contour>();
     try {
       for (Region r : (List<Region>) regions) {
         if (r.hasAttribute(spectrum_feature)) {
           Spectrum spectrum = (Spectrum) r.getAttribute(spectrum_feature);
+          if (cache.containsKey(spectrum)) {
+            r.setAttribute(attribute_name + "_" + low + "_" + high, cache.get(spectrum));
+          } else {
+            Contour spectrum_band = spectrum
+                .getPowerContour(SpectralTiltFeatureExtractor.barkToHertz(low),
+                    SpectralTiltFeatureExtractor.barkToHertz(high),
+                    false);
 
-          Contour spectrum_band = spectrum
-              .getPowerContour(SpectralTiltFeatureExtractor.barkToHertz(low),
-                  SpectralTiltFeatureExtractor.barkToHertz(high),
-                  false);
-
-          r.setAttribute(attribute_name + "_" + low + "_" + high, spectrum_band);
+            r.setAttribute(attribute_name + "_" + low + "_" + high, spectrum_band);
+            cache.put(spectrum, spectrum_band);
+          }
         }
       }
 

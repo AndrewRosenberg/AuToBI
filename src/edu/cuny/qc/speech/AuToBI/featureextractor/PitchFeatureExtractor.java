@@ -29,8 +29,10 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * PitchFeatureExtractor extracts pitch information from a given WavData object and aligns the appropriate contour
- * sections to the supplied regions.
+ * PitchFeatureExtractor extracts pitch information from a given WavData object.
+ * <p/>
+ * v1.4 PitchFeatureExtractor has changed to attach full pitch contours to each region rather than cutting down to size
+ * This is a more effective route to extracting context.
  */
 @SuppressWarnings("ALL")
 public class PitchFeatureExtractor extends FeatureExtractor {
@@ -75,11 +77,17 @@ public class PitchFeatureExtractor extends FeatureExtractor {
         PitchExtractor extractor = new PitchExtractor(wav);
         Contour pitch_contour = extractor.soundToPitch();
         if (!Double.isNaN(threshold)) {
+          // Interpolate over non-silent regions
           IntensityExtractor int_extractor = new IntensityExtractor(wav);
           Contour intensity = int_extractor.soundToIntensity();
           pitch_contour = ContourUtils.interpolate(pitch_contour, intensity, threshold);
         }
-        ContourUtils.assignValuesToRegions(wave_region_map.get(wav), pitch_contour, feature_name);
+
+        // Assign pointer to the full contour to all data points.
+        for (Region r : wave_region_map.get(wav)) {
+          r.setAttribute(feature_name, pitch_contour);
+          Contour c = ContourUtils.getSubContour(pitch_contour, r.getStart(), r.getEnd());
+        }
       }
     } catch (AuToBIException e) {
       throw new FeatureExtractorException(e.getMessage());

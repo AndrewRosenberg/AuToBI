@@ -21,12 +21,12 @@
 package edu.cuny.qc.speech.AuToBI.core;
 
 /**
- * A single hypothesized PitchCandidate stores the frequency and the strength of a hypothesis.  The strength can be
+ * A single hypothesized PitchCandidate stores the frequency and the strengths of a hypothesis.  The strengths can be
  * understood as the confidence of the pitch hypothesis.
  */
 public class PitchCandidate {
   public double frequency;  // the frequency of the candidate
-  public double strength;   // the strength of the candidate
+  public double strength;   // the strengths of the candidate
 
   public PitchCandidate() {
     frequency = 0.0;

@@ -169,4 +169,29 @@ public class ContourFeatureExtractorTest {
       fail();
     }
   }
+
+  @Test
+  public void testExtractFeaturesCorrectlyExtractsFeaturesFromSubFeature() {
+    try {
+      List<Region> regions = new ArrayList<Region>();
+      Word w = new Word(0, 0.035, "test");
+      w.setAttribute("attr", new Contour(0.0, 0.01, new double[]{0.1, 0.2, 0.3, 0.2, 0.4, 0.1}));
+      regions.add(w);
+
+      ContourFeatureExtractor cfe = new ContourFeatureExtractor("attr");
+      cfe.extractFeatures(regions);
+
+      assertEquals(0.1, (Double) w.getAttribute("attr__min"), 0.001);
+      assertEquals(0.3, (Double) w.getAttribute("attr__max"), 0.001);
+      assertEquals(0.2, (Double) w.getAttribute("attr__mean"), 0.001);
+//      assertEquals(0.1169, (Double) w.getAttribute("attr__stdev"), 0.001);
+//      assertEquals(1.5682, (Double) w.getAttribute("attr__zMax"), 0.001);
+      assertEquals(0.02, (Double) w.getAttribute("attr__maxLocation"), 0.001);
+      assertEquals(0.5714, (Double) w.getAttribute("attr__maxRelLocation"), 0.001);
+    } catch (NullPointerException e) {
+      fail();
+    } catch (FeatureExtractorException e) {
+      fail();
+    }
+  }
 }

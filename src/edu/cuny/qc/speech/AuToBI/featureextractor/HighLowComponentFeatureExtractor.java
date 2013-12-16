@@ -1,6 +1,7 @@
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
 import edu.cuny.qc.speech.AuToBI.core.*;
+import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,25 +26,26 @@ public class HighLowComponentFeatureExtractor extends FeatureExtractor {
   @Override
   public void extractFeatures(List regions) throws FeatureExtractorException {
     // 2 component GMM in one dimension. trained with EM.
-
-    // Construct list to cluster.
-    ArrayList<Double> data = new ArrayList<Double>();
     for (Region r : (List<Region>) regions) {
+      ArrayList<Double> data = new ArrayList<Double>();
       if (r.hasAttribute(feature)) {
-        Contour c = (Contour) r.getAttribute(feature);
+        Contour c;
+        try {
+          c = ContourUtils.getSubContour((Contour) r.getAttribute(feature), r.getStart(), r.getEnd());
+        } catch (AuToBIException e) {
+          throw new FeatureExtractorException(e.getMessage());
+        }
         for (Pair<Double, Double> x : c) {
           data.add(x.second);
         }
-      }
-    }
 
-    // Perform EM to fit GMM.
-    GParam low = new GParam(0.0, 1.0);
-    GParam high = new GParam(1.0, 1.0);
-    Pair<GParam, GParam> pair = fit(low, high, data);
-    for (Region r : (List<Region>) regions) {
-      r.setAttribute(feature + "__lowGP", pair.first);
-      r.setAttribute(feature + "__highGP", pair.second);
+        // Perform EM to fit GMM.
+        GParam low = new GParam(0.0, 1.0);
+        GParam high = new GParam(1.0, 1.0);
+        Pair<GParam, GParam> pair = fit(low, high, data);
+        r.setAttribute(feature + "__lowGP", pair.first);
+        r.setAttribute(feature + "__highGP", pair.second);
+      }
     }
   }
 

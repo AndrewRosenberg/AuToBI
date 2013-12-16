@@ -32,8 +32,8 @@ import java.util.List;
 public class TemporalContextNormalizedFeatureExtractor extends FeatureExtractor {
 
   private static final Double EPSILON = 0.00001;  // values less than this are considered zero for normalization
-  private String attribute_name;                 // the feature to normalize
-  private int prev_context;                   // the normalization context
+  private String attribute_name;                  // the feature to normalize
+  private int prev_context;                       // the normalization context
   private int foll_context;
   private final String context_label;  // A name for the context.
 
@@ -57,14 +57,18 @@ public class TemporalContextNormalizedFeatureExtractor extends FeatureExtractor 
     extracted_features.add(context_feature_prefix + "__zMin");
     extracted_features.add(context_feature_prefix + "__zMax");
     extracted_features.add(context_feature_prefix + "__zMean");
+
+    this.required_features.add(attribute_name);
+    this.required_features.add(attribute_name + "__min");
+    this.required_features.add(attribute_name + "__max");
+    this.required_features.add(attribute_name + "__mean");
   }
 
   /**
    * Extracts features over a list of regions.
    *
    * @param regions the list of data points
-   * @throws edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException
-   *          if there is a problem.
+   * @throws edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException if there is a problem.
    */
   public void extractFeatures(List regions) throws FeatureExtractorException {
     for (Region r : (List<Region>) regions) {

@@ -24,6 +24,7 @@ import edu.cuny.qc.speech.AuToBI.core.Contour;
 import edu.cuny.qc.speech.AuToBI.core.Region;
 import edu.cuny.qc.speech.AuToBI.core.Spectrum;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -83,16 +84,22 @@ public class SpectralTiltFeatureExtractor extends ContourFeatureExtractor {
    * Extracts spectral tilt features from a set of regions.
    *
    * @param regions the regions to extract features from
-   * @throws edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException
-   *          if something goes wrong with the feature extraction
+   * @throws edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException if something goes wrong with the
+   *                                                                              feature extraction
    */
   public void extractFeatures(List regions) throws FeatureExtractorException {
     try {
+      HashMap<Spectrum, Contour> cache = new HashMap<Spectrum, Contour>();
       for (Region r : (List<Region>) regions) {
         if (r.hasAttribute(spectrum_feature)) {
           Spectrum spectrum = (Spectrum) r.getAttribute(spectrum_feature);
-          Contour spectral_tilt = spectrum.getPowerTiltContour(barkToHertz(low), barkToHertz(high), false);
-          r.setAttribute(attribute_name + "_" + low + "_" + high, spectral_tilt);
+          if (cache.containsKey(spectrum)) {
+            r.setAttribute(attribute_name + "_" + low + "_" + high, cache.get(spectrum));
+          } else {
+            Contour spectral_tilt = spectrum.getPowerTiltContour(barkToHertz(low), barkToHertz(high), false);
+            r.setAttribute(attribute_name + "_" + low + "_" + high, spectral_tilt);
+            cache.put(spectrum, spectral_tilt);
+          }
         }
       }
 

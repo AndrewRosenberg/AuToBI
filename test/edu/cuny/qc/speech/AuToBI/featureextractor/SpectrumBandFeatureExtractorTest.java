@@ -48,7 +48,7 @@ public class SpectrumBandFeatureExtractorTest {
 
   @Test
   public void testConstructorSetsExtractedFeaturesCorrectly() {
-    assertEquals(75, fe.getExtractedFeatures().size());
+    assertEquals(8, fe.getExtractedFeatures().size());
     assertTrue(fe.getExtractedFeatures().contains("prefix_1_2"));
     assertTrue(fe.getExtractedFeatures().contains("prefix_1_2__min"));
     assertTrue(fe.getExtractedFeatures().contains("prefix_1_2__max"));

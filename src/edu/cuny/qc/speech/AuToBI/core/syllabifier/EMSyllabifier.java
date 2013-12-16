@@ -56,8 +56,7 @@ public class EMSyllabifier extends Syllabifier {
     fitComponents(components, energy);
     pruneOverlappingComponents(components);
     markSmallComponents(components);
-    List<Region> syllables = toSegmentBoundaries(components, wav.getDuration());
-    return syllables;
+    return toSegmentBoundaries(components, wav.getDuration());
   }
 
   private Contour expContour(Contour c) {
@@ -268,6 +267,11 @@ public class EMSyllabifier extends Syllabifier {
   private double[][] calcResponsibilities(List<GMMComponent> components, Contour intensity) {
     double[][] tau = new double[components.size()][intensity.size()];
 
+    // TODO: limit the scope of components to check for each j.
+    // This takes N*K where N is the number of points, and K is the number of components.
+    // However, most responsibilities approach zero.
+    // Since the components are linearly ordered we can stop checking the components once one falls below an epsilon.
+    // Also, we can start checking components at the component where the previous frame was first above some epsilon
     for (int j = 0; j < intensity.size(); ++j) {
       double total = 0.;
       for (int i = 0; i < components.size(); ++i) {

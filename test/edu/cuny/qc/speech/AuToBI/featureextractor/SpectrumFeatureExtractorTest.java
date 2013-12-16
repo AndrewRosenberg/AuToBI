@@ -121,7 +121,7 @@ public class SpectrumFeatureExtractorTest {
     try {
       fe.extractFeatures(regions);
       Spectrum s = (Spectrum) w.getAttribute("spectrum");
-      assertEquals(99, s.numFrames());
+      assertEquals(835, s.numFrames());
       assertEquals(256, s.numFreqs());
       // Assume that the spectrum extraction algorithm is tested in SpectrumExtractor.
       // Here we'll make sure that the generated spectrum passes some sanity checks.
@@ -133,6 +133,19 @@ public class SpectrumFeatureExtractorTest {
   @Test
   public void testExtractFeaturesFailsGracefullyWithNoWavData() {
     Word w = new Word(0, 1, "test");
+    regions.add(w);
+
+    try {
+      fe.extractFeatures(regions);
+      assertFalse(w.hasAttribute("spectrum"));
+    } catch (FeatureExtractorException e) {
+      fail();
+    }
+  }
+
+  @Test
+  public void testExtractFeaturesFailsGracefullyWithVeryShortRegion() {
+    Word w = new Word(0, 0.001, "test");
     regions.add(w);
 
     try {

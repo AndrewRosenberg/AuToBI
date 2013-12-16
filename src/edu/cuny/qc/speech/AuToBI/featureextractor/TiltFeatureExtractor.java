@@ -20,6 +20,7 @@
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
 import edu.cuny.qc.speech.AuToBI.core.*;
+import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 
 import java.util.List;
 
@@ -50,13 +51,19 @@ public class TiltFeatureExtractor extends FeatureExtractor {
    * Calculates Tilt parameters for the contour referenced by contour_feature over each region.
    *
    * @param regions The regions to extract features from.
-   * @throws edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException
-   *          should never happen.
+   * @throws edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException should never happen.
    */
   @Override
   public void extractFeatures(List regions) throws FeatureExtractorException {
     for (Region r : (List<Region>) regions) {
-      TiltParameters tilt = new TiltParameters((Contour) r.getAttribute(contour_feature));
+      TiltParameters tilt;
+      try {
+        tilt =
+            new TiltParameters(ContourUtils.getSubContour((Contour) r.getAttribute(contour_feature), r.getStart(),
+                r.getEnd()));
+      } catch (AuToBIException e) {
+        throw new FeatureExtractorException(e.getMessage());
+      }
 
       r.setAttribute(contour_feature + "__tilt", tilt.getTilt());
       r.setAttribute(contour_feature + "__tilt_amp", tilt.getAmplitudeTilt());

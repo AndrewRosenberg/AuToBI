@@ -89,8 +89,8 @@ public class QCMFeatureExtractorTest {
 
   @Test
   public void testExtractFeaturesExtractsFeaturesCorrectly() {
-    Word w = new Word(0, 1, "test");
-    w.setAttribute("f0", new Contour(2.0, 0.001, new double[]{-50.0, 0.3, 0.3, 0.3, 1.4}));
+    Word w = new Word(2.0, 2.41, "test");
+    w.setAttribute("f0", new Contour(2.0, 0.1, new double[]{-50.0, 0.3, 0.3, 0.3, 1.4}));
     regions.add(w);
 
     try {

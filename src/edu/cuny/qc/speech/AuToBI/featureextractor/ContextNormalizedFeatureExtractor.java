@@ -20,9 +20,9 @@
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
 import edu.cuny.qc.speech.AuToBI.core.*;
+import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 
 import java.util.List;
-import java.util.ArrayList;
 
 /**
  * A feature extractor to calculate context normalized aggregations of Doubles or lists of TimeValuePairs.
@@ -88,12 +88,92 @@ public class ContextNormalizedFeatureExtractor extends FeatureExtractor {
    * @param context_regions The regions to calculate normalization parameters from
    * @throws FeatureExtractorException if something goes wrong
    */
-  public void extractFeatures(List regions, List context_regions) throws FeatureExtractorException {
-    ContextFrame window = new ContextFrame(context_regions, attribute_name, context.getBack(), context.getForward());
-    for (Object o : regions) {
-      Region r = (Region) o;
-      extractContextNormAttributes(r, window);
-      window.increment();
+  public void extractFeatures(List regions, List<Region> context_regions) throws FeatureExtractorException {
+    if (regions.size() != context_regions.size()) {
+      throw new FeatureExtractorException("Regions and Context Regions must be the same size");
+    }
+    if (regions.isEmpty()) return;
+    if (((Region) regions.get(0)).getAttribute(attribute_name) instanceof Contour) {
+      for (int i = 0; i < regions.size(); ++i) {
+        Region r = (Region) regions.get(i);
+
+        int prev_idx = Math.max(0, i - context.getBack());
+        int next_idx = Math.min(regions.size() - 1, i + context.getBack());
+
+        extractContextNormAttributes(r, context_regions.get(prev_idx).getStart(),
+            context_regions.get(next_idx).getEnd());
+      }
+    } else if (((Region) regions.get(0)).getAttribute(attribute_name) instanceof Double) {
+      ContextFrame window = new ContextFrame(context_regions, attribute_name, context.getBack(), context.getForward());
+      for (Object o : regions) {
+        Region r = (Region) o;
+
+        extractContextNormAttributes(r, window);
+        window.increment();
+      }
+    }
+  }
+
+  /**
+   * Extract context normalized attributes for a single region and context defined by time.
+   *
+   * @param r     The data point
+   * @param start Start time
+   * @param end   End time
+   */
+  private void extractContextNormAttributes(Region r, Double start, Double end) throws FeatureExtractorException {
+
+    if (!r.hasAttribute(attribute_name)) {
+      return;
+    }
+    // Generate context normalizing statistics
+    Contour c = (Contour) r.getAttribute(attribute_name);
+    Contour context_c;
+    try {
+      context_c = ContourUtils.getSubContour(c, start, end);
+    } catch (AuToBIException e) {
+      throw new FeatureExtractorException(e.getMessage());
+    }
+
+    Aggregation agg = new Aggregation();
+    for (Pair<Double, Double> tvp : context_c) {
+      agg.insert(tvp.second);
+    }
+    Double max = agg.getMax();
+    Double min = agg.getMin();
+    Double mean = agg.getMean();
+    Double stdev = agg.getStdev();
+
+    // Calculate normalized features
+    String context_feature_prefix = attribute_name + "_" + context.getLabel();
+    String stored_feature_prefix = attribute_name + "__";
+
+    if (r.getAttribute(attribute_name) instanceof Double) {
+      Double value = (Double) r.getAttribute(attribute_name);
+      // Z Score
+      if (Math.abs(stdev) > EPSILON) {
+        r.setAttribute(context_feature_prefix + "__zNorm", (value - mean) / stdev);
+      }
+      // Range Normalization
+      if ((max - min) > EPSILON) {
+        r.setAttribute(context_feature_prefix + "__rNorm", (value - min) / (max - min));
+      }
+    } else if (r.getAttribute(attribute_name) instanceof Contour) {
+      // Calculate Z Score normalization
+      if (Math.abs(stdev) > EPSILON) {
+        if (r.hasAttribute(stored_feature_prefix + "min")) {
+          r.setAttribute(context_feature_prefix + "__zMin", (
+              (Double) r.getAttribute(stored_feature_prefix + "min") - mean) / stdev);
+        }
+        if (r.hasAttribute(stored_feature_prefix + "max")) {
+          r.setAttribute(context_feature_prefix + "__zMax", (
+              (Double) r.getAttribute(stored_feature_prefix + "max") - mean) / stdev);
+        }
+        if (r.hasAttribute(stored_feature_prefix + "mean")) {
+          r.setAttribute(context_feature_prefix + "__zMean", (
+              (Double) r.getAttribute(stored_feature_prefix + "mean") - mean) / stdev);
+        }
+      }
     }
   }
 
@@ -125,15 +205,18 @@ public class ContextNormalizedFeatureExtractor extends FeatureExtractor {
     } else if (r.getAttribute(attribute_name) instanceof Contour) {
       // Calculate Z Score normalization
       if (Math.abs(stdev) > EPSILON) {
-        if (r.hasAttribute(stored_feature_prefix + "min"))
+        if (r.hasAttribute(stored_feature_prefix + "min")) {
           r.setAttribute(context_feature_prefix + "__zMin", (
               (Double) r.getAttribute(stored_feature_prefix + "min") - mean) / stdev);
-        if (r.hasAttribute(stored_feature_prefix + "max"))
+        }
+        if (r.hasAttribute(stored_feature_prefix + "max")) {
           r.setAttribute(context_feature_prefix + "__zMax", (
               (Double) r.getAttribute(stored_feature_prefix + "max") - mean) / stdev);
-        if (r.hasAttribute(stored_feature_prefix + "mean"))
+        }
+        if (r.hasAttribute(stored_feature_prefix + "mean")) {
           r.setAttribute(context_feature_prefix + "__zMean", (
               (Double) r.getAttribute(stored_feature_prefix + "mean") - mean) / stdev);
+        }
       }
     }
   }

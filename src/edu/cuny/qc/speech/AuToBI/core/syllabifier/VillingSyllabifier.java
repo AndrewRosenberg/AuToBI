@@ -88,6 +88,7 @@ public class VillingSyllabifier extends Syllabifier {
     env_1 = reverse(filter(smoothing_filter.first, smoothing_filter.second,
         reverse(filter(smoothing_filter.first, smoothing_filter.second, env_1))));
 
+    // Downsample to 100Hz
     env_3 = downsample(env_3, 160);
     // env_2 = downsample(env_2, 160);
     env_1 = downsample(env_1, 160);
@@ -129,9 +130,13 @@ public class VillingSyllabifier extends Syllabifier {
     double[] boundary_scores = array_score(onset_vel, peaks_array, 0.01, 0.1);
 
     //vowel scores
-    double[] ss = array_score(norm_env_1, end_array, 0.6, 0.7);
-    // double[] cs = array_score(norm_env_1, end_array, 0.85, 0.97);
-    double[] vps = array_score(onset_vel, peaks_array, 0.01, 0.1);
+    // ss score bounds were originally 0.6, 0.7
+    // new is 0.3 0.7
+    double[] ss = array_score(norm_env_1, end_array, 0.3, 0.7);
+//    double[] cs = array_score(norm_env_1, end_array, 0.85, 0.97);
+    // vps score bounds were originally 0.01, 0.1
+    // new is 0.001 0.1
+    double[] vps = array_score(onset_vel, peaks_array, 0.001, 0.1);
 
     // Note: Including the cs score leads to the system to miss detecting sonorant
     // word internal syllable boundaries (e.g. 'mama' as a two syllable word).  We find the performance to be
@@ -140,36 +145,34 @@ public class VillingSyllabifier extends Syllabifier {
     //   double[] vs = array_times(ss, array_times(array_minus(1, cs), vps));
     double[] vs = array_times(ss, vps);
 
-    // Identify the greatest vs scores, and use it to supress scores within 100ms of it.
-    ArrayList<Integer> peak_frames = new ArrayList<Integer>();
+
+    // Convolve with a window y, y = -.5 at i=100 and y = -1 at i=10
+    // This has the effect of suppressing smaller scores near larger ones.
     for (int i = 0; i < vs.length; ++i) {
-      if (vs[i] == 1) peak_frames.add(onset_peaks.get(i) / 10);
-    }
-    for (int i = 0; i < vs.length; ++i) {
-      if (checkWindow(onset_peaks.get(i), peak_frames)) {
-        onset_peaks.set(i, -1 * onset_peaks.get(i));
+      double score = vs[i];
+      // forward convolution region (+100ms)
+      for (int j = i + 1; j < vs.length && onset_peaks.get(j) - onset_peaks.get(i) < 10; ++j) {
+        double dist = onset_peaks.get(j) - onset_peaks.get(i);
+        double x = 0.055555 * dist - 1.055555;
+        score += vs[j] * x;
       }
+
+      // backward convolution region (-100ms)
+      for (int j = i - 1; j >= 0 && onset_peaks.get(i) - onset_peaks.get(j) < 10; --j) {
+        double dist = onset_peaks.get(i) - onset_peaks.get(j);
+        double x = 0.055555 * dist - 1.055555;
+        score += vs[j] * x;
+      }
+
+      vs[i] = score;
     }
 
     // Construct a list of the best boundaries
     ArrayList<Double> boundary_list = new ArrayList<Double>();
-    double best_boundary_score = -Double.MAX_VALUE;
-    double best_boundary_trough = Double.MAX_VALUE;
-    double boundary = 0.0;
 
     for (int i = 0; i < boundary_scores.length; ++i) {
-      if (boundary_scores[i] > best_boundary_score) {
-        if (env_3[onset_starts.get(i)] < best_boundary_trough) {
-          boundary = onset_starts.get(i);
-          best_boundary_score = boundary_scores[i];
-          best_boundary_trough = env_3[onset_starts.get(i)];
-        }
-      }
-
-      if (vs[i] > 0) {
-        boundary_list.add(boundary / 100);
-        best_boundary_score = -Double.MAX_VALUE;
-        best_boundary_trough = Double.MAX_VALUE;
+      if (boundary_scores[i] > 0 && vs[i] > 0) {
+        boundary_list.add(onset_starts.get(i) / 100.);
       }
     }
     boundary_list.add(wav.getDuration());
@@ -177,7 +180,28 @@ public class VillingSyllabifier extends Syllabifier {
     // Convert boundaries into regions.
     ArrayList<Region> syllables = generateRegionsFromPoints(boundary_list);
 
-    return syllables;
+    ArrayList<Region> ret = new ArrayList<Region>();
+    // identify silence
+    double max_e = 0.0;
+    double e[] = new double[syllables.size()];
+    for (int i = 0; i < syllables.size(); ++i) {
+      Region r = syllables.get(i);
+      double sum = 0;
+      int sf = (int) (r.getStart() * 100);
+      int ef = (int) (r.getEnd() * 100);
+      for (int j = sf; j < ef; ++j)
+        sum += env_3[j];
+      e[i] = sum / (ef - sf);
+      max_e = Math.max(e[i], max_e);
+    }
+    for (int i = 0; i < syllables.size(); ++i) {
+      // Silence is defined as 0.3 * max average energy or lower.
+      if (e[i] > 0.3 * max_e) {
+        ret.add(syllables.get(i));
+      }
+    }
+
+    return ret;
   }
 
   /**
@@ -413,7 +437,7 @@ public class VillingSyllabifier extends Syllabifier {
    * Yule-Walker equations.
    *
    * @return yule walker filter coeffiencients, the first element is the numerator coefficients,
-   *         the second the denominator
+   * the second the denominator
    */
   private Pair<double[], double[]> getYuleWalkFilterCoefficients
   () {
@@ -430,7 +454,7 @@ public class VillingSyllabifier extends Syllabifier {
    * Note: only appropriate if the sample rate is 16khz
    *
    * @return butterworth filter coeffiencients, the first element is the numerator coefficients,
-   *         the second the denominator
+   * the second the denominator
    */
   private Pair<double[], double[]> get150hzHighPassFilterCoefficients
   () {
@@ -446,7 +470,7 @@ public class VillingSyllabifier extends Syllabifier {
    * Note: only appropriate if the sample rate is 16khz
    *
    * @return butterworth filter coeffiencients, the first element is the numerator coefficients,
-   *         the second the denominator
+   * the second the denominator
    */
   private Pair<double[], double[]> get1khzLowPassFilterCoefficients
   () {
@@ -462,7 +486,7 @@ public class VillingSyllabifier extends Syllabifier {
    * Note: only appropriate if the sample rate is 16khz
    *
    * @return butterworth filter coeffiencients, the first element is the numerator coefficients,
-   *         the second the denominator
+   * the second the denominator
    */
   private Pair<double[], double[]> get3khzLowPassFilterCoefficients
   () {
@@ -478,7 +502,7 @@ public class VillingSyllabifier extends Syllabifier {
    * Note: only appropriate if the sample rate is 16khz
    *
    * @return butterworth filter coeffiencients, the first element is the numerator coefficients,
-   *         the second the denominator
+   * the second the denominator
    */
   private Pair<double[], double[]> getSmoothingFilterCoefficients() {
     double[] numerator = {0.0024, 0.0024};

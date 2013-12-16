@@ -24,6 +24,7 @@ import edu.cuny.qc.speech.AuToBI.core.Region;
 import edu.cuny.qc.speech.AuToBI.core.FeatureExtractor;
 import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -63,10 +64,18 @@ public class DeltaContourFeatureExtractor extends FeatureExtractor {
    * @throws FeatureExtractorException When something goes wrong
    */
   public void extractFeatures(List regions) throws FeatureExtractorException {
+    HashMap<Contour, Contour> cache = new HashMap<Contour, Contour>();
+
     for (Region r : (List<Region>) regions) {
       if (r.hasAttribute(attribute_name)) {
-        Contour delta_contour = ContourUtils.generateDeltaContour((Contour) r.getAttribute(attribute_name));
-        r.setAttribute("delta_" + attribute_name, delta_contour);
+        Contour c = (Contour) r.getAttribute(attribute_name);
+        if (cache.containsKey(c)) {
+          r.setAttribute("delta_" + attribute_name, cache.get(c));
+        } else {
+          Contour delta_contour = ContourUtils.generateDeltaContour(c);
+          r.setAttribute("delta_" + attribute_name, delta_contour);
+          cache.put(c, delta_contour);
+        }
       }
     }
   }

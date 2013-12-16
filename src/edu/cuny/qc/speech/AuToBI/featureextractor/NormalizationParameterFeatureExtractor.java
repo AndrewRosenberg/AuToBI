@@ -20,6 +20,7 @@
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
 import edu.cuny.qc.speech.AuToBI.core.*;
+import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 
 import java.util.List;
 
@@ -64,11 +65,21 @@ public class NormalizationParameterFeatureExtractor extends FeatureExtractor {
     SpeakerNormalizationParameter snp = new SpeakerNormalizationParameter();
     for (Region r : (List<Region>) regions) {
       if (r.hasAttribute("f0")) {
-        Contour pitch = (Contour) r.getAttribute("f0");
+        Contour pitch;
+        try {
+          pitch = ContourUtils.getSubContour((Contour) r.getAttribute("f0"), r.getStart(), r.getEnd());
+        } catch (AuToBIException e) {
+          throw new FeatureExtractorException(e.getMessage());
+        }
         snp.insertPitch(pitch);
       }
       if (r.hasAttribute("I")) {
-        Contour intensity = (Contour) r.getAttribute("I");
+        Contour intensity;
+        try {
+          intensity = ContourUtils.getSubContour((Contour) r.getAttribute("I"), r.getStart(), r.getEnd());
+        } catch (AuToBIException e) {
+          throw new FeatureExtractorException(e.getMessage());
+        }
         snp.insertIntensity(intensity);
       }
     }

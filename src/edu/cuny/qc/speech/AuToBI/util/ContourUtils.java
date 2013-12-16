@@ -86,8 +86,8 @@ public class ContourUtils {
    * @param regions      The regions to accept contour
    * @param contour      The contour to align
    * @param feature_name The feature name to store the contour on the regions
-   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException
-   *          If the start and end times of a region are inconsistent. (I.e., start > end)
+   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException If the start and end times of a region are inconsistent.
+   *                                                        (I.e., start > end)
    */
   public static void assignValuesToRegions(List regions, Contour contour, String feature_name)
       throws AuToBIException {
@@ -159,7 +159,7 @@ public class ContourUtils {
     if (contour == null) {
       throw new AuToBIException("Null Contour.");
     }
-    if (contour.size() == 0) return null;
+    if (contour.size() == 0) return new Contour(start, contour.getStep(), 0);
     int start_idx = contour.indexFromTimeCeil(start);
     int end_idx = contour.indexFromTimeFloor(end);
 
@@ -190,10 +190,10 @@ public class ContourUtils {
     for (int i = idx - 1; i >= 0; --i) {
       maximum_value = Math.max(previous_value, maximum_value);
 
-      if (contour.get(i) > previous_value) {
+      if (contour.get(i) > previous_value || contour.isEmpty(i)) {
 
         if (!rising && maximum_value - previous_value > threshold) {
-          // Just passed a local minima.
+          // Just passed a local minima or empty point.
           // If the difference between the value of this minima is sufficiently lower that the maximum, return the index
           // of the local minima
           return i + 1;
@@ -201,7 +201,7 @@ public class ContourUtils {
         rising = true;
       }
 
-      if (contour.get(i) < previous_value) {
+      if (contour.get(i) < previous_value || contour.isEmpty(i)) {
         rising = false;
       }
 
@@ -232,7 +232,7 @@ public class ContourUtils {
     boolean rising = false;
     for (int i = idx + 1; i < contour.size(); ++i) {
       maximum_value = Math.max(previous_value, maximum_value);
-      if (contour.get(i) > previous_value) {
+      if (contour.get(i) > previous_value || contour.isEmpty(i)) {
 
         // In a valley.  If the valley was sufficiently deep from previous peak, store the value.
         if (!rising && maximum_value - previous_value > threshold) {
@@ -241,7 +241,7 @@ public class ContourUtils {
         rising = true;
       }
 
-      if (contour.get(i) < previous_value) {
+      if (contour.get(i) < previous_value || contour.isEmpty(i)) {
         rising = false;
       }
 

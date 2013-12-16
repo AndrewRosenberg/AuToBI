@@ -22,6 +22,7 @@ package edu.cuny.qc.speech.AuToBI.featureextractor;
 import edu.cuny.qc.speech.AuToBI.core.*;
 import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -61,20 +62,28 @@ public class NormalizedContourFeatureExtractor extends FeatureExtractor {
    */
   @Override
   public void extractFeatures(List regions) throws FeatureExtractorException {
+
+    // Need to make sure that we only extract one normalized contour per original contour
+    HashMap<Contour, Contour> cache = new HashMap<Contour, Contour>();
+
     for (Region r : (List<Region>) regions) {
       if (r.hasAttribute(feature_name) && r.hasAttribute(norm_feature)) {
-        SpeakerNormalizationParameter norm_params = (SpeakerNormalizationParameter) r.getAttribute(norm_feature);
-        if (norm_params.canNormalize(feature_name)) {
-          Contour norm_contour =
-              ContourUtils.zScoreNormalizeContour((Contour) r.getAttribute(feature_name), norm_params, feature_name);
-          r.setAttribute("norm_" + feature_name, norm_contour);
+        Contour c = (Contour) r.getAttribute(feature_name);
+        if (cache.containsKey(c)) {
+          r.setAttribute("norm_" + feature_name, cache.get(c));
         } else {
-          throw new FeatureExtractorException(
-              "Supplied normalization parameters cannot normalize values: " + feature_name);
+          SpeakerNormalizationParameter norm_params = (SpeakerNormalizationParameter) r.getAttribute(norm_feature);
+          if (norm_params.canNormalize(feature_name)) {
+            Contour norm_contour =
+                ContourUtils.zScoreNormalizeContour((Contour) r.getAttribute(feature_name), norm_params, feature_name);
+            r.setAttribute("norm_" + feature_name, norm_contour);
+            cache.put(c, norm_contour);
+          } else {
+            throw new FeatureExtractorException(
+                "Supplied normalization parameters cannot normalize values: " + feature_name);
+          }
         }
       }
     }
-
-
   }
 }

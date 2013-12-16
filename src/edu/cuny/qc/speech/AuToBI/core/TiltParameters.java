@@ -21,8 +21,6 @@ package edu.cuny.qc.speech.AuToBI.core;
 
 import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 
-import java.util.List;
-
 /**
  * Paul Taylor's Tilt Intonation Model parameters.
  * <p/>
@@ -108,8 +106,10 @@ public class TiltParameters {
     }
 
     int max_index = ContourUtils.getIndexOfMaximum(data);
-    int prev_min_index = ContourUtils.getIndexOfPrecedingMinimum(data, max_index, 0.5);
-    int fol_min_index = ContourUtils.getIndexOfFollowingMinimum(data, max_index, 0.5);
+    // Let the threshold be 10% of the magnitude of the max value
+    double thresh = Math.abs(data.get(max_index)) * 0.10;
+    int prev_min_index = ContourUtils.getIndexOfPrecedingMinimum(data, max_index, thresh);
+    int fol_min_index = ContourUtils.getIndexOfFollowingMinimum(data, max_index, thresh);
 
     amplitude_rise = data.get(max_index) - data.get(prev_min_index);
     amplitude_fall = data.get(max_index) - data.get(fol_min_index);

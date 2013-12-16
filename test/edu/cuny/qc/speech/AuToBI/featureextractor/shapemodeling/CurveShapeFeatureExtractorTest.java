@@ -45,15 +45,14 @@ public class CurveShapeFeatureExtractorTest {
 
   @Test
   public void testExtractFeatureRisingContourWorks() {
-    Region r = new Region(0, 1);
-    Contour c = new Contour(0, 0.1, new double[]{0., 1., 1., 2., 10., 10, 10., 11., 12., 1.});
+    Region r = new Region(0, .999);
+    Contour c = new Contour(0.0, 0.1, new double[]{0., 1., 1., 2., 10., 10, 10., 11., 12., 1.});
     r.setAttribute("contour", c);
     regions.add(r);
     try {
       fe.extractFeatures(regions);
 
-      CurveShape rising =
-          (CurveShape) regions.get(0).getAttribute("contour__risingCurve");
+      CurveShape rising = (CurveShape) regions.get(0).getAttribute("contour__risingCurve");
       assertEquals(10, rising.peak);
       assertArrayEquals(new double[]{0., 1., 1., 2., 9., 9., 9., 9., 9., 9.}, rising.smoothed_curve, 0.001);
 
@@ -64,7 +63,7 @@ public class CurveShapeFeatureExtractorTest {
 
   @Test
   public void testExtractFeatureFallingContourWorks() {
-    Region r = new Region(0, 1);
+    Region r = new Region(0, .999);
     Contour c = new Contour(0, 0.1, new double[]{0., 1., 1., 2., 10., 10, 10., 11., 12., 1.});
     r.setAttribute("contour", c);
     regions.add(r);
@@ -83,42 +82,42 @@ public class CurveShapeFeatureExtractorTest {
   }
 
   @Test
-   public void testExtractFeaturePeakContourWorks() {
-     Region r = new Region(0, 1);
-     Contour c = new Contour(0, 0.1, new double[]{0., 1., 1., 2., 10., 10, 10., 11., 12., 1.});
-     r.setAttribute("contour", c);
-     regions.add(r);
-     try {
-       fe.extractFeatures(regions);
+  public void testExtractFeaturePeakContourWorks() {
+    Region r = new Region(0, .999);
+    Contour c = new Contour(0, 0.1, new double[]{0., 1., 1., 2., 10., 10, 10., 11., 12., 1.});
+    r.setAttribute("contour", c);
+    regions.add(r);
+    try {
+      fe.extractFeatures(regions);
 
-       CurveShape peak =
-           (CurveShape) regions.get(0).getAttribute("contour__peakCurve");
-       assertEquals(8, peak.peak);
-       assertArrayEquals(new double[]{0., 1., 1., 2., 10., 10, 10., 11., 12., 1.},
-           peak.smoothed_curve, 0.001);
+      CurveShape peak =
+          (CurveShape) regions.get(0).getAttribute("contour__peakCurve");
+      assertEquals(8, peak.peak);
+      assertArrayEquals(new double[]{0., 1., 1., 2., 10., 10, 10., 11., 12., 1.},
+          peak.smoothed_curve, 0.001);
 
-     } catch (FeatureExtractorException e) {
-       fail();
-     }
-   }
+    } catch (FeatureExtractorException e) {
+      fail();
+    }
+  }
 
   @Test
-     public void testExtractFeatureValleyContourWorks() {
-       Region r = new Region(0, 1);
-       Contour c = new Contour(0, 0.1, new double[]{0., 1., 1., 2., 10., 10, 10., 11., 12., 1.});
-       r.setAttribute("contour", c);
-       regions.add(r);
-       try {
-         fe.extractFeatures(regions);
+  public void testExtractFeatureValleyContourWorks() {
+    Region r = new Region(0, .999);
+    Contour c = new Contour(0, 0.1, new double[]{0., 1., 1., 2., 10., 10, 10., 11., 12., 1.});
+    r.setAttribute("contour", c);
+    regions.add(r);
+    try {
+      fe.extractFeatures(regions);
 
-         CurveShape valley =
-             (CurveShape) regions.get(0).getAttribute("contour__valleyCurve");
-         assertEquals(1, valley.peak);
-         assertArrayEquals(new double[]{0.666, 1.333, 1.333, 2., 9., 9., 9., 9., 9., 9.},
-             valley.smoothed_curve, 0.001);
+      CurveShape valley =
+          (CurveShape) regions.get(0).getAttribute("contour__valleyCurve");
+      assertEquals(1, valley.peak);
+      assertArrayEquals(new double[]{0.666, 1.333, 1.333, 2., 9., 9., 9., 9., 9., 9.},
+          valley.smoothed_curve, 0.001);
 
-       } catch (FeatureExtractorException e) {
-         fail();
-       }
-     }
+    } catch (FeatureExtractorException e) {
+      fail();
+    }
+  }
 }

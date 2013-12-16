@@ -22,7 +22,6 @@ package edu.cuny.qc.speech.AuToBI.featureextractor;
 import edu.cuny.qc.speech.AuToBI.core.Contour;
 import edu.cuny.qc.speech.AuToBI.core.Region;
 import edu.cuny.qc.speech.AuToBI.core.Word;
-import junit.framework.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -88,6 +87,27 @@ public class LogContourFeatureExtractorTest {
       assertEquals(2, c.size());
       assertEquals(Math.log(0.1), c.get(0));
       assertEquals(Math.log(0.5), c.get(1));
+    } catch (FeatureExtractorException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
+  public void testExtractFeaturesAssignsTheSameObjectToSubsequentRegions() {
+    LogContourFeatureExtractor fe = new LogContourFeatureExtractor("I", "log_I");
+
+    Contour c = new Contour(0, 0.01, new double[]{0.1, 0.5});
+    List<Region> regions = new ArrayList<Region>();
+    Word w = new Word(0, .5, "testing");
+    Word w2 = new Word(0.5, 1, "testing");
+    w.setAttribute("I", c);
+    w2.setAttribute("I", c);
+    regions.add(w);
+    regions.add(w2);
+
+    try {
+      fe.extractFeatures(regions);
+      assertTrue(w.getAttribute("log_I") == w2.getAttribute("log_I"));
     } catch (FeatureExtractorException e) {
       e.printStackTrace();
     }

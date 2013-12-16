@@ -19,10 +19,12 @@
  */
 package edu.cuny.qc.speech.AuToBI.featureextractor.shapemodeling;
 
+import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
 import edu.cuny.qc.speech.AuToBI.core.Contour;
 import edu.cuny.qc.speech.AuToBI.core.FeatureExtractor;
 import edu.cuny.qc.speech.AuToBI.core.Region;
 import edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException;
+import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 
 import java.util.List;
 
@@ -54,7 +56,13 @@ public class ContourPolyFitFeatureExtractor extends FeatureExtractor {
 
     for (Region r : (List<Region>) regions) {
       if (r.hasAttribute(acoustic_feature)) {
-        Contour c = (Contour) r.getAttribute(acoustic_feature);
+        Contour super_c = (Contour) r.getAttribute(acoustic_feature);
+        Contour c;
+        try {
+          c = ContourUtils.getSubContour(super_c, r.getStart(), r.getEnd());
+        } catch (AuToBIException e) {
+          throw new FeatureExtractorException(e.getMessage());
+        }
         double[] w = fitter.fitContour(c);
         for (int i = 0; i < w.length; ++i) {
           r.setAttribute(feature_name + "_" + i, w[i]);

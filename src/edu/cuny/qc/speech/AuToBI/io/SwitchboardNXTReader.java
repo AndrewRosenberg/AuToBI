@@ -71,11 +71,12 @@ public class SwitchboardNXTReader extends AuToBIWordReader {
 
     List<Region> break_indices = new ArrayList<Region>();
     for (Region r : breaks_tier.getRegions()) {
-      if (r.getLabel().startsWith("0") || r.getLabel().startsWith("1") || r.getLabel().startsWith("2") || r.getLabel().startsWith("3") || r.getLabel().startsWith("4")) {
+      if (r.getLabel().startsWith("0") || r.getLabel().startsWith("1") || r.getLabel().startsWith("2") ||
+          r.getLabel().startsWith("3") || r.getLabel().startsWith("4")) {
         break_indices.add(r);
       }
     }
-    AlignmentUtils.copyBreaksByTime(words, break_indices);
+    AlignmentUtils.copyToBIBreaksByTime(words, break_indices);
 
     return words;
   }

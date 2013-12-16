@@ -1,10 +1,12 @@
 package edu.cuny.qc.speech.AuToBI.featureextractor.shapemodeling;
 
+import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
 import edu.cuny.qc.speech.AuToBI.core.Contour;
 import edu.cuny.qc.speech.AuToBI.core.FeatureExtractor;
 import edu.cuny.qc.speech.AuToBI.core.Region;
 import edu.cuny.qc.speech.AuToBI.featureextractor.GParam;
 import edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException;
+import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 
 import java.util.List;
 
@@ -44,7 +46,12 @@ public class PVALFeatureExtractor extends FeatureExtractor {
           curve = (CurveShape) r.getAttribute(feature + "__valleyCurve");
         }
 
-        Contour c = (Contour) r.getAttribute(feature);
+        Contour c;
+        try {
+          c = ContourUtils.getSubContour((Contour) r.getAttribute(feature), r.getStart(), r.getEnd());
+        } catch (AuToBIException e) {
+          throw new FeatureExtractorException(e.getMessage());
+        }
         r.setAttribute(feature + "__PVLocation", 1 - (r.getEnd() - c.timeFromIndex(curve.peak)) / r.getDuration());
         GParam gp;
         if (p_peak >= p_valley) {

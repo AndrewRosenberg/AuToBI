@@ -241,6 +241,9 @@ public class EvaluationSummary {
     s += "         -- Stdev: " + getStdevAccuracy() + "\n";
     s += "         -- Sterr: " + getStdevAccuracy() / Math.sqrt(results.size()) + "\n";
     s += "         -- Conf : " + getStdevAccuracy() * 1.64 / Math.sqrt(results.size()) + "\n";
+    int n = 0;
+    for (EvaluationResults r : results) n += r.getNumInstances();
+    s += "         -- N    : " + n + "\n";
 
     if (class_values != null) {
       for (String class_value : class_values.split(",")) {
@@ -263,8 +266,9 @@ public class EvaluationSummary {
       for (String class_name : results.get(0).getClassNames()) {
         try {
           s += class_name + " - FMeasure: " + getFMeasure(class_name) + "\n";
-          if (!Double.isNaN(getRecall(class_name)))
+          if (!Double.isNaN(getRecall(class_name))) {
             ar += getRecall(class_name);
+          }
         } catch (AuToBIException e) {
           e.printStackTrace();
         }

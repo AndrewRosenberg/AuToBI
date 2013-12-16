@@ -1,9 +1,11 @@
 package edu.cuny.qc.speech.AuToBI.featureextractor.shapemodeling;
 
+import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
 import edu.cuny.qc.speech.AuToBI.core.Contour;
 import edu.cuny.qc.speech.AuToBI.core.FeatureExtractor;
 import edu.cuny.qc.speech.AuToBI.core.Region;
 import edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException;
+import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,13 +33,23 @@ public class CurveShapeFeatureExtractor extends FeatureExtractor {
   public void extractFeatures(List regions) throws FeatureExtractorException {
     for (Region r : (List<Region>) regions) {
       if (r.hasAttribute(feature)) {
-        Contour c = (Contour) r.getAttribute(feature);
+        Contour super_c = (Contour) r.getAttribute(feature);
+        Contour c;
+        try {
+          c = ContourUtils.getSubContour(super_c, r.getStart(), r.getEnd());
+        } catch (AuToBIException e) {
+          throw new FeatureExtractorException(e.getMessage());
+        }
 
         CurveShape falling = smooth(-1, true, c);
         CurveShape rising = smooth(c.size(), true, c);
         CurveShape best_peak = null;
         double min_peak_rmse = Double.MAX_VALUE;
-        for (int i = 1; i < c.size() - 1; i++) {
+
+        // Sample the curve at at most 20 points to calculate peak and valley likelihoods.
+        // On long regions calculating at every point gets *very* slow.
+        int step = Math.max(1, c.size() / 20);
+        for (int i = 1; i < c.size() - 1; i += step) {
           CurveShape peak = smooth(i, true, c);
           if (peak.rmse < min_peak_rmse) {
             best_peak = peak;
@@ -46,7 +58,7 @@ public class CurveShapeFeatureExtractor extends FeatureExtractor {
         }
         CurveShape best_valley = null;
         double min_valley_rmse = Double.MAX_VALUE;
-        for (int i = 1; i < c.size() - 1; i++) {
+        for (int i = 1; i < c.size() - 1; i += step) {
           CurveShape valley = smooth(i, false, c);
           if (valley.rmse < min_valley_rmse) {
             best_valley = valley;
@@ -73,10 +85,11 @@ public class CurveShapeFeatureExtractor extends FeatureExtractor {
     for (int i = 0; i < c.size(); ++i) {
       if (!c.isEmpty(i)) {
         if (i >= p) {
-          if (p < 0)
+          if (p < 0) {
             v[i] = -c.get(i);
-          else
+          } else {
             v[i] = 2 * c.get(p) - c.get(i);
+          }
         } else {
           v[i] = c.get(i);
         }
@@ -91,8 +104,9 @@ public class CurveShapeFeatureExtractor extends FeatureExtractor {
     ArrayList<Block> pava_blocks = new ArrayList<Block>();
     // initialize blocks
     for (int i = 0; i < c.size(); ++i) {
-      if (!Double.isNaN(v[i]))
+      if (!Double.isNaN(v[i])) {
         pava_blocks.add(new Block(i, i, v[i]));
+      }
     }
 
     // Merge blocks using PAVA
@@ -151,10 +165,11 @@ public class CurveShapeFeatureExtractor extends FeatureExtractor {
             if (p < 0) {
               smoothed[i] = -b.x;
             } else {
-              if (!isPeak)
+              if (!isPeak) {
                 smoothed[i] = 2 * -c.get(p) - b.x;
-              else
+              } else {
                 smoothed[i] = 2 * c.get(p) - b.x;
+              }
             }
           } else {
             smoothed[i] = b.x;

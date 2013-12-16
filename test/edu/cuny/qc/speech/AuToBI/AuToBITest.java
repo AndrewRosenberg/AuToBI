@@ -800,6 +800,13 @@ public class AuToBITest {
    * Helper functions *
    */
 
+  /**
+   * Write classifiers to test directory.
+   * Used to test unserialization
+   *
+   * @param tasks hashmap of strings to AuToBITasks
+   * @throws IOException
+   */
   private void writeMockClassifiersToTestDir(HashMap<String, AuToBITask> tasks) throws IOException {
     for (String task : tasks.keySet()) {
       writeClassifierToFile(TEST_DIR + "/" + task + ".classifier", tasks.get(task).getClassifier());

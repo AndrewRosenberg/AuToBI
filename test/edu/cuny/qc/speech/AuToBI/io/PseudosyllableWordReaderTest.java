@@ -48,7 +48,7 @@ public class PseudosyllableWordReaderTest {
   @Test
   public void testConstructor() {
     PseudosyllableWordReader reader = new PseudosyllableWordReader(wavData);
-    assertEquals(10.0, reader.getThreshold(), 0.0001);
+    assertEquals(25.0, reader.getThreshold(), 0.0001);
   }
 
   @Test
@@ -72,7 +72,7 @@ public class PseudosyllableWordReaderTest {
 
     try {
       List<Word> words = reader.readWords();
-      assertEquals(14, words.size());
+      assertEquals(12, words.size());
 
     } catch (IOException e) {
       fail(e.getMessage());
@@ -87,7 +87,7 @@ public class PseudosyllableWordReaderTest {
 
     try {
       List<Word> words = reader.readWords();
-      assertEquals(13, words.size());
+      assertEquals(12, words.size());
 
     } catch (IOException e) {
       fail(e.getMessage());

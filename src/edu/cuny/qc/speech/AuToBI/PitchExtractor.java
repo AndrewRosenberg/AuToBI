@@ -23,8 +23,17 @@
 package edu.cuny.qc.speech.AuToBI;
 
 import edu.cuny.qc.speech.AuToBI.core.*;
+import edu.cuny.qc.speech.AuToBI.io.WavReader;
 import jnt.FFT.RealDoubleFFT_Radix2;
+import org.apache.commons.math.stat.descriptive.rank.Percentile;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -63,14 +72,12 @@ public class PitchExtractor extends SampledDataAnalyzer {
    * Call Paul Boersma's soundToPitch with no parameters.
    *
    * @return A list of TimeValuePairs containing pitch information
-   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException
-   *          if there are problems
+   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException if there are problems
    */
   public Contour soundToPitch() throws AuToBIException {
-
     // Default min and max pitch values.
     double min_pitch = 50;
-    double max_pitch = 400;
+    double max_pitch = 500;
     return soundToPitch(0.01, min_pitch, max_pitch);
   }
 
@@ -86,6 +93,32 @@ public class PitchExtractor extends SampledDataAnalyzer {
   public Contour soundToPitch(double time_step, double min_pitch, double max_pitch)
       throws AuToBIException {
     return soundToPitchAc(time_step, min_pitch, 3.0, 15, 0.03, 0.45, 0.01, 0.35, 0.14, max_pitch);
+  }
+
+  /**
+   * Calls soundToPitch with no paramters, automatically setting the min and max values for more precise estimation.
+   * <p/>
+   * This is based on the DeLooze and Rauzy (Automatic Detection and Prediction of Topic Changes
+   * Through Automatic Detection of Register variations and Pause Duration. De Looze and Rauzy. 2009)
+   * It's usefulness was described by The importance of optimal parameter setting for pitch extraction. 2010. Acoustical
+   * Society of America. Evanini, Lai and Zechner.
+   */
+  public Contour soundToPitchTwoPass() throws AuToBIException {
+    // initial min and max values.
+    Contour c = soundToPitch(0.01, 50, 400);
+
+    // identify relevant percentile values
+    Percentile p = new Percentile();
+    double[] values = new double[c.contentSize()];
+    int i = 0;
+    for (Pair<Double, Double> tvp : c) {
+      values[i++] = tvp.second;
+    }
+    double q35 = p.evaluate(values, 35.);
+    double q65 = p.evaluate(values, 65.);
+
+    // run soundToPitch again
+    return soundToPitch(0.01, q35 * 0.72 - 10, q65 * 1.9 + 10);
   }
 
   /**
@@ -128,17 +161,19 @@ public class PitchExtractor extends SampledDataAnalyzer {
 
     if (max_candidates < max_pitch / min_pitch) max_candidates = (int) Math.floor(max_pitch / min_pitch);
 
-    if (time_step <= 0.0)
+    if (time_step <= 0.0) {
       time_step = periods_per_window / min_pitch / 4.0;   /* e.g. 3 periods, 75 Hz: 10 milliseconds. */
+    }
 
 
     // Exclusively implementing the AC_HANNING case
     brent_depth = NUM_PEAK_INTERPOLATE_SINC70;
     interpolation_depth = 0.5;
     duration = wav.getDuration();
-    if (min_pitch < periods_per_window / duration)
+    if (min_pitch < periods_per_window / duration) {
       throw new AuToBIException("For this Sound, the parameter 'minimum pitch' may not be less than " +
           (periods_per_window / duration) + " Hz.");
+    }
 
     /*
     * Determine the number of samples in the longest period.
@@ -307,8 +342,9 @@ public class PitchExtractor extends SampledDataAnalyzer {
       * Compute the local peak; look half a longest period to both sides.
       */
       localPeak = 0.0;
-      if ((startSample = halfnsamp_window + 1 - halfnsamp_period) < 1)
+      if ((startSample = halfnsamp_window + 1 - halfnsamp_period) < 1) {
         startSample = 0;
+      }
       if ((endSample = halfnsamp_window + halfnsamp_period) > nsamp_window) endSample = nsamp_window;
 
       for (int channel = 0; channel < wav.numberOfChannels; ++channel) {
@@ -356,7 +392,6 @@ public class PitchExtractor extends SampledDataAnalyzer {
         r.add(ac[i + 1] / (ac[0] * windowR[i + 1]));
       }
 
-
       /*
       * Register the first candidate, which is always present: voicelessness.
       */
@@ -369,6 +404,7 @@ public class PitchExtractor extends SampledDataAnalyzer {
       * Go to next frame.
       */
       if (localPeak == 0) {
+        pitchFrames.add(pitchFrame);
         continue;
       }
 
@@ -384,7 +420,7 @@ public class PitchExtractor extends SampledDataAnalyzer {
 
           /*
           * Use parabolic interpolation for first estimate of frequency,
-          * and sin(x)/x interpolation to compute the strength of this frequency.
+          * and sin(x)/x interpolation to compute the strengths of this frequency.
           */
           double dr = 0.5 * (r.get(i + 1) - r.get(i - 1)), d2r = 2 * r.get(i) - r.get(i - 1) - r.get(i + 1);
 
@@ -421,8 +457,9 @@ public class PitchExtractor extends SampledDataAnalyzer {
               }
             }
             /* If this maximum is weaker than the weakest candidate so far, give it no place. */
-            if (strengthOfMaximum - octave_cost * Math.log(min_pitch / frequencyOfMaximum) / Math.log(2) <= weakest)
+            if (strengthOfMaximum - octave_cost * Math.log(min_pitch / frequencyOfMaximum) / Math.log(2) <= weakest) {
               place = -1;
+            }
           }
           /* Have we found a place for this candidate? */
           if (place >= 0) {
@@ -483,11 +520,11 @@ public class PitchExtractor extends SampledDataAnalyzer {
    * @param t0                 the time of the initial pitch frame
    * @return The most likely path through the pitch candidates.
    */
-  private Contour pathFinder(ArrayList<PitchFrame> pitchFrames, double silenceThresh,
-                             double voicingThresh, double octaveCost, double octaveJumpCost,
-                             double voicedUnvoicedCost, double maxPitch, int max_candidates,
-                             double time_step, double t0) {
-    Contour pitch = new Contour(t0, time_step, pitchFrames.size());
+  private PitchContour pathFinder(ArrayList<PitchFrame> pitchFrames, double silenceThresh,
+                                  double voicingThresh, double octaveCost, double octaveJumpCost,
+                                  double voicedUnvoicedCost, double maxPitch, int max_candidates,
+                                  double time_step, double t0) {
+    PitchContour pitch = new PitchContour(t0, time_step, pitchFrames.size());
     int place;
     double maximum, value;
     double delta[][];
@@ -568,21 +605,21 @@ public class PitchExtractor extends SampledDataAnalyzer {
     }
 
     /* Backtracking: follow the path backwards. */
-
     for (int iframe = pitchFrames.size() - 1; iframe >= 0; iframe--) {
       PitchFrame frame = pitchFrames.get(iframe);
       PitchCandidate help = frame.getCandidate(0);
       frame.setCandidate(0, frame.getCandidate(place));
       frame.setCandidate(place, help);
-      place = psi[iframe][place];   // This assignment is challenging to CodeWarrior 11.
+      place = psi[iframe][place];
     }
 
     /* Pull formants: devoice frames with frequencies between maxPitch and ceiling2. */
-
     for (int i = 0; i < pitchFrames.size(); ++i) {
       if (pitchFrames.get(i).getCandidate(0).frequency > 0) { // voiced
         pitch.set(i, pitchFrames.get(i).getCandidate(0).frequency);
       }
+      // Set voicing strength whether voiced or unvoiced.
+      pitch.setStrength(i, pitchFrames.get(i).getCandidate(0).strength);
     }
     return pitch;
   }
@@ -598,7 +635,7 @@ public class PitchExtractor extends SampledDataAnalyzer {
    * @param ixmid         The index of the current maximum.
    * @param interpolation The interpolation strategy
    * @return a pair containing the new maximum value and its corresponding index in the x domain -- which may not
-   *         correspond to a valid index.
+   * correspond to a valid index.
    */
   private Pair<Double, Double> improveMaximum(NegativeSymmetricList r, int offset, int nx, int ixmid,
                                               int interpolation) {
@@ -706,7 +743,6 @@ public class PitchExtractor extends SampledDataAnalyzer {
       }
 
       /* Adjust the step to be not less than tolerance. */
-
       if (Math.abs(new_step) < tol_act) {
         new_step = new_step > 0 ? tol_act : -tol_act;
       }
@@ -793,8 +829,9 @@ public class PitchExtractor extends SampledDataAnalyzer {
     if (depth > midright - 1) depth = midright - 1;
     if (depth > nx - midleft) depth = nx - midleft;
     if (depth <= NUM_VALUE_INTERPOLATE_NEAREST) return r.get((int) Math.floor(x + 0.5));
-    if (depth == NUM_VALUE_INTERPOLATE_LINEAR)
+    if (depth == NUM_VALUE_INTERPOLATE_LINEAR) {
       return r.get(midleft + offset) + (x - midleft) * (r.get(midright + offset) - r.get(midleft + offset));
+    }
     if (depth == NUM_VALUE_INTERPOLATE_CUBIC) {
       double yl = r.get(midleft + offset), yr = r.get(midright + offset);
       double dyl = 0.5 * (yr - r.get(midleft - 1 + offset)), dyr = 0.5 * (r.get(midright + 1 + offset) - yl);
@@ -840,5 +877,46 @@ public class PitchExtractor extends SampledDataAnalyzer {
       halfsina = -halfsina;
     }
     return result;
+  }
+
+  public static void main(String[] args) {
+    File file = new File(args[0]);
+    AudioInputStream soundIn = null;
+    try {
+      soundIn = AudioSystem.getAudioInputStream(new BufferedInputStream(new FileInputStream(file)));
+    } catch (UnsupportedAudioFileException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    WavReader reader = new WavReader();
+    WavData wav;
+    try {
+
+      if (args.length > 1) {
+        wav = reader.read(soundIn, Double.parseDouble(args[1]), Double.parseDouble(args[2]));
+      } else {
+        wav = reader.read(soundIn);
+      }
+      System.out.println(wav.sampleRate);
+      System.out.println(wav.sampleSize);
+      System.out.println(wav.getFrameSize());
+      System.out.println(wav.getDuration());
+      System.out.println(wav.getNumSamples());
+
+      PitchExtractor pitchExtractor = new PitchExtractor(wav);
+      PitchContour pitch = (PitchContour) pitchExtractor.soundToPitch();
+
+      System.out.println("pitch points:" + pitch.size());
+
+      for (int i = 0; i < pitch.size(); ++i) {
+        System.out
+            .println(
+                "point[" + i + "]: " + pitch.get(i) + " -- " + pitch.timeFromIndex(i) + ":" + pitch.getStrength(i));
+      }
+    } catch (AuToBIException e) {
+      e.printStackTrace();
+    }
   }
 }

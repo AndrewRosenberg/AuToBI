@@ -788,6 +788,17 @@ public class AuToBI {
   }
 
   /**
+   * Registers features as described in a config file.
+   *
+   * @param filename the config file.
+   */
+  public void registerFeaturesFromConfigFile(String filename) {
+
+    // TODO: Determine a config file format.
+    // This should probably be a set of class names and parameters.
+  }
+
+  /**
    * Registers a large default set of feature extractors.
    *
    * @throws FeatureExtractorException If there is a problem registering (not running) feature extractors.
@@ -872,6 +883,16 @@ public class AuToBI {
         }
       }
     }
+    List<ContextDesc> contexts = new ArrayList<ContextDesc>();
+    contexts.add(new ContextDesc("f2b2", 2, 2));
+    contexts.add(new ContextDesc("f2b1", 2, 1));
+    contexts.add(new ContextDesc("f2b0", 2, 0));
+    contexts.add(new ContextDesc("f1b2", 1, 2));
+    contexts.add(new ContextDesc("f0b2", 0, 2));
+    contexts.add(new ContextDesc("f0b1", 0, 1));
+    contexts.add(new ContextDesc("f1b0", 1, 0));
+    contexts.add(new ContextDesc("f1b1", 1, 1));
+
 
     // Register Contour Feature Extractors
     for (String acoustic : acoustic_features) {
@@ -879,6 +900,21 @@ public class AuToBI {
         for (String slope : new String[]{"", "delta_"}) {
           for (String subregion : new String[]{"", "_pseudosyllable", "_200ms"}) {
             registerFeatureExtractor(new ContourFeatureExtractor(slope + norm + acoustic + subregion));
+
+            // Region based Context Features
+            for (ContextDesc context : contexts) {
+              registerFeatureExtractor(
+                  new ContextNormalizedFeatureExtractor(slope + norm + acoustic + subregion, context));
+            }
+
+            // Temporal based Context Features
+            for (int prev = 0; prev < 3; prev++) {
+              for (int foll = 0; foll < 3; foll++) {
+                registerFeatureExtractor(
+                    new TemporalContextNormalizedFeatureExtractor(slope + norm + acoustic + subregion, 400 * prev,
+                        400 * foll));
+              }
+            }
           }
         }
       }
@@ -890,6 +926,23 @@ public class AuToBI {
       for (int high = low + 1; high <= 20; ++high) {
         registerFeatureExtractor(new SpectralTiltFeatureExtractor("bark_tilt", "spectrum", low, high));
         registerFeatureExtractor(new SpectrumBandFeatureExtractor("bark", "spectrum", low, high));
+
+        for (String feature_prefix : new String[]{"bark_tilt", "bark"}) {
+          String feature_name = feature_prefix + "_" + low + "_" + high;
+          // Region based Context Features
+          for (ContextDesc context : contexts) {
+            registerFeatureExtractor(
+                new ContextNormalizedFeatureExtractor(feature_name, context));
+          }
+
+          // Temporal based Context Features
+          for (int prev = 0; prev < 3; prev++) {
+            for (int foll = 0; foll < 3; foll++) {
+              registerFeatureExtractor(
+                  new TemporalContextNormalizedFeatureExtractor(feature_name, 400 * prev, 400 * foll));
+            }
+          }
+        }
       }
     }
     registerFeatureExtractor(new DurationFeatureExtractor());

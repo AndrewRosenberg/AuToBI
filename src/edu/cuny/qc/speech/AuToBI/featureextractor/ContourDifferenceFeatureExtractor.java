@@ -1,9 +1,7 @@
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
-import edu.cuny.qc.speech.AuToBI.core.Contour;
-import edu.cuny.qc.speech.AuToBI.core.FeatureExtractor;
-import edu.cuny.qc.speech.AuToBI.core.Pair;
-import edu.cuny.qc.speech.AuToBI.core.Region;
+import edu.cuny.qc.speech.AuToBI.core.*;
+import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 
 import java.util.List;
 
@@ -29,10 +27,15 @@ public class ContourDifferenceFeatureExtractor extends FeatureExtractor {
   public void extractFeatures(List regions) throws FeatureExtractorException {
     for (Region r : (List<Region>) regions) {
       if (r.hasAttribute(f1) && r.hasAttribute(f2)) {
-        r.setAttribute(f1 + "_" + f2 + "__rmse",
-            contourRMSE((Contour) r.getAttribute(f1), (Contour) r.getAttribute(f2)));
-        r.setAttribute(f1 + "_" + f2 + "__meanError", contourError((Contour) r.getAttribute(f1),
-            (Contour) r.getAttribute(f2)));
+        Contour c1, c2;
+        try {
+          c1 = ContourUtils.getSubContour((Contour) r.getAttribute(f1), r.getStart(), r.getEnd());
+          c2 = ContourUtils.getSubContour((Contour) r.getAttribute(f2), r.getStart(), r.getEnd());
+        } catch (AuToBIException e) {
+          throw new FeatureExtractorException(e.getMessage());
+        }
+        r.setAttribute(f1 + "_" + f2 + "__rmse", contourRMSE(c1, c2));
+        r.setAttribute(f1 + "_" + f2 + "__meanError", contourError(c1, c2));
       }
     }
   }

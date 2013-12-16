@@ -94,6 +94,48 @@ public class ContextNormalizedFeatureExtractorTest {
     }
   }
 
+  @Test
+  public void testExtractFeaturesFailsGracefullyWithNoRegions() {
+    ContextNormalizedFeatureExtractor cnfe =
+        new ContextNormalizedFeatureExtractor("attr", new ContextDesc("label", 0, 1));
+
+    List<Region> regions = new ArrayList<Region>();
+
+    try {
+      cnfe.extractFeatures(regions);
+    } catch (FeatureExtractorException e) {
+      fail();
+    }
+  }
+
+  @Test
+  public void testExtractFeaturesGeneratesNoFeatureWithZeroLengthRegion() {
+    ContextNormalizedFeatureExtractor cnfe =
+        new ContextNormalizedFeatureExtractor("attr", new ContextDesc("label", 0, 1));
+
+    List<Region> regions = new ArrayList<Region>();
+    Region r = new Region(0.0, 0.0, "test");
+    regions.add(r);
+
+    r.setAttribute("attr", new Contour(0, 1, new double[]{0.0, 0.0, 1.0, 2.0}));
+    r.setAttribute("attr__min", 0.0);
+    r.setAttribute("attr__max", 2.0);
+    r.setAttribute("attr__mean", 0.5);
+    r.setAttribute("attr__stdev", 0.2);
+
+
+    try {
+      cnfe.extractFeatures(regions);
+      assertFalse(r.hasAttribute("attr_label__zMin"));
+      assertFalse(r.hasAttribute("attr_label__zMax"));
+      assertFalse(r.hasAttribute("attr_label__zMean"));
+      assertFalse(r.hasAttribute("attr_label__zNorm"));
+      assertFalse(r.hasAttribute("attr_label__rNorm"));
+    } catch (FeatureExtractorException e) {
+      fail();
+    }
+  }
+
 
   @Test
   public void testExtractFeaturesExtractsContourBasedFeatures() {
@@ -101,7 +143,7 @@ public class ContextNormalizedFeatureExtractorTest {
         new ContextNormalizedFeatureExtractor("attr", new ContextDesc("label", 0, 0));
 
     List<Region> regions = new ArrayList<Region>();
-    Region r = new Region(0.0, 0.0, "test");
+    Region r = new Region(0.0, 3.0, "test");
     regions.add(r);
 
     r.setAttribute("attr", new Contour(0, 1, new double[]{0.0, 0.0, 1.0, 2.0}));

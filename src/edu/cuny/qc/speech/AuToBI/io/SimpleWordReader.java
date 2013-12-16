@@ -121,7 +121,7 @@ public class SimpleWordReader extends AuToBIWordReader {
       Double start = Double.parseDouble(data[start_idx]);
       Double end = Double.parseDouble(data[end_idx]);
 
-      if (end <= start) {
+      if (end < start) {
         throw new AuToBIException("End time before start time on line " + file_reader.getLineNumber() + " - " + line);
       }
 

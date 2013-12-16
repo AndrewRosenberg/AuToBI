@@ -21,6 +21,7 @@ package edu.cuny.qc.speech.AuToBI.featureextractor;
 
 import edu.cuny.qc.speech.AuToBI.core.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @SuppressWarnings("unchecked")
@@ -54,10 +55,18 @@ public class CombinedContourFeatureExtractor extends FeatureExtractor {
    */
   @Override
   public void extractFeatures(List regions) throws FeatureExtractorException {
+    HashMap<Contour, Contour> cache = new HashMap<Contour, Contour>();
+
     for (Region r : (List<Region>) regions) {
       if (r.hasAttribute(feature1) && r.hasAttribute(feature2)) {
-        Contour c = combineContours((Contour) r.getAttribute(feature1), (Contour) r.getAttribute(feature2), f2_coeff);
-        r.setAttribute(feature1 + feature2, c);
+        Contour src = (Contour) r.getAttribute(feature1);
+        if (cache.containsKey(src)) {
+          r.setAttribute(feature1 + feature2, cache.get(src));
+        } else {
+          Contour c = combineContours((Contour) r.getAttribute(feature1), (Contour) r.getAttribute(feature2), f2_coeff);
+          r.setAttribute(feature1 + feature2, c);
+          cache.put(src, c);
+        }
       }
     }
   }

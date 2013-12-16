@@ -4,7 +4,7 @@ import edu.cuny.qc.speech.AuToBI.core.Contour;
 import edu.cuny.qc.speech.AuToBI.core.Region;
 import edu.cuny.qc.speech.AuToBI.core.FeatureExtractor;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -29,17 +29,23 @@ public class LogContourFeatureExtractor extends FeatureExtractor {
    * Constructs a new List<TimeValuePair> object containing log transformed values based on a source contour.
    */
   public void extractFeatures(List regions) throws FeatureExtractorException {
-    for (Region r : (List<Region>) regions) {
+    HashMap<Contour, Contour> cache = new HashMap<Contour, Contour>();
 
+    for (Region r : (List<Region>) regions) {
       if (r.hasAttribute(src)) {
         Contour src_contour = (Contour) r.getAttribute(src);
-        Contour tgt_contour = new Contour(src_contour.getStart(), src_contour.getStep(), src_contour.size());
-        for (int i = 0; i < src_contour.size(); ++i) {
-          if (!src_contour.isEmpty(i)) {
-            tgt_contour.set(i, Math.log(src_contour.get(i)));
+        if (cache.containsKey(src_contour)) {
+          r.setAttribute(tgt, cache.get(src_contour));
+        } else {
+          Contour tgt_contour = new Contour(src_contour.getStart(), src_contour.getStep(), src_contour.size());
+          for (int i = 0; i < src_contour.size(); ++i) {
+            if (!src_contour.isEmpty(i)) {
+              tgt_contour.set(i, Math.log(src_contour.get(i)));
+            }
           }
+          r.setAttribute(tgt, tgt_contour);
+          cache.put(src_contour, tgt_contour);
         }
-        r.setAttribute(tgt, tgt_contour);
       }
     }
   }

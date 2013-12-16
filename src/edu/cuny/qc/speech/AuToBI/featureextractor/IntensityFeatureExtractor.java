@@ -21,15 +21,16 @@ package edu.cuny.qc.speech.AuToBI.featureextractor;
 
 import edu.cuny.qc.speech.AuToBI.*;
 import edu.cuny.qc.speech.AuToBI.core.*;
-import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 /**
- * IntensityFeatureExtractor extracts intensity information from a given WavData object and aligns the appropriate
- * contour sections to the supplied regions.
+ * IntensityFeatureExtractor extracts intensity information from a given WavData object.
+ * <p/>
+ * * v1.4 IntensityFeatureExtractor has changed to attach full contours to each region rather than cutting down to size
+ * This is a more effective route to extracting context.
  */
 public class IntensityFeatureExtractor extends FeatureExtractor {
 
@@ -44,26 +45,25 @@ public class IntensityFeatureExtractor extends FeatureExtractor {
 
   @Override
   public void extractFeatures(List regions) throws FeatureExtractorException {
-    try {
-      // Identify all regions which are associated with each wav data.
-      HashMap<WavData, List<Region>> wave_region_map = new HashMap<WavData, List<Region>>();
-      for (Region r : (List<Region>) regions) {
-        WavData wav = (WavData) r.getAttribute("wav");
-        if (wav != null) {
-          if (!wave_region_map.containsKey(wav)) {
-            wave_region_map.put(wav, new ArrayList<Region>());
-          }
-          wave_region_map.get(wav).add(r);
+    // Identify all regions which are associated with each wav data.
+    HashMap<WavData, List<Region>> wave_region_map = new HashMap<WavData, List<Region>>();
+    for (Region r : (List<Region>) regions) {
+      WavData wav = (WavData) r.getAttribute("wav");
+      if (wav != null) {
+        if (!wave_region_map.containsKey(wav)) {
+          wave_region_map.put(wav, new ArrayList<Region>());
         }
+        wave_region_map.get(wav).add(r);
       }
+    }
 
-      for (WavData wav : wave_region_map.keySet()) {
-        IntensityExtractor extractor = new IntensityExtractor(wav);
-        Contour pitch_contour = extractor.soundToIntensity();
-        ContourUtils.assignValuesToRegions(wave_region_map.get(wav), pitch_contour, feature_name);
+    for (WavData wav : wave_region_map.keySet()) {
+      IntensityExtractor extractor = new IntensityExtractor(wav);
+      Contour contour = extractor.soundToIntensity();
+      // Assign pointer to the full contour to all data points.
+      for (Region r : wave_region_map.get(wav)) {
+        r.setAttribute(feature_name, contour);
       }
-    } catch (AuToBIException e) {
-      throw new FeatureExtractorException(e.getMessage());
     }
   }
 }

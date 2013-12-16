@@ -21,6 +21,7 @@ package edu.cuny.qc.speech.AuToBI.featureextractor;
 
 import edu.cuny.qc.speech.AuToBI.core.*;
 import edu.cuny.qc.speech.AuToBI.io.WavReader;
+import junit.framework.Assert;
 import org.junit.Test;
 
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.fail;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -115,13 +117,51 @@ public class IntensityFeatureExtractorTest {
     try {
       fe.extractFeatures(regions);
       Contour c = (Contour) w.getAttribute("I");
-      assertEquals(100, c.size());
+      assertEquals(92, c.size());
       assertEquals(0.01, c.getStep(), 0.0001);
-      assertEquals(0.005, c.getStart(), 0.0001);
+      assertEquals(0.0449886621317273, c.getStart(), 0.0001);
       // Assume that the intensity extraction algorithm is tested in IntensityExtractor.
       // Here we'll make sure that the generated contour passes some sanity checks.
     } catch (FeatureExtractorException e) {
       e.printStackTrace();
+    }
+  }
+
+  @Test
+  public void testExtractFeaturesAssignsTheSameObjectToSubsequentRegions() {
+    IntensityFeatureExtractor fe =
+        new IntensityFeatureExtractor("I");
+
+    List<Region> regions = new ArrayList<Region>();
+
+    Word w = new Word(0.25, 0.50, "word");
+    Word w2 = new Word(0.50, 0.75, "word");
+    w.setAccent("H*");
+    w2.setAccent("H*");
+    regions.add(w);
+    regions.add(w2);
+
+    WavReader reader = new WavReader();
+
+    WavData wav = null;
+    try {
+      wav = reader.read(TEST_DIR + "/test.wav");
+    } catch (UnsupportedAudioFileException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (AuToBIException e) {
+      e.printStackTrace();
+    }
+    w.setAttribute("wav", wav);
+    w2.setAttribute("wav", wav);
+    try {
+      fe.extractFeatures(regions);
+      Contour c = (Contour) w.getAttribute("I");
+      Contour c2 = (Contour) w2.getAttribute("I");
+      Assert.assertTrue(c == c2);
+    } catch (FeatureExtractorException e) {
+      fail();
     }
   }
 }

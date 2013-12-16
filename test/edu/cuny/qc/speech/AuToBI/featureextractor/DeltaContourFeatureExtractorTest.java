@@ -141,4 +141,27 @@ public class DeltaContourFeatureExtractorTest {
       fail();
     }
   }
+
+  @Test
+  public void testExtractFeaturesAssignsTheSameObjectToSubsequentRegions() {
+    List<Region> regions = new ArrayList<Region>();
+    Word w = new Word(0, 1, "test");
+    Word w2 = new Word(0, 1, "test");
+    Contour c = new Contour(0.0, 0.01, new double[]{0.1, 0.2, 0.3, 0.2, 0.4, 0.1});
+    w.setAttribute("attr", c);
+    w2.setAttribute("attr", c);
+    regions.add(w);
+    regions.add(w2);
+
+    DeltaContourFeatureExtractor fe = new DeltaContourFeatureExtractor("attr");
+    try {
+      fe.extractFeatures(regions);
+      Contour delta_c = (Contour) w.getAttribute("delta_attr");
+      Contour delta_c2 = (Contour) w2.getAttribute("delta_attr");
+      assertTrue(delta_c == delta_c2);
+    } catch (FeatureExtractorException e) {
+      fail();
+    }
+
+  }
 }

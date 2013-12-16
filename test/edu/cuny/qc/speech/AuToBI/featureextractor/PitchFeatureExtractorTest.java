@@ -111,9 +111,75 @@ public class PitchFeatureExtractorTest {
       Contour c = (Contour) w.getAttribute("f0");
       // Assume that Pitch Extraction is tested in PitchExtractor
       // We'll do some sanity checks here.
-      assertEquals(100, c.size());
+      assertEquals(94, c.size());
       assertEquals(0.01, c.getStep(), 0.0001);
-      assertEquals(0.005, c.getStart(), 0.0001);
+      assertEquals(0.035, c.getStart(), 0.0001);
+    } catch (FeatureExtractorException e) {
+      fail();
+    }
+  }
+
+
+  @Test
+  public void testExtractFeaturesAssignsTheFullContour() {
+    Word w = new Word(0.25, 0.75, "word");
+    w.setAccent("H*");
+    regions.add(w);
+
+    WavReader reader = new WavReader();
+
+    WavData wav = null;
+    try {
+      wav = reader.read(TEST_DIR + "/test.wav");
+    } catch (UnsupportedAudioFileException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (AuToBIException e) {
+      e.printStackTrace();
+    }
+    w.setAttribute("wav", wav);
+    try {
+      fe.extractFeatures(regions);
+      Contour c = (Contour) w.getAttribute("f0");
+      // Assume that Pitch Extraction is tested in PitchExtractor
+      // We'll do some sanity checks here.
+      assertEquals(94, c.size());
+      assertEquals(0.01, c.getStep(), 0.0001);
+      assertEquals(0.035, c.getStart(), 0.0001);
+    } catch (FeatureExtractorException e) {
+      fail();
+    }
+  }
+
+  @Test
+  public void testExtractFeaturesAssignsTheSameObjectToSubsequentRegions() {
+    Word w = new Word(0.25, 0.50, "word");
+    Word w2 = new Word(0.50, 0.75, "word");
+    w.setAccent("H*");
+    w2.setAccent("H*");
+    regions.add(w);
+    regions.add(w2);
+
+    WavReader reader = new WavReader();
+
+    WavData wav = null;
+    try {
+      wav = reader.read(TEST_DIR + "/test.wav");
+    } catch (UnsupportedAudioFileException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (AuToBIException e) {
+      e.printStackTrace();
+    }
+    w.setAttribute("wav", wav);
+    w2.setAttribute("wav", wav);
+    try {
+      fe.extractFeatures(regions);
+      Contour c = (Contour) w.getAttribute("f0");
+      Contour c2 = (Contour) w2.getAttribute("f0");
+      assertTrue(c == c2);
     } catch (FeatureExtractorException e) {
       fail();
     }

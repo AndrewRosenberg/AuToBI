@@ -61,7 +61,8 @@ public class AlignmentUtils {
           if (!(tone.getLabel().equals("HiF0") || tone.getLabel().equals("%H"))) {
             AuToBIUtils.warn("Label, " + tone.getLabel()
                 +
-                ", doesn't match any pattern (accent_pattern, phrase_accent_pattern, boundary_tone_pattern). Word reference: "
+                ", doesn't match any pattern (accent_pattern, phrase_accent_pattern, " +
+                "boundary_tone_pattern). Word reference: "
                 + word);
           }
         }
@@ -142,8 +143,7 @@ public class AlignmentUtils {
    *
    * @param words  The list of words
    * @param breaks The list of breaks
-   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException
-   *          If there is an unqual number of breaks and words
+   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException If there is an unqual number of breaks and words
    */
   public static void copyToBIBreaks(List<Word> words, List<Region> breaks) throws AuToBIException {
     String previous_break = null;
@@ -172,7 +172,7 @@ public class AlignmentUtils {
    * @param words  The list of words
    * @param breaks The list of breaks
    */
-  public static void copyBreaksByTime(List<Word> words, List<Region> breaks) {
+  public static void copyToBIBreaksByTime(List<Word> words, List<Region> breaks) {
     int break_idx = 0;
     int word_idx = 0;
     String previous_break = null;
@@ -231,8 +231,9 @@ public class AlignmentUtils {
       Region toneRegion = getNextRegionBeforeTime(word.getEnd(), toneIter);
 
       while (toneRegion != null) {
-        if (toneRegion.getLabel().equals(""))
+        if (toneRegion.getLabel().equals("")) {
           throw new AuToBIException(toneRegion + " contains an empty tone.");
+        }
 
         // Common idiosyncracies in the Boston University Radio News Corpus, that are not in the ToBI standard.
         if (toneRegion.getLabel().equals("X%?") || toneRegion.getLabel().equals("%?")) {

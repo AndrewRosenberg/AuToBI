@@ -19,7 +19,10 @@
  */
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
-import edu.cuny.qc.speech.AuToBI.core.*;
+import edu.cuny.qc.speech.AuToBI.core.Contour;
+import edu.cuny.qc.speech.AuToBI.core.Region;
+import edu.cuny.qc.speech.AuToBI.core.SpeakerNormalizationParameter;
+import edu.cuny.qc.speech.AuToBI.core.Word;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,22 +34,22 @@ import static junit.framework.Assert.*;
 /**
  * Test class for NormalizationParameterFeatureExtractor
  *
- * @see edu.cuny.qc.speech.AuToBI.featureextractor.NormalizationParameterFeatureExtractor
+ * @see NormalizationParameterFeatureExtractor
  */
-public class NormalizedContourFeatureExtractorTest {
-  private NormalizedContourFeatureExtractor fe;
+public class RangeNormalizedContourFeatureExtractorTest {
+  private RangeNormalizedContourFeatureExtractor fe;
   private List<Region> regions;
 
   @Before
   public void setUp() throws Exception {
-    fe = new NormalizedContourFeatureExtractor("f0", "normparams");
+    fe = new RangeNormalizedContourFeatureExtractor("f0", "normparams");
     regions = new ArrayList<Region>();
   }
 
   @Test
   public void testConstructorSetsExtractedFeaturesCorrectly() {
     assertEquals(1, fe.getExtractedFeatures().size());
-    assertTrue(fe.getExtractedFeatures().contains("norm_f0"));
+    assertTrue(fe.getExtractedFeatures().contains("rnorm_f0"));
   }
 
   @Test
@@ -70,7 +73,7 @@ public class NormalizedContourFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertTrue(w.hasAttribute("norm_f0"));
+      assertTrue(w.hasAttribute("rnorm_f0"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -90,13 +93,13 @@ public class NormalizedContourFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      Contour c = (Contour) w.getAttribute("norm_f0");
+      Contour c = (Contour) w.getAttribute("rnorm_f0");
       assertEquals(4, c.size());
       assertEquals(0.1, c.getStep());
-      assertEquals(-1.16189, c.get(0), 0.0001);
-      assertEquals(-0.38729, c.get(1), 0.0001);
-      assertEquals(0.38729, c.get(2), 0.0001);
-      assertEquals(1.16189, c.get(3), 0.0001);
+      assertEquals(0., c.get(0), 0.0001);
+      assertEquals(0.33333, c.get(1), 0.0001);
+      assertEquals(0.66666, c.get(2), 0.0001);
+      assertEquals(1., c.get(3), 0.0001);
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -115,7 +118,7 @@ public class NormalizedContourFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertFalse(w.hasAttribute("norm_f0"));
+      assertFalse(w.hasAttribute("rnorm_f0"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -129,7 +132,7 @@ public class NormalizedContourFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertFalse(w.hasAttribute("norm_f0"));
+      assertFalse(w.hasAttribute("rnorm_f0"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -156,7 +159,7 @@ public class NormalizedContourFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertTrue(w.getAttribute("norm_f0") == w2.getAttribute("norm_f0"));
+      assertTrue(w.getAttribute("rnorm_f0") == w2.getAttribute("rnorm_f0"));
 
     } catch (FeatureExtractorException e) {
       fail();

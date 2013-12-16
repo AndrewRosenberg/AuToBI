@@ -82,6 +82,24 @@ public class ContourCenterOfGravityFeatureExtractorTest {
     ContourCenterOfGravityFeatureExtractor ccogfe = new ContourCenterOfGravityFeatureExtractor("attr");
 
     List<Region> regions = new ArrayList<Region>();
+    Region r = new Region(0.0, 1.0, "test");
+    regions.add(r);
+
+    r.setAttribute("attr", new Contour(0, .1, new double[]{0.0, 0.0, 1.0, 2.0}));
+
+    try {
+      ccogfe.extractFeatures(regions);
+      assertTrue(r.hasAttribute("attr__cog"));
+    } catch (FeatureExtractorException e) {
+      fail();
+    }
+  }
+
+  @Test
+  public void testExtractFeaturesDoesNotExtractFeaturesOnZeroLengthedRegions() {
+    ContourCenterOfGravityFeatureExtractor ccogfe = new ContourCenterOfGravityFeatureExtractor("attr");
+
+    List<Region> regions = new ArrayList<Region>();
     Region r = new Region(0.0, 0.0, "test");
     regions.add(r);
 
@@ -89,7 +107,7 @@ public class ContourCenterOfGravityFeatureExtractorTest {
 
     try {
       ccogfe.extractFeatures(regions);
-      assertTrue(r.hasAttribute("attr__cog"));
+      assertFalse(r.hasAttribute("attr__cog"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -111,5 +129,10 @@ public class ContourCenterOfGravityFeatureExtractorTest {
     } catch (FeatureExtractorException e) {
       fail();
     }
+  }
+
+  @Test
+  public void testExtractFeaturesDoesLeadToHugeNegativeValues() {
+    fail();
   }
 }

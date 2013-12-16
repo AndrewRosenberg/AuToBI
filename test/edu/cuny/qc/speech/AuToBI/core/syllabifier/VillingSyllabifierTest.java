@@ -21,7 +21,6 @@ package edu.cuny.qc.speech.AuToBI.core.syllabifier;
 
 
 import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
-import edu.cuny.qc.speech.AuToBI.core.Contour;
 import edu.cuny.qc.speech.AuToBI.core.Region;
 import edu.cuny.qc.speech.AuToBI.core.WavData;
 import edu.cuny.qc.speech.AuToBI.io.WavReader;
@@ -30,7 +29,6 @@ import org.junit.Test;
 
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.Assert.*;
@@ -66,6 +64,6 @@ public class VillingSyllabifierTest {
 
     // Note: there are 12 true syllables in the file.  If the approach is tuned to become more accurate,
     // the expected value may change.
-    assertEquals(12, regions.size());
+    assertEquals(14, regions.size());
   }
 }

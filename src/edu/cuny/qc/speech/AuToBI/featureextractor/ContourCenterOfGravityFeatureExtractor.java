@@ -20,6 +20,7 @@
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
 import edu.cuny.qc.speech.AuToBI.core.*;
+import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 
 import java.util.List;
 
@@ -49,11 +50,16 @@ public class ContourCenterOfGravityFeatureExtractor extends FeatureExtractor {
   public void extractFeatures(List regions) throws FeatureExtractorException {
     for (Region r : (List<Region>) regions) {
       if (r.hasAttribute(attribute_name)) {
-        Contour contour = (Contour) r.getAttribute(attribute_name);
-
+        Contour super_c = (Contour) r.getAttribute(attribute_name);
+        Contour c;
+        try {
+          c = ContourUtils.getSubContour(super_c, r.getStart(), r.getEnd());
+        } catch (AuToBIException e) {
+          throw new FeatureExtractorException(e.getMessage());
+        }
         double num = 0.0;
         double denom = 0.0;
-        for (Pair<Double, Double> tvp : contour) {
+        for (Pair<Double, Double> tvp : c) {
           num += tvp.first * tvp.second;
           denom += tvp.second;
         }

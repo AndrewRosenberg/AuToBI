@@ -1,6 +1,7 @@
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
 import edu.cuny.qc.speech.AuToBI.core.*;
+import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -33,10 +34,19 @@ public class SpeakerNormalizationParameterFeatureExtractor extends FeatureExtrac
       }
       norm_params = params.get(r.getAttribute(speaker_id_feature));
       if (r.hasAttribute("f0")) {
-        norm_params.insertPitch((Contour) r.getAttribute("f0"));
+        try {
+          norm_params.insertPitch(ContourUtils.getSubContour((Contour) r.getAttribute("f0"), r.getStart(), r.getEnd()));
+        } catch (AuToBIException e) {
+          throw new FeatureExtractorException(e.getMessage());
+        }
       }
       if (r.hasAttribute("I")) {
-        norm_params.insertIntensity((Contour) r.getAttribute("I"));
+        try {
+          norm_params
+              .insertIntensity(ContourUtils.getSubContour((Contour) r.getAttribute("I"), r.getStart(), r.getEnd()));
+        } catch (AuToBIException e) {
+          throw new FeatureExtractorException(e.getMessage());
+        }
       }
     }
 

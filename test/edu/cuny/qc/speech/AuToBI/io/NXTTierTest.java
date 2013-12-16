@@ -35,7 +35,8 @@ public class NXTTierTest {
   @Test
   public void testParseBreakParsesTime() {
     String line =
-        "<break nite:id=\"sw4890A.break.26\" nite:start=\"9.334875\" nite:end=\"9.334875\" UWtime=\"9.344875\" index=\"4-\" phraseTone=\"L\" boundaryTone=\"H\">";
+        "<break nite:id=\"sw4890A.break.26\" nite:start=\"9.334875\" nite:end=\"9.334875\" UWtime=\"9.344875\" " +
+            "index=\"4-\" phraseTone=\"L\" boundaryTone=\"H\">";
 
     NXTTier tier = new NXTTier();
     List<Region> marks = tier.parseBreak(line);
@@ -47,7 +48,8 @@ public class NXTTierTest {
   @Test
   public void testParseBreakParsesBreakIndex() {
     String line =
-        "<break nite:id=\"sw4890A.break.26\" nite:start=\"9.334875\" nite:end=\"9.334875\" UWtime=\"9.344875\" index=\"4-\" phraseTone=\"L\" boundaryTone=\"H\">";
+        "<break nite:id=\"sw4890A.break.26\" nite:start=\"9.334875\" nite:end=\"9.334875\" UWtime=\"9.344875\" " +
+            "index=\"4-\" phraseTone=\"L\" boundaryTone=\"H\">";
 
     NXTTier tier = new NXTTier();
     List<Region> marks = tier.parseBreak(line);
@@ -57,7 +59,8 @@ public class NXTTierTest {
   @Test
   public void testParseBreakParsesBoundaryTone() {
     String line =
-        "<break nite:id=\"sw4890A.break.26\" nite:start=\"9.334875\" nite:end=\"9.334875\" UWtime=\"9.344875\" index=\"4-\" phraseTone=\"L\" boundaryTone=\"H\">";
+        "<break nite:id=\"sw4890A.break.26\" nite:start=\"9.334875\" nite:end=\"9.334875\" UWtime=\"9.344875\" " +
+            "index=\"4-\" phraseTone=\"L\" boundaryTone=\"H\">";
 
     NXTTier tier = new NXTTier();
     List<Region> marks = tier.parseBreak(line);
@@ -67,7 +70,8 @@ public class NXTTierTest {
   @Test
   public void testParseBreakParsesPhraseAccent() {
     String line =
-        "<break nite:id=\"sw4890A.break.26\" nite:start=\"9.334875\" nite:end=\"9.334875\" UWtime=\"9.344875\" index=\"4-\" phraseTone=\"L\" boundaryTone=\"H\">";
+        "<break nite:id=\"sw4890A.break.26\" nite:start=\"9.334875\" nite:end=\"9.334875\" UWtime=\"9.344875\" " +
+            "index=\"4-\" phraseTone=\"L\" boundaryTone=\"H\">";
 
     NXTTier tier = new NXTTier();
     List<Region> marks = tier.parseBreak(line);
@@ -77,7 +81,8 @@ public class NXTTierTest {
   @Test
   public void testParseWordWorks() {
     String line =
-        "<word pos=\"NN\" nite:id=\"s1_38\" msstateID=\"sw4890A-ms98-a-0002-28\" msstate=\"sw4890A-ms98-a-0002\" nite:end=\"6.054875\" nite:start=\"5.805750\" orth=\"jury\">";
+        "<word pos=\"NN\" nite:id=\"s1_38\" msstateID=\"sw4890A-ms98-a-0002-28\" msstate=\"sw4890A-ms98-a-0002\" " +
+            "nite:end=\"6.054875\" nite:start=\"5.805750\" orth=\"jury\">";
 
     NXTTier tier = new NXTTier();
     Region r = tier.parseWord(line);
@@ -90,7 +95,8 @@ public class NXTTierTest {
   @Test
   public void testParseAccentWorks() {
     String line =
-        "<accent nite:id=\"sw4890.A.acc247.aw826\" nite:start=\"297.835282\" nite:end=\"297.835282\" strength=\"full\">";
+        "<accent nite:id=\"sw4890.A.acc247.aw826\" nite:start=\"297.835282\" nite:end=\"297.835282\" " +
+            "strengths=\"full\">";
 
     NXTTier tier = new NXTTier();
     Region r = tier.parseAccent(line);

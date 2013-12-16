@@ -52,8 +52,6 @@ public class FeatureSetPropagator implements Callable<FeatureSet> {
     String file_stem = filename.substring(0, filename.lastIndexOf('.'));
     String wav_filename = file_stem + ".wav";
 
-    AuToBIWordReader reader = WordReaderUtils.getAppropriateReader(file, autobi.getParameters());
-
     WavReader wav_reader = new WavReader();
     WavData wav = null;
     try {
@@ -66,6 +64,12 @@ public class FeatureSetPropagator implements Callable<FeatureSet> {
         wav = null;
       }
       AuToBIUtils.log("Reading words from: " + filename);
+      AuToBIWordReader reader;
+      if (autobi.getBooleanParameter("syllable_based", false)) {
+        reader = new PseudosyllableWordReader(wav, file);
+      } else {
+        reader = WordReaderUtils.getAppropriateReader(file, autobi.getParameters());
+      }
       List<Word> words = reader.readWords();
 
       for (Word w : words) {

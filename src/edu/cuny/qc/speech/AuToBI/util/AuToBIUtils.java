@@ -109,7 +109,7 @@ public class AuToBIUtils {
     File dir;
 
     ArrayList<String> filenames = new ArrayList<String>();
-    if (pattern != null)
+    if (pattern != null) {
       for (String file_pattern : pattern.split(",")) {
         file_pattern = file_pattern.replaceAll("~", System.getProperty("user.home"));
         if (!file_pattern.startsWith("/")) {
@@ -121,6 +121,7 @@ public class AuToBIUtils {
         for (String file_name : getFileList(dir, file_pattern))
           filenames.add(file_name);
       }
+    }
     return filenames;
   }
 
@@ -131,8 +132,7 @@ public class AuToBIUtils {
    *
    * @param pattern The file pattern.
    * @return the matching file
-   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException
-   *          if the pattern matches multiple files
+   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException if the pattern matches multiple files
    */
   public static String globSingleFile(String pattern) throws AuToBIException {
     if (pattern.contains(",")) {
@@ -346,10 +346,14 @@ public class AuToBIUtils {
       if (params.hasParameter("intonational_phrase_boundary_detector")) {
         map.put("intonational_phrase_boundary_detection", getIntonationalPhraseDetectionTask(
             serialized ? params.getParameter("intonational_phrase_boundary_detector") : null));
+        params.setParameter("intonational_phrase_boundary_detection",
+            params.getParameter("intonational_phrase_boundary_detector"));
       }
       if (params.hasParameter("intermediate_phrase_boundary_detector")) {
         map.put("intermediate_phrase_boundary_detection", getIntermediatePhraseDetectionTask(
             serialized ? params.getParameter("intermediate_phrase_boundary_detector") : null));
+        params.setParameter("intermediate_phrase_boundary_detection",
+            params.getParameter("intermediate_phrase_boundary_detector"));
       }
       if (params.hasParameter("phrase_accent_classifier")) {
         map.put("phrase_accent_classification",

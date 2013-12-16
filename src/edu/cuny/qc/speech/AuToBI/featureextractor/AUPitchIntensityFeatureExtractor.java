@@ -20,8 +20,8 @@
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
 import edu.cuny.qc.speech.AuToBI.core.*;
+import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,13 +47,26 @@ public class AUPitchIntensityFeatureExtractor extends FeatureExtractor {
   @Override
   public void extractFeatures(List regions) throws FeatureExtractorException {
     for (Region r : (List<Region>) regions) {
-      Contour pitch_c = (Contour) r.getAttribute(pitch_f);
-      Contour i_c = (Contour) r.getAttribute(i_f);
+      Contour super_pitch_c = (Contour) r.getAttribute(pitch_f);
+      Contour pitch_c;
+      try {
+        pitch_c = ContourUtils.getSubContour(super_pitch_c, r.getStart(), r.getEnd());
+      } catch (AuToBIException e) {
+        throw new FeatureExtractorException(e.getMessage());
+      }
+      Contour super_i_c = (Contour) r.getAttribute(i_f);
+      Contour i_c;
+      try {
+        i_c = ContourUtils.getSubContour(super_i_c, r.getStart(), r.getEnd());
+      } catch (AuToBIException e) {
+        throw new FeatureExtractorException(e.getMessage());
+      }
       double sum = 0.0;
       for (Pair<Double, Double> x : pitch_c) {
         double time = x.first;
-        if (!Double.isNaN(x.second) && !i_c.isEmpty(i_c.indexFromTime(time)))
+        if (!Double.isNaN(x.second) && !i_c.isEmpty(i_c.indexFromTime(time))) {
           sum += i_c.get(time) * i_coeff * x.second;
+        }
       }
 
       r.setAttribute(extracted_f, sum);

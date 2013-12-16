@@ -19,10 +19,8 @@
  */
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
-import edu.cuny.qc.speech.AuToBI.core.Contour;
-import edu.cuny.qc.speech.AuToBI.core.FeatureExtractor;
-import edu.cuny.qc.speech.AuToBI.core.Pair;
-import edu.cuny.qc.speech.AuToBI.core.Region;
+import edu.cuny.qc.speech.AuToBI.core.*;
+import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 
 import java.util.List;
 
@@ -44,7 +42,13 @@ public class AUContourFeatureExtractor extends FeatureExtractor {
   public void extractFeatures(List regions) throws FeatureExtractorException {
     for (Region r : (List<Region>) regions) {
       if (r.hasAttribute(feature)) {
-        Contour c = (Contour) r.getAttribute(feature);
+        Contour super_c = (Contour) r.getAttribute(feature);
+        Contour c;
+        try {
+          c = ContourUtils.getSubContour(super_c, r.getStart(), r.getEnd());
+        } catch (AuToBIException e) {
+          throw new FeatureExtractorException(e.getMessage());
+        }
         double sum = 0.0;
         for (Pair<Double, Double> x : c) {
           sum += x.second;

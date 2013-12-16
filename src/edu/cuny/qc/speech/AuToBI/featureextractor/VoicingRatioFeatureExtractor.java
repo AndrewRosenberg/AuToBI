@@ -1,8 +1,10 @@
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
+import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
 import edu.cuny.qc.speech.AuToBI.core.Contour;
 import edu.cuny.qc.speech.AuToBI.core.FeatureExtractor;
 import edu.cuny.qc.speech.AuToBI.core.Region;
+import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 
 import java.util.List;
 
@@ -25,7 +27,12 @@ public class VoicingRatioFeatureExtractor extends FeatureExtractor {
   public void extractFeatures(List regions) throws FeatureExtractorException {
     for (Region r : (List<Region>) regions) {
 
-      Contour pitch = (Contour) r.getAttribute(pitch_feature);
+      Contour pitch;
+      try {
+        pitch = ContourUtils.getSubContour((Contour) r.getAttribute(pitch_feature), r.getStart(), r.getEnd());
+      } catch (AuToBIException e) {
+        throw new FeatureExtractorException(e.getMessage());
+      }
       if (pitch != null) {
         r.setAttribute(pitch_feature + "__voicingRatio", pitch.contentSize() * 1.0 / pitch.size());
       } else {

@@ -21,6 +21,7 @@ package edu.cuny.qc.speech.AuToBI.featureextractor;
 
 import edu.cuny.qc.speech.AuToBI.core.*;
 import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
+import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -31,10 +32,6 @@ import java.util.ArrayList;
 public class ContourFeatureExtractor extends FeatureExtractor {
 
   protected String attribute_name;  // the name of the feature name to analyze
-
-  private List<ContextNormalizedFeatureExtractor> cnfes;  // associated context normalized feature extractors
-  private List<TemporalContextNormalizedFeatureExtractor> tcnfes;
-  // associated temporal context normalized feature extractors
 
   /**
    * Constructs a new ContourFeatureExtractor with associated values and attribute name.
@@ -60,27 +57,6 @@ public class ContourFeatureExtractor extends FeatureExtractor {
    */
   public void setAttributeName(String attribute_name) {
     this.attribute_name = attribute_name;
-    List<ContextDesc> contexts = new ArrayList<ContextDesc>();
-    contexts.add(new ContextDesc("f2b2", 2, 2));
-    contexts.add(new ContextDesc("f2b1", 2, 1));
-    contexts.add(new ContextDesc("f2b0", 2, 0));
-    contexts.add(new ContextDesc("f1b2", 1, 2));
-    contexts.add(new ContextDesc("f0b2", 0, 2));
-    contexts.add(new ContextDesc("f0b1", 0, 1));
-    contexts.add(new ContextDesc("f1b0", 1, 0));
-    contexts.add(new ContextDesc("f1b1", 1, 1));
-
-    cnfes = new ArrayList<ContextNormalizedFeatureExtractor>();
-    for (ContextDesc context : contexts) {
-      cnfes.add(new ContextNormalizedFeatureExtractor(this.attribute_name, context));
-    }
-
-    tcnfes = new ArrayList<TemporalContextNormalizedFeatureExtractor>();
-    for (int prev = 0; prev < 3; prev++) {
-      for (int foll = 0; foll < 3; foll++) {
-        tcnfes.add(new TemporalContextNormalizedFeatureExtractor(this.attribute_name, 400 * prev, 400 * foll));
-      }
-    }
 
     extracted_features = new ArrayList<String>();
     extracted_features.add(this.attribute_name + "__max");
@@ -90,14 +66,6 @@ public class ContourFeatureExtractor extends FeatureExtractor {
     extracted_features.add(this.attribute_name + "__zMax");
     extracted_features.add(this.attribute_name + "__maxLocation");
     extracted_features.add(this.attribute_name + "__maxRelLocation");
-
-    for (ContextNormalizedFeatureExtractor cnfe : cnfes) {
-      extracted_features.addAll(cnfe.getExtractedFeatures());
-    }
-
-    for (TemporalContextNormalizedFeatureExtractor tcnfe : tcnfes) {
-      extracted_features.addAll(tcnfe.getExtractedFeatures());
-    }
 
     required_features.add(this.attribute_name);
   }
@@ -134,15 +102,11 @@ public class ContourFeatureExtractor extends FeatureExtractor {
    */
   public void extractFeatures(List regions, List context_regions) throws FeatureExtractorException {
     for (Region region : (List<Region>) regions) {
-      extractFeatures(region);
-    }
-
-    for (ContextNormalizedFeatureExtractor cnfe : cnfes) {
-      cnfe.extractFeatures(regions, context_regions);
-    }
-
-    for (TemporalContextNormalizedFeatureExtractor tcnfe : tcnfes) {
-      tcnfe.extractFeatures(regions);
+      try {
+        extractFeatures(region);
+      } catch (AuToBIException e) {
+        throw new FeatureExtractorException(e.getMessage());
+      }
     }
   }
 
@@ -151,12 +115,13 @@ public class ContourFeatureExtractor extends FeatureExtractor {
    *
    * @param region the region
    */
-  private void extractFeatures(Region region) {
+  private void extractFeatures(Region region) throws AuToBIException {
     if (!region.hasAttribute(attribute_name)) {
       AuToBIUtils.warn("region doesn't have attribute: " + attribute_name);
       return;
     }
-    Contour contour = (Contour) region.getAttribute(attribute_name);
+    Contour contour =
+        ContourUtils.getSubContour((Contour) region.getAttribute(attribute_name), region.getStart(), region.getEnd());
     double max_location = region.getStart();
     Aggregation agg = new Aggregation();
     for (Pair<Double, Double> tvp : contour) {

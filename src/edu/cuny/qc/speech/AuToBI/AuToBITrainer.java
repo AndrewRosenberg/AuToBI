@@ -71,8 +71,9 @@ public class AuToBITrainer {
    */
   public void trainClassifier(Collection<FormattedFile> filenames, FeatureSet fs, AuToBIClassifier classifier)
       throws Exception {
-    if (filenames.size() == 0)
+    if (filenames.size() == 0) {
       throw new AuToBIException("No filenames specified for training. Aborting.");
+    }
     try {
       autobi.registerAllFeatureExtractors();
       autobi.registerNullFeatureExtractor("speaker_id");
@@ -113,7 +114,7 @@ public class AuToBITrainer {
         if (task_label.equals("phrase_accent_classification")) {
           autobi.getParameters()
               .setParameter("attribute_omit", autobi.getTrueFeature("phrase_accent_classification") + ":NOTONE");
-        } else if (task_label.equals("phrase_accent_boundary_tone_classification")) {
+        } else if (task_label.equals("boundary_tone_classification")) {
           autobi.getParameters()
               .setParameter("attribute_omit",
                   autobi.getTrueFeature("phrase_accent_boundary_tone_classification") + ":NOTONE");

@@ -19,12 +19,9 @@
  */
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
-import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
-import edu.cuny.qc.speech.AuToBI.core.Contour;
 import edu.cuny.qc.speech.AuToBI.core.Region;
 import edu.cuny.qc.speech.AuToBI.core.FeatureExtractor;
 import edu.cuny.qc.speech.AuToBI.util.SubregionUtils;
-import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,8 +61,9 @@ public class SubregionWrappedFeatureExtractor extends FeatureExtractor {
    * A subregion object must be assigned to each region prior to processing.
    *
    * @param regions the regions to extract features from.
-   * @throws edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException
-   *          if somethign goes wrong -- no subregion feature is assigned or a problem with the tvpfe.
+   * @throws edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException if somethign goes wrong -- no
+   *                                                                              subregion feature is assigned or a
+   *                                                                              problem with the tvpfe.
    */
   public void extractFeatures(List regions) throws FeatureExtractorException {
     // Construct a list of subregions.
@@ -79,19 +77,9 @@ public class SubregionWrappedFeatureExtractor extends FeatureExtractor {
       }
     }
 
-    try {
-      // if Feature Extractor needs an attribute, copy it to the subregions.
-      for (String f : fe.getRequiredFeatures()) {
-        Region r = (Region) regions.get(0);
-        if (r.getAttribute(f) instanceof Contour) {
-          ContourUtils.assignValuesToSubregions(subregions, regions, f);
-        } else {
-          SubregionUtils.assignFeatureToSubregions(regions, subregion_attribute, f);
-        }
-
-      }
-    } catch (AuToBIException e) {
-      throw new FeatureExtractorException(e.getMessage());
+    // if Feature Extractor needs an attribute, copy it to the subregions.
+    for (String f : fe.getRequiredFeatures()) {
+      SubregionUtils.assignFeatureToSubregions(regions, subregion_attribute, f);
     }
 
     fe.extractFeatures(subregions);

@@ -1,14 +1,13 @@
 package edu.cuny.qc.speech.AuToBI.io;
 
+import edu.cuny.qc.speech.AuToBI.core.*;
 import edu.cuny.qc.speech.AuToBI.core.syllabifier.Syllabifier;
-import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
-import edu.cuny.qc.speech.AuToBI.core.Region;
-import edu.cuny.qc.speech.AuToBI.core.WavData;
-import edu.cuny.qc.speech.AuToBI.core.Word;
 import edu.cuny.qc.speech.AuToBI.core.syllabifier.VillingSyllabifier;
 import edu.cuny.qc.speech.AuToBI.featureextractor.ContourFeatureExtractor;
 import edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException;
 import edu.cuny.qc.speech.AuToBI.featureextractor.IntensityFeatureExtractor;
+import edu.cuny.qc.speech.AuToBI.util.AlignmentUtils;
+import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,7 +26,7 @@ import java.util.List;
 public class PseudosyllableWordReader extends AuToBIWordReader {
   private WavData wav_data;   // the audio material to base the segmentation on
   private double threshold;   // the silence threshold in mean dB in the region
-  private String annotation_file;  // A file containing ToBI annotations.
+  private FormattedFile annotation_file;  // A file containing ToBI annotations.
 
   /**
    * Constructs a new PseudosyllableWordReader based on audio data, wav_data, and a silence threshold, threshold.
@@ -48,8 +47,19 @@ public class PseudosyllableWordReader extends AuToBIWordReader {
    */
   public PseudosyllableWordReader(WavData wav_data) {
     this.wav_data = wav_data;
-    this.threshold = 10.0;
+    this.threshold = 25.0;
     this.annotation_file = null;
+  }
+
+  /**
+   * Constructs a new PseudosyllableWordReader based on audio data, wav_data, and a default silence threshold of 10dB.
+   *
+   * @param wav_data source audio material.
+   */
+  public PseudosyllableWordReader(WavData wav_data, FormattedFile annotation_file) {
+    this.wav_data = wav_data;
+    this.threshold = 25.0;
+    this.annotation_file = annotation_file;
   }
 
   /**
@@ -90,20 +100,39 @@ public class PseudosyllableWordReader extends AuToBIWordReader {
       throw new AuToBIException("Error extracting intensity: " + e.getMessage());
     }
 
+    double max_I = -Double.MAX_VALUE;
     for (Region r : regions) {
-      if ((Double) r.getAttribute("I__mean") >= threshold) {
+      if (r.hasAttribute("I__max")) {
+        max_I = Math.max(max_I, (Double) r.getAttribute("I__max"));
+      }
+    }
+
+    for (Region r : regions) {
+      if ((Double) r.getAttribute("I__max") >= max_I - threshold) {
         words.add(new Word(r.getStart(), r.getEnd(), "", "", wav_data.getFilename()));
       }
     }
 
     if (annotation_file != null) {
-      // TODO: include a way to read ToBI annotations from an annotation file and align to the pseudosyllable words
-      // for evaluation.
-      // Sample code:
-//      TextGridReader reader = new TextGridReader(annotation_file);
-//      reader.readWords();
-//      Tier tones_tier = reader.getTonesTier();
-      // do the alignment.
+      // TODO: make this less hacky.  Refactor the Annotation reading from the word segment reading for all readers.
+      if (annotation_file.format == FormattedFile.Format.BURNC) {
+        BURNCReader reader = new BURNCReader(annotation_file.getFilename().replace(".ala", ""));
+        List<Region> tones = reader.readTones();
+        List<Region> breaks = reader.readBreaks();
+
+        AlignmentUtils.copyToBIBreaksByTime(words, breaks);
+        AlignmentUtils.copyToBITonesByIndex(words, tones);
+      } else if (annotation_file.format == FormattedFile.Format.TEXTGRID) {
+        TextGridReader reader = new TextGridReader(annotation_file.getFilename());
+        List<Word> w = reader.readWords();
+        Tier tones_tier = reader.tones_tier;
+        Tier breaks_tier = reader.breaks_tier;
+
+        AlignmentUtils.copyToBITonesByTime(words, tones_tier.getRegions());
+        AlignmentUtils.copyToBIBreaksByTime(words, breaks_tier.getRegions());
+      } else {
+        AuToBIUtils.error("Cannot read annotations from formats other than TextGrid or BURNC .ala files.");
+      }
     }
     return words;
   }
