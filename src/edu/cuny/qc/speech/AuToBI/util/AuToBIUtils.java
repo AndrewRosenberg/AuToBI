@@ -98,7 +98,6 @@ public class AuToBIUtils {
     logger.info(s);
   }
 
-
   /**
    * Globs a file pattern into a list of full path names that match the pattern.
    *

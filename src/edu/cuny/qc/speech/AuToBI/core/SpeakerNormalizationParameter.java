@@ -33,7 +33,6 @@ public class SpeakerNormalizationParameter implements Serializable {
   private HashMap<String, Aggregation> params;
   private String speaker_id;  // a speaker identifier for the parameters
 
-  // TODO: include getter methods for better inspection of parameters.
 
   /**
    * Constructs an empty SpeakerNormalizationParameter.

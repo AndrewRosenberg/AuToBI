@@ -387,6 +387,7 @@ public class FeatureSet implements Serializable {
           // Weka's arff standard uses the question mark (?) to indicate missing values
           sb.append("?");
         } else {
+          // TODO: Include some string quoting or removal of commas here.
           String value = r.getAttribute(f.getName()).toString();
           if (value.length() == 0) {
             AuToBIUtils.warn("Empty value for attribute:" + f.getName() + " on " + r);
