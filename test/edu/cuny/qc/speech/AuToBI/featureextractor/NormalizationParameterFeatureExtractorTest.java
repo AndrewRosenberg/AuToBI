@@ -42,14 +42,14 @@ public class NormalizationParameterFeatureExtractorTest {
 
   @Before
   public void setUp() throws Exception {
-    fe = new NormalizationParameterFeatureExtractor("dest");
+    fe = new NormalizationParameterFeatureExtractor();
     regions = new ArrayList<Region>();
   }
 
   @Test
   public void testConstructorSetsExtractedFeaturesCorrectly() {
     assertEquals(1, fe.getExtractedFeatures().size());
-    assertTrue(fe.getExtractedFeatures().contains("dest"));
+    assertTrue(fe.getExtractedFeatures().contains("spkrNormParams"));
   }
 
   @Test
@@ -68,7 +68,7 @@ public class NormalizationParameterFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertTrue(w.hasAttribute("dest"));
+      assertTrue(w.hasAttribute("spkrNormParams"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -83,7 +83,7 @@ public class NormalizationParameterFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      SpeakerNormalizationParameter snp = (SpeakerNormalizationParameter) w.getAttribute("dest");
+      SpeakerNormalizationParameter snp = (SpeakerNormalizationParameter) w.getAttribute("spkrNormParams");
       assertEquals("f0: mean 11.5 - stdev 1.2909944487358056\n" +
           "I: mean 1.5 - stdev 1.2909944487358056", snp.toString());
     } catch (FeatureExtractorException e) {
@@ -99,7 +99,7 @@ public class NormalizationParameterFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertTrue(w.hasAttribute("dest"));
+      assertTrue(w.hasAttribute("spkrNormParams"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -113,7 +113,7 @@ public class NormalizationParameterFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertTrue(w.hasAttribute("dest"));
+      assertTrue(w.hasAttribute("spkrNormParams"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -126,7 +126,7 @@ public class NormalizationParameterFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertTrue(w.hasAttribute("dest"));
+      assertTrue(w.hasAttribute("spkrNormParams"));
     } catch (FeatureExtractorException e) {
       fail();
     }

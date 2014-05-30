@@ -60,7 +60,7 @@ public class SubregionFeatureExtractorTest {
     try {
       fe = new SubregionFeatureExtractor("200ms");
       assertEquals(1, fe.getExtractedFeatures().size());
-      assertTrue(fe.getExtractedFeatures().contains("200ms"));
+      assertTrue(fe.getExtractedFeatures().contains("subregion[200ms]"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -84,7 +84,7 @@ public class SubregionFeatureExtractorTest {
       regions.add(w);
 
       fe.extractFeatures(regions);
-      assertTrue(w.hasAttribute("200ms"));
+      assertTrue(w.hasAttribute("subregion[200ms]"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -98,7 +98,7 @@ public class SubregionFeatureExtractorTest {
       regions.add(w);
 
       fe.extractFeatures(regions);
-      Region subr = (Region) w.getAttribute("200ms");
+      Region subr = (Region) w.getAttribute("subregion[200ms]");
       assertEquals(0.8, subr.getStart(), 0.0001);
       assertEquals(1.0, subr.getEnd(), 0.0001);
     } catch (FeatureExtractorException e) {

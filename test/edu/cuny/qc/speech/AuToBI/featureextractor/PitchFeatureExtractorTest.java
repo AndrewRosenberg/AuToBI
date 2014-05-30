@@ -43,7 +43,7 @@ public class PitchFeatureExtractorTest {
 
   @Before
   public void setUp() throws Exception {
-    fe = new PitchFeatureExtractor("f0");
+    fe = new PitchFeatureExtractor();
     regions = new ArrayList<Region>();
   }
 

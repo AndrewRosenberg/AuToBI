@@ -48,7 +48,7 @@ public class SpectrumExtractor extends SampledDataAnalyzer {
    * <p/>
    * Both of these parameters are described in seconds.
    * <p/>
-   * A typical spectrogram has as 10ms framesize and a 50ms hanning window.
+   * A typical spectrogram has as 10ms framesize and a 20ms hanning window.
    *
    * @param frame_size          The frame size of the spectrogram
    * @param hanning_window_size The size of the hanning window
@@ -94,8 +94,7 @@ public class SpectrumExtractor extends SampledDataAnalyzer {
     }
 
     double starting_time = starting_sample * wav.getFrameSize() + wav.t0;
-    Spectrum return_value = new Spectrum(spectrogram, starting_time, frame_size, wav.sampleRate / (2 * nfft));
-    return return_value;
+    return new Spectrum(spectrogram, starting_time, frame_size, wav.sampleRate / (2 * nfft));
   }
 
   /**
@@ -128,9 +127,7 @@ public class SpectrumExtractor extends SampledDataAnalyzer {
   private double[] resizeArray(double[] data, int desired_size) {
 
     double[] array = new double[desired_size];
-    for (int i = 0; i < Math.min(desired_size, data.length); ++i) {
-      array[i] = data[i];
-    }
+    System.arraycopy(data, 0, array, 0, Math.min(desired_size, data.length));
     for (int i = data.length; i < desired_size; ++i) {
       array[i] = 0.0;
     }

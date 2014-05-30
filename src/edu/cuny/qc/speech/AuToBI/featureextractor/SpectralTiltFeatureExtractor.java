@@ -19,10 +19,7 @@
  */
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
-import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
-import edu.cuny.qc.speech.AuToBI.core.Contour;
-import edu.cuny.qc.speech.AuToBI.core.Region;
-import edu.cuny.qc.speech.AuToBI.core.Spectrum;
+import edu.cuny.qc.speech.AuToBI.core.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -35,38 +32,36 @@ import java.util.ArrayList;
  * energy in the frame.
  */
 @SuppressWarnings("unchecked")
-public class SpectralTiltFeatureExtractor extends ContourFeatureExtractor {
+public class SpectralTiltFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "spectralTilt";
   private String spectrum_feature;  // the spectrum of the signal
 
-  private ContourFeatureExtractor tvpfe;
   // An associated ContourFeatureExtractor responsible for the extraction
-  private Integer low;                          // The low boundary of the frequency bandwidth
-  private Integer high;                         // The high boundary of the frequency bandwidth
+  private int low;                          // The low boundary of the frequency bandwidth
+  private int high;                         // The high boundary of the frequency bandwidth
 
   /**
    * Constructs a new SpectralTiltFeatureExtractor.
    *
-   * @param feature_prefix   an identifier for the extracted feature -- typically "bark"
-   * @param spectrum_feature the spectrum_feature of the signal
-   * @param low_bark         the low boundary of the spectral region
-   * @param high_bark        the high boundary of the spectral region
+   * @param low_bark  the low boundary of the spectral region
+   * @param high_bark the high boundary of the spectral region
    */
-  public SpectralTiltFeatureExtractor(String feature_prefix, String spectrum_feature, Integer low_bark,
-                                      Integer high_bark) {
+  public SpectralTiltFeatureExtractor(int low_bark, int high_bark) {
     super();
-    this.spectrum_feature = spectrum_feature;
+    this.spectrum_feature = "spectrum";
     this.low = low_bark;
     this.high = high_bark;
-    this.attribute_name = feature_prefix;
-
-    tvpfe = new ContourFeatureExtractor(feature_prefix + "_" + low + "_" + high);
 
     extracted_features = new ArrayList<String>();
-    extracted_features.add(feature_prefix + "_" + low + "_" + high);
-    extracted_features.addAll(tvpfe.getExtractedFeatures());
+    extracted_features.add("spectralTilt[" + low + "," + high + "]");
 
     required_features.add(spectrum_feature);
   }
+
+  public SpectralTiltFeatureExtractor(String low_bark, String high_bark) {
+    this(Integer.parseInt(low_bark), Integer.parseInt(high_bark));
+  }
+
 
   /**
    * Converts a bark value to a hertz value using the following formula:
@@ -94,16 +89,14 @@ public class SpectralTiltFeatureExtractor extends ContourFeatureExtractor {
         if (r.hasAttribute(spectrum_feature)) {
           Spectrum spectrum = (Spectrum) r.getAttribute(spectrum_feature);
           if (cache.containsKey(spectrum)) {
-            r.setAttribute(attribute_name + "_" + low + "_" + high, cache.get(spectrum));
+            r.setAttribute("spectralTilt[" + low + "," + high + "]", cache.get(spectrum));
           } else {
             Contour spectral_tilt = spectrum.getPowerTiltContour(barkToHertz(low), barkToHertz(high), false);
-            r.setAttribute(attribute_name + "_" + low + "_" + high, spectral_tilt);
+            r.setAttribute("spectralTilt[" + low + "," + high + "]", spectral_tilt);
             cache.put(spectrum, spectral_tilt);
           }
         }
       }
-
-      tvpfe.extractFeatures(regions);
     } catch (AuToBIException e) {
       e.printStackTrace();
     }

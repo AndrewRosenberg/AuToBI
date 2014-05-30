@@ -43,6 +43,7 @@ public class FeatureSetPropagator implements Callable<FeatureSet> {
     this.autobi = new AuToBI();
     this.autobi.setParameters(autobi.getParameters());
     this.autobi.setFeatureRegistry(autobi.getFeatureRegistry());
+    this.autobi.setMonikerMap(autobi.getMonikerMap());
     this.file = file;
     this.target_fs = fs;
   }

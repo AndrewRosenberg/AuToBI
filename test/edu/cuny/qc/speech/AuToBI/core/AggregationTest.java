@@ -19,7 +19,6 @@
  */
 package edu.cuny.qc.speech.AuToBI.core;
 
-import org.apache.commons.math.MathException;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -172,11 +171,7 @@ public class AggregationTest {
     agg.insert(5.0);
     agg.insert(1.0);
 
-    try {
-      assertEquals(0.57015828, agg.evaluateGaussianCDF(3.5), 0.0001);
-    } catch (MathException e) {
-      fail();
-    }
+    assertEquals(0.57015828, agg.evaluateGaussianCDF(3.5), 0.0001);
   }
 
   @Test

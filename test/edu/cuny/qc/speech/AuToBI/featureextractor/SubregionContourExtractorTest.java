@@ -84,7 +84,7 @@ public class SubregionContourExtractorTest {
       SubregionContourExtractor sce = new SubregionContourExtractor("test_contour", "test_region");
       sce.extractFeatures(regions);
 
-      assertFalse(w.hasAttribute("test_contour_test_region"));
+      assertFalse(w.hasAttribute("subregionC[test_contour,test_region]"));
     } catch (NullPointerException e) {
       fail();
     } catch (FeatureExtractorException e) {
@@ -97,7 +97,7 @@ public class SubregionContourExtractorTest {
     SubregionContourExtractor sce = new SubregionContourExtractor("test_contour", "test_region");
     List<String> features = sce.getExtractedFeatures();
 
-    assertTrue(features.contains("test_contour_test_region"));
+    assertTrue(features.contains("subregionC[test_contour,test_region]"));
   }
 
   @Test
@@ -112,7 +112,7 @@ public class SubregionContourExtractorTest {
       SubregionContourExtractor sce = new SubregionContourExtractor("contour", "region");
       sce.extractFeatures(regions);
 
-      assertTrue(w.hasAttribute("contour_region"));
+      assertTrue(w.hasAttribute("subregionC[contour,region]"));
     } catch (NullPointerException e) {
       fail();
     } catch (FeatureExtractorException e) {
@@ -132,7 +132,7 @@ public class SubregionContourExtractorTest {
       SubregionContourExtractor sce = new SubregionContourExtractor("contour", "region");
       sce.extractFeatures(regions);
 
-      assertEquals(2, ((Contour) w.getAttribute("contour_region")).size());
+      assertEquals(2, ((Contour) w.getAttribute("subregionC[contour,region]")).size());
     } catch (NullPointerException e) {
       fail();
     } catch (FeatureExtractorException e) {

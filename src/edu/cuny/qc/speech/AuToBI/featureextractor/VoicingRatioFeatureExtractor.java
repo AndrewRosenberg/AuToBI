@@ -13,6 +13,7 @@ import java.util.List;
  */
 @SuppressWarnings("unchecked")
 public class VoicingRatioFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "voicingRatio";
 
   private String pitch_feature;  // the feature containing the pitch feature to determine voicing
 
@@ -20,7 +21,7 @@ public class VoicingRatioFeatureExtractor extends FeatureExtractor {
     this.pitch_feature = pitch_feature;
 
     this.required_features.add(pitch_feature);
-    this.extracted_features.add(pitch_feature + "__voicingRatio");
+    this.extracted_features.add("voicingRatio[" + pitch_feature + "]");
   }
 
   @Override
@@ -34,9 +35,9 @@ public class VoicingRatioFeatureExtractor extends FeatureExtractor {
         throw new FeatureExtractorException(e.getMessage());
       }
       if (pitch != null) {
-        r.setAttribute(pitch_feature + "__voicingRatio", pitch.contentSize() * 1.0 / pitch.size());
+        r.setAttribute("voicingRatio[" + pitch_feature + "]", pitch.contentSize() * 1.0 / pitch.size());
       } else {
-        r.setAttribute(pitch_feature + "__voicingRatio", 0.0);
+        r.setAttribute("voicingRatio[" + pitch_feature + "]", 0.0);
       }
     }
   }

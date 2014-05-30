@@ -12,14 +12,15 @@ import java.util.List;
  */
 @SuppressWarnings("unchecked")
 public class HighLowComponentFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "lowGP,highGP";
   private String feature; // the name of the feature name
 
   public HighLowComponentFeatureExtractor(String feature) {
     this.feature = feature;
     this.required_features.add(feature);
 
-    this.extracted_features.add(feature + "__lowGP");
-    this.extracted_features.add(feature + "__highGP");
+    this.extracted_features.add("lowGP[" + feature + "]");
+    this.extracted_features.add("highGP[" + feature + "]");
   }
 
 
@@ -43,12 +44,13 @@ public class HighLowComponentFeatureExtractor extends FeatureExtractor {
         GParam low = new GParam(0.0, 1.0);
         GParam high = new GParam(1.0, 1.0);
         Pair<GParam, GParam> pair = fit(low, high, data);
-        r.setAttribute(feature + "__lowGP", pair.first);
-        r.setAttribute(feature + "__highGP", pair.second);
+        r.setAttribute("lowGP[" + feature + "]", pair.first);
+        r.setAttribute("highGP[" + feature + "]", pair.second);
       }
     }
   }
 
+  // TODO: this two component GMM fitting with EM should probably be refactored into EM utility code.
   private Pair<GParam, GParam> fit(GParam low, GParam high, ArrayList<Double> data) {
     Double EPS = 0.00001;
 

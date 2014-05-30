@@ -34,9 +34,13 @@ import java.util.List;
  * The Corrected Classifier is a two tiered ensemble technique where first predictions are generated, then they are
  * corrected using a second feature set.  This feature extraction routine generates hypotheses for the second --
  * correction -- tier.
+ * <p/>
+ * This is currently deprecated because it does not conform with the AuToBI 1.4 feature naming conventions
  */
 @SuppressWarnings("unchecked")
+@Deprecated
 public class CorrectionSpectrumPADFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "correction_prediction,correction_prediction_confidence";
 
   private int low;                      // the low bark
   private int high;                     // the high bark

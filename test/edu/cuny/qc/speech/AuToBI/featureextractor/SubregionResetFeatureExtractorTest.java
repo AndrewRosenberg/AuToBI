@@ -60,8 +60,8 @@ public class SubregionResetFeatureExtractorTest {
     try {
       fe = new SubregionResetFeatureExtractor("200ms");
       assertEquals(2, fe.getExtractedFeatures().size());
-      assertTrue(fe.getExtractedFeatures().contains("van_200ms"));
-      assertTrue(fe.getExtractedFeatures().contains("trail_200ms"));
+      assertTrue(fe.getExtractedFeatures().contains("van[200ms]"));
+      assertTrue(fe.getExtractedFeatures().contains("trail[200ms]"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -85,8 +85,8 @@ public class SubregionResetFeatureExtractorTest {
       regions.add(w);
 
       fe.extractFeatures(regions);
-      assertTrue(w.hasAttribute("van_200ms"));
-      assertTrue(w.hasAttribute("trail_200ms"));
+      assertTrue(w.hasAttribute("van[200ms]"));
+      assertTrue(w.hasAttribute("trail[200ms]"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -100,10 +100,10 @@ public class SubregionResetFeatureExtractorTest {
       regions.add(w);
 
       fe.extractFeatures(regions);
-      Region van_200ms = (Region) w.getAttribute("van_200ms");
+      Region van_200ms = (Region) w.getAttribute("van[200ms]");
       assertEquals(0.8, van_200ms.getStart(), 0.0001);
       assertEquals(1.0, van_200ms.getEnd(), 0.0001);
-      Region trail = (Region) w.getAttribute("trail_200ms");
+      Region trail = (Region) w.getAttribute("trail[200ms]");
       assertEquals(0.0, trail.getStart(), 0.0001);
       assertEquals(0.2, trail.getEnd(), 0.0001);
     } catch (FeatureExtractorException e) {

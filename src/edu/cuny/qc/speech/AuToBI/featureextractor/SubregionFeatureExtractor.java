@@ -35,6 +35,7 @@ import java.util.List;
  * and a 200ms region is requested the "subregion" is longer than the initial region.
  */
 public class SubregionFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "subregion";
   private String subregion_name;    // the name of the subregion
   private Double subregion_length;  // the length in seconds of the subregion
 
@@ -48,7 +49,7 @@ public class SubregionFeatureExtractor extends FeatureExtractor {
     this.subregion_name = subregion_name;
     this.subregion_length = SubregionUtils.parseSubregionName(subregion_name);
 
-    this.extracted_features.add(subregion_name);
+    this.extracted_features.add(moniker + "[" + subregion_name + "]");
   }
 
   /**
@@ -60,7 +61,7 @@ public class SubregionFeatureExtractor extends FeatureExtractor {
     for (Region r : (List<Region>) regions) {
       Region subregion = new Region(r.getEnd() - subregion_length, r.getEnd());
 
-      r.setAttribute(subregion_name, subregion);
+      r.setAttribute(moniker + "[" + subregion_name + "]", subregion);
     }
   }
 }

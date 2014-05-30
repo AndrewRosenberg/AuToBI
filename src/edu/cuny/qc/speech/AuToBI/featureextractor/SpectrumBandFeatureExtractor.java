@@ -35,37 +35,33 @@ import java.util.ArrayList;
  */
 @SuppressWarnings("unchecked")
 public class SpectrumBandFeatureExtractor extends ContourFeatureExtractor {
+  public static final String moniker = "spectrumBand";
   private String spectrum_feature;  // the spectrum feature
 
-  private ContourFeatureExtractor tvpfe;
-  // asn associated feature extractor responsible for the feature calculation
-  private Integer low;                          // the low boundary of the frequency bandwidth
-  private Integer high;                         // the high boundary of the frequency bandwidth
+  private int low;                          // the low boundary of the frequency bandwidth
+  private int high;                         // the high boundary of the frequency bandwidth
 
   /**
    * Constructs a new SpectrumBandFeatureExtractor with associated spectrum, feature prefix and frequency region.
    *
-   * @param feature_prefix   a feature prefix for extracted features
-   * @param spectrum_feature the spectrum feature to be analyzed
-   * @param low_bark         the bottom of the frequency region
-   * @param high_bark        the top of the frequency region
+   * @param low_bark  the bottom of the frequency region
+   * @param high_bark the top of the frequency region
    */
-  public SpectrumBandFeatureExtractor(String feature_prefix, String spectrum_feature, Integer low_bark,
-                                      Integer high_bark) {
-    this.spectrum_feature = spectrum_feature;
+  public SpectrumBandFeatureExtractor(int low_bark, int high_bark) {
+    this.spectrum_feature = "spectrum";
 
-    this.attribute_name = feature_prefix;
     this.low = low_bark;
     this.high = high_bark;
 
-    tvpfe = new ContourFeatureExtractor(feature_prefix + "_" + low + "_" + high);
-
     // register extracted features
     extracted_features = new ArrayList<String>();
-    extracted_features.add(feature_prefix + "_" + low + "_" + high);
-    extracted_features.addAll(tvpfe.getExtractedFeatures());
+    extracted_features.add("spectrumBand[" + low + "," + high + "]");
 
     required_features.add(spectrum_feature);
+  }
+
+  public SpectrumBandFeatureExtractor(String low_bark, String high_bark) {
+    this(Integer.parseInt(low_bark), Integer.parseInt(high_bark));
   }
 
   /**
@@ -81,20 +77,18 @@ public class SpectrumBandFeatureExtractor extends ContourFeatureExtractor {
         if (r.hasAttribute(spectrum_feature)) {
           Spectrum spectrum = (Spectrum) r.getAttribute(spectrum_feature);
           if (cache.containsKey(spectrum)) {
-            r.setAttribute(attribute_name + "_" + low + "_" + high, cache.get(spectrum));
+            r.setAttribute("spectrumBand[" + low + "," + high + "]", cache.get(spectrum));
           } else {
             Contour spectrum_band = spectrum
                 .getPowerContour(SpectralTiltFeatureExtractor.barkToHertz(low),
                     SpectralTiltFeatureExtractor.barkToHertz(high),
                     false);
 
-            r.setAttribute(attribute_name + "_" + low + "_" + high, spectrum_band);
+            r.setAttribute("spectrumBand[" + low + "," + high + "]", spectrum_band);
             cache.put(spectrum, spectrum_band);
           }
         }
       }
-
-      tvpfe.extractFeatures(regions);
     } catch (AuToBIException e) {
       e.printStackTrace();
     }

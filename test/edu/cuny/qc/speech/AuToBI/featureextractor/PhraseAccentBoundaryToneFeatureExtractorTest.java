@@ -40,14 +40,14 @@ public class PhraseAccentBoundaryToneFeatureExtractorTest {
 
   @Before
   public void setUp() throws Exception {
-    fe = new PhraseAccentBoundaryToneFeatureExtractor("pabt");
+    fe = new PhraseAccentBoundaryToneFeatureExtractor();
     regions = new ArrayList<Region>();
   }
 
   @Test
   public void testConstructorSetsExtractedFeaturesCorrectly() {
     assertEquals(1, fe.getExtractedFeatures().size());
-    assertTrue(fe.getExtractedFeatures().contains("pabt"));
+    assertTrue(fe.getExtractedFeatures().contains("nominal_PhraseAccentBoundaryTone"));
   }
 
   @Test
@@ -64,7 +64,7 @@ public class PhraseAccentBoundaryToneFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertTrue(w.hasAttribute("pabt"));
+      assertTrue(w.hasAttribute("nominal_PhraseAccentBoundaryTone"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -79,7 +79,7 @@ public class PhraseAccentBoundaryToneFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertEquals("L-Hx", w.getAttribute("pabt"));
+      assertEquals("L-Hx", w.getAttribute("nominal_PhraseAccentBoundaryTone"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -93,8 +93,8 @@ public class PhraseAccentBoundaryToneFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertTrue(w.hasAttribute("pabt"));
-      assertEquals("NOTONE", w.getAttribute("pabt"));
+      assertTrue(w.hasAttribute("nominal_PhraseAccentBoundaryTone"));
+      assertEquals("NOTONE", w.getAttribute("nominal_PhraseAccentBoundaryTone"));
     } catch (FeatureExtractorException e) {
       fail();
     }

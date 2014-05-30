@@ -32,6 +32,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,6 +44,54 @@ import static org.junit.Assert.*;
  */
 @SuppressWarnings("unchecked")
 public class AuToBITest {
+
+  public static class MockF0NoParamFeatureExtractor extends FeatureExtractor {
+    public final static String moniker = "f0";
+
+    @Override
+    public void extractFeatures(List regions) throws FeatureExtractorException {
+      // does nothing
+    }
+
+    public MockF0NoParamFeatureExtractor() {
+      // empty constructor
+      this.extracted_features.add("f0");
+    }
+  }
+
+  public static class MockLogVariableParamFeatureExtractor extends FeatureExtractor {
+    public final static String moniker = "log";
+
+    @Override
+    public void extractFeatures(List regions) throws FeatureExtractorException {
+      // does nothing
+    }
+
+    public MockLogVariableParamFeatureExtractor(String one, String two) {
+      // empty constructor
+      this.extracted_features.add("log[" + one + "," + two + "]");
+    }
+
+    public MockLogVariableParamFeatureExtractor(String one) {
+      // empty constructor
+      this.extracted_features.add("log[" + one + "]");
+    }
+  }
+
+  public static class MockTestFeatureExtractor extends FeatureExtractor {
+    public final static String moniker = "test";
+
+    @Override
+    public void extractFeatures(List regions) throws FeatureExtractorException {
+      // does nothing
+    }
+
+    public MockTestFeatureExtractor(String one, String two) {
+      // empty constructor
+      this.extracted_features.add("test[" + one + "," + two + "]");
+    }
+  }
+
   private AuToBI autobi;
   private static final String TEST_DIR = System.getenv().get("AUTOBI_TEST_DIR");
 
@@ -115,6 +164,92 @@ public class AuToBITest {
     tasks.put("phrase_accent_classification", ipc_task);
     return tasks;
   }
+
+  @Test
+  public void testMonikerMapInitializesCorrectly() {
+    autobi.registerFeatureExtractorMonikers("edu.cuny.qc.speech.AuToBI.AuToBITest");
+
+    assertEquals(5, autobi.getMonikerMap().size());
+  }
+
+  @Test
+  public void testMonikerMapRegistersAtomicFeatureExtractorsCorrectly() {
+    String feature = "f0";
+    FeatureSet fs = new FeatureSet();
+    fs.setClassAttribute(feature);
+    fs.constructFeatures();
+
+    autobi.getMonikerMap().put("f0", MockF0NoParamFeatureExtractor.class);
+
+    try {
+      autobi.initializeFeatureRegistry(fs);
+    } catch (Exception e) {
+      fail(e.getMessage());
+    }
+
+    assertTrue(autobi.getFeatureRegistry().containsKey("f0"));
+  }
+
+  @Test
+  public void testMonikerMapRegistersNestedFeatureExtractorsCorrectly() {
+    String feature = "log[f0]";
+    FeatureSet fs = new FeatureSet();
+    fs.setClassAttribute(feature);
+    fs.constructFeatures();
+
+    autobi.getMonikerMap().put("f0", MockF0NoParamFeatureExtractor.class);
+    autobi.getMonikerMap().put("log", MockLogVariableParamFeatureExtractor.class);
+
+    try {
+      autobi.initializeFeatureRegistry(fs);
+    } catch (Exception e) {
+      fail(e.getMessage());
+    }
+
+    assertTrue(autobi.getFeatureRegistry().containsKey("log[f0]"));
+    assertTrue(autobi.getFeatureRegistry().containsKey("f0"));
+  }
+
+  @Test
+  public void testMonikerMapRegistersMultiplyNestedFeatureExtractorsCorrectly() {
+    String feature = "log[f0,f0]";
+    FeatureSet fs = new FeatureSet();
+    fs.setClassAttribute(feature);
+    fs.constructFeatures();
+
+    autobi.getMonikerMap().put("f0", MockF0NoParamFeatureExtractor.class);
+    autobi.getMonikerMap().put("log", MockLogVariableParamFeatureExtractor.class);
+
+    try {
+      autobi.initializeFeatureRegistry(fs);
+    } catch (Exception e) {
+      fail();
+    }
+
+    assertTrue(autobi.getFeatureRegistry().containsKey("log[f0,f0]"));
+    assertTrue(autobi.getFeatureRegistry().containsKey("f0"));
+  }
+
+  @Test
+  public void testMonikerMapRegistersParameterizedFeatureExtractorsCorrectly() {
+    String feature = "test[1,2]";
+    FeatureSet fs = new FeatureSet();
+    fs.setClassAttribute(feature);
+    fs.constructFeatures();
+
+    autobi.getMonikerMap().put("test", MockTestFeatureExtractor.class);
+
+    try {
+      autobi.initializeFeatureRegistry(fs);
+    } catch (Exception e) {
+      fail();
+    }
+
+    assertTrue(autobi.getFeatureRegistry().containsKey("test[1,2]"));
+    assertFalse(autobi.getFeatureRegistry().containsKey("1"));
+    assertFalse(autobi.getFeatureRegistry().containsKey("2"));
+  }
+
 
   @Test
   public void testInitializeReferenceCounting() {
@@ -237,6 +372,56 @@ public class AuToBITest {
     assertTrue(!w.hasAttribute("test_feature"));
   }
 
+  public static class MockRequiresF3FeatureExtractor extends FeatureExtractor {
+    public static final String moniker = "mock";
+
+    public MockRequiresF3FeatureExtractor() {
+      this.getExtractedFeatures().add("feature1");
+      this.getExtractedFeatures().add("feature2");
+      this.getRequiredFeatures().add("feature3");
+    }
+
+    @Override
+    public void extractFeatures(List regions) throws FeatureExtractorException {
+      for (Region r : (List<Region>) regions) {
+        r.setAttribute("feature1", true);
+        r.setAttribute("feature2", true);
+      }
+    }
+  }
+
+  public static class MockProvidesF12FeatureExtractor extends FeatureExtractor {
+    public static final String moniker = "mock";
+
+    public MockProvidesF12FeatureExtractor() {
+      this.getExtractedFeatures().add("feature1");
+      this.getExtractedFeatures().add("feature2");
+    }
+
+    @Override
+    public void extractFeatures(List regions) throws FeatureExtractorException {
+      for (Region r : (List<Region>) regions) {
+        r.setAttribute("feature1", true);
+        r.setAttribute("feature2", true);
+      }
+    }
+  }
+
+  public static class MockProvidesF3FeatureExtractor extends FeatureExtractor {
+    public static final String moniker = "mockf3";
+
+    public MockProvidesF3FeatureExtractor() {
+      this.getExtractedFeatures().add("feature3");
+    }
+
+    @Override
+    public void extractFeatures(List regions) throws FeatureExtractorException {
+      for (Region r : (List<Region>) regions) {
+        r.setAttribute("feature3", true);
+      }
+    }
+  }
+
   @Test
   public void testFeatureExtractionRemovesUnusedFeatures() {
     // Set up Test Feature Extraction Configuration
@@ -248,28 +433,13 @@ public class AuToBITest {
     fs.insertRequiredFeature("feature2");
     fs.constructFeatures();
 
-    FeatureExtractor fe = new FeatureExtractor() {
-      @Override
-      public void extractFeatures(List regions) throws FeatureExtractorException {
-        for (Region r : (List<Region>) regions) {
-          r.setAttribute("feature1", true);
-          r.setAttribute("feature2", true);
-        }
-      }
-    };
-    fe.getExtractedFeatures().add("feature1");
-    fe.getExtractedFeatures().add("feature2");
-    fe.getRequiredFeatures().add("feature3");
+    FeatureExtractor fe = new MockRequiresF3FeatureExtractor();
 
-    FeatureExtractor fe2 = new FeatureExtractor() {
-      @Override
-      public void extractFeatures(List regions) throws FeatureExtractorException {
-        for (Region r : (List<Region>) regions) {
-          r.setAttribute("feature3", true);
-        }
-      }
-    };
-    fe2.getExtractedFeatures().add("feature3");
+    FeatureExtractor fe2 = new MockProvidesF3FeatureExtractor();
+
+    autobi.getMonikerMap().put("feature1", fe.getClass());
+    autobi.getMonikerMap().put("feature2", fe.getClass());
+    autobi.getMonikerMap().put("feature3", fe2.getClass());
 
     autobi.registerFeatureExtractor(fe);
     autobi.registerFeatureExtractor(fe2);
@@ -280,7 +450,7 @@ public class AuToBITest {
       autobi.extractFeatures(fs);
       assertEquals(2, w.getAttributeNames().size());
     } catch (AuToBIException e) {
-      fail();
+      fail(e.getMessage());
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -315,6 +485,13 @@ public class AuToBITest {
     assertEquals(0, autobi.getFeatureRegistry().size());
     assertEquals(0, autobi.executed_feature_extractors.size());
   }
+
+  @Test
+  public void testCollectFeatureExtractorMonikerFindsAnything() {
+    autobi.registerDefaultFeatureExtractorMonikers();
+    assertTrue(autobi.getMonikerMap().size() > 0);
+  }
+
 
   @Test
   public void testInitSetsTrueBooleanParameter() {
@@ -503,48 +680,34 @@ public class AuToBITest {
   }
 
   @Test
-  public void testRegisterAllFeaturesRunsWithoutException() {
-    try {
-      autobi.registerAllFeatureExtractors();
-    } catch (FeatureExtractorException e) {
-      fail();
-    }
-  }
-
-  @Test
   public void testPropagateFeatureSetPropagatesFeatures() {
     // Set up Test Feature Extraction Configuration
     FeatureSet fs = new FeatureSet();
-    fs.setClassAttribute("feature1");
-    fs.insertRequiredFeature("feature2");
+    fs.insertRequiredFeature("feature3");
 
-    FeatureExtractor fe = new FeatureExtractor() {
-      @Override
-      public void extractFeatures(List regions) throws FeatureExtractorException {
-        for (Region r : (List<Region>) regions) {
-          r.setAttribute("feature1", true);
-          r.setAttribute("feature2", true);
-        }
-      }
-    };
-    fe.getExtractedFeatures().add("feature1");
-    fe.getExtractedFeatures().add("feature2");
+    FeatureExtractor fe = new MockProvidesF3FeatureExtractor();
 
-    autobi.registerFeatureExtractor(fe);
+    autobi.getMonikerMap().put("feature3", fe.getClass());
 
     try {
-      autobi.initializeReferenceCounting(fs);
+      autobi.initializeFeatureRegistry(fs);
 
       List<FormattedFile> filenames = new ArrayList<FormattedFile>();
       filenames.add(new FormattedFile(TEST_DIR + "/test.txt", FormattedFile.Format.SIMPLE_WORD));
       autobi.propagateFeatureSet(filenames, fs);
       for (Word w : fs.getDataPoints()) {
-        // Only the two required features, not the wav feature
-        assertEquals(2, w.getAttributeNames().size());
+        // Only the one required feature, not the wav feature
+        assertEquals(1, w.getAttributeNames().size());
       }
     } catch (AuToBIException e) {
       fail(e.getMessage());
     } catch (UnsupportedAudioFileException e) {
+      fail(e.getMessage());
+    } catch (InvocationTargetException e) {
+      fail(e.getMessage());
+    } catch (InstantiationException e) {
+      fail(e.getMessage());
+    } catch (IllegalAccessException e) {
       fail(e.getMessage());
     }
   }
@@ -556,22 +719,12 @@ public class AuToBITest {
     fs.setClassAttribute("feature1");
     fs.insertRequiredFeature("feature2");
 
-    FeatureExtractor fe = new FeatureExtractor() {
-      @Override
-      public void extractFeatures(List regions) throws FeatureExtractorException {
-        for (Region r : (List<Region>) regions) {
-          r.setAttribute("feature1", true);
-          r.setAttribute("feature2", true);
-        }
-      }
-    };
-    fe.getExtractedFeatures().add("feature1");
-    fe.getExtractedFeatures().add("feature2");
-
-    autobi.registerFeatureExtractor(fe);
+    FeatureExtractor fe = new MockProvidesF12FeatureExtractor();
+    autobi.getMonikerMap().put("feature1", fe.getClass());
+    autobi.getMonikerMap().put("feature2", fe.getClass());
 
     try {
-      autobi.initializeReferenceCounting(fs);
+      autobi.initializeFeatureRegistry(fs);
 
       List<FormattedFile> filenames = new ArrayList<FormattedFile>();
       filenames.add(new FormattedFile(TEST_DIR + "/test.txt", FormattedFile.Format.SIMPLE_WORD));
@@ -585,6 +738,31 @@ public class AuToBITest {
       fail(e.getMessage());
     } catch (UnsupportedAudioFileException e) {
       fail(e.getMessage());
+    } catch (InvocationTargetException e) {
+      fail(e.getMessage());
+    } catch (InstantiationException e) {
+      fail(e.getMessage());
+    } catch (IllegalAccessException e) {
+      fail(e.getMessage());
+    }
+  }
+
+  public static class MockLateStartFE extends FeatureExtractor {
+    public MockLateStartFE() {
+      this.getExtractedFeatures().add("feature1");
+      this.getExtractedFeatures().add("late_start");
+    }
+
+    @Override
+    public void extractFeatures(List regions) throws FeatureExtractorException {
+      for (Region r : (List<Region>) regions) {
+        r.setAttribute("feature1", true);
+        if (r.getStart() > 0.5) {
+          r.setAttribute("late_start", "YES");
+        } else {
+          r.setAttribute("late_start", "NO");
+        }
+      }
     }
   }
 
@@ -604,27 +782,13 @@ public class AuToBITest {
     fs.setClassAttribute("feature1");
     fs.insertRequiredFeature("late_start");
 
-    FeatureExtractor fe = new FeatureExtractor() {
-      @Override
-      public void extractFeatures(List regions) throws FeatureExtractorException {
-        for (Region r : (List<Region>) regions) {
-          r.setAttribute("feature1", true);
-          if (r.getStart() > 0.5) {
-            r.setAttribute("late_start", "YES");
-          } else {
-            r.setAttribute("late_start", "NO");
-          }
+    FeatureExtractor fe = new MockLateStartFE();
 
-        }
-      }
-    };
-    fe.getExtractedFeatures().add("feature1");
-    fe.getExtractedFeatures().add("late_start");
-
-    autobi.registerFeatureExtractor(fe);
+    autobi.getMonikerMap().put("feature1", fe.getClass());
+    autobi.getMonikerMap().put("late_start", fe.getClass());
 
     try {
-      autobi.initializeReferenceCounting(fs);
+      autobi.initializeFeatureRegistry(fs);
       autobi.getParameters().setParameter("attribute_omit", "late_start:NO");
 
       List<FormattedFile> filenames = new ArrayList<FormattedFile>();
@@ -634,6 +798,12 @@ public class AuToBITest {
     } catch (AuToBIException e) {
       fail(e.getMessage());
     } catch (UnsupportedAudioFileException e) {
+      fail(e.getMessage());
+    } catch (InvocationTargetException e) {
+      fail(e.getMessage());
+    } catch (InstantiationException e) {
+      fail(e.getMessage());
+    } catch (IllegalAccessException e) {
       fail(e.getMessage());
     }
   }

@@ -86,13 +86,13 @@ public class ContourFeatureExtractorTest {
 
     List<String> features = cfe.getExtractedFeatures();
 
-    assertTrue(features.contains("attr__min"));
-    assertTrue(features.contains("attr__max"));
-    assertTrue(features.contains("attr__mean"));
-    assertTrue(features.contains("attr__stdev"));
-    assertTrue(features.contains("attr__zMax"));
-    assertTrue(features.contains("attr__maxLocation"));
-    assertTrue(features.contains("attr__maxRelLocation"));
+    assertTrue(features.contains("min[attr]"));
+    assertTrue(features.contains("max[attr]"));
+    assertTrue(features.contains("mean[attr]"));
+    assertTrue(features.contains("stdev[attr]"));
+    assertTrue(features.contains("zMax[attr]"));
+    assertTrue(features.contains("maxLocation[attr]"));
+    assertTrue(features.contains("maxRelLocation[attr]"));
   }
 
   @Test
@@ -106,13 +106,13 @@ public class ContourFeatureExtractorTest {
       ContourFeatureExtractor cfe = new ContourFeatureExtractor("attr");
       cfe.extractFeatures(regions);
 
-      assertTrue(w.hasAttribute("attr__min"));
-      assertTrue(w.hasAttribute("attr__max"));
-      assertTrue(w.hasAttribute("attr__mean"));
-      assertTrue(w.hasAttribute("attr__stdev"));
-      assertTrue(w.hasAttribute("attr__zMax"));
-      assertTrue(w.hasAttribute("attr__maxLocation"));
-      assertTrue(w.hasAttribute("attr__maxRelLocation"));
+      assertTrue(w.hasAttribute("min[attr]"));
+      assertTrue(w.hasAttribute("max[attr]"));
+      assertTrue(w.hasAttribute("mean[attr]"));
+      assertTrue(w.hasAttribute("stdev[attr]"));
+      assertTrue(w.hasAttribute("zMax[attr]"));
+      assertTrue(w.hasAttribute("maxLocation[attr]"));
+      assertTrue(w.hasAttribute("maxRelLocation[attr]"));
     } catch (NullPointerException e) {
       fail();
     } catch (FeatureExtractorException e) {
@@ -131,13 +131,13 @@ public class ContourFeatureExtractorTest {
       ContourFeatureExtractor cfe = new ContourFeatureExtractor("attr");
       cfe.extractFeatures(regions);
 
-      assertEquals(0.1, (Double) w.getAttribute("attr__min"), 0.001);
-      assertEquals(0.4, (Double) w.getAttribute("attr__max"), 0.001);
-      assertEquals(0.2166, (Double) w.getAttribute("attr__mean"), 0.001);
-      assertEquals(0.1169, (Double) w.getAttribute("attr__stdev"), 0.001);
-      assertEquals(1.5682, (Double) w.getAttribute("attr__zMax"), 0.001);
-      assertEquals(0.04, (Double) w.getAttribute("attr__maxLocation"), 0.001);
-      assertEquals(0.02, (Double) w.getAttribute("attr__maxRelLocation"), 0.001);
+      assertEquals(0.1, (Double) w.getAttribute("min[attr]"), 0.001);
+      assertEquals(0.4, (Double) w.getAttribute("max[attr]"), 0.001);
+      assertEquals(0.2166, (Double) w.getAttribute("mean[attr]"), 0.001);
+      assertEquals(0.1169, (Double) w.getAttribute("stdev[attr]"), 0.001);
+      assertEquals(1.5682, (Double) w.getAttribute("zMax[attr]"), 0.001);
+      assertEquals(0.04, (Double) w.getAttribute("maxLocation[attr]"), 0.001);
+      assertEquals(0.02, (Double) w.getAttribute("maxRelLocation[attr]"), 0.001);
     } catch (NullPointerException e) {
       fail();
     } catch (FeatureExtractorException e) {
@@ -156,13 +156,13 @@ public class ContourFeatureExtractorTest {
       ContourFeatureExtractor cfe = new ContourFeatureExtractor("attr");
       cfe.extractFeatures(regions);
 
-      assertEquals(0.1, (Double) w.getAttribute("attr__min"), 0.001);
-      assertEquals(0.1, (Double) w.getAttribute("attr__max"), 0.001);
-      assertEquals(0.1, (Double) w.getAttribute("attr__mean"), 0.001);
-      assertEquals(0.0, (Double) w.getAttribute("attr__stdev"), 0.001);
-      assertEquals(0.0, (Double) w.getAttribute("attr__zMax"), 0.001);
-      assertEquals(0.0, (Double) w.getAttribute("attr__maxLocation"), 0.001);
-      assertEquals(0.0, (Double) w.getAttribute("attr__maxRelLocation"), 0.001);
+      assertEquals(0.1, (Double) w.getAttribute("min[attr]"), 0.001);
+      assertEquals(0.1, (Double) w.getAttribute("max[attr]"), 0.001);
+      assertEquals(0.1, (Double) w.getAttribute("mean[attr]"), 0.001);
+      assertEquals(0.0, (Double) w.getAttribute("stdev[attr]"), 0.001);
+      assertEquals(0.0, (Double) w.getAttribute("zMax[attr]"), 0.001);
+      assertEquals(0.0, (Double) w.getAttribute("maxLocation[attr]"), 0.001);
+      assertEquals(0.0, (Double) w.getAttribute("maxRelLocation[attr]"), 0.001);
     } catch (NullPointerException e) {
       fail();
     } catch (FeatureExtractorException e) {
@@ -181,13 +181,13 @@ public class ContourFeatureExtractorTest {
       ContourFeatureExtractor cfe = new ContourFeatureExtractor("attr");
       cfe.extractFeatures(regions);
 
-      assertEquals(0.1, (Double) w.getAttribute("attr__min"), 0.001);
-      assertEquals(0.3, (Double) w.getAttribute("attr__max"), 0.001);
-      assertEquals(0.2, (Double) w.getAttribute("attr__mean"), 0.001);
-//      assertEquals(0.1169, (Double) w.getAttribute("attr__stdev"), 0.001);
-//      assertEquals(1.5682, (Double) w.getAttribute("attr__zMax"), 0.001);
-      assertEquals(0.02, (Double) w.getAttribute("attr__maxLocation"), 0.001);
-      assertEquals(0.5714, (Double) w.getAttribute("attr__maxRelLocation"), 0.001);
+      assertEquals(0.1, (Double) w.getAttribute("min[attr]"), 0.001);
+      assertEquals(0.3, (Double) w.getAttribute("max[attr]"), 0.001);
+      assertEquals(0.2, (Double) w.getAttribute("mean[attr]"), 0.001);
+      assertEquals(0.08164965809277258, (Double) w.getAttribute("stdev[attr]"), 0.001);
+      assertEquals(1.2247448713915892, (Double) w.getAttribute("zMax[attr]"), 0.001);
+      assertEquals(0.02, (Double) w.getAttribute("maxLocation[attr]"), 0.001);
+      assertEquals(0.5714, (Double) w.getAttribute("maxRelLocation[attr]"), 0.001);
     } catch (NullPointerException e) {
       fail();
     } catch (FeatureExtractorException e) {

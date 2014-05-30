@@ -1,16 +1,17 @@
 package edu.cuny.qc.speech.AuToBI;
 
 import edu.cuny.qc.speech.AuToBI.core.*;
-import edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException;
 import edu.cuny.qc.speech.AuToBI.io.*;
 import edu.cuny.qc.speech.AuToBI.util.AuToBIReaderUtils;
 import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
 import edu.cuny.qc.speech.AuToBI.util.ClassifierUtils;
 
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 public class AuToBITrainTest {
@@ -22,10 +23,6 @@ public class AuToBITrainTest {
     try {
       List<FormattedFile> training_files = AuToBIReaderUtils.globFormattedFiles(autobi.getParameter("training_files"));
       List<FormattedFile> testing_files = AuToBIReaderUtils.globFormattedFiles(autobi.getParameter("testing_files"));
-
-      // Added here to comply to comply with the new feature registration changes to FeatureSetPropagator
-      autobi.registerAllFeatureExtractors();
-      autobi.registerNullFeatureExtractor("speaker_id");
 
       HashMap<String, AuToBITask> tasks = AuToBIUtils.createTaskListFromParameters(autobi.getParameters(), false);
 
@@ -50,12 +47,16 @@ public class AuToBITrainTest {
             autobi.getParameters().setParameter("attribute_omit", "nominal_PhraseAccentBoundaryTone:NOTONE");
           } else if (task_label.equals("phrase_accent_classification")) {
             autobi.getParameters().setParameter("attribute_omit", "nominal_PhraseAccent:NOTONE");
+          } else if (task_label.equals("intermediate_phrase_boundary_detection")) {
+            autobi.getParameters()
+                .setParameter("attribute_omit", "nominal_IntermediatePhraseBoundary:INTONATIONAL_BOUNDARY");
           } else {
             autobi.getParameters().setParameter("attribute_omit", "");
           }
           trainer.trainClassifier(training_files, task.getFeatureSet(), task.getClassifier());
 
         } catch (Exception e) {
+          e.printStackTrace();
           AuToBIUtils.error("Error training classifier for " + task_label);
           continue;
         }
@@ -88,9 +89,15 @@ public class AuToBITrainTest {
 
         AuToBIUtils.log("Test Results on test set\n" + es.toString());
       }
-    } catch (FeatureExtractorException e) {
+    } catch (UnsupportedAudioFileException e) {
       e.printStackTrace();
-    } catch (Exception e) {
+    } catch (AuToBIException e) {
+      e.printStackTrace();
+    } catch (InstantiationException e) {
+      e.printStackTrace();
+    } catch (IllegalAccessException e) {
+      e.printStackTrace();
+    } catch (InvocationTargetException e) {
       e.printStackTrace();
     }
   }

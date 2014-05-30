@@ -21,7 +21,9 @@ package edu.cuny.qc.speech.AuToBI.core;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Test Class for ContextDesc.
@@ -34,9 +36,9 @@ public class ContextDescTest {
   public void testConstruction() {
     ContextDesc cd = new ContextDesc("label", 1, 2);
     assertEquals("label", cd.getLabel());
-    assertEquals(1, (long) cd.getForward());
-    assertEquals(1, (long) cd.getForward());
-    assertEquals(2, (long) cd.getBack());
+    assertEquals(1, cd.getForward());
+    assertEquals(1, cd.getForward());
+    assertEquals(2, cd.getBack());
   }
 
   @Test
@@ -52,7 +54,7 @@ public class ContextDescTest {
     ContextDesc cd = new ContextDesc("label", 1, 2);
 
     cd.setBack(5);
-    assertEquals(5, (long) cd.getBack());
+    assertEquals(5, cd.getBack());
   }
 
   @Test
@@ -60,9 +62,42 @@ public class ContextDescTest {
     ContextDesc cd = new ContextDesc("label", 1, 2);
 
     cd.setForward(5);
-    assertEquals(5, (long) cd.getForward());
+    assertEquals(5, cd.getForward());
   }
 
+  @Test
+  public void testParseWorksCorrectly() {
+    try {
+      ContextDesc cd = ContextDesc.parseContextDescriptor("f2b3");
+      assertEquals("f2b3", cd.getLabel());
+      assertEquals(2, cd.getForward());
+      assertEquals(3, cd.getBack());
+    } catch (AuToBIException e) {
+      fail();
+    }
+  }
+
+  @Test
+  public void testParseThrowsExceptionOnFloats() {
+    boolean thrown = false;
+    try {
+      ContextDesc cd = ContextDesc.parseContextDescriptor("f2b3.5");
+    } catch (AuToBIException e) {
+      thrown = true;
+    }
+    assertTrue(thrown);
+  }
+
+  @Test
+  public void testParseThrowsExceptionOnBadDescriptor() {
+    boolean thrown = false;
+    try {
+      ContextDesc cd = ContextDesc.parseContextDescriptor("I am not helpful");
+    } catch (AuToBIException e) {
+      thrown = true;
+    }
+    assertTrue(thrown);
+  }
 }
 
 

@@ -10,6 +10,7 @@ import java.util.List;
  * Generates speaker normalization parameters based on a speaker id feature.
  */
 public class SpeakerNormalizationParameterFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "spkrNormParameterFeatures";
   private String speaker_id_feature;
   private String destination_feature;
 

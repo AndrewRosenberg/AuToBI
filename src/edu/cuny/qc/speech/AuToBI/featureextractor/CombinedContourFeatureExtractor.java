@@ -1,6 +1,6 @@
 /*  CombinedContourFeatureExtractor.java
 
-    Copyright (c) 2012 Andrew Rosenberg
+    Copyright (c) 2012-2014 Andrew Rosenberg
 
     This file is part of the AuToBI prosodic analysis package.
 
@@ -26,9 +26,11 @@ import java.util.List;
 
 @SuppressWarnings("unchecked")
 public class CombinedContourFeatureExtractor extends FeatureExtractor {
-  private String feature1;  // the first feature
-  private String feature2;  // the second feature
-  private double f2_coeff;  // the combination coefficient of the second feature
+  public static final String moniker = "prodC";
+  private String feature1;     // the first feature
+  private String feature2;     // the second feature
+  private String extracted_f;  // the extracted feature name
+  private double f2_coeff;     // the combination coefficient of the second feature
 
   /**
    * Constructs a new CombinedContourFeatureExtractor to merge two contours into a single numeric contour
@@ -41,10 +43,16 @@ public class CombinedContourFeatureExtractor extends FeatureExtractor {
     this.feature1 = f1;
     this.feature2 = f2;
     this.f2_coeff = f2_coeff;
-
+    this.extracted_f = "prodC[" + f1 + "," + f2 + "," + f2_coeff + "]";
     required_features.add(f1);
     required_features.add(f2);
-    extracted_features.add(f1 + f2);
+    extracted_features.add(extracted_f);
+  }
+
+  public CombinedContourFeatureExtractor(String f1, String f2, String f2_coeff) {
+    this(f1, f2, Double.parseDouble(f2_coeff));
+    // Respect the user specified f2_coeff string.  Double.parseDouble(s).toString() can introduce error.
+    this.extracted_f = "prodC[" + f1 + "," + f2 + "," + f2_coeff + "]";
   }
 
   /**
@@ -56,15 +64,16 @@ public class CombinedContourFeatureExtractor extends FeatureExtractor {
   @Override
   public void extractFeatures(List regions) throws FeatureExtractorException {
     HashMap<Contour, Contour> cache = new HashMap<Contour, Contour>();
+    String extracted_feature = "prodC[" + feature1 + "," + feature2 + "," + f2_coeff + "]";
 
     for (Region r : (List<Region>) regions) {
       if (r.hasAttribute(feature1) && r.hasAttribute(feature2)) {
         Contour src = (Contour) r.getAttribute(feature1);
         if (cache.containsKey(src)) {
-          r.setAttribute(feature1 + feature2, cache.get(src));
+          r.setAttribute(extracted_feature, cache.get(src));
         } else {
           Contour c = combineContours((Contour) r.getAttribute(feature1), (Contour) r.getAttribute(feature2), f2_coeff);
-          r.setAttribute(feature1 + feature2, c);
+          r.setAttribute(extracted_feature, c);
           cache.put(src, c);
         }
       }

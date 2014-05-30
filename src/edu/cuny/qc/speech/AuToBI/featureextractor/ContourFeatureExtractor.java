@@ -30,6 +30,7 @@ import java.util.ArrayList;
  * ContourExtractor extracts aggregations from a list of TimeValuePairs.
  */
 public class ContourFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "mean,max,min,stdev,zMax,maxLocation,minLocation";
 
   protected String attribute_name;  // the name of the feature name to analyze
 
@@ -59,13 +60,13 @@ public class ContourFeatureExtractor extends FeatureExtractor {
     this.attribute_name = attribute_name;
 
     extracted_features = new ArrayList<String>();
-    extracted_features.add(this.attribute_name + "__max");
-    extracted_features.add(this.attribute_name + "__min");
-    extracted_features.add(this.attribute_name + "__mean");
-    extracted_features.add(this.attribute_name + "__stdev");
-    extracted_features.add(this.attribute_name + "__zMax");
-    extracted_features.add(this.attribute_name + "__maxLocation");
-    extracted_features.add(this.attribute_name + "__maxRelLocation");
+    extracted_features.add("max[" + this.attribute_name + "]");
+    extracted_features.add("min[" + this.attribute_name + "]");
+    extracted_features.add("mean[" + this.attribute_name + "]");
+    extracted_features.add("stdev[" + this.attribute_name + "]");
+    extracted_features.add("zMax[" + this.attribute_name + "]");
+    extracted_features.add("maxLocation[" + this.attribute_name + "]");
+    extracted_features.add("maxRelLocation[" + this.attribute_name + "]");
 
     required_features.add(this.attribute_name);
   }
@@ -86,21 +87,6 @@ public class ContourFeatureExtractor extends FeatureExtractor {
    * @throws FeatureExtractorException if something goes wrong.
    */
   public void extractFeatures(List regions) throws FeatureExtractorException {
-    extractFeatures(regions, regions);
-  }
-
-  /**
-   * Extracts acoustic aggregations of the associated contour for each region where the context normalization is
-   * calculated over a distinct set of regions from the initial aggregations.
-   * <p/>
-   * This distinction is useful when normalizing subword regions, like syllables, from all of the surrounding acoustic
-   * material.
-   *
-   * @param regions         The regions to extract features from.
-   * @param context_regions the regions that define context -- can be identical as regions.
-   * @throws FeatureExtractorException if something goes wrong.
-   */
-  public void extractFeatures(List regions, List context_regions) throws FeatureExtractorException {
     for (Region region : (List<Region>) regions) {
       try {
         extractFeatures(region);
@@ -136,34 +122,34 @@ public class ContourFeatureExtractor extends FeatureExtractor {
     double duration = region.getDuration();
 
     if (agg.getSize() > 0) {
-      region.setAttribute(attribute_name + "__max", agg.getMax());
-      region.setAttribute(attribute_name + "__min", agg.getMin());
-      region.setAttribute(attribute_name + "__mean", mean);
+      region.setAttribute("max[" + attribute_name + "]", agg.getMax());
+      region.setAttribute("min[" + attribute_name + "]", agg.getMin());
+      region.setAttribute("mean[" + attribute_name + "]", mean);
       if (Double.isNaN(stdev)) {
-        region.setAttribute(attribute_name + "__stdev", 0.0);
+        region.setAttribute("stdev[" + attribute_name + "]", 0.0);
       } else {
-        region.setAttribute(attribute_name + "__stdev", stdev);
+        region.setAttribute("stdev[" + attribute_name + "]", stdev);
       }
       if (stdev == 0.0) {
-        region.setAttribute(attribute_name + "__zMax", 0.0);
+        region.setAttribute("zMax[" + attribute_name + "]", 0.0);
       } else {
-        region.setAttribute(attribute_name + "__zMax", (agg.getMax() - mean) / stdev);
+        region.setAttribute("zMax[" + attribute_name + "]", (agg.getMax() - mean) / stdev);
       }
 
 
       max_location -= region.getStart();
       max_location = Math.min(Math.max(max_location, 0.0), duration);
-      region.setAttribute(attribute_name + "__maxLocation", max_location);
-      region.setAttribute(attribute_name + "__maxRelLocation", max_location / duration);
+      region.setAttribute("maxLocation[" + attribute_name + "]", max_location);
+      region.setAttribute("maxRelLocation[" + attribute_name + "]", max_location / duration);
     } else {
-      region.setAttribute(attribute_name + "__max", 0.0);
-      region.setAttribute(attribute_name + "__min", 0.0);
-      region.setAttribute(attribute_name + "__mean", 0.0);
-      region.setAttribute(attribute_name + "__stdev", 0.0);
-      region.setAttribute(attribute_name + "__zMax", 0.0);
+      region.setAttribute("max[" + attribute_name + "]", 0.0);
+      region.setAttribute("min[" + attribute_name + "]", 0.0);
+      region.setAttribute("mean[" + attribute_name + "]", 0.0);
+      region.setAttribute("stdev[" + attribute_name + "]", 0.0);
+      region.setAttribute("zMax[" + attribute_name + "]", 0.0);
 
-      region.setAttribute(attribute_name + "__maxLocation", 0.0);
-      region.setAttribute(attribute_name + "__maxRelLocation", 0.0);
+      region.setAttribute("maxLocation[" + attribute_name + "]", 0.0);
+      region.setAttribute("maxRelLocation[" + attribute_name + "]", 0.0);
     }
   }
 }

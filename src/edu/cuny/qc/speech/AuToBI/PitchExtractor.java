@@ -25,7 +25,7 @@ package edu.cuny.qc.speech.AuToBI;
 import edu.cuny.qc.speech.AuToBI.core.*;
 import edu.cuny.qc.speech.AuToBI.io.WavReader;
 import jnt.FFT.RealDoubleFFT_Radix2;
-import org.apache.commons.math.stat.descriptive.rank.Percentile;
+import org.apache.commons.math3.stat.descriptive.rank.Percentile;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;

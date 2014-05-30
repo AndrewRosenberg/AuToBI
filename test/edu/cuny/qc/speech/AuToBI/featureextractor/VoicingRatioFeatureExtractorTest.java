@@ -34,7 +34,7 @@ public class VoicingRatioFeatureExtractorTest {
     regions.add(r);
     try {
       fe.extractFeatures(regions);
-      assertTrue(r.hasAttribute("contour__voicingRatio"));
+      assertTrue(r.hasAttribute("voicingRatio[contour]"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -51,7 +51,7 @@ public class VoicingRatioFeatureExtractorTest {
     try {
       fe.extractFeatures(regions);
 
-      assertEquals(0.8, (Double) r.getAttribute("contour__voicingRatio"), 0.0001);
+      assertEquals(0.8, (Double) r.getAttribute("voicingRatio[contour]"), 0.0001);
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -68,7 +68,7 @@ public class VoicingRatioFeatureExtractorTest {
     try {
       fe.extractFeatures(regions);
 
-      assertEquals(0.6, (Double) r.getAttribute("contour__voicingRatio"), 0.0001);
+      assertEquals(0.6, (Double) r.getAttribute("voicingRatio[contour]"), 0.0001);
     } catch (FeatureExtractorException e) {
       fail();
     }

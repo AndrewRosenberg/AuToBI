@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 
 import edu.cuny.qc.speech.AuToBI.AuToBI;
+import edu.cuny.qc.speech.AuToBI.classifier.ClassWeightedLibLinear;
 import edu.cuny.qc.speech.AuToBI.classifier.ClassWeightedWekaClassifier;
 import edu.cuny.qc.speech.AuToBI.classifier.WekaClassifier;
 import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
@@ -231,6 +232,62 @@ public class AuToBIUtils {
   }
 
   /**
+   * Parses a feature name into its moniker and paramers.
+   * <p/>
+   * The format of a feature name is moniker[param1,...,paramN], where params can themselves be features
+   *
+   * @param feature the feature name
+   * @return a list containing the moniker followed by its parameters.
+   */
+  public static List<String> parseFeatureName(String feature) throws AuToBIException {
+    if (feature.contains("[") && !feature.endsWith("]")) {
+      throw new AuToBIException("Invalid feature name format: " + feature);
+    }
+    if (feature.replaceAll("\\[", "").length() != feature.replaceAll("\\]", "").length()) {
+      throw new AuToBIException("Invalid feature name format: " + feature);
+    }
+
+    // Note: I'm sure there's a way to do this with a regular expression, but dealing with
+    // matching brackets is frustrating
+    ArrayList<String> ret = new ArrayList<String>();
+    if (!feature.contains("[")) {
+      ret.add(feature);
+    } else {
+      int openBracket = feature.indexOf('[');
+      String moniker = feature.substring(0, openBracket);
+      ret.add(moniker);
+
+      // Parameters will keep the final closing bracket to allow the for loop below to recognize the
+      // end of string.
+      String parameters = feature.substring(openBracket + 1, feature.length());
+      if (parameters.length() == 0) {
+        throw new AuToBIException("Invalid feature name format: " + feature);
+      }
+      //ret.add(parameters);
+      int start = 0;
+      int open = 0;
+      int close = 0;
+      for (int i = 0; i < parameters.length(); ++i) {
+        if (open == close && (parameters.charAt(i) == ',' || parameters.charAt(i) == ']')) {
+          String f = parameters.substring(start, i);
+          if (f.length() == 0) {
+            throw new AuToBIException("Invalid feature name format: " + feature);
+          }
+          ret.add(f);
+          start = i + 1;
+        }
+        if (parameters.charAt(i) == '[') {
+          open++;
+        }
+        if (parameters.charAt(i) == ']') {
+          close++;
+        }
+      }
+    }
+    return ret;
+  }
+
+  /**
    * Constructs merged hypotheses for phrase ending tones and pitch accents by merging hypotheses from the six detection
    * and classification tasks.
    *
@@ -337,10 +394,14 @@ public class AuToBIUtils {
       if (params.hasParameter("pitch_accent_detector")) {
         map.put("pitch_accent_detection",
             getPitchAccentDetectionTask(serialized ? params.getParameter("pitch_accent_detector") : null));
+        params.setParameter("pitch_accent_detection",
+            params.getParameter("pitch_accent_detector"));
       }
       if (params.hasParameter("pitch_accent_classifier")) {
         map.put("pitch_accent_classification",
             getPitchAccentClassificationTask(serialized ? params.getParameter("pitch_accent_classifier") : null));
+        params.setParameter("pitch_accent_classification",
+            params.getParameter("pitch_accent_classifier"));
       }
       if (params.hasParameter("intonational_phrase_boundary_detector")) {
         map.put("intonational_phrase_boundary_detection", getIntonationalPhraseDetectionTask(
@@ -357,10 +418,14 @@ public class AuToBIUtils {
       if (params.hasParameter("phrase_accent_classifier")) {
         map.put("phrase_accent_classification",
             getPhraseAccentClassificationTask(serialized ? params.getParameter("phrase_accent_classifier") : null));
+        params.setParameter("phrase_accent_classification",
+            params.getParameter("phrase_accent_classifier"));
       }
       if (params.hasParameter("boundary_tone_classifier")) {
         map.put("phrase_accent_boundary_tone_classification", getPABTClassificationTask(
             serialized ? params.getParameter("boundary_tone_classifier") : null));
+        params.setParameter("phrase_accent_boundary_tone_classification",
+            params.getParameter("boundary_tone_classifier"));
       }
 
     } catch (AuToBIException e) {
@@ -450,7 +515,8 @@ public class AuToBIUtils {
     if (filename != null) {
       task.setClassifier(ClassifierUtils.readAuToBIClassifier(filename));
     } else {
-      task.setClassifier(new ClassWeightedWekaClassifier(new Logistic()));
+      task.setClassifier(new ClassWeightedLibLinear());
+//      task.setClassifier(new ClassWeightedWekaClassifier(new Logistic()));
     }
     String hyp = "hyp_intermediate_phrase_boundary";
     task.setHypFeature(hyp);
@@ -503,5 +569,43 @@ public class AuToBIUtils {
     task.setTrueFeature("nominal_PhraseAccentBoundaryTone");
     task.setFeatureSet(new PhraseAccentBoundaryToneClassificationFeatureSet());
     return task;
+  }
+
+
+  /**
+   * Makes an AuToBI feature name from String parameters.
+   * <p/>
+   * This is a utility function to support loops over feature types and and names.
+   * <p/>
+   * makeFeatureName("f0") = "f0"
+   * makeFeatureName("log", "f0") = "log[f0]"
+   * makeFeatureName("minus", "A", "B") = "minus[A,B]"
+   *
+   * @param params the parameters
+   * @return an AuToBI formatted set of feature names.
+   */
+  public static String makeFeatureName(String... params) {
+    if (params.length == 0) {
+      return "";
+    }
+    if (params.length == 1) {
+      return params[0];
+    }
+
+    // This allows the coherence of makeFeatureName("log", "f0) and makeFeatureName("", "f0")
+    if (params.length == 2 && params[0].isEmpty()) {
+      return params[1];
+    }
+
+    StringBuilder sb = new StringBuilder(params[0]);
+    sb.append("[");
+    for (int i = 1; i < params.length; ++i) {
+      if (i > 1) {
+        sb.append(',');
+      }
+      sb.append(params[i]);
+    }
+    sb.append("]");
+    return sb.toString();
   }
 }

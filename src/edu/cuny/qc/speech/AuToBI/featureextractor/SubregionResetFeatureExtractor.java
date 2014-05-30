@@ -37,6 +37,7 @@ import java.util.List;
  */
 @SuppressWarnings("unchecked")
 public class SubregionResetFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "van,trail";
   private String subregion_name;    // the name of the subregion
   private Double subregion_length;  // the length (in seconds) of the subregion
 
@@ -48,12 +49,12 @@ public class SubregionResetFeatureExtractor extends FeatureExtractor {
    * Subregions are described as a number of seconds "2s" or milliseconds "50ms".  Other names will raise an exception
    *
    * @param subregion_name the subregion label
-   * @throws edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException
-   *          if something goes wrong with the subregion name
+   * @throws edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException if something goes wrong with the
+   *                                                                              subregion name
    */
   public SubregionResetFeatureExtractor(String subregion_name) throws FeatureExtractorException {
-    extracted_features.add("van_" + subregion_name);
-    extracted_features.add("trail_" + subregion_name);
+    extracted_features.add("van[" + subregion_name + "]");
+    extracted_features.add("trail[" + subregion_name + "]");
 
     this.subregion_name = subregion_name;
     this.subregion_length = SubregionUtils.parseSubregionName(subregion_name);
@@ -63,8 +64,8 @@ public class SubregionResetFeatureExtractor extends FeatureExtractor {
    * Extracts subregion reset regions for each region.
    *
    * @param regions the regions to process
-   * @throws edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException
-   *          if something goes wrong with the extraction.
+   * @throws edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException if something goes wrong with the
+   *                                                                              extraction.
    */
   public void extractFeatures(List regions) throws FeatureExtractorException {
     for (Region r : (List<Region>) regions) {
@@ -72,8 +73,8 @@ public class SubregionResetFeatureExtractor extends FeatureExtractor {
       Region trail_region = new Region(r.getStart(), r.getStart() + subregion_length);
       Region van_region = new Region(r.getEnd() - subregion_length, r.getEnd());
 
-      r.setAttribute("van_" + subregion_name, van_region);
-      r.setAttribute("trail_" + subregion_name, trail_region);
+      r.setAttribute("van[" + subregion_name + "]", van_region);
+      r.setAttribute("trail[" + subregion_name + "]", trail_region);
     }
   }
 }

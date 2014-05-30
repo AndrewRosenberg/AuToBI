@@ -22,9 +22,7 @@ package edu.cuny.qc.speech.AuToBI;
 import edu.cuny.qc.speech.AuToBI.classifier.AuToBIClassifier;
 import edu.cuny.qc.speech.AuToBI.core.*;
 import edu.cuny.qc.speech.AuToBI.featureextractor.*;
-import edu.cuny.qc.speech.AuToBI.featureextractor.shapemodeling.CurveShapeFeatureExtractor;
-import edu.cuny.qc.speech.AuToBI.featureextractor.shapemodeling.CurveShapeLikelihoodFeatureExtractor;
-import edu.cuny.qc.speech.AuToBI.featureextractor.shapemodeling.PVALFeatureExtractor;
+import edu.cuny.qc.speech.AuToBI.featureextractor.shapemodeling.*;
 import edu.cuny.qc.speech.AuToBI.featureset.*;
 import edu.cuny.qc.speech.AuToBI.io.*;
 import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
@@ -32,12 +30,15 @@ import edu.cuny.qc.speech.AuToBI.util.ClassifierUtils;
 import edu.cuny.qc.speech.AuToBI.util.WordReaderUtils;
 import org.apache.log4j.PropertyConfigurator;
 import org.apache.log4j.BasicConfigurator;
+import org.reflections.Reflections;
 
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -73,6 +74,9 @@ public class AuToBI {
   // A map from feature names to the FeatureExtractors that generate them
   private Map<String, FeatureExtractor> feature_registry;
 
+  // A map from feature monikers to classes for initialization
+  private Map<String, Class<? extends FeatureExtractor>> moniker_map;
+
   // A set of FeatureExtractors that have already executed
   protected Set<FeatureExtractor> executed_feature_extractors;
 
@@ -94,6 +98,7 @@ public class AuToBI {
   public AuToBI() {
     params = new AuToBIParameters();
     feature_registry = new HashMap<String, FeatureExtractor>();
+    moniker_map = new HashMap<String, Class<? extends FeatureExtractor>>();
     executed_feature_extractors = new HashSet<FeatureExtractor>();
     speaker_norm_file_mapping = new HashMap<String, String>();
     tasks = new HashMap<String, AuToBITask>();
@@ -116,6 +121,8 @@ public class AuToBI {
     } else {
       BasicConfigurator.configure();
     }
+
+    registerDefaultFeatureExtractorMonikers();
   }
 
   /**
@@ -190,6 +197,19 @@ public class AuToBI {
   }
 
   /**
+   * Retrieves the Feature Moniker Map.
+   * <p/>
+   * This map relates a feature moniker to a class that is capable of extracting it.
+   * This replaces the FeatureRegistry.  Where the Registry needed to construct instances, the moniker map only stores
+   * the classname for on-demand construction.
+   *
+   * @return the moniker map
+   */
+  public Map<String, Class<? extends FeatureExtractor>> getMonikerMap() {
+    return moniker_map;
+  }
+
+  /**
    * Registers a FeatureExtractor with AuToBI.
    * <p/>
    * A FeatureExtractor class is responsible for reporting what features it extracts.
@@ -197,8 +217,26 @@ public class AuToBI {
    * @param fe the feature extractor
    */
   public void registerFeatureExtractor(FeatureExtractor fe) {
+    registerFeatureExtractor(fe, false);
+  }
+
+  /**
+   * Registers a FeatureExtractor with AuToBI. If quiet is false, and the feature registry already contains
+   * a FeatureExtractor registered to an extracted feature name, a warning will be raised.  If quiet is true,
+   * the new feature extractor will quietly overwrite the previous entry.
+   * <p/>
+   * In general, quiet mode should be used when the feature extractors are registered automatically, as in the
+   * v1.4 naming scheme which discovers desired features from the feature set.
+   * <p/>
+   * verbose mode should be used when the user explicitly registers feature extractors.  In these cases, the
+   * user should know exactly what's been registered.
+   *
+   * @param fe    the feature extractor
+   * @param quiet quiet mode flag
+   */
+  public void registerFeatureExtractor(FeatureExtractor fe, boolean quiet) {
     for (String feature_name : fe.getExtractedFeatures()) {
-      if (feature_registry.containsKey(feature_name)) {
+      if (feature_registry.containsKey(feature_name) && !quiet) {
         AuToBIUtils.warn("Feature Registry already contains feature: " + feature_name);
       }
       feature_registry.put(feature_name, fe);
@@ -278,6 +316,80 @@ public class AuToBI {
       }
     }
   }
+
+  /**
+   * Initializes the feature registry based on a FeatureSet's required features and the moniker map.
+   *
+   * @param fs the feature set
+   */
+  public void initializeFeatureRegistry(FeatureSet fs) throws AuToBIException, IllegalAccessException,
+      InvocationTargetException, InstantiationException {
+    Stack<String> features = new Stack<String>();
+    if (fs.getClassAttribute() != null) {
+      features.add(fs.getClassAttribute());
+    }
+    features.addAll(fs.getRequiredFeatures());
+
+    while (features.size() > 0) {
+      String feature = features.pop();
+
+      // parse feature
+      List<String> fparams = AuToBIUtils.parseFeatureName(feature);
+
+      // Construct FeatureExtractor
+      Class c = moniker_map.get(fparams.get(0));
+
+      // Null FeatureExtractors correspond to features that do not to be extracted by a feature extractor
+      // These might include resources (eventually) but will include features created during region construction
+      // like file and speaker_id.  (This is also useful for testing)
+      if (c != null) {
+        Constructor[] cons = c.getConstructors();
+        Object[] plist = fparams.subList(1, fparams.size()).toArray();
+
+        // find constructor which takes as many strings as there are elements in plist
+        Constructor correct_cons = null;
+        for (Constructor constructor : cons) {
+          if (constructor.getParameterTypes().length == plist.length) {
+            boolean found = true;
+            for (Class param_class : constructor.getParameterTypes()) {
+              if (param_class != String.class) {
+                found = false;
+              }
+            }
+            if (found) {
+              correct_cons = constructor;
+              break;
+            }
+          }
+        }
+        if (correct_cons == null) {
+          throw new AuToBIException(
+              "Class, " + c.toString() + ", registered to the moniker, " + fparams.get(0) + ", does not " +
+                  "have a constructor that takes " + plist.length +
+                  " String arguments in order to construct the requested feature, " + feature);
+        }
+        FeatureExtractor fe = (FeatureExtractor) correct_cons.newInstance(plist);
+
+        // Register FeatureExtractor
+        registerFeatureExtractor(fe, true);
+
+        // push required features
+        for (String f : fe.getRequiredFeatures()) {
+          features.push(f);
+        }
+      } else {
+        registerNullFeatureExtractor(fparams.get(0));
+      }
+      // push any nested features on to the list
+      for (int i = 1; i < fparams.size(); ++i) {
+        // don't include parameters that are numbers or quoted strings
+        if (!fparams.get(i).matches("^\\d") && !fparams.get(i).matches("\"")) {
+          features.push(fparams.get(i));
+        }
+      }
+    }
+  }
+
 
   /**
    * Retrieves the remaining reference count for a given feature.
@@ -568,7 +680,8 @@ public class AuToBI {
    * @throws UnsupportedAudioFileException if the wav file doesn't work out
    */
   public void propagateFeatureSet(Collection<FormattedFile> filenames, FeatureSet fs)
-      throws UnsupportedAudioFileException {
+      throws UnsupportedAudioFileException, InvocationTargetException, InstantiationException, IllegalAccessException,
+      AuToBIException {
 
     if (fs.getClassAttribute() == null) {
       AuToBIUtils.warn("FeatureSet has null class attribute.  Classification experiments will generate errors.");
@@ -593,6 +706,10 @@ public class AuToBI {
         e.printStackTrace();
       }
     }
+
+    // initialize moniker map and feature registry here.
+    // initialization internally leads to a race condition.
+    initializeFeatureRegistry(fs);
 
     ExecutorService threadpool = newFixedThreadPool(Integer.parseInt(getOptionalParameter("num_threads", "1")));
     List<Future<FeatureSet>> results = new ArrayList<Future<FeatureSet>>();
@@ -788,14 +905,43 @@ public class AuToBI {
   }
 
   /**
-   * Registers features as described in a config file.
-   *
-   * @param filename the config file.
+   * Associates default feature name patterns with classnames of feature extractors.
+   * <p/>
+   * Operates by scanning the edu.cuny.qc.speech.AuToBI.featureextractor package for available feature extractors
    */
-  public void registerFeaturesFromConfigFile(String filename) {
+  public void registerDefaultFeatureExtractorMonikers() {
+    registerFeatureExtractorMonikers("edu.cuny.qc.speech.AuToBI.featureextractor");
 
-    // TODO: Determine a config file format.
-    // This should probably be a set of class names and parameters.
+    // Include null moniker entries for 'wav' and 'speaker_id'
+    // these are handled by the wav reader and the word reading functionality
+    moniker_map.put("wav", null);
+    moniker_map.put("speaker_id", null);
+  }
+
+  /**
+   * Associates feature name patterns with classnames of feature extractors from an arbitrary package
+   * <p/>
+   * This is exposed to allow users to write their own feature extractors and seemlessly incorporate them into the
+   * feature extraction pipeline.
+   */
+  public void registerFeatureExtractorMonikers(String package_name) {
+    Reflections reflections = new Reflections(package_name);
+    Set<Class<? extends FeatureExtractor>> fes =
+        reflections.getSubTypesOf(edu.cuny.qc.speech.AuToBI.core.FeatureExtractor.class);
+    for (Class<? extends FeatureExtractor> c : fes) {
+      try {
+        String value = c.getDeclaredField("moniker").get(c).toString();
+        for (String f : value.split(",")) {
+          moniker_map.put(f, c);
+        }
+      } catch (NoSuchFieldException e) {
+        // Quietly ignore FeatureExtractors that have no moniker field
+        // It may be useful to throw a warning here to alert users, but this is a built in workaround
+        // to handle feature extractors that cannot fit the moniker framework
+      } catch (IllegalAccessException e) {
+        e.printStackTrace();
+      }
+    }
   }
 
   /**
@@ -803,6 +949,7 @@ public class AuToBI {
    *
    * @throws FeatureExtractorException If there is a problem registering (not running) feature extractors.
    */
+  @Deprecated
   public void registerAllFeatureExtractors()
       throws FeatureExtractorException {
 
@@ -832,16 +979,16 @@ public class AuToBI {
     registerNullFeatureExtractor("wav");
     String[] acoustic_features = new String[]{"f0", "log_f0", "I"};
 
-    registerFeatureExtractor(new PitchAccentFeatureExtractor("nominal_PitchAccent"));
-    registerFeatureExtractor(new PitchAccentTypeFeatureExtractor("nominal_PitchAccentType"));
-    registerFeatureExtractor(new PhraseAccentFeatureExtractor("nominal_PhraseAccent"));
-    registerFeatureExtractor(new PhraseAccentBoundaryToneFeatureExtractor("nominal_PhraseAccentBoundaryTone"));
-    registerFeatureExtractor(new IntonationalPhraseBoundaryFeatureExtractor("nominal_IntonationalPhraseBoundary"));
-    registerFeatureExtractor(new IntermediatePhraseBoundaryFeatureExtractor("nominal_IntermediatePhraseBoundary"));
+    registerFeatureExtractor(new PitchAccentFeatureExtractor());
+    registerFeatureExtractor(new PitchAccentTypeFeatureExtractor());
+    registerFeatureExtractor(new PhraseAccentFeatureExtractor());
+    registerFeatureExtractor(new PhraseAccentBoundaryToneFeatureExtractor());
+    registerFeatureExtractor(new IntonationalPhraseBoundaryFeatureExtractor());
+    registerFeatureExtractor(new IntermediatePhraseBoundaryFeatureExtractor());
 
-    registerFeatureExtractor(new PitchFeatureExtractor("f0"));
-    registerFeatureExtractor(new LogContourFeatureExtractor("f0", "log_f0"));
-    registerFeatureExtractor(new IntensityFeatureExtractor("I"));
+    registerFeatureExtractor(new PitchFeatureExtractor());
+    registerFeatureExtractor(new LogContourFeatureExtractor("f0"));
+    registerFeatureExtractor(new IntensityFeatureExtractor());
 
     if (hasParameter("normalization_parameters")) {
       String known_speaker = null;
@@ -849,21 +996,21 @@ public class AuToBI {
         known_speaker = "speaker_id";
       }
       try {
-        registerFeatureExtractor(new SNPAssignmentFeatureExtractor("normalization_parameters", known_speaker,
+        registerFeatureExtractor(new SNPAssignmentFeatureExtractor(known_speaker,
             AuToBIUtils.glob(getOptionalParameter("normalization_parameters"))));
       } catch (AuToBIException e) {
         AuToBIUtils.error(e.getMessage());
       }
     } else {
-      registerFeatureExtractor(new NormalizationParameterFeatureExtractor("normalization_parameters"));
+      registerFeatureExtractor(new NormalizationParameterFeatureExtractor());
     }
 
     for (String acoustic : acoustic_features) {
-      registerFeatureExtractor(new NormalizedContourFeatureExtractor(acoustic, "normalization_parameters"));
+      registerFeatureExtractor(new NormalizedContourFeatureExtractor(acoustic, SNPAssignmentFeatureExtractor.moniker));
     }
 
     // Register Subregion feature extractors
-    registerFeatureExtractor(new PseudosyllableFeatureExtractor("pseudosyllable"));
+    registerFeatureExtractor(new PseudosyllableFeatureExtractor());
     registerFeatureExtractor(new SubregionFeatureExtractor("200ms"));
 
     // Register Delta Contour Extractors
@@ -920,12 +1067,12 @@ public class AuToBI {
       }
     }
 
-    registerFeatureExtractor(new SpectrumFeatureExtractor("spectrum"));
+    registerFeatureExtractor(new SpectrumFeatureExtractor());
 
     for (int low = 0; low <= 19; ++low) {
       for (int high = low + 1; high <= 20; ++high) {
-        registerFeatureExtractor(new SpectralTiltFeatureExtractor("bark_tilt", "spectrum", low, high));
-        registerFeatureExtractor(new SpectrumBandFeatureExtractor("bark", "spectrum", low, high));
+        registerFeatureExtractor(new SpectralTiltFeatureExtractor(low, high));
+        registerFeatureExtractor(new SpectrumBandFeatureExtractor(low, high));
 
         for (String feature_prefix : new String[]{"bark_tilt", "bark"}) {
           String feature_name = feature_prefix + "_" + low + "_" + high;
@@ -1212,10 +1359,6 @@ public class AuToBI {
       }
       initializeAuToBITasks();
 
-      AuToBIUtils.log("Registering Feature Extractors");
-      registerAllFeatureExtractors();
-      registerNullFeatureExtractor("speaker_id");
-
       for (AuToBITask task : tasks.values()) {
         FeatureSet fs = task.getFeatureSet();
         AuToBIClassifier classifier = task.getClassifier();
@@ -1304,5 +1447,14 @@ public class AuToBI {
    */
   public void setParameters(AuToBIParameters params) {
     this.params = params;
+  }
+
+  /**
+   * Sets the Moniker Map between strings and classes.
+   *
+   * @param moniker_map the moniker map.
+   */
+  public void setMonikerMap(Map<String, Class<? extends FeatureExtractor>> moniker_map) {
+    this.moniker_map = moniker_map;
   }
 }

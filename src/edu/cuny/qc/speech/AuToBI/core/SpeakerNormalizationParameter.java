@@ -50,9 +50,9 @@ public class SpeakerNormalizationParameter implements Serializable {
     this.speaker_id = speaker_id;
     params = new HashMap<String, Aggregation>();
     params.put("f0", new Aggregation());
-    params.put("log_f0", new Aggregation());
+    params.put("log[f0]", new Aggregation());
     params.put("I", new Aggregation());
-    params.put("log_I", new Aggregation());
+    params.put("log[I]", new Aggregation());
   }
 
   /**
@@ -71,7 +71,7 @@ public class SpeakerNormalizationParameter implements Serializable {
    */
   public void insertPitch(double pitch) {
     params.get("f0").insert(pitch);
-    params.get("log_f0").insert(Math.log(pitch));
+    params.get("log[f0]").insert(Math.log(pitch));
   }
 
   /**
@@ -81,7 +81,7 @@ public class SpeakerNormalizationParameter implements Serializable {
    */
   public void insertIntensity(double intensity) {
     params.get("I").insert(intensity);
-    params.get("log_I").insert(Math.log(intensity));
+    params.get("log[I]").insert(Math.log(intensity));
   }
 
   /**

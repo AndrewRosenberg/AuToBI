@@ -27,7 +27,12 @@ public class ClassBasedWeightFunctionTrainer {
   }
 
   public ClassBasedWeightFunction trainWeightFunction(List<Word> regions) {
+    Map<String, Double> weight_fn = getClassWeightMapping(regions, class_attribute, type);
 
+    return new ClassBasedWeightFunction(class_attribute, weight_fn);
+  }
+
+  public static Map<String, Double> getClassWeightMapping(List<Word> regions, String class_attribute, WeightType type) {
     // Calculate the distribution of class values within the regions
     Distribution d = new Distribution();
     for (Region r : regions) {
@@ -45,13 +50,12 @@ public class ClassBasedWeightFunctionTrainer {
     Map<String, Double> weight_fn = new HashMap<String, Double>();
     for (String s : d.keySet()) {
       double p = d.get(s);
-      if (type == ClassBasedWeightFunctionTrainer.WeightType.LINEAR) {
+      if (type == WeightType.LINEAR) {
         weight_fn.put(s, 1 / p);
-      } else if (type == ClassBasedWeightFunctionTrainer.WeightType.ENTROPY) {
+      } else if (type == WeightType.ENTROPY) {
         weight_fn.put(s, -p * Math.log(p));
       }
     }
-
-    return new ClassBasedWeightFunction(class_attribute, weight_fn);
+    return weight_fn;
   }
 }

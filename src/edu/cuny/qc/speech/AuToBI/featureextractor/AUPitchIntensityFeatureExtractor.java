@@ -29,18 +29,25 @@ import java.util.List;
  */
 @SuppressWarnings("unchecked")
 public class AUPitchIntensityFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "area2";
 
   private String extracted_f;  // the name of the extracted feature.
   private String pitch_f;      // the name of the pitch feature
   private String i_f;          // the name of the intensity feature
   private double i_coeff;      // the intensity scaling coefficient
 
+  public AUPitchIntensityFeatureExtractor(String pitch_f, String i_f, String i_coeff) {
+    this(pitch_f, i_f, Double.parseDouble(i_coeff));
+    // Respect the user specified string
+    this.extracted_f = "area2[" + pitch_f + "," + i_f + "," + i_coeff + "]";
+  }
+
   public AUPitchIntensityFeatureExtractor(String pitch_f, String i_f, double i_coeff) {
     this.pitch_f = pitch_f;
     this.i_f = i_f;
     this.i_coeff = i_coeff;
 
-    this.extracted_f = pitch_f + i_f + "__area";
+    this.extracted_f = "area2[" + pitch_f + "," + i_f + "," + i_coeff + "]";
     this.extracted_features.add(extracted_f);
   }
 

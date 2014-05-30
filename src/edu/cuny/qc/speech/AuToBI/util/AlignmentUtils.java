@@ -175,7 +175,7 @@ public class AlignmentUtils {
   public static void copyToBIBreaksByTime(List<Word> words, List<Region> breaks) {
     int break_idx = 0;
     int word_idx = 0;
-    String previous_break = null;
+    String previous_break = "na";
 
     while (break_idx < breaks.size() && word_idx < words.size()) {
 
@@ -207,6 +207,13 @@ public class AlignmentUtils {
         break_idx++;
         word_idx++;
       }
+    }
+    while (word_idx < words.size()) {
+      String current_break = "na";
+      words.get(word_idx).setBreakBefore(previous_break);
+      words.get(word_idx).setBreakAfter(current_break);
+      previous_break = current_break;
+      word_idx++;
     }
   }
 

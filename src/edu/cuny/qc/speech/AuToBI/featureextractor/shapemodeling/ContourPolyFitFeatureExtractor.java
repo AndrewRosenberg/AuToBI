@@ -35,20 +35,23 @@ import java.util.List;
  */
 @SuppressWarnings("unchecked")
 public class ContourPolyFitFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "fit,fitMSE";
   private ContourPolynomialFitter fitter;  // the fitter responsible for calculating coefficients
-  private String feature_name; // the root of the destination features
   private String acoustic_feature; // the name of the acoustic contour feature
 
-  public ContourPolyFitFeatureExtractor(ContourPolynomialFitter fitter, String feature_name, String acoustic_feature) {
+  public ContourPolyFitFeatureExtractor(ContourPolynomialFitter fitter, String acoustic_feature) {
     this.fitter = fitter;
-    this.feature_name = feature_name;
     this.acoustic_feature = acoustic_feature;
 
     this.required_features.add(acoustic_feature);
     for (int i = 0; i <= fitter.getOrder(); ++i) {
-      this.extracted_features.add(feature_name + "_" + i);
+      this.extracted_features.add("fit[" + acoustic_feature + "," + fitter.getOrder() + "," + i + "]");
     }
-    this.extracted_features.add(feature_name + "_mse");
+    this.extracted_features.add("fitMSE[" + acoustic_feature + "," + fitter.getOrder() + "]");
+  }
+
+  public ContourPolyFitFeatureExtractor(String order, String acoustic_feature) {
+    this(new ContourPolynomialFitter(Integer.parseInt(order)), acoustic_feature);
   }
 
   @Override
@@ -65,10 +68,10 @@ public class ContourPolyFitFeatureExtractor extends FeatureExtractor {
         }
         double[] w = fitter.fitContour(c);
         for (int i = 0; i < w.length; ++i) {
-          r.setAttribute(feature_name + "_" + i, w[i]);
+          r.setAttribute("fit[" + acoustic_feature + "," + fitter.getOrder() + "," + i + "]", w[i]);
         }
 
-        r.setAttribute(feature_name + "_mse", fitter.getMSE(c, w));
+        r.setAttribute("fitMSE[" + acoustic_feature + "," + fitter.getOrder() + "]", fitter.getMSE(c, w));
       }
     }
   }

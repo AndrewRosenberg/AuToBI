@@ -74,7 +74,7 @@ public class ContourCenterOfGravityFeatureExtractorTest {
     ContourCenterOfGravityFeatureExtractor ccogfe = new ContourCenterOfGravityFeatureExtractor("attr");
 
     assertTrue(ccogfe.getRequiredFeatures().contains("attr"));
-    assertTrue(ccogfe.getExtractedFeatures().contains("attr__cog"));
+    assertTrue(ccogfe.getExtractedFeatures().contains("cog[attr]"));
   }
 
   @Test
@@ -89,7 +89,7 @@ public class ContourCenterOfGravityFeatureExtractorTest {
 
     try {
       ccogfe.extractFeatures(regions);
-      assertTrue(r.hasAttribute("attr__cog"));
+      assertTrue(r.hasAttribute("cog[attr]"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -107,7 +107,7 @@ public class ContourCenterOfGravityFeatureExtractorTest {
 
     try {
       ccogfe.extractFeatures(regions);
-      assertFalse(r.hasAttribute("attr__cog"));
+      assertFalse(r.hasAttribute("cog[attr]"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -125,14 +125,9 @@ public class ContourCenterOfGravityFeatureExtractorTest {
 
     try {
       ccogfe.extractFeatures(regions);
-      assertEquals(0.88888, (Double) r.getAttribute("attr__cog"), 0.00001);
+      assertEquals(0.88888, (Double) r.getAttribute("cog[attr]"), 0.00001);
     } catch (FeatureExtractorException e) {
       fail();
     }
-  }
-
-  @Test
-  public void testExtractFeaturesDoesLeadToHugeNegativeValues() {
-    fail();
   }
 }

@@ -35,47 +35,47 @@ public class CurveShapeLikelihoodFeatureExtractorTest {
     peak.rmse = 0.0;
     CurveShape valley = new CurveShape(-1, true);
     valley.rmse = 6.0;
-    r.setAttribute("contour__risingCurve", rising);
-    r.setAttribute("contour__fallingCurve", falling);
-    r.setAttribute("contour__peakCurve", peak);
-    r.setAttribute("contour__valleyCurve", valley);
+    r.setAttribute("risingCurve[contour]", rising);
+    r.setAttribute("fallingCurve[contour]", falling);
+    r.setAttribute("peakCurve[contour]", peak);
+    r.setAttribute("valleyCurve[contour]", valley);
     regions.add(r);
     try {
       fe.extractFeatures(regions);
-      assertTrue(regions.get(0).hasAttribute("contour__risingCurveLikelihood"));
-      assertTrue(regions.get(0).hasAttribute("contour__fallingCurveLikelihood"));
-      assertTrue(regions.get(0).hasAttribute("contour__peakCurveLikelihood"));
-      assertTrue(regions.get(0).hasAttribute("contour__valleyCurveLikelihood"));
+      assertTrue(regions.get(0).hasAttribute("risingLL[contour]"));
+      assertTrue(regions.get(0).hasAttribute("fallingLL[contour]"));
+      assertTrue(regions.get(0).hasAttribute("peakLL[contour]"));
+      assertTrue(regions.get(0).hasAttribute("valleyLL[contour]"));
     } catch (FeatureExtractorException e) {
       fail();
     }
   }
 
   @Test
-    public void testExtractFeaturesWorks() {
-      Region r = new Region(0, 1);
-      CurveShape rising = new CurveShape(-1, true);
-      rising.rmse = 3.0;
-      CurveShape falling = new CurveShape(-1, true);
-      falling.rmse = 1.0;
-      CurveShape peak = new CurveShape(-1, true);
-      peak.rmse = 0.0;
-      CurveShape valley = new CurveShape(-1, true);
-      valley.rmse = 2.0;
-      r.setAttribute("contour__risingCurve", rising);
-      r.setAttribute("contour__fallingCurve", falling);
-      r.setAttribute("contour__peakCurve", peak);
-      r.setAttribute("contour__valleyCurve", valley);
-      regions.add(r);
-      try {
-        fe.extractFeatures(regions);
-        assertEquals(0.0, (Double) regions.get(0).getAttribute("contour__risingCurveLikelihood"), 0.0001);
-        assertEquals(0.3333, (Double) regions.get(0).getAttribute("contour__fallingCurveLikelihood"), 0.0001);
-        assertEquals(0.5, (Double) regions.get(0).getAttribute("contour__peakCurveLikelihood"), 0.0001);
-        assertEquals(0.1666, (Double) regions.get(0).getAttribute("contour__valleyCurveLikelihood"), 0.0001);
-      } catch (FeatureExtractorException e) {
-        fail();
-      }
+  public void testExtractFeaturesWorks() {
+    Region r = new Region(0, 1);
+    CurveShape rising = new CurveShape(-1, true);
+    rising.rmse = 3.0;
+    CurveShape falling = new CurveShape(-1, true);
+    falling.rmse = 1.0;
+    CurveShape peak = new CurveShape(-1, true);
+    peak.rmse = 0.0;
+    CurveShape valley = new CurveShape(-1, true);
+    valley.rmse = 2.0;
+    r.setAttribute("risingCurve[contour]", rising);
+    r.setAttribute("fallingCurve[contour]", falling);
+    r.setAttribute("peakCurve[contour]", peak);
+    r.setAttribute("valleyCurve[contour]", valley);
+    regions.add(r);
+    try {
+      fe.extractFeatures(regions);
+      assertEquals(0.0, (Double) regions.get(0).getAttribute("risingLL[contour]"), 0.0001);
+      assertEquals(0.3333, (Double) regions.get(0).getAttribute("fallingLL[contour]"), 0.0001);
+      assertEquals(0.5, (Double) regions.get(0).getAttribute("peakLL[contour]"), 0.0001);
+      assertEquals(0.1666, (Double) regions.get(0).getAttribute("valleyLL[contour]"), 0.0001);
+    } catch (FeatureExtractorException e) {
+      fail();
     }
+  }
 
 }

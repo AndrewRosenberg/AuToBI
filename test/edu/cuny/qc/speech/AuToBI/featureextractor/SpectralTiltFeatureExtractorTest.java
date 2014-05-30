@@ -39,21 +39,14 @@ public class SpectralTiltFeatureExtractorTest {
 
   @Before
   public void setUp() throws Exception {
-    fe = new SpectralTiltFeatureExtractor("prefix", "spectrum", 1, 2);
+    fe = new SpectralTiltFeatureExtractor(1, 2);
     regions = new ArrayList<Region>();
   }
 
   @Test
   public void testConstructorSetsExtractedFeaturesCorrectly() {
-    assertEquals(8, fe.getExtractedFeatures().size());
-    assertTrue(fe.getExtractedFeatures().contains("prefix_1_2"));
-    assertTrue(fe.getExtractedFeatures().contains("prefix_1_2__min"));
-    assertTrue(fe.getExtractedFeatures().contains("prefix_1_2__max"));
-    assertTrue(fe.getExtractedFeatures().contains("prefix_1_2__mean"));
-    assertTrue(fe.getExtractedFeatures().contains("prefix_1_2__stdev"));
-    assertTrue(fe.getExtractedFeatures().contains("prefix_1_2__zMax"));
-    assertTrue(fe.getExtractedFeatures().contains("prefix_1_2__maxLocation"));
-    assertTrue(fe.getExtractedFeatures().contains("prefix_1_2__maxRelLocation"));
+    assertEquals(1, fe.getExtractedFeatures().size());
+    assertTrue(fe.getExtractedFeatures().contains("spectralTilt[1,2]"));
   }
 
   @Test
@@ -71,7 +64,7 @@ public class SpectralTiltFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertTrue(w.hasAttribute("prefix_1_2"));
+      assertTrue(w.hasAttribute("spectralTilt[1,2]"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -86,7 +79,7 @@ public class SpectralTiltFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      Contour c = (Contour) w.getAttribute("prefix_1_2");
+      Contour c = (Contour) w.getAttribute("spectralTilt[1,2]");
       assertEquals(2, c.size());
       assertEquals(0.0666, c.get(0), 0.0001);
       assertEquals(0.0963, c.get(1), 0.0001);

@@ -20,6 +20,7 @@
 package edu.cuny.qc.speech.AuToBI.featureset;
 
 import edu.cuny.qc.speech.AuToBI.core.FeatureSet;
+import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
 
 /**
  * IntermediatePhraseBoundaryDetectionFeatureSet describes the required features and class attribute for the
@@ -33,18 +34,20 @@ public class IntermediatePhraseBoundaryDetectionFeatureSet extends FeatureSet {
   public IntermediatePhraseBoundaryDetectionFeatureSet() {
     super();
 
-    insertRequiredFeature("duration__duration");
-    insertRequiredFeature("duration__follPause");
+    insertRequiredFeature("duration");
+    insertRequiredFeature("follPause");
     insertRequiredFeature("nominal_precedesSilence");
 
-    insertRequiredFeature("diff_duration__duration");
+    insertRequiredFeature("diff[duration]");
 
-    for (String diff : new String[]{"", "diff_"}) {
-      for (String acoustic : new String[]{"f0", "I"}) {
-        for (String norm : new String[]{"", "norm_"}) {
-          for (String slope : new String[]{"", "delta_"}) {
+    for (String diff : new String[]{"", "diff"}) {
+      for (String acoustic : new String[]{"f0", "log[f0]", "I"}) {
+        for (String norm : new String[]{"", "znormC"}) {
+          for (String slope : new String[]{"", "delta"}) {
             for (String agg : new String[]{"max", "mean", "stdev", "zMax"}) {
-              insertRequiredFeature(diff + slope + norm + acoustic + "__" + agg);
+              String f = AuToBIUtils.makeFeatureName(diff, AuToBIUtils.makeFeatureName(agg, AuToBIUtils
+                  .makeFeatureName(slope, AuToBIUtils.makeFeatureName(norm, acoustic))));
+              insertRequiredFeature(f);
             }
           }
         }
@@ -54,57 +57,59 @@ public class IntermediatePhraseBoundaryDetectionFeatureSet extends FeatureSet {
     /**
      * AT&T Specific features
      */
-    insertRequiredFeature("log_f0__voicingRatio");
+    insertRequiredFeature("voicingRatio[f0]");
 
-    insertRequiredFeature("duration__duration");
-
-
-    for (String acoustic : new String[]{"norm_log_f0", "rnorm_I", "norm_log_f0rnorm_I"}) {
-      for (String slope : new String[]{"", "delta_"}) {
-        for (String agg : new String[]{"max", "mean", "min", "stdev", "zMax", "cog", "area", "tilt_amp", "tilt_dur",
-            "highLowDiff", "PVAmp", "PVLocation", "risingCurveLikelihood", "fallingCurveLikelihood",
-            "peakCurveLikelihood", "valleyCurveLikelihood"}) {
-          insertRequiredFeature(slope + acoustic + "__" + agg);
+    for (String acoustic : new String[]{"znormC[log[f0]]", "rnormC[I]", "prodC[znormC[log[f0]],rnormC[I],0.1]"}) {
+      for (String slope : new String[]{"", "delta"}) {
+        for (String agg : new String[]{"max", "mean", "min", "stdev", "zMax", "cog", "area", "tiltAmp", "tiltDur",
+            "highLowDiff", "PVAmp", "PVLocation", "risingLL", "fallingLL",
+            "peakLL", "valleyLL"}) {
+          String f = AuToBIUtils.makeFeatureName(agg, AuToBIUtils.makeFeatureName(slope, acoustic));
+          insertRequiredFeature(f);
         }
 
         for (String agg : new String[]{"max", "mean", "stdev", "zMax"}) {
-          insertRequiredFeature("diff_" + slope + acoustic + "__" + agg);
+          String f = AuToBIUtils.makeFeatureName("diff", AuToBIUtils.makeFeatureName(agg, AuToBIUtils
+              .makeFeatureName(slope, acoustic)));
+          insertRequiredFeature(f);
         }
       }
     }
 
-
     // skew
-    insertRequiredFeature("norm_log_f0rnorm_I__skew_amp");
-    insertRequiredFeature("norm_log_f0rnorm_I__skew_dur");
+    insertRequiredFeature("skewAmp[znormC[log[f0]],rnormC[I]]");
+    insertRequiredFeature("skewDur[znormC[log[f0]],rnormC[I]]");
 
     // location and area difference features
-    insertRequiredFeature("norm_log_f0__area_minus_rnorm_I__area");
-    insertRequiredFeature("norm_log_f0__area_ratio_rnorm_I__area");
-    insertRequiredFeature("norm_log_f0__PVLocation_minus_rnorm_I__PVLocation");
-    insertRequiredFeature("norm_log_f0__PVLocation_ratio_rnorm_I__PVLocation");
+    insertRequiredFeature("minus[area[znormC[log[f0]]],area[rnormC[I]]]");
+    insertRequiredFeature("ratio[area[znormC[log[f0]]],area[rnormC[I]]]");
+    insertRequiredFeature("minus[PVLocation[znormC[log[f0]]],PVLocation[rnormC[I]]]");
+    insertRequiredFeature("ratio[PVLocation[znormC[log[f0]]],PVLocation[rnormC[I]]]");
 
     // rmse and error features
-    insertRequiredFeature("norm_log_f0_rnorm_I__rmse");
-    insertRequiredFeature("norm_log_f0_rnorm_I__meanError");
+    insertRequiredFeature("rmse[znormC[log[f0]],rnormC[I]]");
+    insertRequiredFeature("meanError[znormC[log[f0]],rnormC[I]]");
 
     // twoway shape likelihood features
-    insertRequiredFeature("norm_log_f0rnorm_I__rrCurveLikelihood");
-    insertRequiredFeature("norm_log_f0rnorm_I__rfCurveLikelihood");
-    insertRequiredFeature("norm_log_f0rnorm_I__rpCurveLikelihood");
-    insertRequiredFeature("norm_log_f0rnorm_I__rvCurveLikelihood");
-    insertRequiredFeature("norm_log_f0rnorm_I__frCurveLikelihood");
-    insertRequiredFeature("norm_log_f0rnorm_I__ffCurveLikelihood");
-    insertRequiredFeature("norm_log_f0rnorm_I__fpCurveLikelihood");
-    insertRequiredFeature("norm_log_f0rnorm_I__fvCurveLikelihood");
-    insertRequiredFeature("norm_log_f0rnorm_I__prCurveLikelihood");
-    insertRequiredFeature("norm_log_f0rnorm_I__pfCurveLikelihood");
-    insertRequiredFeature("norm_log_f0rnorm_I__ppCurveLikelihood");
-    insertRequiredFeature("norm_log_f0rnorm_I__pvCurveLikelihood");
-    insertRequiredFeature("norm_log_f0rnorm_I__vrCurveLikelihood");
-    insertRequiredFeature("norm_log_f0rnorm_I__vfCurveLikelihood");
-    insertRequiredFeature("norm_log_f0rnorm_I__vpCurveLikelihood");
-    insertRequiredFeature("norm_log_f0rnorm_I__vvCurveLikelihood");
+    insertRequiredFeature("rrLL[znormC[log[f0]],rnormC[I]]");
+    insertRequiredFeature("rfLL[znormC[log[f0]],rnormC[I]]");
+    insertRequiredFeature("rpLL[znormC[log[f0]],rnormC[I]]");
+    insertRequiredFeature("rvLL[znormC[log[f0]],rnormC[I]]");
+
+    insertRequiredFeature("frLL[znormC[log[f0]],rnormC[I]]");
+    insertRequiredFeature("ffLL[znormC[log[f0]],rnormC[I]]");
+    insertRequiredFeature("fpLL[znormC[log[f0]],rnormC[I]]");
+    insertRequiredFeature("fvLL[znormC[log[f0]],rnormC[I]]");
+
+    insertRequiredFeature("prLL[znormC[log[f0]],rnormC[I]]");
+    insertRequiredFeature("pfLL[znormC[log[f0]],rnormC[I]]");
+    insertRequiredFeature("ppLL[znormC[log[f0]],rnormC[I]]");
+    insertRequiredFeature("pvLL[znormC[log[f0]],rnormC[I]]");
+
+    insertRequiredFeature("vrLL[znormC[log[f0]],rnormC[I]]");
+    insertRequiredFeature("vfLL[znormC[log[f0]],rnormC[I]]");
+    insertRequiredFeature("vpLL[znormC[log[f0]],rnormC[I]]");
+    insertRequiredFeature("vvLL[znormC[log[f0]],rnormC[I]]");
 
     class_attribute = "nominal_IntermediatePhraseBoundary";
   }

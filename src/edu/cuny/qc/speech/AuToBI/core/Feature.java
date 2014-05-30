@@ -124,8 +124,9 @@ public class Feature implements Comparable, Serializable {
    * @param s the new value
    */
   public void addNominalValue(String s) {
-    if (!isNominal())
+    if (!isNominal()) {
       setNominal();
+    }
     nominalValues.add(s);
   }
 
@@ -140,10 +141,11 @@ public class Feature implements Comparable, Serializable {
     boolean first = true;
 
     for (String s : nominalValues) {
-      if (!first)
+      if (!first) {
         csvStr.append(",");
-      else
+      } else {
         first = false;
+      }
       csvStr.append(s);
     }
     return csvStr.toString();
@@ -202,6 +204,21 @@ public class Feature implements Comparable, Serializable {
       nominalValues = new LinkedHashSet<String>();
     }
     this.nominalValues.addAll(Arrays.asList(values));
+  }
+
+  /**
+   * Returns a unique index for a nominal value.
+   * Returns -1 if the value does not exist.
+   *
+   * @param value the value to index
+   */
+  public int getNominalIndex(String value) {
+    int i = 0;
+    for (String nominalValue : nominalValues) {
+      if (nominalValue.equals(value)) return i;
+      i++;
+    }
+    return -1;
   }
 
 

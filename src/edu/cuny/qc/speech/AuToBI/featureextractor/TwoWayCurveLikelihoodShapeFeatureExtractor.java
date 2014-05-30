@@ -11,6 +11,9 @@ import java.util.List;
  */
 @SuppressWarnings("unchecked")
 public class TwoWayCurveLikelihoodShapeFeatureExtractor extends FeatureExtractor {
+  public static final String moniker =
+      "rrLL,rfLL,rpLL,rvLL,frLL,ffLL,fpLL,fvLL,prLL,pfLL,ppLL,vvLL,vrLL,vfLL,vpLL,vvLL";
+
   private String f1;
   private String f2;
 
@@ -18,33 +21,35 @@ public class TwoWayCurveLikelihoodShapeFeatureExtractor extends FeatureExtractor
     this.f1 = f1;
     this.f2 = f2;
 
-    this.required_features.add(f1 + "__risingCurveLikelihood");
-    this.required_features.add(f1 + "__fallingCurveLikelihood");
-    this.required_features.add(f1 + "__peakCurveLikelihood");
-    this.required_features.add(f1 + "__valleyCurveLikelihood");
+    this.required_features.add("risingLL[" + f1 + "]");
+    this.required_features.add("fallingLL[" + f1 + "]");
+    this.required_features.add("peakLL[" + f1 + "]");
+    this.required_features.add("valleyLL[" + f1 + "]");
 
-    this.required_features.add(f2 + "__risingCurveLikelihood");
-    this.required_features.add(f2 + "__fallingCurveLikelihood");
-    this.required_features.add(f2 + "__peakCurveLikelihood");
-    this.required_features.add(f2 + "__valleyCurveLikelihood");
+    this.required_features.add("risingLL[" + f2 + "]");
+    this.required_features.add("fallingLL[" + f2 + "]");
+    this.required_features.add("peakLL[" + f2 + "]");
+    this.required_features.add("valleyLL[" + f2 + "]");
 
-    this.extracted_features.add(f1 + f2 + "__rrCurveLikelihood");
-    this.extracted_features.add(f1 + f2 + "__rfCurveLikelihood");
-    this.extracted_features.add(f1 + f2 + "__rpCurveLikelihood");
-    this.extracted_features.add(f1 + f2 + "__rvCurveLikelihood");
-    this.extracted_features.add(f1 + f2 + "__frCurveLikelihood");
-    this.extracted_features.add(f1 + f2 + "__ffCurveLikelihood");
-    this.extracted_features.add(f1 + f2 + "__fpCurveLikelihood");
-    this.extracted_features.add(f1 + f2 + "__fvCurveLikelihood");
-    this.extracted_features.add(f1 + f2 + "__prCurveLikelihood");
-    this.extracted_features.add(f1 + f2 + "__pfCurveLikelihood");
-    this.extracted_features.add(f1 + f2 + "__ppCurveLikelihood");
-    this.extracted_features.add(f1 + f2 + "__pvCurveLikelihood");
-    this.extracted_features.add(f1 + f2 + "__vrCurveLikelihood");
-    this.extracted_features.add(f1 + f2 + "__vfCurveLikelihood");
-    this.extracted_features.add(f1 + f2 + "__vpCurveLikelihood");
-    this.extracted_features.add(f1 + f2 + "__vvCurveLikelihood");
+    this.extracted_features.add("rrLL[" + f1 + "," + f2 + "]");
+    this.extracted_features.add("rfLL[" + f1 + "," + f2 + "]");
+    this.extracted_features.add("rpLL[" + f1 + "," + f2 + "]");
+    this.extracted_features.add("rvLL[" + f1 + "," + f2 + "]");
 
+    this.extracted_features.add("frLL[" + f1 + "," + f2 + "]");
+    this.extracted_features.add("ffLL[" + f1 + "," + f2 + "]");
+    this.extracted_features.add("fpLL[" + f1 + "," + f2 + "]");
+    this.extracted_features.add("fvLL[" + f1 + "," + f2 + "]");
+
+    this.extracted_features.add("prLL[" + f1 + "," + f2 + "]");
+    this.extracted_features.add("pfLL[" + f1 + "," + f2 + "]");
+    this.extracted_features.add("ppLL[" + f1 + "," + f2 + "]");
+    this.extracted_features.add("pvLL[" + f1 + "," + f2 + "]");
+
+    this.extracted_features.add("vrLL[" + f1 + "," + f2 + "]");
+    this.extracted_features.add("vfLL[" + f1 + "," + f2 + "]");
+    this.extracted_features.add("vpLL[" + f1 + "," + f2 + "]");
+    this.extracted_features.add("vvLL[" + f1 + "," + f2 + "]");
   }
 
   @Override
@@ -52,11 +57,11 @@ public class TwoWayCurveLikelihoodShapeFeatureExtractor extends FeatureExtractor
     for (Region r : (List<Region>) regions) {
       for (String shape1 : new String[]{"rising", "falling", "peak", "valley"}) {
         for (String shape2 : new String[]{"rising", "falling", "peak", "valley"}) {
-          if (r.hasAttribute(f1 + "__" + shape1 + "CurveLikelihood") &&
-              r.hasAttribute(f2 + "__" + shape2 + "CurveLikelihood")) {
-            r.setAttribute(f1 + f2 + "__" + shape1.charAt(0) + shape2.charAt(0) + "CurveLikelihood",
-                ((Double) r.getAttribute(f1 + "__" + shape1 + "CurveLikelihood")) *
-                    ((Double) r.getAttribute(f2 + "__" + shape2 + "CurveLikelihood")));
+          if (r.hasAttribute(shape1 + "LL[" + f1 + "]") &&
+              r.hasAttribute(shape2 + "LL[" + f2 + "]")) {
+            r.setAttribute(shape1.charAt(0) + shape2.charAt(0) + "LL[" + f1 + "," + f2 + "]",
+                ((Double) r.getAttribute(shape1 + "LL[" + f1 + "]")) *
+                    ((Double) r.getAttribute(shape2 + "LL[" + f2 + "]")));
           }
         }
       }

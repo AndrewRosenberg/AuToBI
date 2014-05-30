@@ -23,7 +23,6 @@ import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
-import static org.junit.Assert.assertArrayEquals;
 
 /**
  * Tests for PitchCandidate
@@ -73,7 +72,7 @@ public class SpeakerNormalizationParameterTest {
 
     snp.insertPitch(1.0);
     snp.insertPitch(5.0);
-    assertEquals(1.92899409250466, snp.normalize("log_f0", 3.0), 0.0001);
+    assertEquals(1.92899409250466, snp.normalize("log[f0]", 3.0), 0.0001);
   }
 
   @Test
@@ -101,7 +100,7 @@ public class SpeakerNormalizationParameterTest {
 
     snp.insertIntensity(1.0);
     snp.insertIntensity(5.0);
-    assertEquals(1.92899409250466, snp.normalize("log_I", 3.0), 0.0001);
+    assertEquals(1.92899409250466, snp.normalize("log[I]", 3.0), 0.0001);
   }
 
   @Test
@@ -109,9 +108,9 @@ public class SpeakerNormalizationParameterTest {
     SpeakerNormalizationParameter snp = new SpeakerNormalizationParameter();
 
     assertTrue(snp.canNormalize("f0"));
-    assertTrue(snp.canNormalize("log_f0"));
+    assertTrue(snp.canNormalize("log[f0]"));
     assertTrue(snp.canNormalize("I"));
-    assertTrue(snp.canNormalize("log_I"));
+    assertTrue(snp.canNormalize("log[I]"));
   }
 
   @Test

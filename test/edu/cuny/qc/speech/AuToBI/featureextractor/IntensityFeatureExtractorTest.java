@@ -44,8 +44,7 @@ public class IntensityFeatureExtractorTest {
 
   @Test
   public void testConstructorSetsExtractedFeaturesCorrectly() {
-    IntensityFeatureExtractor fe =
-        new IntensityFeatureExtractor("I");
+    IntensityFeatureExtractor fe = new IntensityFeatureExtractor();
 
     assertEquals(1, fe.getExtractedFeatures().size());
     assertTrue(fe.getExtractedFeatures().contains("I"));
@@ -53,8 +52,7 @@ public class IntensityFeatureExtractorTest {
 
   @Test
   public void testConstructorSetsRequiredFeaturesCorrectly() {
-    IntensityFeatureExtractor fe =
-        new IntensityFeatureExtractor("I");
+    IntensityFeatureExtractor fe = new IntensityFeatureExtractor();
 
     assertEquals(1, fe.getRequiredFeatures().size());
     assertTrue(fe.getRequiredFeatures().contains("wav"));
@@ -62,8 +60,7 @@ public class IntensityFeatureExtractorTest {
 
   @Test
   public void testExtractFeaturesExtractsFeatures() {
-    IntensityFeatureExtractor fe =
-        new IntensityFeatureExtractor("I");
+    IntensityFeatureExtractor fe = new IntensityFeatureExtractor();
 
     List<Region> regions = new ArrayList<Region>();
     Word w = new Word(0.0, 1.0, "test");
@@ -94,8 +91,7 @@ public class IntensityFeatureExtractorTest {
   @Test
   public void testExtractFeaturesExtractsFeaturesCorrectly() {
 
-    IntensityFeatureExtractor fe =
-        new IntensityFeatureExtractor("I");
+    IntensityFeatureExtractor fe = new IntensityFeatureExtractor();
 
     List<Region> regions = new ArrayList<Region>();
     Word w = new Word(0.0, 1.0, "test");
@@ -129,8 +125,7 @@ public class IntensityFeatureExtractorTest {
 
   @Test
   public void testExtractFeaturesAssignsTheSameObjectToSubsequentRegions() {
-    IntensityFeatureExtractor fe =
-        new IntensityFeatureExtractor("I");
+    IntensityFeatureExtractor fe = new IntensityFeatureExtractor();
 
     List<Region> regions = new ArrayList<Region>();
 

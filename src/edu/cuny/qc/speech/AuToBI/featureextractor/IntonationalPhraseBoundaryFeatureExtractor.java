@@ -32,18 +32,25 @@ import java.util.List;
  * @see edu.cuny.qc.speech.AuToBI.core.FeatureExtractor
  */
 public class IntonationalPhraseBoundaryFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "nominal_IntonationalPhraseBoundary";
   private String feature;  // the stored feature name
 
 
   /**
    * Constructs a new IntonationalPhraseBoundaryFeatureExtractor.
-   *
+   * <p/>
    * The ground truth label will be stored in the feature name passed via the parameter, feature.
    *
    * @param feature the stored parameter name
    */
+  @Deprecated
   public IntonationalPhraseBoundaryFeatureExtractor(String feature) {
     this.feature = feature;
+    extracted_features.add(feature);
+  }
+
+  public IntonationalPhraseBoundaryFeatureExtractor() {
+    this.feature = moniker;
     extracted_features.add(feature);
   }
 

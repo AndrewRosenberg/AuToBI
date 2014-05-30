@@ -35,18 +35,18 @@ public class PVALFeatureExtractorTest {
     CurveShape peak = new CurveShape(8, true);
     CurveShape valley = new CurveShape(1, false);
     r.setAttribute("contour", c);
-    r.setAttribute("contour__lowGP", lowgp);
-    r.setAttribute("contour__highGP", highgp);
-    r.setAttribute("contour__peakCurve", peak);
-    r.setAttribute("contour__peakCurveLikelihood", 0.6);
-    r.setAttribute("contour__valleyCurve", valley);
-    r.setAttribute("contour__valleyCurveLikelihood", 0.4);
+    r.setAttribute("lowGP[contour]", lowgp);
+    r.setAttribute("highGP[contour]", highgp);
+    r.setAttribute("peakCurve[contour]", peak);
+    r.setAttribute("peakLL[contour]", 0.6);
+    r.setAttribute("valleyCurve[contour]", valley);
+    r.setAttribute("valleyLL[contour]", 0.4);
 
     regions.add(r);
     try {
       fe.extractFeatures(regions);
-      assertTrue(r.hasAttribute("contour__PVAmp"));
-      assertTrue(r.hasAttribute("contour__PVLocation"));
+      assertTrue(r.hasAttribute("PVAmp[contour]"));
+      assertTrue(r.hasAttribute("PVLocation[contour]"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -61,19 +61,19 @@ public class PVALFeatureExtractorTest {
     CurveShape peak = new CurveShape(8, true);
     CurveShape valley = new CurveShape(1, false);
     r.setAttribute("contour", c);
-    r.setAttribute("contour__lowGP", lowgp);
-    r.setAttribute("contour__highGP", highgp);
-    r.setAttribute("contour__peakCurve", peak);
-    r.setAttribute("contour__peakCurveLikelihood", 0.6);
-    r.setAttribute("contour__valleyCurve", valley);
-    r.setAttribute("contour__valleyCurveLikelihood", 0.4);
+    r.setAttribute("lowGP[contour]", lowgp);
+    r.setAttribute("highGP[contour]", highgp);
+    r.setAttribute("peakCurve[contour]", peak);
+    r.setAttribute("peakLL[contour]", 0.6);
+    r.setAttribute("valleyCurve[contour]", valley);
+    r.setAttribute("valleyLL[contour]", 0.4);
 
     regions.add(r);
     try {
       fe.extractFeatures(regions);
 
-      assertEquals(0.8, (Double) r.getAttribute("contour__PVLocation"), 0.0001);
-      assertEquals(11.0, (Double) r.getAttribute("contour__PVAmp"), 0.0001);
+      assertEquals(0.8, (Double) r.getAttribute("PVLocation[contour]"), 0.0001);
+      assertEquals(11.0, (Double) r.getAttribute("PVAmp[contour]"), 0.0001);
     } catch (FeatureExtractorException e) {
       fail();
     }

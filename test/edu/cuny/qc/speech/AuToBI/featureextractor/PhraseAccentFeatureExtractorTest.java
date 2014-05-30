@@ -40,14 +40,14 @@ public class PhraseAccentFeatureExtractorTest {
 
   @Before
   public void setUp() throws Exception {
-    fe = new PhraseAccentFeatureExtractor("pa");
+    fe = new PhraseAccentFeatureExtractor();
     regions = new ArrayList<Region>();
   }
 
   @Test
   public void testConstructorSetsExtractedFeaturesCorrectly() {
     assertEquals(1, fe.getExtractedFeatures().size());
-    assertTrue(fe.getExtractedFeatures().contains("pa"));
+    assertTrue(fe.getExtractedFeatures().contains("nominal_PhraseAccent"));
   }
 
   @Test
@@ -64,7 +64,7 @@ public class PhraseAccentFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertTrue(w.hasAttribute("pa"));
+      assertTrue(w.hasAttribute("nominal_PhraseAccent"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -79,7 +79,7 @@ public class PhraseAccentFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertEquals("L-", w.getAttribute("pa"));
+      assertEquals("L-", w.getAttribute("nominal_PhraseAccent"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -92,8 +92,8 @@ public class PhraseAccentFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertTrue(w.hasAttribute("pa"));
-      assertEquals("NOTONE", w.getAttribute("pa"));
+      assertTrue(w.hasAttribute("nominal_PhraseAccent"));
+      assertEquals("NOTONE", w.getAttribute("nominal_PhraseAccent"));
     } catch (FeatureExtractorException e) {
       fail();
     }

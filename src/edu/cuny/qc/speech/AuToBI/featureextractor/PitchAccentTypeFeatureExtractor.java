@@ -29,6 +29,7 @@ import java.util.List;
  * PitchAccentTypeFeatureExtractor extracts ground truth labels for the type of pitch accent (if any) on each region.
  */
 public class PitchAccentTypeFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "nominal_PitchAccentType";
   private String feature;  // the destination feature
 
   /**
@@ -36,8 +37,14 @@ public class PitchAccentTypeFeatureExtractor extends FeatureExtractor {
    *
    * @param feature the destination feature to store the pitch accent type.
    */
+  @Deprecated
   public PitchAccentTypeFeatureExtractor(String feature) {
     this.feature = feature;
+    extracted_features.add(feature);
+  }
+
+  public PitchAccentTypeFeatureExtractor() {
+    this.feature = moniker;
     extracted_features.add(feature);
   }
 

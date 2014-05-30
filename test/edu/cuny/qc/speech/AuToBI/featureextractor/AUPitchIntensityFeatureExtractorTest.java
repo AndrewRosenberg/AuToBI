@@ -21,7 +21,7 @@ public class AUPitchIntensityFeatureExtractorTest {
   @Before
   public void setUp() {
     regions = new ArrayList<Region>();
-    fe = new AUPitchIntensityFeatureExtractor("f0", "I", 0.1);
+    fe = new AUPitchIntensityFeatureExtractor("f0", "I", "0.1");
   }
 
   @Test
@@ -34,7 +34,7 @@ public class AUPitchIntensityFeatureExtractorTest {
     regions.add(r);
     try {
       fe.extractFeatures(regions);
-      assertTrue(regions.get(0).hasAttribute("f0I__area"));
+      assertTrue(regions.get(0).hasAttribute("area2[f0,I,0.1]"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -51,7 +51,7 @@ public class AUPitchIntensityFeatureExtractorTest {
     try {
       fe.extractFeatures(regions);
 
-      assertEquals(102.0, (Double) regions.get(0).getAttribute("f0I__area"), 0.0001);
+      assertEquals(102.0, (Double) regions.get(0).getAttribute("area2[f0,I,0.1]"), 0.0001);
 
     } catch (FeatureExtractorException e) {
       fail();

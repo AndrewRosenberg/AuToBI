@@ -30,12 +30,12 @@ import java.util.List;
  * @see edu.cuny.qc.speech.AuToBI.core.ContextDesc
  */
 public class TemporalContextNormalizedFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "zMinTimeContext,zMaxTimeContext,zMeanTimeContext";
 
   private static final Double EPSILON = 0.00001;  // values less than this are considered zero for normalization
   private String attribute_name;                  // the feature to normalize
-  private int prev_context;                       // the normalization context
-  private int foll_context;
-  private final String context_label;  // A name for the context.
+  private int prev;                       // the normalization context in milliseconds (ms)
+  private int foll;
 
   /**
    * Constructs a ContextNormalizedFeatureExtractor
@@ -48,20 +48,17 @@ public class TemporalContextNormalizedFeatureExtractor extends FeatureExtractor 
     super();
     this.attribute_name = attribute_name;
 
-    this.prev_context = prev;
-    this.foll_context = foll;
+    this.prev = prev;
+    this.foll = foll;
 
-    this.context_label = prev + "ms_" + foll + "ms";
-
-    String context_feature_prefix = this.attribute_name + "_" + context_label;
-    extracted_features.add(context_feature_prefix + "__zMin");
-    extracted_features.add(context_feature_prefix + "__zMax");
-    extracted_features.add(context_feature_prefix + "__zMean");
+    extracted_features.add("zMinTimeContext[" + attribute_name + "," + prev + "," + foll + "]");
+    extracted_features.add("zMaxTimeContext[" + attribute_name + "," + prev + "," + foll + "]");
+    extracted_features.add("zMeanTimeContext[" + attribute_name + "," + prev + "," + foll + "]");
 
     this.required_features.add(attribute_name);
-    this.required_features.add(attribute_name + "__min");
-    this.required_features.add(attribute_name + "__max");
-    this.required_features.add(attribute_name + "__mean");
+    this.required_features.add("min[" + attribute_name + "]");
+    this.required_features.add("max[" + attribute_name + "]");
+    this.required_features.add("mean[" + attribute_name + "]");
   }
 
   /**
@@ -72,7 +69,7 @@ public class TemporalContextNormalizedFeatureExtractor extends FeatureExtractor 
    */
   public void extractFeatures(List regions) throws FeatureExtractorException {
     for (Region r : (List<Region>) regions) {
-      extractContextNormAttributes(r, r.getStart() - prev_context / 1000., r.getEnd() + foll_context / 1000.);
+      extractContextNormAttributes(r, r.getStart() - prev / 1000., r.getEnd() + foll / 1000.);
     }
   }
 
@@ -85,9 +82,6 @@ public class TemporalContextNormalizedFeatureExtractor extends FeatureExtractor 
    */
   private void extractContextNormAttributes(Region r, Double start, Double end) throws FeatureExtractorException {
     Object attr = r.getAttribute(attribute_name);
-
-    String context_feature_prefix = attribute_name + "_" + context_label;
-    String stored_feature_prefix = attribute_name + "__";
 
     if (attr instanceof Contour) {
       Contour c = (Contour) attr;
@@ -105,17 +99,17 @@ public class TemporalContextNormalizedFeatureExtractor extends FeatureExtractor 
 
         // Calculate Z Score normalization
         if (Math.abs(stdev) > EPSILON) {
-          if (r.hasAttribute(stored_feature_prefix + "min")) {
-            r.setAttribute(context_feature_prefix + "__zMin", (
-                (Double) r.getAttribute(stored_feature_prefix + "min") - mean) / stdev);
+          if (r.hasAttribute("min[" + attribute_name + "]")) {
+            r.setAttribute("zMinTimeContext[" + attribute_name + "," + prev + "," + foll + "]", (
+                (Double) r.getAttribute("min[" + attribute_name + "]") - mean) / stdev);
           }
-          if (r.hasAttribute(stored_feature_prefix + "max")) {
-            r.setAttribute(context_feature_prefix + "__zMax", (
-                (Double) r.getAttribute(stored_feature_prefix + "max") - mean) / stdev);
+          if (r.hasAttribute("max[" + attribute_name + "]")) {
+            r.setAttribute("zMaxTimeContext[" + attribute_name + "," + prev + "," + foll + "]", (
+                (Double) r.getAttribute("max[" + attribute_name + "]") - mean) / stdev);
           }
-          if (r.hasAttribute(stored_feature_prefix + "mean")) {
-            r.setAttribute(context_feature_prefix + "__zMean", (
-                (Double) r.getAttribute(stored_feature_prefix + "mean") - mean) / stdev);
+          if (r.hasAttribute("mean[" + attribute_name + "]")) {
+            r.setAttribute("zMeanTimeContext[" + attribute_name + "," + prev + "," + foll + "]", (
+                (Double) r.getAttribute("mean[" + attribute_name + "]") - mean) / stdev);
           }
         }
       } catch (AuToBIException e) {

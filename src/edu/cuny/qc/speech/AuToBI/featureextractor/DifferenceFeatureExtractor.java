@@ -30,27 +30,37 @@ import java.util.List;
  * Note: when using this feature extractor, it is assumed that the list of regions are properly ordered.
  */
 public class DifferenceFeatureExtractor extends FeatureExtractor {
-  private List<String> features;  // the features to process.
+  public static final String moniker = "diff";
+  private String feature;
 
   /**
    * Constructs a DifferenceFeatureExtractor.
    * <p/>
-   * TODO: This should probably be just one feature at a time instead of a list of valid features
+   * Deprecated: There is no need for this functionality under the v1.4 feature registration.
+   * <p/>
+   * Currently will only process the first element in the difference_features list.
    *
    * @param difference_features the features to process
    */
+  @Deprecated
   public DifferenceFeatureExtractor(List<String> difference_features) {
     super();
-    this.features = difference_features;
+    this.feature = difference_features.get(0);
 
-    for (String f : features) {
-      extracted_features.add("diff_" + f);
-      required_features.add(f);
-    }
+    extracted_features.add("diff[" + feature + "]");
+    required_features.add(feature);
+  }
+
+  public DifferenceFeatureExtractor(String f) {
+    super();
+    this.feature = f;
+
+    extracted_features.add("diff[" + f + "]");
+    required_features.add(f);
   }
 
   /**
-   * Extracts difference features for each of the registered features.
+   * Extracts difference features.
    *
    * @param regions the regions to extract features on
    * @throws FeatureExtractorException if the feature hasn't been set, or if it is not a numeric value.
@@ -60,20 +70,20 @@ public class DifferenceFeatureExtractor extends FeatureExtractor {
       Region r = (Region) regions.get(i);
       Region next_r = (Region) regions.get(i + 1);
 
-      for (String feature : features) {
-        if (r.hasAttribute(feature) && next_r.hasAttribute(feature)) {
+      if (r.hasAttribute(feature) && next_r.hasAttribute(feature)) {
 
-          if (!(r.getAttribute(feature) instanceof Number))
-            throw new FeatureExtractorException(
-                "Cannot calculate difference. Feature, " + feature + ", is not a Number on region, " + r);
-          if (!(next_r.getAttribute(feature) instanceof Number))
-            throw new FeatureExtractorException(
-                "Cannot calculate difference. Feature, " + feature + ", is not a Number on region, " + next_r);
-
-          Number value =
-              ((Number) next_r.getAttribute(feature)).doubleValue() - ((Number) r.getAttribute(feature)).doubleValue();
-          r.setAttribute("diff_" + feature, value);
+        if (!(r.getAttribute(feature) instanceof Number)) {
+          throw new FeatureExtractorException(
+              "Cannot calculate difference. Feature, " + feature + ", is not a Number on region, " + r);
         }
+        if (!(next_r.getAttribute(feature) instanceof Number)) {
+          throw new FeatureExtractorException(
+              "Cannot calculate difference. Feature, " + feature + ", is not a Number on region, " + next_r);
+        }
+
+        Number value =
+            ((Number) next_r.getAttribute(feature)).doubleValue() - ((Number) r.getAttribute(feature)).doubleValue();
+        r.setAttribute("diff[" + feature + "]", value);
       }
     }
   }

@@ -40,16 +40,16 @@ public class IntonationalPhraseBoundaryFeatureExtractorTest {
   @Test
   public void testConstructorSetsExtractedFeaturesCorrectly() {
     IntonationalPhraseBoundaryFeatureExtractor fe =
-        new IntonationalPhraseBoundaryFeatureExtractor("test");
+        new IntonationalPhraseBoundaryFeatureExtractor();
 
     assertEquals(1, fe.getExtractedFeatures().size());
-    assertTrue(fe.getExtractedFeatures().contains("test"));
+    assertTrue(fe.getExtractedFeatures().contains("nominal_IntonationalPhraseBoundary"));
   }
 
   @Test
   public void testConstructorSetsRequiredFeaturesCorrectly() {
     IntonationalPhraseBoundaryFeatureExtractor fe =
-        new IntonationalPhraseBoundaryFeatureExtractor("test");
+        new IntonationalPhraseBoundaryFeatureExtractor();
 
     assertEquals(0, fe.getRequiredFeatures().size());
   }
@@ -57,7 +57,7 @@ public class IntonationalPhraseBoundaryFeatureExtractorTest {
   @Test
   public void testExtractFeaturesExtractsFeatures() {
     IntonationalPhraseBoundaryFeatureExtractor fe =
-        new IntonationalPhraseBoundaryFeatureExtractor("test");
+        new IntonationalPhraseBoundaryFeatureExtractor();
 
     List<Region> regions = new ArrayList<Region>();
     Word w = new Word(0.0, 1.0, "test");
@@ -69,7 +69,7 @@ public class IntonationalPhraseBoundaryFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertTrue(w.hasAttribute("test"));
+      assertTrue(w.hasAttribute("nominal_IntonationalPhraseBoundary"));
     } catch (FeatureExtractorException e) {
       e.printStackTrace();
     }
@@ -79,7 +79,7 @@ public class IntonationalPhraseBoundaryFeatureExtractorTest {
   public void testExtractFeaturesExtractsFeaturesCorrectly() {
 
     IntonationalPhraseBoundaryFeatureExtractor fe =
-        new IntonationalPhraseBoundaryFeatureExtractor("test");
+        new IntonationalPhraseBoundaryFeatureExtractor();
 
     List<Region> regions = new ArrayList<Region>();
     Word w = new Word(0.0, 1.0, "test");
@@ -91,7 +91,7 @@ public class IntonationalPhraseBoundaryFeatureExtractorTest {
     try {
       fe.extractFeatures(regions);
 
-      assertEquals("INTONATIONAL_BOUNDARY", w.getAttribute("test"));
+      assertEquals("INTONATIONAL_BOUNDARY", w.getAttribute("nominal_IntonationalPhraseBoundary"));
     } catch (FeatureExtractorException e) {
       e.printStackTrace();
     }

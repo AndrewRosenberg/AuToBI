@@ -32,6 +32,7 @@ import java.util.List;
  * @see edu.cuny.qc.speech.AuToBI.core.FeatureExtractor
  */
 public class PhraseAccentBoundaryToneFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "nominal_PhraseAccentBoundaryTone";
   private String feature;  // the feature to store the extracted values in
 
   /**
@@ -39,8 +40,14 @@ public class PhraseAccentBoundaryToneFeatureExtractor extends FeatureExtractor {
    *
    * @param feature the destination feature name
    */
+  @Deprecated
   public PhraseAccentBoundaryToneFeatureExtractor(String feature) {
     this.feature = feature;
+    extracted_features.add(feature);
+  }
+
+  public PhraseAccentBoundaryToneFeatureExtractor() {
+    this.feature = moniker;
     extracted_features.add(feature);
   }
 

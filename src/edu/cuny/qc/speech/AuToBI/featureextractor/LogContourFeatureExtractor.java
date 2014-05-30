@@ -11,10 +11,12 @@ import java.util.List;
  * LogContourFeatureExtractor constructs a new timevaluepair contour applying a log transformation to each point.
  */
 public class LogContourFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "log";
   private String src;  // The source feature
   private String tgt;  // The target feature
 
   // Constructs a new Feature Extractor
+  @Deprecated
   public LogContourFeatureExtractor(String source_feature, String target_feature) {
     super();
 
@@ -24,9 +26,18 @@ public class LogContourFeatureExtractor extends FeatureExtractor {
     this.extracted_features.add(target_feature);
   }
 
+  public LogContourFeatureExtractor(String source_feature) {
+    super();
+
+    this.src = source_feature;
+    this.tgt = "log[" + source_feature + "]";
+    this.required_features.add(source_feature);
+    this.extracted_features.add(tgt);
+  }
+
   @Override
   /**
-   * Constructs a new List<TimeValuePair> object containing log transformed values based on a source contour.
+   * Constructs a new Contour object containing log transformed values based on a source contour.
    */
   public void extractFeatures(List regions) throws FeatureExtractorException {
     HashMap<Contour, Contour> cache = new HashMap<Contour, Contour>();

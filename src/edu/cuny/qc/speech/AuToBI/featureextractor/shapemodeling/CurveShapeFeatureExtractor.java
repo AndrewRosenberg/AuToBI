@@ -18,15 +18,16 @@ import java.util.List;
 public class CurveShapeFeatureExtractor extends FeatureExtractor {
 
   private String feature;
+  public static final String moniker = "risingCurve,fallingCurve,peakCurve,valleyCurve";
 
   public CurveShapeFeatureExtractor(String feature) {
     this.feature = feature;
 
     this.required_features.add(feature);
-    this.extracted_features.add(feature + "__risingCurve");
-    this.extracted_features.add(feature + "__fallingCurve");
-    this.extracted_features.add(feature + "__peakCurve");
-    this.extracted_features.add(feature + "__valleyCurve");
+    this.extracted_features.add("risingCurve[" + feature + "]");
+    this.extracted_features.add("fallingCurve[" + feature + "]");
+    this.extracted_features.add("peakCurve[" + feature + "]");
+    this.extracted_features.add("valleyCurve[" + feature + "]");
   }
 
   @Override
@@ -65,10 +66,10 @@ public class CurveShapeFeatureExtractor extends FeatureExtractor {
             min_valley_rmse = valley.rmse;
           }
         }
-        r.setAttribute(feature + "__risingCurve", rising);
-        r.setAttribute(feature + "__fallingCurve", falling);
-        r.setAttribute(feature + "__peakCurve", best_peak);
-        r.setAttribute(feature + "__valleyCurve", best_valley);
+        r.setAttribute("risingCurve[" + feature + "]", rising);
+        r.setAttribute("fallingCurve[" + feature + "]", falling);
+        r.setAttribute("peakCurve[" + feature + "]", best_peak);
+        r.setAttribute("valleyCurve[" + feature + "]", best_valley);
       }
     }
   }

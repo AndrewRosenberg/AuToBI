@@ -34,6 +34,7 @@ import java.util.List;
  */
 @SuppressWarnings("unchecked")
 public class NormalizationParameterFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "spkrNormParams";
   private String destination_feature;  // the destination feature name
 
   /**
@@ -44,8 +45,18 @@ public class NormalizationParameterFeatureExtractor extends FeatureExtractor {
    *
    * @param destination_feature the name of the feature to store the feature in.
    */
+  @Deprecated
   public NormalizationParameterFeatureExtractor(String destination_feature) {
     this.destination_feature = destination_feature;
+
+    this.extracted_features.add(destination_feature);
+    // TODO: allow the normalized features to be specified through parameters
+    this.required_features.add("f0");
+    this.required_features.add("I");
+  }
+
+  public NormalizationParameterFeatureExtractor() {
+    this.destination_feature = moniker;
 
     this.extracted_features.add(destination_feature);
     // TODO: allow the normalized features to be specified through parameters

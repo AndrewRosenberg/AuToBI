@@ -1,6 +1,6 @@
 /*  AUContourFeatureExtractor.java
 
-    Copyright (c) 2012 Andrew Rosenberg
+    Copyright (c) 2012-2014 Andrew Rosenberg
 
     This file is part of the AuToBI prosodic analysis package.
 
@@ -31,11 +31,13 @@ import java.util.List;
 public class AUContourFeatureExtractor extends FeatureExtractor {
   private String feature;  // The contour feature to calculate the area under
 
+  public static final String moniker = "area";
+
   public AUContourFeatureExtractor(String feature) {
     this.feature = feature;
 
     this.required_features.add(feature);
-    this.extracted_features.add(feature + "__area");
+    this.extracted_features.add("area[" + feature + "]");
   }
 
   @Override
@@ -53,7 +55,7 @@ public class AUContourFeatureExtractor extends FeatureExtractor {
         for (Pair<Double, Double> x : c) {
           sum += x.second;
         }
-        r.setAttribute(feature + "__area", sum);
+        r.setAttribute("area[" + feature + "]", sum);
       }
     }
   }

@@ -35,6 +35,7 @@ import java.util.List;
  * @see edu.cuny.qc.speech.AuToBI.core.SpeakerNormalizationParameter
  */
 public class NormalizedContourFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "znormC";
   private String feature_name;  // the feature to analyze
   private String norm_feature;  // the parameters to run the normalization
 
@@ -51,7 +52,16 @@ public class NormalizedContourFeatureExtractor extends FeatureExtractor {
 
     required_features.add(feature_name);
     required_features.add(normalization_feature);
-    extracted_features.add("norm_" + feature_name);
+    extracted_features.add("znormC[" + feature_name + "]");
+  }
+
+  public NormalizedContourFeatureExtractor(String feature_name) {
+    this.feature_name = feature_name;
+    this.norm_feature = "spkrNormParams";
+
+    required_features.add(feature_name);
+    required_features.add(this.norm_feature);
+    extracted_features.add("znormC[" + feature_name + "]");
   }
 
   /**
@@ -70,13 +80,13 @@ public class NormalizedContourFeatureExtractor extends FeatureExtractor {
       if (r.hasAttribute(feature_name) && r.hasAttribute(norm_feature)) {
         Contour c = (Contour) r.getAttribute(feature_name);
         if (cache.containsKey(c)) {
-          r.setAttribute("norm_" + feature_name, cache.get(c));
+          r.setAttribute("znormC[" + feature_name + "]", cache.get(c));
         } else {
           SpeakerNormalizationParameter norm_params = (SpeakerNormalizationParameter) r.getAttribute(norm_feature);
           if (norm_params.canNormalize(feature_name)) {
             Contour norm_contour =
                 ContourUtils.zScoreNormalizeContour((Contour) r.getAttribute(feature_name), norm_params, feature_name);
-            r.setAttribute("norm_" + feature_name, norm_contour);
+            r.setAttribute("znormC[" + feature_name + "]", norm_contour);
             cache.put(c, norm_contour);
           } else {
             throw new FeatureExtractorException(

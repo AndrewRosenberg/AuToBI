@@ -94,7 +94,7 @@ public class TiltParameters {
    * Tilt makes the assumption that the data that it is modeling consists of a single rise and a single fall.  While
    * either the rise or fall may be null, the modeling behavior is undefined under data with multiple local maxima.
    *
-   * @param data the TimeValuePair objects to calculate tilt over
+   * @param data the contour to calculate tilt over
    */
   public void calculateTilt(Contour data) {
     if (data == null || data.size() == 0) {

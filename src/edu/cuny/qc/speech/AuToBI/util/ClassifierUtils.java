@@ -19,10 +19,11 @@
  */
 package edu.cuny.qc.speech.AuToBI.util;
 
+import de.bwaldvogel.liblinear.*;
 import edu.cuny.qc.speech.AuToBI.classifier.AuToBIClassifier;
-import edu.cuny.qc.speech.AuToBI.classifier.ClassBasedWeightFunction;
 import edu.cuny.qc.speech.AuToBI.classifier.WeightFunction;
 import edu.cuny.qc.speech.AuToBI.core.*;
+import edu.cuny.qc.speech.AuToBI.core.Feature;
 import weka.core.*;
 
 import java.util.*;
@@ -158,11 +159,11 @@ public class ClassifierUtils {
 
   /**
    * Converts a feature set object to a weka Instances object.
-   *
+   * <p/>
    * Use wekas instance weighting capability to assign weights for each data point.
    *
    * @param feature_set the feature set to convert
-   * @param fn a weight function
+   * @param fn          a weight function
    * @return a weka instances object
    */
   public static Instances convertFeatureSetToWeightedWekaInstances(FeatureSet feature_set,
@@ -187,7 +188,8 @@ public class ClassifierUtils {
    * @param class_attribute the class attribute
    * @return a weka instance.
    */
-  protected static Instance constructWekaInstance(ArrayList<Attribute> attributes, Word data_point, String class_attribute) {
+  protected static Instance constructWekaInstance(ArrayList<Attribute> attributes, Word data_point,
+                                                  String class_attribute) {
     Instances instances = new Instances("single_instance_set", attributes, 0);
 
     setWekaClassAttribute(instances, class_attribute);
@@ -274,8 +276,7 @@ public class ClassifierUtils {
    * @param true_feature The true feature name
    * @param fs           The feature set to be evaluated
    * @return a string representation of the evaluation
-   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException
-   *          IF there is an inconsistency in the evalution
+   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException IF there is an inconsistency in the evalution
    */
   public static String evaluateClassification(String hyp_feature, String true_feature, FeatureSet fs)
       throws AuToBIException {
@@ -292,8 +293,7 @@ public class ClassifierUtils {
    * @param true_feature The true feature name
    * @param fs           The feature set to be evaluated
    * @return a string representation of the evaluation
-   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException
-   *          IF there is an inconsistency in the evalution
+   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException IF there is an inconsistency in the evalution
    */
   public static EvaluationResults generateEvaluationResults(String hyp_feature, String true_feature, FeatureSet fs)
       throws AuToBIException {
@@ -408,5 +408,107 @@ public class ClassifierUtils {
                 "\n" + e.getMessage());
       }
     }
+  }
+
+  /**
+   * Converts a FeatureSet to a list of LibLinear labels.
+   *
+   * @param feature_set  The feature set
+   * @param class_values An array of class values to describe the indexing of the labels.
+   * @return a list of doubles corresponding to labels.
+   */
+  public static double[] convertFeatureSetToLibLinearLabels(FeatureSet feature_set,
+                                                            String[] class_values) {
+    String class_attribute = feature_set.getClassAttribute();
+    double[] labels = new double[feature_set.getDataPoints().size()];
+    int i = 0;
+    for (Word w : feature_set.getDataPoints()) {
+      String s = w.getAttribute(class_attribute).toString();
+      labels[i] = java.util.Arrays.asList(class_values).indexOf(s);
+      i++;
+    }
+    return labels;
+  }
+
+  /**
+   * Converts a FeatureSet to a list of LibLinear Feature[] descriptions.
+   *
+   * @param feature_set the feature set to convert
+   * @return a list of Feature[] descriptions.
+   */
+  public static de.bwaldvogel.liblinear.Feature[][] convertFeatureSetToLibLinearFeatures(FeatureSet feature_set) throws
+      AuToBIException {
+    int n = feature_set.getDataPoints().size();
+    de.bwaldvogel.liblinear.Feature[][] features = new de.bwaldvogel.liblinear.Feature[n][];
+    int i = 0;
+    for (Word w : feature_set.getDataPoints()) {
+      features[i] = convertWordToLibLinearFeatures(w, feature_set.getFeatures());
+      i++;
+    }
+
+    return features;
+  }
+
+  public static de.bwaldvogel.liblinear.Feature[] convertWordToLibLinearFeatures(Word w, Set<Feature> features) throws
+      AuToBIException {
+
+    ArrayList<FeatureNode> fs = new ArrayList<FeatureNode>();
+    int i = 1;
+    for (Feature feature : features) {
+      if (w.hasAttribute(feature.getName())) {
+        if (feature.isString()) {
+          throw new AuToBIException("Feature, " + feature.getName() +
+              " is a 'string' feature.  LibLinear does not support this feature type.");
+        } else if (feature.isNominal()) {
+          double idx = feature.getNominalIndex((String) w.getAttribute(feature.getName()));
+          fs.add(new FeatureNode(i, idx));
+        } else {
+          Double value = (Double) w.getAttribute(feature.getName());
+          if (!Double.isNaN(value)) {
+            fs.add(new FeatureNode(i, value));
+          }
+        }
+      }
+      i++;
+    }
+
+    return fs.toArray(new de.bwaldvogel.liblinear.Feature[fs.size()]);
+  }
+
+  /**
+   * Normalizes features so they have 0 mean and unit variance.
+   *
+   * @param features input (unscaled) features
+   * @return normalized features
+   */
+  public static de.bwaldvogel.liblinear.Feature[][] normalizeLibLinearFeatures(
+      de.bwaldvogel.liblinear.Feature[][] features) {
+
+    HashMap<Integer, Aggregation> f_params = new HashMap<Integer, Aggregation>();
+
+    for (de.bwaldvogel.liblinear.Feature[] f : features) {
+      for (de.bwaldvogel.liblinear.Feature fn : f) {
+        if (!f_params.containsKey(fn.getIndex())) {
+          f_params.put(fn.getIndex(), new Aggregation());
+        }
+        f_params.get(fn.getIndex()).insert(fn.getValue());
+      }
+    }
+    de.bwaldvogel.liblinear.Feature[][] f_out = features.clone();
+
+    for (de.bwaldvogel.liblinear.Feature[] f : f_out) {
+      for (de.bwaldvogel.liblinear.Feature fn : f) {
+        Aggregation agg = f_params.get(fn.getIndex());
+        if (agg.getSize() < 2) {
+          fn.setValue(0);
+        } else {
+          double u = agg.getMean();
+          double sd = agg.getStdev();
+          fn.setValue((fn.getValue() - u) / sd);
+        }
+      }
+    }
+
+    return f_out;
   }
 }

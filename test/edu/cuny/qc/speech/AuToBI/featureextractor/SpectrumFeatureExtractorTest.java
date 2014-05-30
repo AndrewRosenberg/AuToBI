@@ -44,7 +44,7 @@ public class SpectrumFeatureExtractorTest {
 
   @Before
   public void setUp() throws Exception {
-    fe = new SpectrumFeatureExtractor("spectrum");
+    fe = new SpectrumFeatureExtractor();
     regions = new ArrayList<Region>();
   }
 
@@ -62,14 +62,14 @@ public class SpectrumFeatureExtractorTest {
 
   @Test
   public void testArgConstructorSetsExtractedFeaturesCorrectly() {
-    fe = new SpectrumFeatureExtractor("spectrum", 0.1, 0.05);
+    fe = new SpectrumFeatureExtractor(0.1, 0.05);
     assertEquals(1, fe.getExtractedFeatures().size());
     assertTrue(fe.getExtractedFeatures().contains("spectrum"));
   }
 
   @Test
   public void testArgConstructorSetsRequiredFeaturesCorrectly() {
-    fe = new SpectrumFeatureExtractor("spectrum", 0.1, 0.05);
+    fe = new SpectrumFeatureExtractor(0.1, 0.05);
     assertEquals(1, fe.getRequiredFeatures().size());
     assertTrue(fe.getRequiredFeatures().contains("wav"));
   }

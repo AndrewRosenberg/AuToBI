@@ -30,17 +30,24 @@ import java.util.List;
  * labels for whether or not a word boundary is an intermediate phrase boundary.
  */
 public class IntermediatePhraseBoundaryFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "nominal_IntermediatePhraseBoundary";
   private String feature;  // the stored feature name
 
   /**
    * Constructs a new IntermediatePhraseBoundaryFeatureExtractor.
-   *
+   * <p/>
    * The ground truth label will be stored in the feature name passed via the parameter, feature.
    *
    * @param feature the stored parameter name
    */
+  @Deprecated
   public IntermediatePhraseBoundaryFeatureExtractor(String feature) {
     this.feature = feature;
+    extracted_features.add(feature);
+  }
+
+  public IntermediatePhraseBoundaryFeatureExtractor() {
+    this.feature = moniker;
     extracted_features.add(feature);
   }
 

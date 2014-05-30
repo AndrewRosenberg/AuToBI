@@ -51,14 +51,14 @@ public class ResetContourFeatureExtractorTest {
   public void testConstructorSetsExtractedFeaturesCorrectlyWithNullSubregion() {
     fe = new ResetContourFeatureExtractor(contour_feature);
     assertEquals(1, fe.getExtractedFeatures().size());
-    assertTrue(fe.getExtractedFeatures().contains(contour_feature + "_reset"));
+    assertTrue(fe.getExtractedFeatures().contains("reset[" + contour_feature + "]"));
   }
 
   @Test
   public void testConstructorSetsExtractedFeaturesCorrectlyWithSubregion() {
     fe = new ResetContourFeatureExtractor(contour_feature, subregion_feature);
     assertEquals(1, fe.getExtractedFeatures().size());
-    assertTrue(fe.getExtractedFeatures().contains(contour_feature + "_" + subregion_feature + "_reset"));
+    assertTrue(fe.getExtractedFeatures().contains("reset[" + contour_feature + "," + subregion_feature + "]"));
   }
 
   @Test
@@ -90,8 +90,8 @@ public class ResetContourFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertTrue(w.hasAttribute("contour_reset"));
-      assertFalse(w2.hasAttribute("contour_reset"));
+      assertTrue(w.hasAttribute("reset[contour]"));
+      assertFalse(w2.hasAttribute("reset[contour]"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -110,7 +110,7 @@ public class ResetContourFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertEquals(10.0, (Double) w.getAttribute("contour_reset"), 0.0001);
+      assertEquals(10.0, (Double) w.getAttribute("reset[contour]"), 0.0001);
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -133,8 +133,8 @@ public class ResetContourFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertTrue(w.hasAttribute("contour_subregion_reset"));
-      assertFalse(w2.hasAttribute("contour_subregion_reset"));
+      assertTrue(w.hasAttribute("reset[contour,subregion]"));
+      assertFalse(w2.hasAttribute("reset[contour,subregion]"));
     } catch (FeatureExtractorException e) {
       fail(e.getMessage());
     }
@@ -157,7 +157,7 @@ public class ResetContourFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertEquals(3.5, (Double) w.getAttribute("contour_subregion_reset"), 0.0001);
+      assertEquals(3.5, (Double) w.getAttribute("reset[contour,subregion]"), 0.0001);
     } catch (FeatureExtractorException e) {
       fail(e.getMessage());
     }

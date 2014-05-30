@@ -46,7 +46,7 @@ public class NormalizedContourFeatureExtractorTest {
   @Test
   public void testConstructorSetsExtractedFeaturesCorrectly() {
     assertEquals(1, fe.getExtractedFeatures().size());
-    assertTrue(fe.getExtractedFeatures().contains("norm_f0"));
+    assertTrue(fe.getExtractedFeatures().contains("znormC[f0]"));
   }
 
   @Test
@@ -70,7 +70,7 @@ public class NormalizedContourFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertTrue(w.hasAttribute("norm_f0"));
+      assertTrue(w.hasAttribute("znormC[f0]"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -90,7 +90,7 @@ public class NormalizedContourFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      Contour c = (Contour) w.getAttribute("norm_f0");
+      Contour c = (Contour) w.getAttribute("znormC[f0]");
       assertEquals(4, c.size());
       assertEquals(0.1, c.getStep());
       assertEquals(-1.16189, c.get(0), 0.0001);
@@ -115,7 +115,7 @@ public class NormalizedContourFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertFalse(w.hasAttribute("norm_f0"));
+      assertFalse(w.hasAttribute("znormC[f0]"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -129,7 +129,7 @@ public class NormalizedContourFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertFalse(w.hasAttribute("norm_f0"));
+      assertFalse(w.hasAttribute("znormC[f0]"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -156,7 +156,7 @@ public class NormalizedContourFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertTrue(w.getAttribute("norm_f0") == w2.getAttribute("norm_f0"));
+      assertTrue(w.getAttribute("znormC[f0]") == w2.getAttribute("znormC[f0]"));
 
     } catch (FeatureExtractorException e) {
       fail();

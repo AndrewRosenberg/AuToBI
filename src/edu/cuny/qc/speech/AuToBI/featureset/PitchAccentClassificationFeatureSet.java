@@ -20,9 +20,7 @@
 package edu.cuny.qc.speech.AuToBI.featureset;
 
 import edu.cuny.qc.speech.AuToBI.core.FeatureSet;
-
-import java.util.ArrayList;
-import java.util.List;
+import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
 
 /**
  * PitchAccentClassificationFeatureSet is responsible for describing the features necessary to perform pitch accent
@@ -36,13 +34,15 @@ public class PitchAccentClassificationFeatureSet extends FeatureSet {
   public PitchAccentClassificationFeatureSet() {
     super();
 
-    insertRequiredFeature("duration__duration");
+    insertRequiredFeature("duration");
 
-    for (String acoustic : new String[]{"f0", "I"}) {
-      for (String norm : new String[]{"", "norm_"}) {
-        for (String slope : new String[]{"", "delta_"}) {
+    for (String acoustic : new String[]{"f0", "log[f0]", "I"}) {
+      for (String norm : new String[]{"", "znormC"}) {
+        for (String slope : new String[]{"", "delta"}) {
           for (String agg : new String[]{"max", "mean", "stdev", "zMax"}) {
-            insertRequiredFeature(slope + norm + acoustic + "_pseudosyllable" + "__" + agg);
+            String f = AuToBIUtils.makeFeatureName(agg, AuToBIUtils.makeFeatureName("subregionC", AuToBIUtils
+                .makeFeatureName(slope, AuToBIUtils.makeFeatureName(norm, acoustic)), "psyl"));
+            insertRequiredFeature(f);
           }
         }
       }
@@ -50,59 +50,58 @@ public class PitchAccentClassificationFeatureSet extends FeatureSet {
     /**
      * AT&T Specific features
      */
-    insertRequiredFeature("log_f0__voicingRatio");
-
-    insertRequiredFeature("duration__duration");
+    insertRequiredFeature("voicingRatio[f0]");
 
     // Aggregations, center of gravity, area
-    List<String> subregions = new ArrayList<String>();
-    subregions.add("");
-    subregions.add("_pseudosyllable");
-
-    for (String acoustic : new String[]{"norm_log_f0", "rnorm_I", "norm_log_f0rnorm_I"}) {
-      for (String slope : new String[]{"", "delta_"}) {
-        for (String subregion : subregions) {
-          for (String agg : new String[]{"max", "mean", "min", "stdev", "zMax", "cog", "area", "tilt_amp", "tilt_dur",
-              "highLowDiff", "PVAmp", "PVLocation", "risingCurveLikelihood", "fallingCurveLikelihood",
-              "peakCurveLikelihood", "valleyCurveLikelihood"}) {
-            insertRequiredFeature(slope + acoustic + subregion + "__" + agg);
-          }
+    for (String acoustic : new String[]{"znormC[log[f0]]", "rnormC[I]", "prodC[znormC[log[f0]],rnormC[I],0.1]"}) {
+      for (String slope : new String[]{"", "delta"}) {
+        for (String agg : new String[]{"max", "mean", "min", "stdev", "zMax", "cog", "area", "tiltAmp", "tiltDur",
+            "highLowDiff", "PVAmp", "PVLocation", "risingLL", "fallingLL",
+            "peakLL", "valleyLL"}) {
+          String psylf = AuToBIUtils.makeFeatureName(agg, AuToBIUtils.makeFeatureName("subregionC", AuToBIUtils
+              .makeFeatureName(slope, acoustic), "psyl"));
+          String f = AuToBIUtils.makeFeatureName(agg, AuToBIUtils.makeFeatureName(slope, acoustic));
+          insertRequiredFeature(f);
+          insertRequiredFeature(psylf);
         }
       }
     }
 
 
     // skew
-    insertRequiredFeature("norm_log_f0rnorm_I__skew_amp");
-    insertRequiredFeature("norm_log_f0rnorm_I__skew_dur");
+    insertRequiredFeature("skewAmp[znormC[log[f0]],rnormC[I]]");
+    insertRequiredFeature("skewDur[znormC[log[f0]],rnormC[I]]");
 
     // location and area difference features
-    insertRequiredFeature("norm_log_f0__area_minus_rnorm_I__area");
-    insertRequiredFeature("norm_log_f0__area_ratio_rnorm_I__area");
-    insertRequiredFeature("norm_log_f0__PVLocation_minus_rnorm_I__PVLocation");
-    insertRequiredFeature("norm_log_f0__PVLocation_ratio_rnorm_I__PVLocation");
+    insertRequiredFeature("minus[area[znormC[log[f0]]],area[rnormC[I]]]");
+    insertRequiredFeature("ratio[area[znormC[log[f0]]],area[rnormC[I]]]");
+    insertRequiredFeature("minus[PVLocation[znormC[log[f0]]],PVLocation[rnormC[I]]]");
+    insertRequiredFeature("ratio[PVLocation[znormC[log[f0]]],PVLocation[rnormC[I]]]");
 
     // rmse and error features
-    insertRequiredFeature("norm_log_f0_rnorm_I__rmse");
-    insertRequiredFeature("norm_log_f0_rnorm_I__meanError");
+    insertRequiredFeature("rmse[znormC[log[f0]],rnormC[I]]");
+    insertRequiredFeature("meanError[znormC[log[f0]],rnormC[I]]");
 
     // twoway shape likelihood features
-    insertRequiredFeature("norm_log_f0rnorm_I__rrCurveLikelihood");
-    insertRequiredFeature("norm_log_f0rnorm_I__rfCurveLikelihood");
-    insertRequiredFeature("norm_log_f0rnorm_I__rpCurveLikelihood");
-    insertRequiredFeature("norm_log_f0rnorm_I__rvCurveLikelihood");
-    insertRequiredFeature("norm_log_f0rnorm_I__frCurveLikelihood");
-    insertRequiredFeature("norm_log_f0rnorm_I__ffCurveLikelihood");
-    insertRequiredFeature("norm_log_f0rnorm_I__fpCurveLikelihood");
-    insertRequiredFeature("norm_log_f0rnorm_I__fvCurveLikelihood");
-    insertRequiredFeature("norm_log_f0rnorm_I__prCurveLikelihood");
-    insertRequiredFeature("norm_log_f0rnorm_I__pfCurveLikelihood");
-    insertRequiredFeature("norm_log_f0rnorm_I__ppCurveLikelihood");
-    insertRequiredFeature("norm_log_f0rnorm_I__pvCurveLikelihood");
-    insertRequiredFeature("norm_log_f0rnorm_I__vrCurveLikelihood");
-    insertRequiredFeature("norm_log_f0rnorm_I__vfCurveLikelihood");
-    insertRequiredFeature("norm_log_f0rnorm_I__vpCurveLikelihood");
-    insertRequiredFeature("norm_log_f0rnorm_I__vvCurveLikelihood");
+    insertRequiredFeature("rrLL[znormC[log[f0]],rnormC[I]]");
+    insertRequiredFeature("rfLL[znormC[log[f0]],rnormC[I]]");
+    insertRequiredFeature("rpLL[znormC[log[f0]],rnormC[I]]");
+    insertRequiredFeature("rvLL[znormC[log[f0]],rnormC[I]]");
+
+    insertRequiredFeature("frLL[znormC[log[f0]],rnormC[I]]");
+    insertRequiredFeature("ffLL[znormC[log[f0]],rnormC[I]]");
+    insertRequiredFeature("fpLL[znormC[log[f0]],rnormC[I]]");
+    insertRequiredFeature("fvLL[znormC[log[f0]],rnormC[I]]");
+
+    insertRequiredFeature("prLL[znormC[log[f0]],rnormC[I]]");
+    insertRequiredFeature("pfLL[znormC[log[f0]],rnormC[I]]");
+    insertRequiredFeature("ppLL[znormC[log[f0]],rnormC[I]]");
+    insertRequiredFeature("pvLL[znormC[log[f0]],rnormC[I]]");
+
+    insertRequiredFeature("vrLL[znormC[log[f0]],rnormC[I]]");
+    insertRequiredFeature("vfLL[znormC[log[f0]],rnormC[I]]");
+    insertRequiredFeature("vpLL[znormC[log[f0]],rnormC[I]]");
+    insertRequiredFeature("vvLL[znormC[log[f0]],rnormC[I]]");
 
     class_attribute = "nominal_PitchAccentType";
   }

@@ -34,10 +34,10 @@ public class CurveShapeFeatureExtractorTest {
     regions.add(r);
     try {
       fe.extractFeatures(regions);
-      assertTrue(regions.get(0).hasAttribute("contour__risingCurve"));
-      assertTrue(regions.get(0).hasAttribute("contour__fallingCurve"));
-      assertTrue(regions.get(0).hasAttribute("contour__peakCurve"));
-      assertTrue(regions.get(0).hasAttribute("contour__valleyCurve"));
+      assertTrue(regions.get(0).hasAttribute("risingCurve[contour]"));
+      assertTrue(regions.get(0).hasAttribute("fallingCurve[contour]"));
+      assertTrue(regions.get(0).hasAttribute("peakCurve[contour]"));
+      assertTrue(regions.get(0).hasAttribute("valleyCurve[contour]"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -52,7 +52,7 @@ public class CurveShapeFeatureExtractorTest {
     try {
       fe.extractFeatures(regions);
 
-      CurveShape rising = (CurveShape) regions.get(0).getAttribute("contour__risingCurve");
+      CurveShape rising = (CurveShape) regions.get(0).getAttribute("risingCurve[contour]");
       assertEquals(10, rising.peak);
       assertArrayEquals(new double[]{0., 1., 1., 2., 9., 9., 9., 9., 9., 9.}, rising.smoothed_curve, 0.001);
 
@@ -71,7 +71,7 @@ public class CurveShapeFeatureExtractorTest {
       fe.extractFeatures(regions);
 
       CurveShape falling =
-          (CurveShape) regions.get(0).getAttribute("contour__fallingCurve");
+          (CurveShape) regions.get(0).getAttribute("fallingCurve[contour]");
       assertEquals(-1, falling.peak);
       assertArrayEquals(new double[]{6.3333, 6.3333, 6.3333, 6.3333, 6.3333, 6.3333, 6.3333, 6.3333, 6.3333, 1.0},
           falling.smoothed_curve, 0.001);
@@ -91,7 +91,7 @@ public class CurveShapeFeatureExtractorTest {
       fe.extractFeatures(regions);
 
       CurveShape peak =
-          (CurveShape) regions.get(0).getAttribute("contour__peakCurve");
+          (CurveShape) regions.get(0).getAttribute("peakCurve[contour]");
       assertEquals(8, peak.peak);
       assertArrayEquals(new double[]{0., 1., 1., 2., 10., 10, 10., 11., 12., 1.},
           peak.smoothed_curve, 0.001);
@@ -111,7 +111,7 @@ public class CurveShapeFeatureExtractorTest {
       fe.extractFeatures(regions);
 
       CurveShape valley =
-          (CurveShape) regions.get(0).getAttribute("contour__valleyCurve");
+          (CurveShape) regions.get(0).getAttribute("valleyCurve[contour]");
       assertEquals(1, valley.peak);
       assertArrayEquals(new double[]{0.666, 1.333, 1.333, 2., 9., 9., 9., 9., 9., 9.},
           valley.smoothed_curve, 0.001);

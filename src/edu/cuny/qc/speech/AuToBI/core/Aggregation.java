@@ -20,13 +20,10 @@
 
 package edu.cuny.qc.speech.AuToBI.core;
 
-import org.apache.commons.math.MathException;
-
-import java.util.List;
 import java.util.Collection;
 import java.io.Serializable;
 
-import static org.apache.commons.math.special.Erf.erf;
+import static org.apache.commons.math3.special.Erf.erf;
 
 /**
  * A class to store aggregations of real numbered information.
@@ -112,10 +109,12 @@ public class Aggregation implements Serializable {
   public void remove(Double v) {
     sum -= v;
     ssq -= (v * v);
-    if (v.equals(max))
+    if (v.equals(max)) {
       max = Double.NaN;  // no running max and min
-    if (v.equals(min))
+    }
+    if (v.equals(min)) {
       min = Double.NaN;
+    }
     n--;
   }
 
@@ -261,10 +260,8 @@ public class Aggregation implements Serializable {
    *
    * @param value the value
    * @return the CDF
-   * @throws org.apache.commons.math.MathException
-   *          if the erf function has a problem.
    */
-  public double evaluateGaussianCDF(double value) throws MathException {
+  public double evaluateGaussianCDF(double value) {
     double stdev = getStdev();
     return .5 * (1 + erf((value - getMean()) / Math.sqrt(2 * stdev * stdev)));
   }

@@ -34,6 +34,8 @@ import java.util.List;
  */
 @SuppressWarnings("unchecked")
 public class MatchingFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "matching";
+
   private String feature1;     // One of the feature names
   private String feature2;     // The second feature name
   private String destination;  // Name for the destination variable.
@@ -47,6 +49,7 @@ public class MatchingFeatureExtractor extends FeatureExtractor {
    * @param feature2            The second feature
    * @param destination_feature The feature to store the result
    */
+  @Deprecated
   public MatchingFeatureExtractor(String feature1, String feature2, String destination_feature) {
     super();
     this.feature1 = feature1;
@@ -55,6 +58,16 @@ public class MatchingFeatureExtractor extends FeatureExtractor {
     required_features.add(feature1);
     required_features.add(feature2);
     extracted_features.add(destination_feature);
+  }
+
+  public MatchingFeatureExtractor(String feature1, String feature2) {
+    super();
+    this.feature1 = feature1;
+    this.feature2 = feature2;
+    this.destination = "matching[" + feature1 + "," + feature2 + "]";
+    required_features.add(feature1);
+    required_features.add(feature2);
+    extracted_features.add(destination);
   }
 
   /**

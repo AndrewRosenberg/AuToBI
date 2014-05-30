@@ -48,17 +48,16 @@ public class ContourPolyFitFeatureExtractorTest {
   public void setUp() {
     regions = new ArrayList<Region>();
 
-    ContourPolynomialFitter fitter = new ContourPolynomialFitter(2);
-    fe = new ContourPolyFitFeatureExtractor(fitter, "polyfit", "f0");
+    fe = new ContourPolyFitFeatureExtractor("2", "f0");
   }
 
   @Test
   public void testSetsExtractedFeaturesCorrectly() {
     Assert.assertEquals(4, fe.getExtractedFeatures().size());
-    assertTrue(fe.getExtractedFeatures().contains("polyfit_0"));
-    assertTrue(fe.getExtractedFeatures().contains("polyfit_1"));
-    assertTrue(fe.getExtractedFeatures().contains("polyfit_2"));
-    assertTrue(fe.getExtractedFeatures().contains("polyfit_mse"));
+    assertTrue(fe.getExtractedFeatures().contains("fit[f0,2,0]"));
+    assertTrue(fe.getExtractedFeatures().contains("fit[f0,2,1]"));
+    assertTrue(fe.getExtractedFeatures().contains("fit[f0,2,2]"));
+    assertTrue(fe.getExtractedFeatures().contains("fitMSE[f0,2]"));
   }
 
   @Test
@@ -75,10 +74,10 @@ public class ContourPolyFitFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertTrue(w.hasAttribute("polyfit_0"));
-      assertTrue(w.hasAttribute("polyfit_1"));
-      assertTrue(w.hasAttribute("polyfit_2"));
-      assertTrue(w.hasAttribute("polyfit_mse"));
+      assertTrue(w.hasAttribute("fit[f0,2,0]"));
+      assertTrue(w.hasAttribute("fit[f0,2,1]"));
+      assertTrue(w.hasAttribute("fit[f0,2,2]"));
+      assertTrue(w.hasAttribute("fitMSE[f0,2]"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -92,10 +91,10 @@ public class ContourPolyFitFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertEquals(0.1321, (Double) w.getAttribute("polyfit_0"), 0.0001);
-      assertEquals(4.675, (Double) w.getAttribute("polyfit_1"), 0.0001);
-      assertEquals(-9.4643, (Double) w.getAttribute("polyfit_2"), 0.0001);
-      assertEquals(0.81835, (Double) w.getAttribute("polyfit_mse"), 0.0001);
+      assertEquals(0.1321, (Double) w.getAttribute("fit[f0,2,0]"), 0.0001);
+      assertEquals(4.675, (Double) w.getAttribute("fit[f0,2,1]"), 0.0001);
+      assertEquals(-9.4643, (Double) w.getAttribute("fit[f0,2,2]"), 0.0001);
+      assertEquals(0.81835, (Double) w.getAttribute("fitMSE[f0,2]"), 0.0001);
     } catch (FeatureExtractorException e) {
       fail();
     }

@@ -29,6 +29,7 @@ import java.util.List;
  * PitchAccentFeatureExtractor extracts the ground truth presence or absence of a pitch accent for a set of regions.
  */
 public class PitchAccentFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "nominal_PitchAccent";
   private String feature;  // the destination feature
 
   /**
@@ -36,17 +37,25 @@ public class PitchAccentFeatureExtractor extends FeatureExtractor {
    *
    * @param feature the destination feature
    */
+  @Deprecated
   public PitchAccentFeatureExtractor(String feature) {
     this.feature = feature;
     extracted_features.add(feature);
   }
 
+  public PitchAccentFeatureExtractor() {
+    this.feature = moniker;
+    extracted_features.add(feature);
+  }
+
   /**
    * Stores an indicator of the presence or absence of a pitch accent on each region, based on ground truth annotation.
-   *
-   * Note: Currently the value of the feature if an accent is present is "ACCENTED", and absence is indicated by "DEACCENTED".
+   * <p/>
+   * Note: Currently the value of the feature if an accent is present is "ACCENTED",
+   * and absence is indicated by "DEACCENTED".
    * This should probably be modified; the term, "deaccented" can have more connotations than simply not bearing pitch
-   * accent. It may be best to use "ACCENT" and "NOACCENT" as a default while allowing a user to specify alternate values. 
+   * accent. It may be best to use "ACCENT" and "NOACCENT" as a default while allowing a user to specify alternate
+   * values.
    *
    * @param regions The regions to extract features from.
    * @throws edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException if somethign goes wrong.

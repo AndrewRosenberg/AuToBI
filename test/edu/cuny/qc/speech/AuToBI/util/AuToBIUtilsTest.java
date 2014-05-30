@@ -581,4 +581,83 @@ public class AuToBIUtilsTest {
     assertEquals("hyp_phrase_accent_boundary_tone", task.getHypFeature());
     assertTrue(task.getFeatureSet() instanceof PhraseAccentBoundaryToneClassificationFeatureSet);
   }
+
+  @Test
+  public void testParseFeatureNameWorksOnAtomicFeatures() {
+    List<String> params = null;
+    try {
+      params = AuToBIUtils.parseFeatureName("f0");
+    } catch (AuToBIException e) {
+      fail();
+    }
+    assertEquals(1, params.size());
+    assertEquals("f0", params.get(0));
+  }
+
+  @Test
+  public void testParseFeatureNameWorksOnOneParameterFeatures() {
+    List<String> params = null;
+    try {
+      params = AuToBIUtils.parseFeatureName("test[f0]");
+    } catch (AuToBIException e) {
+      fail();
+    }
+    assertEquals(2, params.size());
+    assertEquals("test", params.get(0));
+    assertEquals("f0", params.get(1));
+  }
+
+  @Test
+  public void testParseFeatureNameWorksOnNestedParameterFeatures() {
+    List<String> params = null;
+    try {
+      params = AuToBIUtils.parseFeatureName("test[f0[booo]]");
+    } catch (AuToBIException e) {
+      fail();
+    }
+    assertEquals(2, params.size());
+    assertEquals("test", params.get(0));
+    assertEquals("f0[booo]", params.get(1));
+  }
+
+  @Test
+  public void testParseFeatureNameWorksOnMultipleParameterFeatures() {
+    List<String> params = null;
+    try {
+      params = AuToBIUtils.parseFeatureName("test[f0,I,spectrum]");
+    } catch (AuToBIException e) {
+      fail();
+    }
+    assertEquals(4, params.size());
+    assertEquals("test", params.get(0));
+    assertEquals("f0", params.get(1));
+    assertEquals("I", params.get(2));
+    assertEquals("spectrum", params.get(3));
+  }
+
+  @Test
+  public void testParseFeatureNameWorksOnMultipleNestedParameterFeatures() {
+    List<String> params = null;
+    try {
+      params = AuToBIUtils.parseFeatureName("test[f0[I,spectrum],I[f0,spectrum]]");
+    } catch (AuToBIException e) {
+      fail(e.getMessage());
+    }
+    assertEquals(3, params.size());
+    assertEquals("test", params.get(0));
+    assertEquals("f0[I,spectrum]", params.get(1));
+    assertEquals("I[f0,spectrum]", params.get(2));
+  }
+
+
+  @Test
+  public void testParseFeatureNameFailsOnMisMatchedBrackets() {
+    List<String> params = null;
+    try {
+      params = AuToBIUtils.parseFeatureName("f0[test");
+      fail();
+    } catch (AuToBIException e) {
+      assertTrue(true);
+    }
+  }
 }

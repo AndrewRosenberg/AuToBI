@@ -42,6 +42,8 @@ import java.util.List;
  * @see edu.cuny.qc.speech.AuToBI.core.ContextDesc
  */
 public class ContextNormalizedFeatureExtractor extends FeatureExtractor {
+  public static final String moniker =
+      "zMinWordContext,zMaxWordContext,zMeanWordContext,zNormWordContext,rNormWordContext";
 
   private static final Double EPSILON = 0.00001;  // values less than this are considered zero for normalization
   private String attribute_name;                 // the feature to normalize
@@ -59,12 +61,30 @@ public class ContextNormalizedFeatureExtractor extends FeatureExtractor {
 
     this.context = context;
 
-    String context_feature_prefix = this.attribute_name + "_" + context.getLabel();
-    extracted_features.add(context_feature_prefix + "__zMin");
-    extracted_features.add(context_feature_prefix + "__zMax");
-    extracted_features.add(context_feature_prefix + "__zMean");
-    extracted_features.add(context_feature_prefix + "__zNorm");
-    extracted_features.add(context_feature_prefix + "__rNorm");
+    extracted_features.add("zMinWordContext[" + attribute_name + "," + context.getLabel() + "]");
+    extracted_features.add("zMaxWordContext[" + attribute_name + "," + context.getLabel() + "]");
+    extracted_features.add("zMeanWordContext[" + attribute_name + "," + context.getLabel() + "]");
+    extracted_features.add("zNormWordContext[" + attribute_name + "," + context.getLabel() + "]");
+    extracted_features.add("rNormWordContext[" + attribute_name + "," + context.getLabel() + "]");
+  }
+
+  /**
+   * Constructs a ContextNormalizedFeatureExtractor
+   *
+   * @param attribute_name the attribute to analyze
+   * @param context_desc   the normalization context descriptor
+   */
+  public ContextNormalizedFeatureExtractor(String attribute_name, String context_desc) throws AuToBIException {
+    super();
+    this.attribute_name = attribute_name;
+
+    this.context = ContextDesc.parseContextDescriptor(context_desc);
+
+    extracted_features.add("zMinWordContext[" + attribute_name + "," + context_desc + "]");
+    extracted_features.add("zMaxWordContext[" + attribute_name + "," + context_desc + "]");
+    extracted_features.add("zMeanWordContext[" + attribute_name + "," + context_desc + "]");
+    extracted_features.add("zNormWordContext[" + attribute_name + "," + context_desc + "]");
+    extracted_features.add("rNormWordContext[" + attribute_name + "," + context_desc + "]");
   }
 
   /**
@@ -145,33 +165,32 @@ public class ContextNormalizedFeatureExtractor extends FeatureExtractor {
     Double stdev = agg.getStdev();
 
     // Calculate normalized features
-    String context_feature_prefix = attribute_name + "_" + context.getLabel();
-    String stored_feature_prefix = attribute_name + "__";
+    String context_feature_stem = attribute_name + "," + context.getLabel();
 
     if (r.getAttribute(attribute_name) instanceof Double) {
       Double value = (Double) r.getAttribute(attribute_name);
       // Z Score
       if (Math.abs(stdev) > EPSILON) {
-        r.setAttribute(context_feature_prefix + "__zNorm", (value - mean) / stdev);
+        r.setAttribute("zNormWordContext[" + context_feature_stem + "]", (value - mean) / stdev);
       }
       // Range Normalization
       if ((max - min) > EPSILON) {
-        r.setAttribute(context_feature_prefix + "__rNorm", (value - min) / (max - min));
+        r.setAttribute("rNormWordContext[" + context_feature_stem + "]", (value - min) / (max - min));
       }
     } else if (r.getAttribute(attribute_name) instanceof Contour) {
       // Calculate Z Score normalization
       if (Math.abs(stdev) > EPSILON) {
-        if (r.hasAttribute(stored_feature_prefix + "min")) {
-          r.setAttribute(context_feature_prefix + "__zMin", (
-              (Double) r.getAttribute(stored_feature_prefix + "min") - mean) / stdev);
+        if (r.hasAttribute("min[" + attribute_name + "]")) {
+          r.setAttribute("zMinWordContext[" + context_feature_stem + "]", (
+              (Double) r.getAttribute("min[" + attribute_name + "]") - mean) / stdev);
         }
-        if (r.hasAttribute(stored_feature_prefix + "max")) {
-          r.setAttribute(context_feature_prefix + "__zMax", (
-              (Double) r.getAttribute(stored_feature_prefix + "max") - mean) / stdev);
+        if (r.hasAttribute("max[" + attribute_name + "]")) {
+          r.setAttribute("zMaxWordContext[" + context_feature_stem + "]", (
+              (Double) r.getAttribute("max[" + attribute_name + "]") - mean) / stdev);
         }
-        if (r.hasAttribute(stored_feature_prefix + "mean")) {
-          r.setAttribute(context_feature_prefix + "__zMean", (
-              (Double) r.getAttribute(stored_feature_prefix + "mean") - mean) / stdev);
+        if (r.hasAttribute("mean[" + attribute_name + "]")) {
+          r.setAttribute("zMeanWordContext[" + context_feature_stem + "]", (
+              (Double) r.getAttribute("mean[" + attribute_name + "]") - mean) / stdev);
         }
       }
     }
@@ -189,33 +208,32 @@ public class ContextNormalizedFeatureExtractor extends FeatureExtractor {
     Double mean = window.getMean();
     Double stdev = window.getStdev();
 
-    String context_feature_prefix = attribute_name + "_" + context.getLabel();
-    String stored_feature_prefix = attribute_name + "__";
+    String context_feature_stem = attribute_name + "," + context.getLabel();
 
     if (r.getAttribute(attribute_name) instanceof Double) {
       Double value = (Double) r.getAttribute(attribute_name);
       // Z Score
       if (Math.abs(stdev) > EPSILON) {
-        r.setAttribute(context_feature_prefix + "__zNorm", (value - mean) / stdev);
+        r.setAttribute("zNormWordContext[" + context_feature_stem + "]", (value - mean) / stdev);
       }
       // Range Normalization
       if ((max - min) > EPSILON) {
-        r.setAttribute(context_feature_prefix + "__rNorm", (value - min) / (max - min));
+        r.setAttribute("rNormWordContext[" + context_feature_stem + "]", (value - min) / (max - min));
       }
     } else if (r.getAttribute(attribute_name) instanceof Contour) {
       // Calculate Z Score normalization
       if (Math.abs(stdev) > EPSILON) {
-        if (r.hasAttribute(stored_feature_prefix + "min")) {
-          r.setAttribute(context_feature_prefix + "__zMin", (
-              (Double) r.getAttribute(stored_feature_prefix + "min") - mean) / stdev);
+        if (r.hasAttribute("min[" + attribute_name + "]")) {
+          r.setAttribute("zMinWordContext[" + context_feature_stem + "]", (
+              (Double) r.getAttribute("min[" + attribute_name + "]") - mean) / stdev);
         }
-        if (r.hasAttribute(stored_feature_prefix + "max")) {
-          r.setAttribute(context_feature_prefix + "__zMax", (
-              (Double) r.getAttribute(stored_feature_prefix + "max") - mean) / stdev);
+        if (r.hasAttribute("max[" + attribute_name + "]")) {
+          r.setAttribute("zMaxWordContext[" + context_feature_stem + "]", (
+              (Double) r.getAttribute("max[" + attribute_name + "]") - mean) / stdev);
         }
-        if (r.hasAttribute(stored_feature_prefix + "mean")) {
-          r.setAttribute(context_feature_prefix + "__zMean", (
-              (Double) r.getAttribute(stored_feature_prefix + "mean") - mean) / stdev);
+        if (r.hasAttribute("mean[" + attribute_name + "]")) {
+          r.setAttribute("zMeanWordContext[" + context_feature_stem + "]", (
+              (Double) r.getAttribute("mean[" + attribute_name + "]") - mean) / stdev);
         }
       }
     }

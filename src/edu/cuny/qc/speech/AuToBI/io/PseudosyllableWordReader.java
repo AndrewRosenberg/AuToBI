@@ -91,7 +91,7 @@ public class PseudosyllableWordReader extends AuToBIWordReader {
     List<Word> words = new ArrayList<Word>();
 
     // Identify silent regions by mean intensity less than the threshold.
-    IntensityFeatureExtractor ife = new IntensityFeatureExtractor("I");
+    IntensityFeatureExtractor ife = new IntensityFeatureExtractor();
     ContourFeatureExtractor cfe = new ContourFeatureExtractor("I");
     try {
       ife.extractFeatures(regions);
@@ -102,13 +102,13 @@ public class PseudosyllableWordReader extends AuToBIWordReader {
 
     double max_I = -Double.MAX_VALUE;
     for (Region r : regions) {
-      if (r.hasAttribute("I__max")) {
-        max_I = Math.max(max_I, (Double) r.getAttribute("I__max"));
+      if (r.hasAttribute("max[I]")) {
+        max_I = Math.max(max_I, (Double) r.getAttribute("max[I]"));
       }
     }
 
     for (Region r : regions) {
-      if ((Double) r.getAttribute("I__max") >= max_I - threshold) {
+      if ((Double) r.getAttribute("max[I]") >= max_I - threshold) {
         words.add(new Word(r.getStart(), r.getEnd(), "", "", wav_data.getFilename()));
       }
     }
@@ -124,7 +124,7 @@ public class PseudosyllableWordReader extends AuToBIWordReader {
         AlignmentUtils.copyToBITonesByIndex(words, tones);
       } else if (annotation_file.format == FormattedFile.Format.TEXTGRID) {
         TextGridReader reader = new TextGridReader(annotation_file.getFilename());
-        List<Word> w = reader.readWords();
+        reader.readWords();
         Tier tones_tier = reader.tones_tier;
         Tier breaks_tier = reader.breaks_tier;
 

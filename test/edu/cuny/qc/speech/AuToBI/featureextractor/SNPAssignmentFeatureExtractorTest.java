@@ -20,10 +20,10 @@ public class SNPAssignmentFeatureExtractorTest {
   @Test
   public void assignsDefaultFeatureOnNullSpeakerID() {
     try {
-      String test_file = "/Users/andrew/code/AuToBI/release/test_data/h1.spkrnorm";
+      String test_file = System.getenv("AUTOBI_TEST_DIR") + "/h1.spkrnorm";
       ArrayList<String> files = new ArrayList<String>();
       files.add(test_file);
-      SNPAssignmentFeatureExtractor fe = new SNPAssignmentFeatureExtractor("dest_feature", null, files);
+      SNPAssignmentFeatureExtractor fe = new SNPAssignmentFeatureExtractor(null, files);
 
       ArrayList<Region> regions = new ArrayList<Region>();
       regions.add(new Region(0.0, 0.1));
@@ -31,9 +31,10 @@ public class SNPAssignmentFeatureExtractorTest {
       regions.add(new Region(0.2, 0.3));
 
       fe.extractFeatures(regions);
-      SpeakerNormalizationParameter snp = (SpeakerNormalizationParameter) regions.get(0).getAttribute("dest_feature");
-      assertTrue(snp.equals((SpeakerNormalizationParameter) regions.get(1).getAttribute("dest_feature")));
-      assertTrue(snp.equals((SpeakerNormalizationParameter) regions.get(2).getAttribute("dest_feature")));
+      SpeakerNormalizationParameter snp =
+          (SpeakerNormalizationParameter) regions.get(0).getAttribute("spkrNormParamsFromFile");
+      assertTrue(snp.equals(regions.get(1).getAttribute("spkrNormParamsFromFile")));
+      assertTrue(snp.equals(regions.get(2).getAttribute("spkrNormParamsFromFile")));
     } catch (AuToBIException e) {
       fail();
     } catch (FeatureExtractorException e) {
@@ -45,9 +46,9 @@ public class SNPAssignmentFeatureExtractorTest {
   public void assignsFeatures() {
     try {
       ArrayList<String> files = new ArrayList<String>();
-      files.add("/Users/andrew/code/AuToBI/release/test_data/h1.spkrnorm");
-      files.add("/Users/andrew/code/AuToBI/release/test_data/h2.spkrnorm");
-      SNPAssignmentFeatureExtractor fe = new SNPAssignmentFeatureExtractor("dest_feature", "speaker_id", files);
+      files.add(System.getenv("AUTOBI_TEST_DIR") + "/h1.spkrnorm");
+      files.add(System.getenv("AUTOBI_TEST_DIR") + "/h2.spkrnorm");
+      SNPAssignmentFeatureExtractor fe = new SNPAssignmentFeatureExtractor("speaker_id", files);
 
       ArrayList<Region> regions = new ArrayList<Region>();
       regions.add(new Region(0.0, 0.1));
@@ -59,9 +60,10 @@ public class SNPAssignmentFeatureExtractorTest {
       regions.get(2).setAttribute("speaker_id", "h2");
 
       fe.extractFeatures(regions);
-      SpeakerNormalizationParameter snp = (SpeakerNormalizationParameter) regions.get(0).getAttribute("dest_feature");
-      assertTrue(snp.equals((SpeakerNormalizationParameter) regions.get(1).getAttribute("dest_feature")));
-      assertTrue(!snp.equals((SpeakerNormalizationParameter) regions.get(2).getAttribute("dest_feature")));
+      SpeakerNormalizationParameter snp =
+          (SpeakerNormalizationParameter) regions.get(0).getAttribute("spkrNormParamsFromFile");
+      assertTrue(snp.equals(regions.get(1).getAttribute("spkrNormParamsFromFile")));
+      assertTrue(!snp.equals(regions.get(2).getAttribute("spkrNormParamsFromFile")));
     } catch (AuToBIException e) {
       fail();
     } catch (FeatureExtractorException e) {
@@ -75,7 +77,7 @@ public class SNPAssignmentFeatureExtractorTest {
       ArrayList<String> files = new ArrayList<String>();
       files.add("/Users/andrew/code/AuToBI/release/test_data/h1.spkrnorm");
       files.add("/Users/andrew/code/AuToBI/release/test_data/h2.spkrnorm");
-      SNPAssignmentFeatureExtractor fe = new SNPAssignmentFeatureExtractor("dest_feature", null, files);
+      SNPAssignmentFeatureExtractor fe = new SNPAssignmentFeatureExtractor(null, files);
       fail();
     } catch (AuToBIException e) {
       assertTrue(true);

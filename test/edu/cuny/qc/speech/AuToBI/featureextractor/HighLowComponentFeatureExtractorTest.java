@@ -34,8 +34,8 @@ public class HighLowComponentFeatureExtractorTest {
     regions.add(r);
     try {
       fe.extractFeatures(regions);
-      assertTrue(regions.get(0).hasAttribute("contour__lowGP"));
-      assertTrue(regions.get(0).hasAttribute("contour__highGP"));
+      assertTrue(regions.get(0).hasAttribute("lowGP[contour]"));
+      assertTrue(regions.get(0).hasAttribute("highGP[contour]"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -51,9 +51,9 @@ public class HighLowComponentFeatureExtractorTest {
       fe.extractFeatures(regions);
 
       GParam low =
-          (GParam) regions.get(0).getAttribute("contour__lowGP");
+          (GParam) regions.get(0).getAttribute("lowGP[contour]");
       GParam high =
-          (GParam) regions.get(0).getAttribute("contour__highGP");
+          (GParam) regions.get(0).getAttribute("highGP[contour]");
       assertEquals(1, low.mean, 0.0001);
       assertEquals(0.6324555320336759, low.stdev, 0.0001);
       assertEquals(10.6, high.mean, 0.0001);

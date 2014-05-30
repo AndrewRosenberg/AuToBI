@@ -39,6 +39,7 @@ import java.util.ArrayList;
  */
 @SuppressWarnings("unchecked")
 public class ResetContourFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "reset";
   private String feature_name;       // the prefix of the stored feature name
   private String subregion_name;       // the name of the subregion
 
@@ -56,10 +57,11 @@ public class ResetContourFeatureExtractor extends FeatureExtractor {
     this.feature_name = feature_name;
     this.subregion_name = subregion_name;
 
-    if (subregion_name != null && subregion_name.length() > 0)
-      this.extracted_features.add(feature_name + "_" + subregion_name + "_reset");
-    else
-      this.extracted_features.add(feature_name + "_reset");
+    if (subregion_name != null && subregion_name.length() > 0) {
+      this.extracted_features.add(moniker + "[" + feature_name + "," + subregion_name + "]");
+    } else {
+      this.extracted_features.add(moniker + "[" + feature_name + "]");
+    }
 
     this.required_features.add(feature_name);
 
@@ -93,9 +95,9 @@ public class ResetContourFeatureExtractor extends FeatureExtractor {
     List<Region> van_subregions;
     List<Region> trail_subregions;
 
-    String destination_feature = feature_name + "_reset";
+    String destination_feature = moniker + "[" + feature_name + "]";
     if (subregion_name != null && !subregion_name.equals("")) {
-      destination_feature = feature_name + "_" + subregion_name + "_reset";
+      destination_feature = moniker + "[" + feature_name + "," + subregion_name + "]";
 
       van_subregions = new ArrayList<Region>();
       trail_subregions = new ArrayList<Region>();

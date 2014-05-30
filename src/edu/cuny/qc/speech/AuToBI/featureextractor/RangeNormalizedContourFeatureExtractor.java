@@ -39,6 +39,7 @@ import java.util.List;
  */
 @SuppressWarnings("unchecked")
 public class RangeNormalizedContourFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "rnormC";
   private String feature_name;  // the feature to analyze
   private String norm_feature;  // the parameters to run the normalization
 
@@ -55,7 +56,22 @@ public class RangeNormalizedContourFeatureExtractor extends FeatureExtractor {
 
     required_features.add(feature_name);
     required_features.add(normalization_feature);
-    extracted_features.add("rnorm_" + feature_name);
+    extracted_features.add("rnormC[" + feature_name + "]");
+  }
+
+  /**
+   * Constructs a new NormalizedContourFeatureExtractor to analyze the supplied feature_name using the supplied
+   * parameters
+   *
+   * @param feature_name the feature to modify
+   */
+  public RangeNormalizedContourFeatureExtractor(String feature_name) {
+    this.feature_name = feature_name;
+    this.norm_feature = "spkrNormParams";
+
+    required_features.add(feature_name);
+    required_features.add(this.norm_feature);
+    extracted_features.add("rnormC[" + feature_name + "]");
   }
 
   /**
@@ -73,13 +89,13 @@ public class RangeNormalizedContourFeatureExtractor extends FeatureExtractor {
       if (r.hasAttribute(feature_name) && r.hasAttribute(norm_feature)) {
         Contour c = (Contour) r.getAttribute(feature_name);
         if (cache.containsKey(c)) {
-          r.setAttribute("rnorm_" + feature_name, cache.get(c));
+          r.setAttribute("rnormC[" + feature_name + "]", cache.get(c));
         } else {
           SpeakerNormalizationParameter norm_params = (SpeakerNormalizationParameter) r.getAttribute(norm_feature);
           if (norm_params.canNormalize(feature_name)) {
             Contour norm_contour =
                 ContourUtils.rangeNormalizeContour(c, norm_params, feature_name);
-            r.setAttribute("rnorm_" + feature_name, norm_contour);
+            r.setAttribute("rnormC[" + feature_name + "]", norm_contour);
             cache.put(c, norm_contour);
           } else {
             throw new FeatureExtractorException(

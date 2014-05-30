@@ -199,6 +199,33 @@ public class AlignmentUtilsTest {
   }
 
   @Test
+  public void testCopyToBIBreaksByTimeAssignsBreaksToRegionsAfterTheLastBreak() {
+
+    List<Word> words = new ArrayList<Word>();
+    Word w1 = new Word(1, 2, "test");
+    words.add(w1);
+    Word w2 = new Word(2, 3, "test");
+    words.add(w2);
+
+    Word w3 = new Word(4, 5, "test");
+    words.add(w3);
+
+    List<Region> breaks = new ArrayList<Region>();
+    Region b1 = new Region(2, 2, "3");
+    Region b2 = new Region(3, 3, "4");
+    breaks.add(b1);
+    breaks.add(b2);
+
+    AlignmentUtils.copyToBIBreaksByTime(words, breaks);
+    assertNotNull(w1.getBreakBefore());
+    assertNotNull(w1.getBreakAfter());
+    assertNotNull(w2.getBreakBefore());
+    assertNotNull(w2.getBreakAfter());
+    assertNotNull(w3.getBreakBefore());
+    assertNotNull(w3.getBreakAfter());
+  }
+
+  @Test
   public void testCopyToBITonesByIndexWhenAlignedByTime() {
 
     List<Word> words = new ArrayList<Word>();

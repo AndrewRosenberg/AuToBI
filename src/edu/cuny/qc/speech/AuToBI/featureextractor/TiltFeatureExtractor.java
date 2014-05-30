@@ -20,6 +20,7 @@
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
 import edu.cuny.qc.speech.AuToBI.core.*;
+import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
 import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 
 import java.util.List;
@@ -31,6 +32,8 @@ import java.util.List;
  */
 @SuppressWarnings("unchecked")
 public class TiltFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "tilt,tiltAmp,tiltDur";
+
   private String contour_feature;  // the Contour feature to analyze
 
   /**
@@ -42,9 +45,9 @@ public class TiltFeatureExtractor extends FeatureExtractor {
     this.contour_feature = contour_feature;
     required_features.add(contour_feature);
 
-    extracted_features.add(contour_feature + "__tilt");
-    extracted_features.add(contour_feature + "__tilt_amp");
-    extracted_features.add(contour_feature + "__tilt_dur");
+    extracted_features.add("tilt[" + contour_feature + "]");
+    extracted_features.add("tiltAmp[" + contour_feature + "]");
+    extracted_features.add("tiltDur[" + contour_feature + "]");
   }
 
   /**
@@ -56,6 +59,10 @@ public class TiltFeatureExtractor extends FeatureExtractor {
   @Override
   public void extractFeatures(List regions) throws FeatureExtractorException {
     for (Region r : (List<Region>) regions) {
+      if (!r.hasAttribute(contour_feature)) {
+        AuToBIUtils.warn("region, " + r.toString() + " doesn't have attribute: " + contour_feature);
+        continue;
+      }
       TiltParameters tilt;
       try {
         tilt =
@@ -65,9 +72,9 @@ public class TiltFeatureExtractor extends FeatureExtractor {
         throw new FeatureExtractorException(e.getMessage());
       }
 
-      r.setAttribute(contour_feature + "__tilt", tilt.getTilt());
-      r.setAttribute(contour_feature + "__tilt_amp", tilt.getAmplitudeTilt());
-      r.setAttribute(contour_feature + "__tilt_dur", tilt.getDurationTilt());
+      r.setAttribute("tilt[" + contour_feature + "]", tilt.getTilt());
+      r.setAttribute("tiltAmp[" + contour_feature + "]", tilt.getAmplitudeTilt());
+      r.setAttribute("tiltDur[" + contour_feature + "]", tilt.getDurationTilt());
     }
   }
 }

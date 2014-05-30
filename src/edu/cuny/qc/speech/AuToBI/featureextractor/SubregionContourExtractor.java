@@ -32,6 +32,7 @@ import java.util.List;
  */
 @SuppressWarnings("unchecked")
 public class SubregionContourExtractor extends FeatureExtractor {
+  public static final String moniker = "subregionC";
 
   private String contour_feature; // the acoustic contour feature
   private String subregion_feature; // the subregion feature
@@ -51,7 +52,7 @@ public class SubregionContourExtractor extends FeatureExtractor {
     required_features.add(contour_feature);
     required_features.add(subregion_feature);
 
-    extracted_features.add(contour_feature + "_" + subregion_feature);
+    extracted_features.add(moniker + "[" + contour_feature + "," + subregion_feature + "]");
   }
 
   @Override
@@ -63,7 +64,7 @@ public class SubregionContourExtractor extends FeatureExtractor {
         Region subregion = (Region) r.getAttribute(subregion_feature);
         try {
           Contour subcontour = ContourUtils.getSubContour(c, subregion.getStart(), subregion.getEnd());
-          r.setAttribute(contour_feature + "_" + subregion_feature, subcontour);
+          r.setAttribute(moniker + "[" + contour_feature + "," + subregion_feature + "]", subcontour);
         } catch (AuToBIException e) {
           throw new FeatureExtractorException(e.getMessage());
         }

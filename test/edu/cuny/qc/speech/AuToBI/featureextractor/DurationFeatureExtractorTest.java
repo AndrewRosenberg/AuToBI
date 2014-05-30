@@ -19,14 +19,12 @@
  */
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
-import edu.cuny.qc.speech.AuToBI.core.ContextDesc;
 import edu.cuny.qc.speech.AuToBI.core.Region;
 import edu.cuny.qc.speech.AuToBI.core.Word;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.*;
@@ -44,26 +42,11 @@ public class DurationFeatureExtractorTest {
 
     List<String> extracted_features = fe.getExtractedFeatures();
 
-    assertTrue(extracted_features.contains("duration__duration"));
-    assertTrue(extracted_features.contains("duration__prevPause"));
-    assertTrue(extracted_features.contains("duration__follPause"));
+    assertTrue(extracted_features.contains("duration"));
+    assertTrue(extracted_features.contains("prevPause"));
+    assertTrue(extracted_features.contains("follPause"));
     assertTrue(extracted_features.contains("nominal_precedesSilence"));
     assertTrue(extracted_features.contains("nominal_followsSilence"));
-
-    ArrayList<ContextDesc> contexts = new ArrayList<ContextDesc>();
-    contexts.add(new ContextDesc("f2b2", 2, 2));
-    contexts.add(new ContextDesc("f2b1", 2, 1));
-    contexts.add(new ContextDesc("f2b0", 2, 0));
-    contexts.add(new ContextDesc("f1b2", 1, 2));
-    contexts.add(new ContextDesc("f0b2", 0, 2));
-    contexts.add(new ContextDesc("f0b1", 0, 1));
-    contexts.add(new ContextDesc("f1b0", 1, 0));
-    contexts.add(new ContextDesc("f1b1", 1, 1));
-
-    for (ContextDesc context : contexts) {
-      assertTrue(extracted_features.contains("duration__duration_" + context.getLabel() + "__zNorm"));
-      assertTrue(extracted_features.contains("duration__duration_" + context.getLabel() + "__rNorm"));
-    }
   }
 
   @Test
@@ -91,9 +74,9 @@ public class DurationFeatureExtractorTest {
       DurationFeatureExtractor fe = new DurationFeatureExtractor();
       fe.extractFeatures(regions);
 
-      assertTrue(w2.hasAttribute("duration__duration"));
-      assertTrue(w2.hasAttribute("duration__prevPause"));
-      assertTrue(w2.hasAttribute("duration__follPause"));
+      assertTrue(w2.hasAttribute("duration"));
+      assertTrue(w2.hasAttribute("prevPause"));
+      assertTrue(w2.hasAttribute("follPause"));
       assertTrue(w2.hasAttribute("nominal_precedesSilence"));
       assertTrue(w2.hasAttribute("nominal_followsSilence"));
 
@@ -129,9 +112,9 @@ public class DurationFeatureExtractorTest {
       DurationFeatureExtractor fe = new DurationFeatureExtractor();
       fe.extractFeatures(regions);
 
-      assertEquals(1.5, (Double) w2.getAttribute("duration__duration"), 0.0001);
-      assertEquals(0.5, (Double) w2.getAttribute("duration__prevPause"), 0.0001);
-      assertEquals(0.0, (Double) w2.getAttribute("duration__follPause"), 0.0001);
+      assertEquals(1.5, (Double) w2.getAttribute("duration"), 0.0001);
+      assertEquals(0.5, (Double) w2.getAttribute("prevPause"), 0.0001);
+      assertEquals(0.0, (Double) w2.getAttribute("follPause"), 0.0001);
       assertEquals("FALSE", w2.getAttribute("nominal_precedesSilence"));
       assertEquals("TRUE", w2.getAttribute("nominal_followsSilence"));
 
@@ -167,7 +150,7 @@ public class DurationFeatureExtractorTest {
       DurationFeatureExtractor fe = new DurationFeatureExtractor();
       fe.extractFeatures(regions);
 
-      assertEquals(0.0, (Double) w1.getAttribute("duration__prevPause"), 0.0001);
+      assertEquals(0.0, (Double) w1.getAttribute("prevPause"), 0.0001);
 
     } catch (NullPointerException e) {
       fail();

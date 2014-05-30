@@ -1,6 +1,6 @@
 /*  ContextDesc.java
 
-    Copyright (c) 2009-2010 Andrew Rosenberg
+    Copyright (c) 2009-2014 Andrew Rosenberg
 
     This file is part of the AuToBI prosodic analysis package.
 
@@ -19,6 +19,9 @@
  */
 package edu.cuny.qc.speech.AuToBI.core;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * A class to describe discrete contexts.
  * <p/>
@@ -26,8 +29,8 @@ package edu.cuny.qc.speech.AuToBI.core;
  */
 public class ContextDesc {
   private String label;     // a label to describe the context
-  private Integer back;     // the number of backwards units to include
-  private Integer forward;  // The number of forward units to include
+  private int back;     // the number of backwards units to include
+  private int forward;  // The number of forward units to include
 
   /**
    * Constructs a new ContextDesc.
@@ -36,7 +39,7 @@ public class ContextDesc {
    * @param forward the number of forward units
    * @param back    the number of backward units
    */
-  public ContextDesc(String label, Integer forward, Integer back) {
+  public ContextDesc(String label, int forward, int back) {
     this.label = label;
     this.back = back;
     this.forward = forward;
@@ -65,7 +68,7 @@ public class ContextDesc {
    *
    * @return back
    */
-  public Integer getBack() {
+  public int getBack() {
     return back;
   }
 
@@ -74,7 +77,7 @@ public class ContextDesc {
    *
    * @param back the back context
    */
-  public void setBack(Integer back) {
+  public void setBack(int back) {
     this.back = back;
   }
 
@@ -83,7 +86,7 @@ public class ContextDesc {
    *
    * @return forward
    */
-  public Integer getForward() {
+  public int getForward() {
     return forward;
   }
 
@@ -92,7 +95,24 @@ public class ContextDesc {
    *
    * @param forward the forward context
    */
-  public void setForward(Integer forward) {
+  public void setForward(int forward) {
     this.forward = forward;
+  }
+
+  /**
+   * Parses a context descriptor string into a ContextDesc object.
+   * <p/>
+   * The format is f##b## where the two ## fields are the number of forward and backward words regions to include.
+   *
+   * @param context_desc the context description string
+   * @return a ContextDesc object
+   */
+  public static ContextDesc parseContextDescriptor(String context_desc) throws AuToBIException {
+    Pattern p = Pattern.compile("f(\\d+)b(\\d+)");
+    Matcher m = p.matcher(context_desc);
+    if (!m.matches()) {
+      throw new AuToBIException("Pattern '" + context_desc + "' is not a valid context pattern.");
+    }
+    return new ContextDesc(context_desc, Integer.parseInt(m.group(1)), Integer.parseInt(m.group(2)));
   }
 }

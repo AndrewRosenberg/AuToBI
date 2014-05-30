@@ -21,7 +21,6 @@ package edu.cuny.qc.speech.AuToBI;
 
 import edu.cuny.qc.speech.AuToBI.classifier.AuToBIClassifier;
 import edu.cuny.qc.speech.AuToBI.core.*;
-import edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException;
 import edu.cuny.qc.speech.AuToBI.io.*;
 import edu.cuny.qc.speech.AuToBI.util.AuToBIReaderUtils;
 import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
@@ -74,17 +73,14 @@ public class AuToBITrainer {
     if (filenames.size() == 0) {
       throw new AuToBIException("No filenames specified for training. Aborting.");
     }
-    try {
-      autobi.registerAllFeatureExtractors();
-      autobi.registerNullFeatureExtractor("speaker_id");
 
-      autobi.propagateFeatureSet(filenames, fs);
+//      autobi.registerAllFeatureExtractors();
+//    autobi.registerNullFeatureExtractor("speaker_id");
 
-      AuToBIUtils.log("training classifier");
-      classifier.train(fs);
-    } catch (FeatureExtractorException e) {
-      e.printStackTrace();
-    }
+    autobi.propagateFeatureSet(filenames, fs);
+
+    AuToBIUtils.log("training classifier");
+    classifier.train(fs);
   }
 
   public static void main(String[] args) {
@@ -118,6 +114,9 @@ public class AuToBITrainer {
           autobi.getParameters()
               .setParameter("attribute_omit",
                   autobi.getTrueFeature("phrase_accent_boundary_tone_classification") + ":NOTONE");
+        } else if (task_label.equals("intermediate_phrase_boundary_detection")) {
+          autobi.getParameters()
+              .setParameter("attribute_omit", "nominal_IntermediatePhraseBoundary:INTONATIONAL_BOUNDARY");
         } else {
           autobi.getParameters().setParameter("attribute_omit", "");
         }

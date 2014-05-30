@@ -41,6 +41,7 @@ import java.util.List;
  */
 @SuppressWarnings("unchecked")
 public class PseudosyllableFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "psyl";
   private String subregion_name;  // the feature name to store the subregion
 
   /**
@@ -48,9 +49,17 @@ public class PseudosyllableFeatureExtractor extends FeatureExtractor {
    *
    * @param subregion_name the feature name to store the subregion
    */
+  @Deprecated
   public PseudosyllableFeatureExtractor(String subregion_name) {
     super();
     this.subregion_name = subregion_name;
+    this.required_features.add("wav");
+    this.extracted_features.add(subregion_name);
+  }
+
+  public PseudosyllableFeatureExtractor() {
+    super();
+    this.subregion_name = moniker;
     this.required_features.add("wav");
     this.extracted_features.add(subregion_name);
   }
@@ -60,8 +69,7 @@ public class PseudosyllableFeatureExtractor extends FeatureExtractor {
    * region.
    *
    * @param regions The regions to extract features from.
-   * @throws edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException
-   *          if anything goes wrong.
+   * @throws edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException if anything goes wrong.
    */
   public void extractFeatures(List regions) throws FeatureExtractorException {
     // Identify all regions which are associated with each wav data.

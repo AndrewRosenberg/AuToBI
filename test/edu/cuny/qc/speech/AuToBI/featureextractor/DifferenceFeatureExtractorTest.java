@@ -1,6 +1,6 @@
 /*  DeltaContourFeatureExtractorTest.java
 
-    Copyright 2012 Andrew Rosenberg
+    Copyright 2012-2014 Andrew Rosenberg
 
     This file is part of the AuToBI prosodic analysis package.
 
@@ -19,10 +19,8 @@
  */
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
-import edu.cuny.qc.speech.AuToBI.core.Contour;
 import edu.cuny.qc.speech.AuToBI.core.Region;
 import edu.cuny.qc.speech.AuToBI.core.Word;
-import junit.framework.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -47,10 +45,7 @@ public class DifferenceFeatureExtractorTest {
       List<Region> regions = new ArrayList<Region>();
       regions.add(new Word(0, 1, "test"));
 
-      ArrayList<String> features = new ArrayList<String>();
-      features.add("attr");
-
-      DifferenceFeatureExtractor fe = new DifferenceFeatureExtractor(features);
+      DifferenceFeatureExtractor fe = new DifferenceFeatureExtractor("attr");
       fe.extractFeatures(regions);
     } catch (NullPointerException e) {
       fail();
@@ -71,10 +66,7 @@ public class DifferenceFeatureExtractorTest {
       w1.setAttribute("attr", "string attribute");
       regions.add(w1);
 
-      ArrayList<String> features = new ArrayList<String>();
-      features.add("attr");
-
-      DifferenceFeatureExtractor fe = new DifferenceFeatureExtractor(features);
+      DifferenceFeatureExtractor fe = new DifferenceFeatureExtractor("attr");
       fe.extractFeatures(regions);
       fail();
     } catch (NullPointerException e) {
@@ -86,22 +78,16 @@ public class DifferenceFeatureExtractorTest {
 
   @Test
   public void testSetAttributeNameCorrectlySetsExtractedFeatures() {
-    ArrayList<String> features = new ArrayList<String>();
-    features.add("attr");
-
-    DifferenceFeatureExtractor fe = new DifferenceFeatureExtractor(features);
+    DifferenceFeatureExtractor fe = new DifferenceFeatureExtractor("attr");
 
     List<String> extracted_features = fe.getExtractedFeatures();
 
-    assertTrue(extracted_features.contains("diff_attr"));
+    assertTrue(extracted_features.contains("diff[attr]"));
   }
 
   @Test
   public void testSetAttributeNameCorrectlySetsRequiredFeatures() {
-    ArrayList<String> features = new ArrayList<String>();
-    features.add("attr");
-
-    DifferenceFeatureExtractor fe = new DifferenceFeatureExtractor(features);
+    DifferenceFeatureExtractor fe = new DifferenceFeatureExtractor("attr");
 
     Set<String> required_features = fe.getRequiredFeatures();
 
@@ -120,14 +106,11 @@ public class DifferenceFeatureExtractorTest {
       w1.setAttribute("attr", 0.9);
       regions.add(w1);
 
-      ArrayList<String> features = new ArrayList<String>();
-      features.add("attr");
-
-      DifferenceFeatureExtractor fe = new DifferenceFeatureExtractor(features);
+      DifferenceFeatureExtractor fe = new DifferenceFeatureExtractor("attr");
       fe.extractFeatures(regions);
 
-      assertTrue(w.hasAttribute("diff_attr"));
-      assertFalse(w1.hasAttribute("diff_attr"));
+      assertTrue(w.hasAttribute("diff[attr]"));
+      assertFalse(w1.hasAttribute("diff[attr]"));
     } catch (NullPointerException e) {
       fail();
     } catch (FeatureExtractorException e) {
@@ -147,13 +130,10 @@ public class DifferenceFeatureExtractorTest {
       w1.setAttribute("attr", 0.9);
       regions.add(w1);
 
-      ArrayList<String> features = new ArrayList<String>();
-      features.add("attr");
-
-      DifferenceFeatureExtractor fe = new DifferenceFeatureExtractor(features);
+      DifferenceFeatureExtractor fe = new DifferenceFeatureExtractor("attr");
       fe.extractFeatures(regions);
 
-      Double diff = (Double) w.getAttribute("diff_attr");
+      Double diff = (Double) w.getAttribute("diff[attr]");
 
       assertEquals(0.3, diff, 0.0001);
 

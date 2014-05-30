@@ -39,16 +39,16 @@ public class IntermediatePhraseBoundaryFeatureExtractorTest {
   @Test
   public void testConstructorSetsExtractedFeaturesCorrectly() {
     IntermediatePhraseBoundaryFeatureExtractor fe =
-        new IntermediatePhraseBoundaryFeatureExtractor("test");
+        new IntermediatePhraseBoundaryFeatureExtractor();
 
     assertEquals(1, fe.getExtractedFeatures().size());
-    assertTrue(fe.getExtractedFeatures().contains("test"));
+    assertTrue(fe.getExtractedFeatures().contains("nominal_IntermediatePhraseBoundary"));
   }
 
   @Test
   public void testConstructorSetsRequiredFeaturesCorrectly() {
     IntermediatePhraseBoundaryFeatureExtractor fe =
-        new IntermediatePhraseBoundaryFeatureExtractor("test");
+        new IntermediatePhraseBoundaryFeatureExtractor();
 
     assertEquals(0, fe.getRequiredFeatures().size());
   }
@@ -56,7 +56,7 @@ public class IntermediatePhraseBoundaryFeatureExtractorTest {
   @Test
   public void testExtractFeaturesExtractsFeatures() {
     IntermediatePhraseBoundaryFeatureExtractor fe =
-        new IntermediatePhraseBoundaryFeatureExtractor("test");
+        new IntermediatePhraseBoundaryFeatureExtractor();
 
     List<Region> regions = new ArrayList<Region>();
     Word w = new Word(0.0, 1.0, "test");
@@ -66,7 +66,7 @@ public class IntermediatePhraseBoundaryFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertTrue(w.hasAttribute("test"));
+      assertTrue(w.hasAttribute("nominal_IntermediatePhraseBoundary"));
     } catch (FeatureExtractorException e) {
       e.printStackTrace();
     }
@@ -75,8 +75,7 @@ public class IntermediatePhraseBoundaryFeatureExtractorTest {
   @Test
   public void testExtractFeaturesExtractsFeaturesCorrectly() {
 
-    IntermediatePhraseBoundaryFeatureExtractor fe =
-        new IntermediatePhraseBoundaryFeatureExtractor("test");
+    IntermediatePhraseBoundaryFeatureExtractor fe = new IntermediatePhraseBoundaryFeatureExtractor();
 
     List<Region> regions = new ArrayList<Region>();
     Word w = new Word(0.0, 1.0, "test");
@@ -87,7 +86,7 @@ public class IntermediatePhraseBoundaryFeatureExtractorTest {
     try {
       fe.extractFeatures(regions);
 
-      assertEquals("INTERMEDIATE_BOUNDARY", w.getAttribute("test"));
+      assertEquals("INTERMEDIATE_BOUNDARY", w.getAttribute("nominal_IntermediatePhraseBoundary"));
     } catch (FeatureExtractorException e) {
       e.printStackTrace();
     }

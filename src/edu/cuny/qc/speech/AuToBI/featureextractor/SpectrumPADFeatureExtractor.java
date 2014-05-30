@@ -30,9 +30,13 @@ import java.util.List;
  * <p/>
  * This feature extractor requires the association of an externally trained pitch accent detection classifier and a
  * descriptor of the spectral region -- here typically in terms of a low and high bark boundary.
+ * <p/>
+ * This is deprecated because it's functionality does not conform to the AuToBI v1.4 feature extraction conventions
  */
 @SuppressWarnings("unchecked")
+@Deprecated
 public class SpectrumPADFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "spectrumPAD";
 
   private final String ACCENTED_VALUE = "ACCENTED";  // a label for ACCENTED words
   private int low;                                   // the bottom of the spectral region (in bark)
@@ -67,8 +71,7 @@ public class SpectrumPADFeatureExtractor extends FeatureExtractor {
    * Generates hypothesed pitch accent detection predictions for each region and stores these with the regions.
    *
    * @param regions The regions to extract features from.
-   * @throws edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException
-   *          if something goes wrong
+   * @throws edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException if something goes wrong
    */
   public void extractFeatures(List regions) throws FeatureExtractorException {
     // Construct a feature set.

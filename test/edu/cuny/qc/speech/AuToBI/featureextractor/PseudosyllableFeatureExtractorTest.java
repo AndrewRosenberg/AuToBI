@@ -43,14 +43,14 @@ public class PseudosyllableFeatureExtractorTest {
 
   @Before
   public void setUp() throws Exception {
-    fe = new PseudosyllableFeatureExtractor("syl");
+    fe = new PseudosyllableFeatureExtractor();
     regions = new ArrayList<Region>();
   }
 
   @Test
   public void testConstructorSetsExtractedFeaturesCorrectly() {
     assertEquals(1, fe.getExtractedFeatures().size());
-    assertTrue(fe.getExtractedFeatures().contains("syl"));
+    assertTrue(fe.getExtractedFeatures().contains("psyl"));
   }
 
   @Test
@@ -80,7 +80,7 @@ public class PseudosyllableFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertTrue(w.hasAttribute("syl"));
+      assertTrue(w.hasAttribute("psyl"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -106,7 +106,7 @@ public class PseudosyllableFeatureExtractorTest {
     w.setAttribute("wav", wav);
     try {
       fe.extractFeatures(regions);
-      Region syl = (Region) w.getAttribute("syl");
+      Region syl = (Region) w.getAttribute("psyl");
       // Don't worry about the specific region, but make sure that there is overlap.
       // Different pseudosyllabification algorithms will yield different hypotheses here
       // this test shouldn't break if the internal algorithms is modified.

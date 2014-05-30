@@ -40,6 +40,7 @@ import java.util.*;
  */
 @SuppressWarnings("unchecked")
 public class SyllableFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "syls";
   private String syllable_feature;         // The name of the feature to store syllables on.
   private String phone_feature;            // The name of the feature containing a list of phone regions.
   private HashMap<String, HashSet<String>> lexicon; // The pronunciation dictionary
@@ -64,9 +65,20 @@ public class SyllableFeatureExtractor extends FeatureExtractor {
    * @param lexicon_filename the filename containing the lexicon.
    * @throws java.io.IOException if there is a problem reading the lexicon
    */
+  @Deprecated
   public SyllableFeatureExtractor(String syllable_feature, String phone_feature, String lexicon_filename)
       throws IOException {
     this.syllable_feature = syllable_feature;
+    this.phone_feature = phone_feature;
+    readLexicon(lexicon_filename);
+
+    this.required_features.add(phone_feature);
+    this.extracted_features.add(syllable_feature);
+  }
+
+  public SyllableFeatureExtractor(String phone_feature, String lexicon_filename)
+      throws IOException {
+    this.syllable_feature = moniker;
     this.phone_feature = phone_feature;
     readLexicon(lexicon_filename);
 
@@ -241,7 +253,6 @@ public class SyllableFeatureExtractor extends FeatureExtractor {
         best_syl_data = syl_data;
         best_trace = trace;
       }
-
     }
 
     ArrayList<SubWord> syllables = new ArrayList<SubWord>();

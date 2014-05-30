@@ -33,11 +33,12 @@ import java.util.List;
  */
 @SuppressWarnings("unchecked")
 public class ContourCenterOfGravityFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "cog";
   private String attribute_name;       // the contour attribute name
 
   public ContourCenterOfGravityFeatureExtractor(String attribute_name) {
     this.attribute_name = attribute_name;
-    extracted_features.add(attribute_name + "__cog");
+    extracted_features.add("cog[" + attribute_name + "]");
     required_features.add(attribute_name);
   }
 
@@ -64,7 +65,7 @@ public class ContourCenterOfGravityFeatureExtractor extends FeatureExtractor {
           denom += tvp.second;
         }
         if (denom != 0.0) {
-          r.setAttribute(attribute_name + "__cog", ((num / denom) - r.getStart()) / r.getDuration());
+          r.setAttribute("cog[" + attribute_name + "]", ((num / denom) - r.getStart()) / r.getDuration());
         }
       }
     }

@@ -40,14 +40,14 @@ public class PitchAccentTypeFeatureExtractorTest {
 
   @Before
   public void setUp() throws Exception {
-    fe = new PitchAccentTypeFeatureExtractor("pa");
+    fe = new PitchAccentTypeFeatureExtractor();
     regions = new ArrayList<Region>();
   }
 
   @Test
   public void testConstructorSetsExtractedFeaturesCorrectly() {
     assertEquals(1, fe.getExtractedFeatures().size());
-    assertTrue(fe.getExtractedFeatures().contains("pa"));
+    assertTrue(fe.getExtractedFeatures().contains("nominal_PitchAccentType"));
   }
 
   @Test
@@ -63,7 +63,7 @@ public class PitchAccentTypeFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertTrue(w.hasAttribute("pa"));
+      assertTrue(w.hasAttribute("nominal_PitchAccentType"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -77,7 +77,7 @@ public class PitchAccentTypeFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertEquals("H*", w.getAttribute("pa"));
+      assertEquals("H*", w.getAttribute("nominal_PitchAccentType"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -90,8 +90,8 @@ public class PitchAccentTypeFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertTrue(w.hasAttribute("pa"));
-      assertEquals("NOACCENT", w.getAttribute("pa"));
+      assertTrue(w.hasAttribute("nominal_PitchAccentType"));
+      assertEquals("NOACCENT", w.getAttribute("nominal_PitchAccentType"));
     } catch (FeatureExtractorException e) {
       fail();
     }

@@ -11,6 +11,8 @@ import java.util.List;
  */
 @SuppressWarnings("unchecked")
 public class FeatureDifferenceFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "minus";
+
   private String f1;
   private String f2;
 
@@ -20,14 +22,14 @@ public class FeatureDifferenceFeatureExtractor extends FeatureExtractor {
 
     this.required_features.add(f1);
     this.required_features.add(f2);
-    this.extracted_features.add(f1 + "_minus_" + f2);
+    this.extracted_features.add("minus[" + f1 + "," + f2 + "]");
   }
 
   @Override
   public void extractFeatures(List regions) throws FeatureExtractorException {
     for (Region r : (List<Region>) regions) {
       if (r.hasAttribute(f1) && r.hasAttribute(f2)) {
-        r.setAttribute(f1 + "_minus_" + f2, ((Double) r.getAttribute(f1)) - ((Double) r.getAttribute(f2)));
+        r.setAttribute("minus[" + f1 + "," + f2 + "]", ((Double) r.getAttribute(f1)) - ((Double) r.getAttribute(f2)));
       }
     }
   }

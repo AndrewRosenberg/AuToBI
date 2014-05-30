@@ -10,6 +10,7 @@ import java.util.List;
  */
 @SuppressWarnings("unchecked")
 public class ContourDifferenceFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "rmse,meanError";
   private String f1;
   private String f2;
 
@@ -19,8 +20,8 @@ public class ContourDifferenceFeatureExtractor extends FeatureExtractor {
 
     this.required_features.add(f1);
     this.required_features.add(f2);
-    this.extracted_features.add(f1 + "_" + f2 + "__rmse");
-    this.extracted_features.add(f1 + "_" + f2 + "__meanError");
+    this.extracted_features.add("rmse[" + f1 + "," + f2 + "]");
+    this.extracted_features.add("meanError[" + f1 + "," + f2 + "]");
   }
 
   @Override
@@ -34,8 +35,8 @@ public class ContourDifferenceFeatureExtractor extends FeatureExtractor {
         } catch (AuToBIException e) {
           throw new FeatureExtractorException(e.getMessage());
         }
-        r.setAttribute(f1 + "_" + f2 + "__rmse", contourRMSE(c1, c2));
-        r.setAttribute(f1 + "_" + f2 + "__meanError", contourError(c1, c2));
+        r.setAttribute("rmse[" + f1 + "," + f2 + "]", contourRMSE(c1, c2));
+        r.setAttribute("meanError[" + f1 + "," + f2 + "]", contourError(c1, c2));
       }
     }
   }

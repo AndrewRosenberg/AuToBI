@@ -48,7 +48,7 @@ public class SyllableFeatureExtractorTest {
   public void setUp() {
     regions = new ArrayList<Region>();
     try {
-      fe = new SyllableFeatureExtractor("syllables", "phones", TEST_DIR + "/lexicon.txt");
+      fe = new SyllableFeatureExtractor("phones", TEST_DIR + "/lexicon.txt");
     } catch (IOException e) {
       fail();
     }
@@ -57,7 +57,7 @@ public class SyllableFeatureExtractorTest {
   @Test
   public void testSetsExtractedFeaturesCorrectly() {
     assertEquals(1, fe.getExtractedFeatures().size());
-    assertTrue(fe.getExtractedFeatures().contains("syllables"));
+    assertTrue(fe.getExtractedFeatures().contains("syls"));
   }
 
   @Test
@@ -86,7 +86,7 @@ public class SyllableFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertTrue(w.hasAttribute("syllables"));
+      assertTrue(w.hasAttribute("syls"));
     } catch (FeatureExtractorException e) {
       e.printStackTrace();
     }
@@ -112,7 +112,7 @@ public class SyllableFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertTrue(w.hasAttribute("syllables"));
+      assertTrue(w.hasAttribute("syls"));
     } catch (FeatureExtractorException e) {
       e.printStackTrace();
     }
@@ -138,7 +138,7 @@ public class SyllableFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      List<Region> syllables = (List<Region>) w.getAttribute("syllables");
+      List<Region> syllables = (List<Region>) w.getAttribute("syls");
       assertEquals(4, syllables.size());
     } catch (FeatureExtractorException e) {
       e.printStackTrace();
@@ -165,7 +165,7 @@ public class SyllableFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      List<Region> syllables = (List<Region>) w.getAttribute("syllables");
+      List<Region> syllables = (List<Region>) w.getAttribute("syls");
       assertEquals(4, syllables.size());
     } catch (FeatureExtractorException e) {
       e.printStackTrace();

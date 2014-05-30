@@ -19,11 +19,7 @@
  */
 package edu.cuny.qc.speech.AuToBI.core;
 
-import org.apache.commons.math.MathException;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.*;
 

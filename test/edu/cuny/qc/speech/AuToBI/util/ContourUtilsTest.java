@@ -65,12 +65,12 @@ public class ContourUtilsTest {
 
   @Test
   public void testGetSubEmptyContour() {
-    Contour c = new Contour(0.1, 0.01, 0);
+    Contour c = new Contour(0.1, 0.01, 1);
 
     try {
       Contour sub_c = ContourUtils.getSubContour(c, 0.12, 0.14);
 
-      assertNull(sub_c);
+      assertEquals(0, sub_c.contentSize());
     } catch (AuToBIException e) {
       fail();
     }

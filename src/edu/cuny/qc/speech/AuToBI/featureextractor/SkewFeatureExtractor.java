@@ -37,6 +37,7 @@ import java.util.List;
  */
 @SuppressWarnings("unchecked")
 public class SkewFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "skewAmp,skewDur";
 
   private String f1;
   private String f2;
@@ -48,31 +49,30 @@ public class SkewFeatureExtractor extends FeatureExtractor {
     this.f1 = f1;
     this.f2 = f2;
 
-    required_features.add(f1 + "__tilt_amp");
-    required_features.add(f1 + "__tilt_dur");
-    required_features.add(f2 + "__tilt_amp");
-    required_features.add(f2 + "__tilt_dur");
+    required_features.add("tiltAmp[" + f1 + "]");
+    required_features.add("tiltDur[" + f1 + "]");
+    required_features.add("tiltAmp[" + f2 + "]");
+    required_features.add("tiltDur[" + f2 + "]");
 
-    extracted_features.add(f1 + f2 + "__skew_amp");
-    extracted_features.add(f1 + f2 + "__skew_dur");
+    extracted_features.add("skewAmp[" + f1 + "," + f2 + "]");
+    extracted_features.add("skewDur[" + f1 + "," + f2 + "]");
   }
 
   /**
    * Calculates skew features from each region.
    *
    * @param regions The regions to extract features from.
-   * @throws edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException
-   *          should never happen
+   * @throws edu.cuny.qc.speech.AuToBI.featureextractor.FeatureExtractorException should never happen
    */
   @Override
   public void extractFeatures(List regions) throws FeatureExtractorException {
     for (Region r : (List<Region>) regions) {
-      if (r.hasAttribute(f1 + "__tilt_amp") && r.hasAttribute(f1 + "__tilt_dur") && r.hasAttribute(f2 + "__tilt_amp") &&
-          r.hasAttribute(f2 + "__tilt_dur")) {
-        r.setAttribute(f1 + f2 + "__skew_amp",
-            ((Double) r.getAttribute(f1 + "__tilt_amp")) - ((Double) r.getAttribute(f2 + "__tilt_amp")));
-        r.setAttribute(f1 + f2 + "__skew_dur",
-            ((Double) r.getAttribute(f1 + "__tilt_dur")) - ((Double) r.getAttribute(f2 + "__tilt_dur")));
+      if (r.hasAttribute("tiltAmp[" + f1 + "]") && r.hasAttribute("tiltDur[" + f1 + "]") &&
+          r.hasAttribute("tiltAmp[" + f2 + "]") && r.hasAttribute("tiltDur[" + f2 + "]")) {
+        r.setAttribute("skewAmp[" + f1 + "," + f2 + "]",
+            ((Double) r.getAttribute("tiltAmp[" + f1 + "]")) - ((Double) r.getAttribute("tiltAmp[" + f2 + "]")));
+        r.setAttribute("skewDur[" + f1 + "," + f2 + "]",
+            ((Double) r.getAttribute("tiltDur[" + f1 + "]")) - ((Double) r.getAttribute("tiltDur[" + f2 + "]")));
       }
     }
   }

@@ -85,23 +85,30 @@ public class FeatureSetPropagatorTest {
     assertTrue(new_fs.getDataPoints().size() > 0);
   }
 
+  public static class MockClassAttributeFE extends FeatureExtractor {
+    public final static String moniker = "test_class_attribute";
+
+    public MockClassAttributeFE() {
+      this.getExtractedFeatures().add("test_class_attribute");
+    }
+
+    @Override
+    public void extractFeatures(List regions) throws FeatureExtractorException {
+      for (Region r : (List<Region>) regions) {
+        r.setAttribute("test_class_attribute", "SAVED");
+      }
+    }
+  }
+
   @Test
   public void testAggressiveFeatureEliminationSparesClassAttribute() {
     AuToBI autobi = new AuToBI();
     AuToBIParameters params = new AuToBIParameters();
     params.setParameter("aggressive_feature_elimination", "true");
     autobi.setParameters(params);
-    FeatureExtractor fe = new FeatureExtractor() {
+    FeatureExtractor fe = new MockClassAttributeFE();
 
-      @Override
-      public void extractFeatures(List regions) throws FeatureExtractorException {
-        for (Region r : (List<Region>) regions) {
-          r.setAttribute("test_class_attribute", "SAVED");
-        }
-      }
-    };
-    fe.getExtractedFeatures().add("test_class_attribute");
-
+    autobi.getMonikerMap().put("test_class_attribute", fe.getClass());
     autobi.registerFeatureExtractor(fe);
 
     FormattedFile file = new FormattedFile(TEST_DIR + "/test.txt", FormattedFile.Format.SIMPLE_WORD);

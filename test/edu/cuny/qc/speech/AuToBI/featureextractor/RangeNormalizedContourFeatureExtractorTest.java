@@ -49,7 +49,7 @@ public class RangeNormalizedContourFeatureExtractorTest {
   @Test
   public void testConstructorSetsExtractedFeaturesCorrectly() {
     assertEquals(1, fe.getExtractedFeatures().size());
-    assertTrue(fe.getExtractedFeatures().contains("rnorm_f0"));
+    assertTrue(fe.getExtractedFeatures().contains("rnormC[f0]"));
   }
 
   @Test
@@ -73,7 +73,7 @@ public class RangeNormalizedContourFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertTrue(w.hasAttribute("rnorm_f0"));
+      assertTrue(w.hasAttribute("rnormC[f0]"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -93,7 +93,7 @@ public class RangeNormalizedContourFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      Contour c = (Contour) w.getAttribute("rnorm_f0");
+      Contour c = (Contour) w.getAttribute("rnormC[f0]");
       assertEquals(4, c.size());
       assertEquals(0.1, c.getStep());
       assertEquals(0., c.get(0), 0.0001);
@@ -118,7 +118,7 @@ public class RangeNormalizedContourFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertFalse(w.hasAttribute("rnorm_f0"));
+      assertFalse(w.hasAttribute("rnormC[f0]"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -132,7 +132,7 @@ public class RangeNormalizedContourFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertFalse(w.hasAttribute("rnorm_f0"));
+      assertFalse(w.hasAttribute("rnormC[f0]"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -159,7 +159,7 @@ public class RangeNormalizedContourFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertTrue(w.getAttribute("rnorm_f0") == w2.getAttribute("rnorm_f0"));
+      assertTrue(w.getAttribute("rnormC[f0]") == w2.getAttribute("rnormC[f0]"));
 
     } catch (FeatureExtractorException e) {
       fail();

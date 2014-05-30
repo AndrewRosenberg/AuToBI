@@ -32,7 +32,7 @@ public class AUContourFeatureExtractorTest {
     regions.add(r);
     try {
       fe.extractFeatures(regions);
-      assertTrue(regions.get(0).hasAttribute("contour__area"));
+      assertTrue(regions.get(0).hasAttribute("area[contour]"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -47,7 +47,7 @@ public class AUContourFeatureExtractorTest {
     try {
       fe.extractFeatures(regions);
 
-      assertEquals(58.0, (Double) regions.get(0).getAttribute("contour__area"), 0.0001);
+      assertEquals(58.0, (Double) regions.get(0).getAttribute("area[contour]"), 0.0001);
 
     } catch (FeatureExtractorException e) {
       fail();

@@ -31,9 +31,14 @@ import java.util.ArrayList;
 /**
  * The XValSpectrumPADFeatureExtractor is used to generate cross vaidated predictions of spectral pitch accent detection
  * (PAD) hypotheses.  These xval hypotheses are used in training correction classfiers.
+ * <p/>
+ * This has been deprecated because it does not conform to the AuToBI v1.4 feature naming conventions
  */
 @SuppressWarnings("unchecked")
+@Deprecated
 public class XValSpectrumPADFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "barkPred,barkPredConf,barkPredConfAcc";
+
   private final String ACCENTED_VALUE = "ACCENTED";  // the accented value
   private final String FOLD_ASSIGNMENT_FEATURE = "FOLD_ASSIGNMENT";
   // an feature to store fold assignment information on

@@ -31,8 +31,17 @@ import java.util.List;
 
 /**
  * QCMFeatureExtractor extracts QuantizedContourModel log likelihood features.
+ * <p/>
+ * This feature extractor is currently deprecated by not following the AuToBI v1.4 feature naming conventions.
+ * <p/>
+ * NOTE: The challenge here is that the QCM model itself is a retrieved resource that isn't 'created' at runtime by the
+ * by the feature extraction routine.  This suggests a resource registry that can be indexed by a string to attach a
+ * trained
+ * model.  Here resources would be registered via a config file or default paths pointing to a resource path (within
+ * the jar)  This is a strong candidate for inclusion in 1.4.1.
  */
 @SuppressWarnings("unchecked")
+@Deprecated
 public class QCMFeatureExtractor extends FeatureExtractor {
   private QuantizedContourModel qcm; // the model
   private String acoustic_feature; // the acoustic contour feature

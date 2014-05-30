@@ -33,11 +33,20 @@ import java.util.List;
  * This is a more effective route to extracting context.
  */
 public class IntensityFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "I";
 
   private String feature_name;  // the name of the feature to hold intensity information
 
+  @Deprecated
   public IntensityFeatureExtractor(String feature_name) {
     this.feature_name = feature_name;
+
+    this.required_features.add("wav");
+    this.extracted_features.add(feature_name);
+  }
+
+  public IntensityFeatureExtractor() {
+    this.feature_name = moniker;
 
     this.required_features.add("wav");
     this.extracted_features.add(feature_name);

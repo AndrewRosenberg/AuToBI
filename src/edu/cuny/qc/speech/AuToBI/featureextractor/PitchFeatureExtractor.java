@@ -36,12 +36,13 @@ import java.util.List;
  */
 @SuppressWarnings("ALL")
 public class PitchFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "f0";
 
   private String feature_name;  // the name of the feature to hold pitch information
   private double threshold;     // the intensity threshold to determine silence.
 
+  @Deprecated
   public PitchFeatureExtractor(String feature_name) {
-
     this.feature_name = feature_name;
 
     this.required_features.add("wav");
@@ -49,8 +50,25 @@ public class PitchFeatureExtractor extends FeatureExtractor {
     this.threshold = Double.NaN;
   }
 
+  public PitchFeatureExtractor() {
+    this.feature_name = moniker;
+
+    this.required_features.add("wav");
+    this.extracted_features.add(feature_name);
+    this.threshold = Double.NaN;
+  }
+
+  @Deprecated
   public PitchFeatureExtractor(String feature_name, double threshold) {
     this.feature_name = feature_name;
+
+    this.required_features.add("wav");
+    this.extracted_features.add(feature_name);
+    this.threshold = threshold;
+  }
+
+  public PitchFeatureExtractor(double threshold) {
+    this.feature_name = moniker + "[" + ((Double) threshold).toString() + "]";
 
     this.required_features.add("wav");
     this.extracted_features.add(feature_name);

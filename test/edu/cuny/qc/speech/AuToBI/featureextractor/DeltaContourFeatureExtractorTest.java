@@ -79,7 +79,7 @@ public class DeltaContourFeatureExtractorTest {
 
     List<String> features = fe.getExtractedFeatures();
 
-    assertTrue(features.contains("delta_attr"));
+    assertTrue(features.contains("delta[attr]"));
   }
 
   @Test
@@ -104,7 +104,7 @@ public class DeltaContourFeatureExtractorTest {
       DeltaContourFeatureExtractor fe = new DeltaContourFeatureExtractor("attr");
       fe.extractFeatures(regions);
 
-      assertTrue(w.hasAttribute("delta_attr"));
+      assertTrue(w.hasAttribute("delta[attr]"));
     } catch (NullPointerException e) {
       fail();
     } catch (FeatureExtractorException e) {
@@ -123,7 +123,7 @@ public class DeltaContourFeatureExtractorTest {
       DeltaContourFeatureExtractor fe = new DeltaContourFeatureExtractor("attr");
       fe.extractFeatures(regions);
 
-      Contour delta_c = (Contour) w.getAttribute("delta_attr");
+      Contour delta_c = (Contour) w.getAttribute("delta[attr]");
 
       assertEquals(6, delta_c.size());
       assertEquals(0.0, delta_c.getStart(), 0.0001);
@@ -156,8 +156,8 @@ public class DeltaContourFeatureExtractorTest {
     DeltaContourFeatureExtractor fe = new DeltaContourFeatureExtractor("attr");
     try {
       fe.extractFeatures(regions);
-      Contour delta_c = (Contour) w.getAttribute("delta_attr");
-      Contour delta_c2 = (Contour) w2.getAttribute("delta_attr");
+      Contour delta_c = (Contour) w.getAttribute("delta[attr]");
+      Contour delta_c2 = (Contour) w2.getAttribute("delta[attr]");
       assertTrue(delta_c == delta_c2);
     } catch (FeatureExtractorException e) {
       fail();

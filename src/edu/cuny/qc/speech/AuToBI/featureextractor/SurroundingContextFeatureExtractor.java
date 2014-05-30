@@ -10,14 +10,15 @@ import java.util.List;
  * File Templates.
  */
 public class SurroundingContextFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "prev,next";
 
   private String feature;  // feature to copy
 
   public SurroundingContextFeatureExtractor(String feature) {
     this.feature = feature;
     this.required_features.add(feature);
-    this.extracted_features.add(feature + "__prev");
-    this.extracted_features.add(feature + "__next");
+    this.extracted_features.add("prev[" + feature + "]");
+    this.extracted_features.add("next[" + feature + "]");
   }
 
   @Override
@@ -26,12 +27,12 @@ public class SurroundingContextFeatureExtractor extends FeatureExtractor {
       Region r = (Region) regions.get(i);
       if (i != 0) {
         if (((Region) regions.get(i - 1)).hasAttribute(feature)) {
-          r.setAttribute(feature + "__prev", ((Region) regions.get(i - 1)).getAttribute(feature));
+          r.setAttribute("prev[" + feature + "]", ((Region) regions.get(i - 1)).getAttribute(feature));
         }
       }
       if (i != regions.size() - 1) {
         if (((Region) regions.get(i + 1)).hasAttribute(feature)) {
-          r.setAttribute(feature + "__next", ((Region) regions.get(i + 1)).getAttribute(feature));
+          r.setAttribute("next[" + feature + "]", ((Region) regions.get(i + 1)).getAttribute(feature));
         }
       }
     }

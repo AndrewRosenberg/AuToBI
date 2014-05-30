@@ -40,7 +40,7 @@ public class LogContourFeatureExtractorTest {
 
   @Test
   public void testConstructorSetsExtractedFeaturesCorrectly() {
-    LogContourFeatureExtractor fe = new LogContourFeatureExtractor("I", "log_I");
+    LogContourFeatureExtractor fe = new LogContourFeatureExtractor("I");
 
     assertEquals(1, fe.getRequiredFeatures().size());
     assertTrue(fe.getRequiredFeatures().contains("I"));
@@ -48,15 +48,15 @@ public class LogContourFeatureExtractorTest {
 
   @Test
   public void testConstructorSetsRequiredFeaturesCorrectly() {
-    LogContourFeatureExtractor fe = new LogContourFeatureExtractor("I", "log_I");
+    LogContourFeatureExtractor fe = new LogContourFeatureExtractor("I");
 
     assertEquals(1, fe.getExtractedFeatures().size());
-    assertTrue(fe.getExtractedFeatures().contains("log_I"));
+    assertTrue(fe.getExtractedFeatures().contains("log[I]"));
   }
 
   @Test
   public void testExtractFeaturesExtractsFeatures() {
-    LogContourFeatureExtractor fe = new LogContourFeatureExtractor("I", "log_I");
+    LogContourFeatureExtractor fe = new LogContourFeatureExtractor("I");
 
     List<Region> regions = new ArrayList<Region>();
     Word w = new Word(0, 1, "testing");
@@ -65,7 +65,7 @@ public class LogContourFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertTrue(w.hasAttribute("log_I"));
+      assertTrue(w.hasAttribute("log[I]"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -74,7 +74,7 @@ public class LogContourFeatureExtractorTest {
 
   @Test
   public void testExtractFeaturesExtractsFeaturesCorrectly() {
-    LogContourFeatureExtractor fe = new LogContourFeatureExtractor("I", "log_I");
+    LogContourFeatureExtractor fe = new LogContourFeatureExtractor("I");
 
     List<Region> regions = new ArrayList<Region>();
     Word w = new Word(0, 1, "testing");
@@ -83,7 +83,7 @@ public class LogContourFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      Contour c = (Contour) w.getAttribute("log_I");
+      Contour c = (Contour) w.getAttribute("log[I]");
       assertEquals(2, c.size());
       assertEquals(Math.log(0.1), c.get(0));
       assertEquals(Math.log(0.5), c.get(1));
@@ -94,7 +94,7 @@ public class LogContourFeatureExtractorTest {
 
   @Test
   public void testExtractFeaturesAssignsTheSameObjectToSubsequentRegions() {
-    LogContourFeatureExtractor fe = new LogContourFeatureExtractor("I", "log_I");
+    LogContourFeatureExtractor fe = new LogContourFeatureExtractor("I");
 
     Contour c = new Contour(0, 0.01, new double[]{0.1, 0.5});
     List<Region> regions = new ArrayList<Region>();
@@ -107,7 +107,7 @@ public class LogContourFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertTrue(w.getAttribute("log_I") == w2.getAttribute("log_I"));
+      assertTrue(w.getAttribute("log[I]") == w2.getAttribute("log[I]"));
     } catch (FeatureExtractorException e) {
       e.printStackTrace();
     }

@@ -19,13 +19,11 @@
  */
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
-import edu.cuny.qc.speech.AuToBI.core.ContextDesc;
 import edu.cuny.qc.speech.AuToBI.core.FeatureExtractor;
 import edu.cuny.qc.speech.AuToBI.core.Region;
 import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
 
 import java.util.List;
-import java.util.ArrayList;
 
 /**
  * DurationFeatureExtractor extracts features related to the length of the regions.
@@ -36,38 +34,21 @@ import java.util.ArrayList;
  * TODO: This behavior should almost certainly be refactored into a broader set of feature extractors
  */
 public class DurationFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "duration,prevPause,follPause,nominal_followsSilence,nominal_precedesSilence";
+
   // Gaps between regions greater than this length are considered silent.
   private static final Double SILENCE_THRESHOLD = 0.01;
-
-  // The context regions to use for normalization.
-  private List<ContextDesc> contexts;
 
   /**
    * Constructs a DurationFeatureExtractor.
    */
   public DurationFeatureExtractor() {
     super();
-
-    contexts = new ArrayList<ContextDesc>();
-    contexts.add(new ContextDesc("f2b2", 2, 2));
-    contexts.add(new ContextDesc("f2b1", 2, 1));
-    contexts.add(new ContextDesc("f2b0", 2, 0));
-    contexts.add(new ContextDesc("f1b2", 1, 2));
-    contexts.add(new ContextDesc("f0b2", 0, 2));
-    contexts.add(new ContextDesc("f0b1", 0, 1));
-    contexts.add(new ContextDesc("f1b0", 1, 0));
-    contexts.add(new ContextDesc("f1b1", 1, 1));
-
-    extracted_features.add("duration__duration");
-    extracted_features.add("duration__prevPause");
-    extracted_features.add("duration__follPause");
+    extracted_features.add("duration");
+    extracted_features.add("prevPause");
+    extracted_features.add("follPause");
     extracted_features.add("nominal_followsSilence");
     extracted_features.add("nominal_precedesSilence");
-
-    for (ContextDesc context : contexts) {
-      extracted_features.add("duration__duration_" + context.getLabel() + "__zNorm");
-      extracted_features.add("duration__duration_" + context.getLabel() + "__rNorm");
-    }
   }
 
   /**
@@ -77,7 +58,6 @@ public class DurationFeatureExtractor extends FeatureExtractor {
    * @throws FeatureExtractorException if the regions overlap
    */
   public void extractFeatures(List data_points) throws FeatureExtractorException {
-    String feature_prefix = "duration__";
 
     Double previous_pause;
     Double following_pause;
@@ -116,10 +96,9 @@ public class DurationFeatureExtractor extends FeatureExtractor {
 
       Region region = (Region) data_points.get(i);
 
-      region.setAttribute(feature_prefix + "duration", (
-          region.getEnd() - region.getStart()));
-      region.setAttribute(feature_prefix + "prevPause", previous_pause);
-      region.setAttribute(feature_prefix + "follPause", following_pause);
+      region.setAttribute("duration", (region.getEnd() - region.getStart()));
+      region.setAttribute("prevPause", previous_pause);
+      region.setAttribute("follPause", following_pause);
       if (following_pause > SILENCE_THRESHOLD) {
         region.setAttribute("nominal_precedesSilence", "TRUE");
       } else {
@@ -130,11 +109,6 @@ public class DurationFeatureExtractor extends FeatureExtractor {
       } else {
         region.setAttribute("nominal_followsSilence", "FALSE");
       }
-    }
-
-    for (ContextDesc c : contexts) {
-      ContextNormalizedFeatureExtractor cnfe = new ContextNormalizedFeatureExtractor(feature_prefix + "duration", c);
-      cnfe.extractFeatures(data_points);
     }
   }
 }

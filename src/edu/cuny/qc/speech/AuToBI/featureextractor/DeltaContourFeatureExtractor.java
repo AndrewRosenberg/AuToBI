@@ -33,6 +33,7 @@ import java.util.List;
  * @see Contour
  */
 public class DeltaContourFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "delta";
   private String attribute_name;  // the attribute name to construct a delta contour from
 
   /**
@@ -53,7 +54,7 @@ public class DeltaContourFeatureExtractor extends FeatureExtractor {
     this.attribute_name = attribute_name;
     required_features.add(attribute_name);
 
-    extracted_features.add("delta_" + attribute_name);
+    extracted_features.add("delta[" + attribute_name + "]");
   }
 
   /**
@@ -70,10 +71,10 @@ public class DeltaContourFeatureExtractor extends FeatureExtractor {
       if (r.hasAttribute(attribute_name)) {
         Contour c = (Contour) r.getAttribute(attribute_name);
         if (cache.containsKey(c)) {
-          r.setAttribute("delta_" + attribute_name, cache.get(c));
+          r.setAttribute("delta[" + attribute_name + "]", cache.get(c));
         } else {
           Contour delta_contour = ContourUtils.generateDeltaContour(c);
-          r.setAttribute("delta_" + attribute_name, delta_contour);
+          r.setAttribute("delta[" + attribute_name + "]", delta_contour);
           cache.put(c, delta_contour);
         }
       }

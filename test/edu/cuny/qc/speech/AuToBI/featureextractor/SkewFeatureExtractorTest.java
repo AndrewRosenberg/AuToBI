@@ -47,32 +47,32 @@ public class SkewFeatureExtractorTest {
   @Test
   public void testConstructorSetsExtractedFeaturesCorrectly() {
     assertEquals(2, fe.getExtractedFeatures().size());
-    assertTrue(fe.getExtractedFeatures().contains("f0I__skew_amp"));
-    assertTrue(fe.getExtractedFeatures().contains("f0I__skew_dur"));
+    assertTrue(fe.getExtractedFeatures().contains("skewAmp[f0,I]"));
+    assertTrue(fe.getExtractedFeatures().contains("skewDur[f0,I]"));
   }
 
   @Test
   public void testConstructorSetsRequiredFeaturesCorrectly() {
     assertEquals(4, fe.getRequiredFeatures().size());
-    assertTrue(fe.getRequiredFeatures().contains("I__tilt_amp"));
-    assertTrue(fe.getRequiredFeatures().contains("I__tilt_dur"));
-    assertTrue(fe.getRequiredFeatures().contains("f0__tilt_amp"));
-    assertTrue(fe.getRequiredFeatures().contains("f0__tilt_dur"));
+    assertTrue(fe.getRequiredFeatures().contains("tiltAmp[I]"));
+    assertTrue(fe.getRequiredFeatures().contains("tiltDur[I]"));
+    assertTrue(fe.getRequiredFeatures().contains("tiltAmp[f0]"));
+    assertTrue(fe.getRequiredFeatures().contains("tiltDur[f0]"));
   }
 
   @Test
   public void testExtractFeaturesExtractsFeatures() {
     Word w = new Word(0, 1, "test");
-    w.setAttribute("I__tilt_amp", 1.0);
-    w.setAttribute("I__tilt_dur", 2.0);
-    w.setAttribute("f0__tilt_amp", 3.0);
-    w.setAttribute("f0__tilt_dur", 4.0);
+    w.setAttribute("tiltAmp[I]", 1.0);
+    w.setAttribute("tiltDur[I]", 2.0);
+    w.setAttribute("tiltAmp[f0]", 3.0);
+    w.setAttribute("tiltDur[f0]", 4.0);
     regions.add(w);
 
     try {
       fe.extractFeatures(regions);
-      assertTrue(w.hasAttribute("f0I__skew_amp"));
-      assertTrue(w.hasAttribute("f0I__skew_dur"));
+      assertTrue(w.hasAttribute("skewAmp[f0,I]"));
+      assertTrue(w.hasAttribute("skewDur[f0,I]"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -81,16 +81,16 @@ public class SkewFeatureExtractorTest {
   @Test
   public void testExtractFeaturesExtractsFeaturesCorrectly() {
     Word w = new Word(0, 1, "test");
-    w.setAttribute("I__tilt_amp", 1.0);
-    w.setAttribute("I__tilt_dur", 2.0);
-    w.setAttribute("f0__tilt_amp", 3.0);
-    w.setAttribute("f0__tilt_dur", 5.0);
+    w.setAttribute("tiltAmp[I]", 1.0);
+    w.setAttribute("tiltDur[I]", 2.0);
+    w.setAttribute("tiltAmp[f0]", 3.0);
+    w.setAttribute("tiltDur[f0]", 5.0);
     regions.add(w);
 
     try {
       fe.extractFeatures(regions);
-      assertEquals(2.0, (Double) w.getAttribute("f0I__skew_amp"), 0.0001);
-      assertEquals(3.0, (Double) w.getAttribute("f0I__skew_dur"), 0.0001);
+      assertEquals(2.0, (Double) w.getAttribute("skewAmp[f0,I]"), 0.0001);
+      assertEquals(3.0, (Double) w.getAttribute("skewDur[f0,I]"), 0.0001);
     } catch (FeatureExtractorException e) {
       fail();
     }

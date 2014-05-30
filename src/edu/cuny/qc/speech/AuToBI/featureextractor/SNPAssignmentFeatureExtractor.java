@@ -33,6 +33,7 @@ import java.util.List;
  * normalization.
  */
 public class SNPAssignmentFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "spkrNormParamsFromFile";
 
   private String destination_feature;  // The name of the feature to store the SNPs on
   private String speaker_id_feature; // The name of the speaker identifier feature
@@ -53,13 +54,12 @@ public class SNPAssignmentFeatureExtractor extends FeatureExtractor {
    * the stored speaker_id parameter on the parameterization files with those set by the Reader when the regions are
    * constructed.
    *
-   * @param destination_feature The attribute name to hold the SNP
-   * @param speaker_id_feature  The attribute containing the speaker identifier
-   * @param snp_files           the serialized SNP files to load
-   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException
-   *          If speaker id feature is null and there are more snp files set
+   * @param speaker_id_feature The attribute containing the speaker identifier
+   * @param snp_files          the serialized SNP files to load
+   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException If speaker id feature is null and there are more snp
+   *                                                        files set
    */
-  public SNPAssignmentFeatureExtractor(String destination_feature, String speaker_id_feature, List<String> snp_files)
+  public SNPAssignmentFeatureExtractor(String speaker_id_feature, List<String> snp_files)
       throws AuToBIException {
 
     if (snp_files.size() > 1 && speaker_id_feature == null) {
@@ -68,7 +68,7 @@ public class SNPAssignmentFeatureExtractor extends FeatureExtractor {
     }
 
     this.speaker_id_feature = speaker_id_feature;
-    this.destination_feature = destination_feature;
+    this.destination_feature = moniker;
     this.extracted_features.add(destination_feature);
 
     if (speaker_id_feature == null) {

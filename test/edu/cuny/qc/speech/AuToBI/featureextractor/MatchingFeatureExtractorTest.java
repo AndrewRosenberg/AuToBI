@@ -40,14 +40,14 @@ public class MatchingFeatureExtractorTest {
 
   @Before
   public void setUp() throws Exception {
-    fe = new MatchingFeatureExtractor("first", "second", "dest");
+    fe = new MatchingFeatureExtractor("first", "second");
     regions = new ArrayList<Region>();
   }
 
   @Test
   public void testConstructorSetsExtractedFeaturesCorrectly() {
     assertEquals(1, fe.getExtractedFeatures().size());
-    assertTrue(fe.getExtractedFeatures().contains("dest"));
+    assertTrue(fe.getExtractedFeatures().contains("matching[first,second]"));
   }
 
   @Test
@@ -66,7 +66,7 @@ public class MatchingFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertTrue(w.hasAttribute("dest"));
+      assertTrue(w.hasAttribute("matching[first,second]"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -86,8 +86,8 @@ public class MatchingFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertEquals("INCORRECT", w.getAttribute("dest"));
-      assertEquals("CORRECT", w2.getAttribute("dest"));
+      assertEquals("INCORRECT", w.getAttribute("matching[first,second]"));
+      assertEquals("CORRECT", w2.getAttribute("matching[first,second]"));
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -106,8 +106,8 @@ public class MatchingFeatureExtractorTest {
 
     try {
       fe.extractFeatures(regions);
-      assertFalse("Word has a constructed attribute when it shouldn't", w.hasAttribute("dest"));
-      assertEquals("CORRECT", w2.getAttribute("dest"));
+      assertFalse("Word has a constructed attribute when it shouldn't", w.hasAttribute("matching[first,second]"));
+      assertEquals("CORRECT", w2.getAttribute("matching[first,second]"));
     } catch (FeatureExtractorException e) {
       fail();
     }

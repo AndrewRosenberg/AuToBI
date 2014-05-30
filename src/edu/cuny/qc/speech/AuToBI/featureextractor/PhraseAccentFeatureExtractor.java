@@ -32,6 +32,7 @@ import java.util.List;
  * @see FeatureExtractor
  */
 public class PhraseAccentFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "nominal_PhraseAccent";
   private String feature;
 
   /**
@@ -39,8 +40,14 @@ public class PhraseAccentFeatureExtractor extends FeatureExtractor {
    *
    * @param feature the feature name to store the extracted values in.
    */
+  @Deprecated
   public PhraseAccentFeatureExtractor(String feature) {
     this.feature = feature;
+    extracted_features.add(feature);
+  }
+
+  public PhraseAccentFeatureExtractor() {
+    this.feature = moniker;
     extracted_features.add(feature);
   }
 

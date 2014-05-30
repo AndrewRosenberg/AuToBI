@@ -2,6 +2,7 @@ package edu.cuny.qc.speech.AuToBI.featureextractor;
 
 import edu.cuny.qc.speech.AuToBI.core.FeatureExtractor;
 import edu.cuny.qc.speech.AuToBI.core.Region;
+
 import java.util.List;
 
 /**
@@ -10,23 +11,26 @@ import java.util.List;
  */
 @SuppressWarnings("unchecked")
 public class HighLowDifferenceFeatureExtractor extends FeatureExtractor {
+  public static final String moniker = "highLowDiff";
   private String feature; // the name of the feature name
 
   public HighLowDifferenceFeatureExtractor(String feature) {
     this.feature = feature;
-    this.required_features.add(feature + "__highGP");
-    this.required_features.add(feature + "__lowGP");
+    this.required_features.add("highGP[" + feature + "]");
+    this.required_features.add("lowGP[" + feature + "]");
 
-    this.extracted_features.add(feature + "__highLowDiff");
+    this.extracted_features.add("highLowDiff[" + feature + "]");
   }
 
 
   @Override
   public void extractFeatures(List regions) throws FeatureExtractorException {
     for (Region r : (List<Region>) regions) {
-      GParam lowgp = (GParam) r.getAttribute(feature + "__lowGP");
-      GParam highgp = (GParam) r.getAttribute(feature + "__highGP");
-      r.setAttribute(feature + "__highLowDiff", highgp.mean - lowgp.mean);
+      if (r.hasAttribute("lowGP[" + feature + "]") && r.hasAttribute("highGP[" + feature + "]")) {
+        GParam lowgp = (GParam) r.getAttribute("lowGP[" + feature + "]");
+        GParam highgp = (GParam) r.getAttribute("highGP[" + feature + "]");
+        r.setAttribute("highLowDiff[" + feature + "]", highgp.mean - lowgp.mean);
+      }
     }
   }
 }

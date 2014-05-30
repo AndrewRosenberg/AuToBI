@@ -32,6 +32,7 @@ import java.util.List;
  * @see edu.cuny.qc.speech.AuToBI.core.FeatureExtractor
  */
 @SuppressWarnings("unchecked")
+@Deprecated
 public class SubregionWrappedFeatureExtractor extends FeatureExtractor {
 
   private FeatureExtractor fe;  // the Wrapped feature extractor
