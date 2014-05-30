@@ -1400,7 +1400,7 @@ public class AuToBI {
       }
 
       if (hasParameter("out_file")) {
-//        AuToBIUtils.mergeAuToBIHypotheses(this, words);
+        AuToBIUtils.mergeAuToBIHypotheses(this, words);
         String hypothesis_file = getParameter("out_file");
         AuToBIUtils.info("Writing hypotheses to " + hypothesis_file);
         writeTextGrid(words, hypothesis_file);
