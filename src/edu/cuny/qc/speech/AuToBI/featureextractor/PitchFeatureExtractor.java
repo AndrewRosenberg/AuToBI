@@ -20,7 +20,7 @@
 package edu.cuny.qc.speech.AuToBI.featureextractor;
 
 import edu.cuny.qc.speech.AuToBI.IntensityExtractor;
-import edu.cuny.qc.speech.AuToBI.PitchExtractor;
+import edu.cuny.qc.speech.AuToBI.RAPTPitchExtractor;
 import edu.cuny.qc.speech.AuToBI.core.*;
 import edu.cuny.qc.speech.AuToBI.util.ContourUtils;
 
@@ -92,8 +92,9 @@ public class PitchFeatureExtractor extends FeatureExtractor {
       }
 
       for (WavData wav : wave_region_map.keySet()) {
-        PitchExtractor extractor = new PitchExtractor(wav);
-        Contour pitch_contour = extractor.soundToPitch();
+//        PitchExtractor extractor = new PitchExtractor(wav);
+        RAPTPitchExtractor extractor = new RAPTPitchExtractor();
+        Contour pitch_contour = extractor.getPitch(wav);
         if (!Double.isNaN(threshold)) {
           // Interpolate over non-silent regions
           IntensityExtractor int_extractor = new IntensityExtractor(wav);

@@ -4,7 +4,7 @@ package edu.cuny.qc.speech.AuToBI.core;
  * PitchContour operates like a standard Contour object for the purposes of storing f0 values, but includes another
  * aligned stream of information to access the voicing confidence from the pitch tracking algorithm.
  *
- * @see edu.cuny.qc.speech.AuToBI.PitchExtractor
+ * @see edu.cuny.qc.speech.AuToBI.RAPTPitchExtractor
  */
 public class PitchContour extends Contour {
   protected double[] strengths;  //

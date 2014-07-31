@@ -708,7 +708,8 @@ public class AuToBI {
     }
 
     // initialize moniker map and feature registry here.
-    // initialization internally leads to a race condition.
+    // initialization within the threadpool leads to a race condition.
+    // possible_todo: make the feature registry initialization threadsafe for initialization in FeatureSetPropagator
     initializeFeatureRegistry(fs);
 
     ExecutorService threadpool = newFixedThreadPool(Integer.parseInt(getOptionalParameter("num_threads", "1")));
@@ -757,6 +758,22 @@ public class AuToBI {
     threadpool.shutdown();
 
     fs.constructFeatures();
+
+    if (hasParameter("arff_file")) {
+      try {
+        fs.writeArff(getParameter("arff_file"), "AuToBIGenerated");
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+
+    if (hasParameter("liblinear_file")) {
+      try {
+        fs.writeLibLinear(getParameter("liblinear_file"));
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
   }
 
   /**
@@ -947,35 +964,15 @@ public class AuToBI {
   /**
    * Registers a large default set of feature extractors.
    *
+   * This method has been deprecated.  The feature registration is no longer propagated "manually"
+   * by the user or AuToBI.  Rather, reflection is used to identify the available feature extractors
+   * in a package.  The features are registered by the member variable, "moniker".
+   *
    * @throws FeatureExtractorException If there is a problem registering (not running) feature extractors.
    */
   @Deprecated
   public void registerAllFeatureExtractors()
       throws FeatureExtractorException {
-
-    /** TODO: This approach needs to be rethought.  As AuToBI's capabilities are increased, this function grows, and the
-     * size of the "default" feature registry increases.
-     *
-     * There are two approaches that seem possible:
-     * 1. Move this functionality to a config file.  Only those feature extractors that are in the config file are
-     * constructed and registered.  However, this won't help the issue of a cumbersome feature registry.
-     *
-     * 2. On-demand feature registry propagation.  The idea here would be that you would need to know which
-     * features can be extracted from which feature extractor.  But this information can be stored in a config file.
-     * Rather than constructing objects for every possible feature extractor, at extraction time, read the mapping of
-     * feature names and FeatureExtractor object names (and parameters).  "Register" each of those feature extractors
-     * that are needed -- and recurse up the required features dependency graph.  The run feature extraction as usual.
-     *
-     * This will keep the registry small, though there is more overhead when you read the config file.  The other issue
-     * is how is config file gets propagated.  Can it be done automatically? or does the author of a new feature
-     * extractor
-     * need to write it manually?  Or one better, can we scan the featureextractor contents in memory?  This last
-     * step is
-     * a reach goal and will need to be a part of the next version.  I believe that it will require a more precise
-     * templating
-     * of derived feature names.  This will require re-writing a lot of the feature extractors.  While worth it, this
-     * will take some person hours.  Possibly a good idea though.
-     */
     registerNullFeatureExtractor("wav");
     String[] acoustic_features = new String[]{"f0", "log_f0", "I"};
 
@@ -1214,7 +1211,7 @@ public class AuToBI {
       PitchAccentDetectionClassifierCollection pacc;
 
       /**
-       * TODO: this shouldn't happen here.  This ensemble classifier should be an AuToBI classifier that is
+       * this shouldn't happen here.  This ensemble classifier should be an AuToBI classifier that is
        * loaded from a special case pitch accent detection AuToBITask
        */
       // Load PitchAccentDetectionClassifierCollection
@@ -1378,7 +1375,8 @@ public class AuToBI {
           autobi_fs.insertRequiredFeature(dist_feature);
         }
         if (hasParameter("arff_file")) {
-          // If a user is writing the features to an arff file, make the classification features "required" so
+          // If a user is writing the features to an arff file, make the features used in any classification
+          // "required" so
           // they persist.
           for (String s : fs.getRequiredFeatures()) {
             autobi_fs.insertRequiredFeature(s);
@@ -1386,7 +1384,9 @@ public class AuToBI {
         }
         autobi_fs.insertRequiredFeature(fs.getClassAttribute());
       }
-
+      // AR: why not use the feature set propagator here?  move the reader information down here after constructing a
+      // big autobi_fs feature set including all of the extracted features.  This will simplify the code and unify
+      // AuToBI, AuToBITrainer and AuToBITrainTest a little more
       extractFeatures(autobi_fs);
       autobi_fs.constructFeatures();
 

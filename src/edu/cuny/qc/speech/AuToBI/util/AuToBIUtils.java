@@ -23,21 +23,17 @@ import java.util.*;
 import java.io.File;
 import java.io.FilenameFilter;
 
+import de.bwaldvogel.liblinear.SolverType;
 import edu.cuny.qc.speech.AuToBI.AuToBI;
-import edu.cuny.qc.speech.AuToBI.classifier.ClassWeightedLibLinear;
-import edu.cuny.qc.speech.AuToBI.classifier.ClassWeightedWekaClassifier;
-import edu.cuny.qc.speech.AuToBI.classifier.WekaClassifier;
+import edu.cuny.qc.speech.AuToBI.classifier.LibLinearClassifier;
 import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
 import edu.cuny.qc.speech.AuToBI.core.AuToBIParameters;
 import edu.cuny.qc.speech.AuToBI.core.AuToBITask;
 import edu.cuny.qc.speech.AuToBI.core.Word;
 import edu.cuny.qc.speech.AuToBI.featureset.*;
 import org.apache.oro.io.GlobFilenameFilter;
-import weka.classifiers.functions.Logistic;
 
 import org.apache.log4j.Logger;
-import weka.classifiers.meta.AdaBoostM1;
-import weka.classifiers.trees.RandomForest;
 
 /**
  * Stores general utility functions for AuToBI.
@@ -421,11 +417,11 @@ public class AuToBIUtils {
         params.setParameter("phrase_accent_classification",
             params.getParameter("phrase_accent_classifier"));
       }
-      if (params.hasParameter("boundary_tone_classifier")) {
+      if (params.hasParameter("phrase_accent_boundary_tone_classifier")) {
         map.put("phrase_accent_boundary_tone_classification", getPABTClassificationTask(
             serialized ? params.getParameter("boundary_tone_classifier") : null));
         params.setParameter("phrase_accent_boundary_tone_classification",
-            params.getParameter("boundary_tone_classifier"));
+            params.getParameter("phrase_accent_boundary_tone_classifier"));
       }
 
     } catch (AuToBIException e) {
@@ -447,7 +443,8 @@ public class AuToBIUtils {
     if (filename != null) {
       task.setClassifier(ClassifierUtils.readAuToBIClassifier(filename));
     } else {
-      task.setClassifier(new ClassWeightedWekaClassifier(new Logistic()));
+      // Formerly class weighted weka logistic.
+      task.setClassifier(new LibLinearClassifier(true));
     }
     String hyp = "hyp_pitch_accent_location";
     task.setHypFeature(hyp);
@@ -471,7 +468,8 @@ public class AuToBIUtils {
     if (filename != null) {
       task.setClassifier(ClassifierUtils.readAuToBIClassifier(filename));
     } else {
-      task.setClassifier(new ClassWeightedWekaClassifier(new AdaBoostM1()));
+      // Formerly class weighted weka Ada Boost.
+      task.setClassifier(new LibLinearClassifier(SolverType.L2R_LR, false));
     }
     String hyp = "hyp_pitch_accent_type";
     task.setHypFeature(hyp);
@@ -493,7 +491,8 @@ public class AuToBIUtils {
     if (filename != null) {
       task.setClassifier(ClassifierUtils.readAuToBIClassifier(filename));
     } else {
-      task.setClassifier(new WekaClassifier(new Logistic()));
+      // Formerly weka logistic
+      task.setClassifier(new LibLinearClassifier());
     }
     String hyp = "hyp_intonational_phrase_boundary";
     task.setHypFeature(hyp);
@@ -515,8 +514,8 @@ public class AuToBIUtils {
     if (filename != null) {
       task.setClassifier(ClassifierUtils.readAuToBIClassifier(filename));
     } else {
-      task.setClassifier(new ClassWeightedLibLinear());
-//      task.setClassifier(new ClassWeightedWekaClassifier(new Logistic()));
+      // Formerly class weighted weka logistic
+      task.setClassifier(new LibLinearClassifier());
     }
     String hyp = "hyp_intermediate_phrase_boundary";
     task.setHypFeature(hyp);
@@ -538,7 +537,8 @@ public class AuToBIUtils {
     if (filename != null) {
       task.setClassifier(ClassifierUtils.readAuToBIClassifier(filename));
     } else {
-      task.setClassifier(new ClassWeightedWekaClassifier(new RandomForest()));
+//      task.setClassifier(new ClassWeightedWekaClassifier(new RandomForest()));
+      task.setClassifier(new LibLinearClassifier());
     }
     String hyp = "hyp_phrase_accent";
     task.setHypFeature(hyp);
@@ -560,7 +560,8 @@ public class AuToBIUtils {
     if (filename != null) {
       task.setClassifier(ClassifierUtils.readAuToBIClassifier(filename));
     } else {
-      task.setClassifier(new WekaClassifier(new RandomForest()));
+//      task.setClassifier(new WekaClassifier(new RandomForest()));
+      task.setClassifier(new LibLinearClassifier());
     }
     String hyp = "hyp_phrase_accent_boundary_tone";
     task.setHypFeature(hyp);

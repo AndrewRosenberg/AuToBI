@@ -41,8 +41,8 @@ public class AuToBITrainTest {
         try {
 
           // Tone classification tasks ignore those points that do not have any associated prosodic event
-          if (task_label.equals("phrase_accent_classification")) {
-            autobi.getParameters().setParameter("attribute_omit", "nominal_PitchAccentType:NOTONE");
+          if (task_label.equals("pitch_accent_classification")) {
+            autobi.getParameters().setParameter("attribute_omit", "nominal_PitchAccentType:NOACCENT");
           } else if (task_label.equals("phrase_accent_boundary_tone_classification")) {
             autobi.getParameters().setParameter("attribute_omit", "nominal_PhraseAccentBoundaryTone:NOTONE");
           } else if (task_label.equals("phrase_accent_classification")) {
@@ -63,6 +63,14 @@ public class AuToBITrainTest {
         FeatureSet testing_fs = task.getFeatureSet().newInstance();
         testing_fs.getDataPoints().clear();
         autobi.propagateFeatureSet(testing_files, testing_fs);
+
+        if (autobi.hasParameter("testing_arff_file")) {
+          testing_fs.writeArff(autobi.getParameter("testing_arff_file"), "AuToBIGenerated");
+        }
+
+        if (autobi.hasParameter("testing_liblinear_file")) {
+          testing_fs.writeLibLinear(autobi.getParameter("testing_liblinear_file"));
+        }
 
         // writing model file
         AuToBIUtils.log("writing model to: " + autobi.getParameter(task_label));
@@ -98,6 +106,8 @@ public class AuToBITrainTest {
     } catch (IllegalAccessException e) {
       e.printStackTrace();
     } catch (InvocationTargetException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
       e.printStackTrace();
     }
   }

@@ -19,6 +19,8 @@
  */
 package edu.cuny.qc.speech.AuToBI.util;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import de.bwaldvogel.liblinear.*;
 import edu.cuny.qc.speech.AuToBI.classifier.AuToBIClassifier;
 import edu.cuny.qc.speech.AuToBI.classifier.WeightFunction;
@@ -424,7 +426,7 @@ public class ClassifierUtils {
     int i = 0;
     for (Word w : feature_set.getDataPoints()) {
       String s = w.getAttribute(class_attribute).toString();
-      labels[i] = java.util.Arrays.asList(class_values).indexOf(s);
+      labels[i] = java.util.Arrays.asList(class_values).indexOf(s) + 1;
       i++;
     }
     return labels;
@@ -434,27 +436,56 @@ public class ClassifierUtils {
    * Converts a FeatureSet to a list of LibLinear Feature[] descriptions.
    *
    * @param feature_set the feature set to convert
+   * @param feature_map a map of features to indices
    * @return a list of Feature[] descriptions.
    */
-  public static de.bwaldvogel.liblinear.Feature[][] convertFeatureSetToLibLinearFeatures(FeatureSet feature_set) throws
+  public static de.bwaldvogel.liblinear.Feature[][] convertFeatureSetToLibLinearFeatures(FeatureSet feature_set,
+                                                                                         HashBiMap<Feature,
+                                                                                             Integer> feature_map)
+      throws
       AuToBIException {
     int n = feature_set.getDataPoints().size();
     de.bwaldvogel.liblinear.Feature[][] features = new de.bwaldvogel.liblinear.Feature[n][];
     int i = 0;
     for (Word w : feature_set.getDataPoints()) {
-      features[i] = convertWordToLibLinearFeatures(w, feature_set.getFeatures());
+      features[i] = convertWordToLibLinearFeatures(w, feature_map);
       i++;
     }
 
     return features;
   }
 
-  public static de.bwaldvogel.liblinear.Feature[] convertWordToLibLinearFeatures(Word w, Set<Feature> features) throws
+  /**
+   * Converts a FeatureSet to a list of LibLinear Feature[] descriptions.
+   *
+   * @param feature_set the feature set to convert
+   * @return a list of Feature[] descriptions.
+   */
+  public static de.bwaldvogel.liblinear.Feature[][] convertFeatureSetToLibLinearFeatures(FeatureSet feature_set)
+      throws
+      AuToBIException {
+
+    HashBiMap<Feature, Integer> feature_map = HashBiMap.create();
+    int i = 1;
+    for (Feature f : feature_set.getFeatures()) {
+      feature_map.put(f, i);
+      i++;
+    }
+
+    return convertFeatureSetToLibLinearFeatures(feature_set, feature_map);
+  }
+
+  public static de.bwaldvogel.liblinear.Feature[] convertWordToLibLinearFeatures(Word w,
+                                                                                 HashBiMap<Feature,
+                                                                                     Integer> feature_map) throws
       AuToBIException {
 
     ArrayList<FeatureNode> fs = new ArrayList<FeatureNode>();
-    int i = 1;
-    for (Feature feature : features) {
+
+    BiMap<Integer, Feature> map_feature = feature_map.inverse();
+
+    for (int i = 1; i < feature_map.size(); i++) {
+      Feature feature = map_feature.get(i);
       if (w.hasAttribute(feature.getName())) {
         if (feature.isString()) {
           throw new AuToBIException("Feature, " + feature.getName() +
@@ -469,46 +500,104 @@ public class ClassifierUtils {
           }
         }
       }
-      i++;
     }
 
     return fs.toArray(new de.bwaldvogel.liblinear.Feature[fs.size()]);
   }
 
   /**
-   * Normalizes features so they have 0 mean and unit variance.
+   * Normalizes features using precomputed statistics to 0 mean and unit variance.
    *
-   * @param features input (unscaled) features
+   * @param features    input (unscaled) features
+   * @param feature_map a map of features to indices
    * @return normalized features
    */
   public static de.bwaldvogel.liblinear.Feature[][] normalizeLibLinearFeatures(
-      de.bwaldvogel.liblinear.Feature[][] features) {
+      de.bwaldvogel.liblinear.Feature[][] features, BiMap<Integer, Feature> feature_map,
+      HashMap<String, Aggregation> norm_params) {
 
-    HashMap<Integer, Aggregation> f_params = new HashMap<Integer, Aggregation>();
-
-    for (de.bwaldvogel.liblinear.Feature[] f : features) {
-      for (de.bwaldvogel.liblinear.Feature fn : f) {
-        if (!f_params.containsKey(fn.getIndex())) {
-          f_params.put(fn.getIndex(), new Aggregation());
-        }
-        f_params.get(fn.getIndex()).insert(fn.getValue());
-      }
-    }
     de.bwaldvogel.liblinear.Feature[][] f_out = features.clone();
 
-    for (de.bwaldvogel.liblinear.Feature[] f : f_out) {
-      for (de.bwaldvogel.liblinear.Feature fn : f) {
-        Aggregation agg = f_params.get(fn.getIndex());
+    int i = 0;
+    for (de.bwaldvogel.liblinear.Feature[] f : features) {
+      f_out[i] = normalizeLibLinearFeatures(f, feature_map, norm_params);
+      i++;
+    }
+
+    return f_out;
+  }
+
+  /**
+   * Normalizes features so they have 0 mean and unit variance.
+   *
+   * @param features    input (unscaled) features
+   * @param feature_map a map of features to indices
+   * @return normalized features
+   */
+  public static de.bwaldvogel.liblinear.Feature[] normalizeLibLinearFeatures(
+      de.bwaldvogel.liblinear.Feature[] features, BiMap<Integer, Feature> feature_map,
+      HashMap<String, Aggregation> norm_params) {
+
+    de.bwaldvogel.liblinear.Feature[] f_out = features.clone();
+
+    for (de.bwaldvogel.liblinear.Feature fn : f_out) {
+      if (!feature_map.containsKey(fn.getIndex())) {
+        fn.setValue(0);
+      } else {
+        Aggregation agg = norm_params.get(feature_map.get(fn.getIndex()).getName());
         if (agg.getSize() < 2) {
           fn.setValue(0);
         } else {
           double u = agg.getMean();
           double sd = agg.getStdev();
           fn.setValue((fn.getValue() - u) / sd);
+          if (Double.isNaN(fn.getValue())) {
+            fn.setValue(0);
+          }
         }
       }
     }
 
     return f_out;
+  }
+
+  /**
+   * Generates normalization parameters based on the data availble in a feature set.
+   *
+   * @param feature_set the feature set to analyze
+   * @return a hash containing aggregations to be used for normaliation
+   */
+  public static HashMap<String, Aggregation> generateNormParams(FeatureSet feature_set) {
+    HashMap<String, Aggregation> norm_params = new HashMap<String, Aggregation>();
+
+    for (Word w : feature_set.getDataPoints()) {
+      for (String f : feature_set.getFeatureNames()) {
+
+        if (!norm_params.containsKey(f)) {
+          norm_params.put(f, new Aggregation());
+        }
+        if (w.hasAttribute(f)) {
+          Object v = w.getAttribute(f);
+          if (v instanceof Number) {
+            Double value = ((Number) v).doubleValue();
+            if (!Double.isNaN(value)) {
+              norm_params.get(f).insert(((Number) v).doubleValue());
+            }
+          }
+        }
+      }
+    }
+
+    return norm_params;
+  }
+
+  public static HashBiMap<Feature, Integer> generateFeatureMap(FeatureSet feature_set) {
+    HashBiMap<Feature, Integer> feature_map = HashBiMap.create();
+    int idx = 1;
+    for (edu.cuny.qc.speech.AuToBI.core.Feature f : feature_set.getFeatures()) {
+      feature_map.put(f, idx);
+      idx++;
+    }
+    return feature_map;
   }
 }

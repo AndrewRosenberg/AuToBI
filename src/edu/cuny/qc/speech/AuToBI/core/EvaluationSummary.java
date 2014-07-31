@@ -194,7 +194,7 @@ public class EvaluationSummary {
   private String printContingencyMatrix() {
     String s = "";
     if (results.size() > 0) {
-      s += String.format(" %1$10s", "");
+      s += String.format("True-> %1$4s", "");
       for (String c : results.get(0).getClassNames()) {
         s += String.format("%1$6s ", c.substring(0, Math.min(5, c.length())));
       }

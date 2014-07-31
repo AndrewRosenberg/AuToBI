@@ -19,7 +19,6 @@
  */
 package edu.cuny.qc.speech.AuToBI;
 
-import edu.cuny.qc.speech.AuToBI.*;
 import edu.cuny.qc.speech.AuToBI.core.*;
 import edu.cuny.qc.speech.AuToBI.io.WavReader;
 import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
@@ -60,10 +59,10 @@ public class SpeakerNormalizationParameterGenerator {
    */
   private void extendSpeakerNormalizationParameter(List<WavData> wavs, SpeakerNormalizationParameter snp) {
     for (WavData wav : wavs) {
-      PitchExtractor pe = new PitchExtractor(wav);
+      RAPTPitchExtractor pe = new RAPTPitchExtractor();
 
       try {
-        Contour pitches = pe.soundToPitch();
+        Contour pitches = pe.getPitch(wav);
         for (Pair<Double, Double> pitch : pitches) {
           snp.insertPitch(pitch.second);
         }
@@ -130,10 +129,10 @@ public class SpeakerNormalizationParameterGenerator {
       for (String filename : AuToBIUtils.glob(autobi.getParameter("wav_files"))) {
         AuToBIUtils.info("processing file: " + filename);
         WavData wav = reader.read(filename);
-        PitchExtractor pitch_extractor = new PitchExtractor(wav);
+        RAPTPitchExtractor pitch_extractor = new RAPTPitchExtractor();
         IntensityExtractor intensity_extractor = new IntensityExtractor(wav);
 
-        Contour pitch_values = pitch_extractor.soundToPitch();
+        Contour pitch_values = pitch_extractor.getPitch(wav);
         Contour intensity_values = intensity_extractor.soundToIntensity();
 
         norm_param.insertPitch(pitch_values);

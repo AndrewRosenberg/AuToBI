@@ -43,6 +43,7 @@ import java.util.ArrayList;
  * <p/>
  * The main function reads a wave file and generates prints a listing of the pitch information to the console.
  */
+@Deprecated
 public class PitchExtractor extends SampledDataAnalyzer {
 
   private final static int NUM_VALUE_INTERPOLATE_NEAREST = 0;
@@ -69,7 +70,7 @@ public class PitchExtractor extends SampledDataAnalyzer {
   }
 
   /**
-   * Call Paul Boersma's soundToPitch with no parameters.
+   * Call Paul Boersma's getPitch with no parameters.
    *
    * @return A list of TimeValuePairs containing pitch information
    * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException if there are problems
@@ -82,7 +83,7 @@ public class PitchExtractor extends SampledDataAnalyzer {
   }
 
   /**
-   * Call Paul Boersma's soundToPitch function with default parameters
+   * Call Paul Boersma's getPitch function with default parameters
    *
    * @param time_step The time step to extract values at
    * @param min_pitch The minimum valid pitch
@@ -96,7 +97,7 @@ public class PitchExtractor extends SampledDataAnalyzer {
   }
 
   /**
-   * Calls soundToPitch with no paramters, automatically setting the min and max values for more precise estimation.
+   * Calls getPitch with no paramters, automatically setting the min and max values for more precise estimation.
    * <p/>
    * This is based on the DeLooze and Rauzy (Automatic Detection and Prediction of Topic Changes
    * Through Automatic Detection of Register variations and Pause Duration. De Looze and Rauzy. 2009)
@@ -117,7 +118,7 @@ public class PitchExtractor extends SampledDataAnalyzer {
     double q35 = p.evaluate(values, 35.);
     double q65 = p.evaluate(values, 65.);
 
-    // run soundToPitch again
+    // run getPitch again
     return soundToPitch(0.01, q35 * 0.72 - 10, q65 * 1.9 + 10);
   }
 

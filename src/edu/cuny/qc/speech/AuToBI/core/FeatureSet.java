@@ -19,8 +19,10 @@
  */
 package edu.cuny.qc.speech.AuToBI.core;
 
+import com.google.common.collect.HashBiMap;
 import edu.cuny.qc.speech.AuToBI.io.AuToBIFileWriter;
 import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
+import edu.cuny.qc.speech.AuToBI.util.ClassifierUtils;
 
 import java.util.*;
 import java.io.Serializable;
@@ -296,6 +298,40 @@ public class FeatureSet implements Serializable {
   }
 
   /**
+   * Writes the contents of the feature set to a liblinear/libsvm formatted file
+   *
+   * @param filename filename
+   */
+  public void writeLibLinear(String filename) throws AuToBIException, IOException {
+    String class_attribute = this.getClassAttribute();
+    Set<String> class_values = getFeature(class_attribute).getNominalValues();
+    double[] labels = ClassifierUtils.convertFeatureSetToLibLinearLabels(this,
+        class_values.toArray(new String[class_values.size()]));
+
+    HashMap<String, Aggregation> norm_map = ClassifierUtils.generateNormParams(this);
+    HashBiMap<Feature, Integer> feature_map = ClassifierUtils.generateFeatureMap(this);
+
+    de.bwaldvogel.liblinear.Feature[][] data = ClassifierUtils.normalizeLibLinearFeatures(
+        ClassifierUtils.convertFeatureSetToLibLinearFeatures(this), feature_map.inverse(), norm_map);
+
+    AuToBIFileWriter writer = new AuToBIFileWriter(filename);
+    for (int i = 0; i < labels.length; i++) {
+      writer.write(String.valueOf((int) labels[i]));
+      writer.write(" ");
+      for (int j = 0; j < data[i].length; j++) {
+        writer.write(String.valueOf(data[i][j].getIndex()));
+        writer.write(":");
+        writer.write(String.valueOf(data[i][j].getValue()));
+        if (j < data[i].length - 1) {
+          writer.write(" ");
+        }
+      }
+      writer.write("\n");
+    }
+    writer.close();
+  }
+
+  /**
    * Generates a String representation of the ARFF @data section.
    * <p/>
    * This includes a line containing @data followed by the data in comma separated format
@@ -337,10 +373,11 @@ public class FeatureSet implements Serializable {
       attrString.append("@attribute ");
       attrString.append(f.getName());
       if (f.isNominal()) {
-        if (f.getNominalValues().isEmpty())
+        if (f.getNominalValues().isEmpty()) {
           AuToBIUtils
               .warn(
                   " Warning: empty nominal values for feature:" + f.getName() + ". Try Generating Arff _Data_ first.");
+        }
 
         attrString.append(" {");
         attrString.append(f.getNominalValuesCSV());
