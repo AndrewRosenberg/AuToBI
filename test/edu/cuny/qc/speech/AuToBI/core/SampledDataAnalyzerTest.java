@@ -21,11 +21,8 @@ package edu.cuny.qc.speech.AuToBI.core;
 
 import org.junit.Test;
 
-import java.util.Set;
-
 import static junit.framework.Assert.*;
 import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertNotSame;
 
 /**
  * Tests for PitchCandidate
@@ -81,8 +78,8 @@ public class SampledDataAnalyzerTest {
     sda.wav.sampleRate = (float) 1.0;
     sda.wav.samples = new double[][]{{0.0, 1.0, 2.0, 3.0, 4.0, 5.0}};
 
-    assertEquals((Integer) 3, sda.shortTermAnalysis(2.0, 2.0).first);
-    assertEquals(0.5, (Double) sda.shortTermAnalysis(2.0, 2.0).second, 0.001);
+    assertEquals((Integer) 3, sda.getNFramesAndStartTime(2.0, 2.0).first);
+    assertEquals(0.5, sda.getNFramesAndStartTime(2.0, 2.0).second, 0.001);
   }
 
   @Test

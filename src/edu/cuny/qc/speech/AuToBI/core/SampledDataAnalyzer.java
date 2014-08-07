@@ -24,7 +24,8 @@ package edu.cuny.qc.speech.AuToBI.core;
 /**
  * A class to implement utility functions used by factory classes that perform sampled data analysis.
  * <p/>
- * These include PitchExtractor and IntensityExtractor.
+ * These include PitchExtractor and IntensityExtractor.  This class mostly contains utility functions to
+ * convert from indices to times and vice versa.
  */
 public abstract class SampledDataAnalyzer {
   protected WavData wav;
@@ -84,17 +85,20 @@ public abstract class SampledDataAnalyzer {
    * length (in time) of the window of analysis.
    *
    * @param time_step The time step of the desired analysis.
-   * @param dt_window The length of the analysis window.
+   * @param window_size The length of the analysis window.
    * @return a Pair containing the number of frames (first) and the initial time (second)
    */
-  protected Pair<Integer, Double> shortTermAnalysis(double time_step, double dt_window) {
+  protected Pair<Integer, Double> getNFramesAndStartTime(double time_step, double window_size) {
     Pair<Integer, Double> pair = new Pair<Integer, Double>();
     // Determine the number of frames
-    pair.first = (int) (Math.floor((wav.getDuration() - dt_window) / time_step) + 1);
+    pair.first = (int) (Math.floor((wav.getDuration() - window_size) / time_step) + 1);
 
     // Determine the midpoint of the first frame
     double mid_time = 0.5 * wav.getDuration() - 0.5 * wav.getFrameSize();
+    // mid time of the wav file is the midpoint of the file, minus half a wav frame.
     pair.second = mid_time - 0.5 * (pair.first * time_step) + 0.5 * time_step;
+    // identify the mid point of the first frame by calculating back from the middle by the number of analysis frames
+    // and then adding half an analysis frame.
     return pair;
   }
 

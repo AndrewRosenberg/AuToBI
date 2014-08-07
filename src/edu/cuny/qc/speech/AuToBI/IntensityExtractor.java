@@ -1,9 +1,7 @@
 /*  IntensityExtractor.java
 
-    Copyright (c) 2009-2010 Andrew Rosenberg
+    Copyright (c) 2014 Andrew Rosenberg
     
-    Based on Sound_to_Intensity.c distributed as part of the Praat package Copyright (C) 1992-2008 Paul Boersma
-
     This file is part of the AuToBI prosodic analysis package.
 
     AuToBI is free software: you can redistribute it and/or modify
@@ -36,7 +34,11 @@ import java.io.FileInputStream;
 /**
  * Intensity extractor an intensity contour from a wave file.
  * <p/>
- * Implements Paul Boersma's Sound_To_Intensity algorithm which is included in the Praat tool.
+ * This is derived from Praat's description of the get Intensity... behavior in documentation
+ * and papers and inspection of its output.
+ * <p/>
+ * To be respectful of Praat's GPL license, the code itself has been written without reference to
+ * Praat's source code.
  */
 public class IntensityExtractor extends SampledDataAnalyzer {
   public IntensityExtractor(WavData wav) {
@@ -47,119 +49,67 @@ public class IntensityExtractor extends SampledDataAnalyzer {
   /**
    * Generate an intensity contour from a wav file using default parameters.
    * <p/>
-   * The default settings are a minimum intensity of 75dB, and a timestep of 0.1 secs (100ms).
+   * The default settings are a timestep of 0.01 secs (10ms) and a windowsize of 0.04.
+   * Consistent with Praat's description of "four-times oversampling".
    *
    * @return a list of intensity points.
    */
   public Contour soundToIntensity() {
-    return soundToIntensity(75, 0.01, true);
+    return getIntensity(0.01, 0.04, true, 0);
   }
 
   /**
    * Generate an intensity contour from a wav file using default parameters.
    * <p/>
-   * Implementation of Paul Boersma's Sound_to_Intensity function
-   * <p/>
-   * <p/>
    * Uses the RMS value amplitude of the signal weighted by a bessel-function defined window.
    * <p/>
-   * The minimum pitch is used to determine the analysis window size, and a default time step if one isn't provided.
    *
-   * @param min_pitch              The minimum pitch.
    * @param time_step              the time_step for the analysis
+   * @param win_dur                the Hanning window size to use
    * @param subtract_mean_pressure Wether or not to subtract the mean pressure from the intensity contour.
    * @return a list of intensity points.
    */
-  public Contour soundToIntensity(double min_pitch, double time_step, boolean subtract_mean_pressure) {
-    if (wav.getDuration() < time_step) {
-      // The wav data is empty, return an empty contour.
-      return new Contour(0.0, time_step, 0);
-    }
-    if (time_step <= 0.0) time_step = 0.8 / min_pitch;   /* Default: four times oversampling Hanning-wise. */
+  public Contour getIntensity(double time_step, double win_dur, boolean subtract_mean_pressure, int channel) {
+    int win_samples = (int) (win_dur / wav.getFrameSize());
+    int time_samples = (int) (time_step / wav.getFrameSize());
+    double t0 = win_dur / 2.0;  // the first intensity frame is half way between the first window.
+    int s0 = xToNearestIndex(0.0, wav.getFrameSize(), t0);
 
-    int i, iframe, numberOfFrames;
-    double windowDuration = 6.4 / min_pitch, t0;
-    double halfWindowDuration = 0.5 * windowDuration;
-    int halfWindowSamples = (int) (halfWindowDuration / wav.getFrameSize());
-    int windowSamples = halfWindowSamples * 2 + 1;
-    double amplitude[] = new double[windowSamples];
-    double window[] = new double[windowSamples];
+    int num_frames = (int) Math.floor((wav.getDuration() - win_dur) / time_step) + 1;
 
-    for (i = 0; i < windowSamples; i++) {
-      double x = i * wav.getFrameSize() / halfWindowDuration, root = 1 - x * x;
-      window[i] = root <= 0.0 ? 0.0 : besselI0((2 * Math.PI * Math.PI + 0.5) * Math.sqrt(root));
+    if (wav.getDuration() < time_step || wav.getDuration() < win_dur) {
+      return new Contour(t0, time_step, 0);
     }
 
-    // Identify the number of frames and initial time.
-    Pair<Integer, Double> pair = shortTermAnalysis(time_step, windowDuration);
-    numberOfFrames = pair.first;
-    t0 = pair.second;
+    double[] window = constructHanningWindow(win_samples);
+    double[] intensity = new double[num_frames];
 
-    Contour contour = new Contour(t0, time_step, numberOfFrames);
-    for (iframe = 0; iframe < numberOfFrames; iframe++) {
-      double midTime = indexToX(t0, time_step, iframe);
-      int midSample = xToNearestIndex(0, wav.getFrameSize(), midTime);
-      int leftSample = Math.max(0, midSample - halfWindowSamples);
-      int rightSample = Math.min(wav.getNumSamples(), midSample + halfWindowSamples + 1);
-      double sumxw = 0.0, sumw = 0.0, intensity;
-      if (leftSample < 1) leftSample = 0;
-      if (rightSample > wav.getNumSamples()) rightSample = wav.getNumSamples();
+    int mid_sample = s0;
+    for (int i = 0; i < num_frames; i++, mid_sample += time_samples) {
+      int bottom_sample = mid_sample - win_samples / 2;
+      int top_sample = mid_sample + win_samples / 2;
 
-      for (int channel = 0; channel < wav.numberOfChannels; channel++) {
-        for (i = leftSample; i < rightSample; i++) {
-          amplitude[i - leftSample] = wav.getSample(channel, i);
+      double ssq = 0.0;
+      double win = 0.0;
+      double mean = 0;
+      if (subtract_mean_pressure) {
+        for (int idx = bottom_sample; idx <= top_sample; idx++) {
+          mean += wav.getSample(channel, idx);
         }
-        if (subtract_mean_pressure) {
-          double sum = 0.0;
-          for (i = leftSample; i < rightSample; i++) {
-            sum += amplitude[i - leftSample];
-          }
-          double mean = sum / (rightSample - leftSample + 1);
-          for (i = leftSample; i < rightSample; i++) {
-            amplitude[i - leftSample] -= mean;
-          }
-        }
-        for (i = leftSample; i < rightSample; i++) {
-          sumxw += amplitude[i - leftSample] * amplitude[i - leftSample] * window[i - leftSample];
-          sumw += window[i - leftSample];
-        }
+        mean /= (top_sample - bottom_sample + 1);
       }
-      intensity = sumxw / sumw;
-      if (intensity != 0.0) intensity /= 4e-10;
-      contour.set(midTime, intensity < 1e-30 ? -300 : 10 * Math.log10(intensity));
+      for (int idx = bottom_sample; idx <= top_sample; idx++) {
+        double energy = wav.getSample(channel, idx) - mean;
+        ssq += energy * energy * window[idx - bottom_sample];
+        win += window[idx - bottom_sample];
+      }
+      double ms = ssq / win; // Rather than calculating RMS, calculate MS and square the reference db value
+      final double refsq = 4e-10;  // Auditory threshold pressure = 2e-5 squared.
+      intensity[i] = Math.max(-300, 10 * Math.log10(ms / refsq));
     }
-
-    return contour;
+    return new Contour(t0, time_step, intensity);
   }
 
-  /**
-   * Modified Bessel function I0. Abramowicz & Stegun, p. 378.
-   * <p/>
-   * In this class, this function is used to define and weight an analysis window.
-   *
-   * @param x The value to evaluate
-   * @return The bessel function evaluated at x
-   */
-  private double besselI0(double x) {
-    double t;
-    if (x < 0.0) return besselI0(-x);
-    if (x < 3.75) {
-      /* Formula 9.8.1. Accuracy 1.6e-7. */
-      t = x / 3.75;
-      t *= t;
-      return 1.0 + t * (3.5156229 + t * (3.0899424 + t * (1.2067492
-          + t * (0.2659732 + t * (0.0360768 + t * 0.0045813)))));
-    }
-    /*
-      otherwise: x >= 3.75
-    */
-    /* Formula 9.8.2. Accuracy of the polynomial factor 1.9e-7. */
-    t = 3.75 / x;   /* <= 1.0 */
-    return Math.exp(x) / Math.sqrt(x) * (0.39894228 + t * (0.01328592
-        + t * (0.00225319 + t * (-0.00157565 + t * (0.00916281
-        + t * (-0.02057706 + t * (0.02635537 + t * (-0.01647633
-        + t * 0.00392377))))))));
-  }
 
   public static void main(String[] args) {
     File file = new File(args[0]);

@@ -1,9 +1,7 @@
 /*  PitchExtractor.java
 
-    Copyright (c) 2009-2010 Andrew Rosenberg
-    Based on Sound_to_Pitch.c distributed as part of the Praat package Copyright (C) 1992-2008 Paul Boersma
+    Copyright (c) 2014 Andrew Rosenberg
 
-    
     This file is part of the AuToBI prosodic analysis package.
 
     AuToBI is free software: you can redistribute it and/or modify
@@ -207,7 +205,7 @@ public class PitchExtractor extends SampledDataAnalyzer {
       throw new AuToBIException("Wav data is shorter than pitch analysis window.");
     }
 
-    Pair<Integer, Double> pair = shortTermAnalysis(time_step, dt_window);
+    Pair<Integer, Double> pair = getNFramesAndStartTime(time_step, dt_window);
     nFrames = pair.first;
     t0 = pair.second;
 
