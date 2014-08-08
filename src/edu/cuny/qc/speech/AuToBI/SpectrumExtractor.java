@@ -21,9 +21,13 @@ package edu.cuny.qc.speech.AuToBI;
 
 import edu.cuny.qc.speech.AuToBI.core.*;
 import edu.cuny.qc.speech.AuToBI.io.WavReader;
-import jnt.FFT.RealDoubleFFT_Radix2;
+
+import org.jtransforms.fft.*;
 
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 /**
@@ -86,8 +90,11 @@ public class SpectrumExtractor extends SampledDataAnalyzer {
       windowed_sample = resizeArray(windowed_sample, nfft);
 
       // FFT windowed sample.
-      RealDoubleFFT_Radix2 window_fft = new RealDoubleFFT_Radix2(nfft);
-      window_fft.transform(windowed_sample);
+      DoubleFFT_1D window_fft = new DoubleFFT_1D(nfft);
+      window_fft.realForward(windowed_sample);
+
+//      RealDoubleFFT_Radix2 window_fft = new RealDoubleFFT_Radix2(nfft);
+//      window_fft.transform(windowed_sample);
 
       double[] spectrum = absoluteValueSquared(windowed_sample);
       spectrogram[frame] = spectrum;
@@ -136,14 +143,19 @@ public class SpectrumExtractor extends SampledDataAnalyzer {
 
   /**
    * Calculates the absolute value squared for each element of a array produced by RealDoubleFFT_Radix2
+   * This is a single array containing the real and imaginary components of the FFT in
+   * position i and N-i.
    *
    * @param data The complex array
    * @return an array of the same size containing the absolute value squared
    */
   private double[] absoluteValueSquared(double[] data) {
     double[] result = new double[data.length / 2];
-    for (int i = 1; i < data.length / 2; ++i) {
-      result[i] = data[i] * data[i] + data[data.length - i] * data[data.length - i];
+//    for (int i = 1; i < data.length / 2; ++i) {
+//      result[i] = data[i] * data[i] + data[data.length - i] * data[data.length - i];
+//    }
+    for (int i = 2; i < data.length; i += 2) {
+      result[i / 2] = data[i] * data[i] + (data[i + 1] * data[i + 1]);
     }
     return result;
   }
@@ -154,6 +166,13 @@ public class SpectrumExtractor extends SampledDataAnalyzer {
     String filename = args[0];
     double frame_size = Double.parseDouble(args[1]);
     double hanning_window_size = Double.parseDouble(args[2]);
+
+    boolean display = false;
+    if (args.length > 3) {
+      if (args[3].equals("true")) {
+        display = true;
+      }
+    }
 
     WavReader reader = new WavReader();
     try {
@@ -169,12 +188,67 @@ public class SpectrumExtractor extends SampledDataAnalyzer {
         }
         System.out.println("");
       }
+
+      if (display) {
+        SpectrogramPanel specgram = new SpectrogramPanel(spectrum);
+
+        JFrame frame = new JFrame();
+        frame.getContentPane().add(specgram);
+
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setSize(specgram.width, specgram.height + 22);
+        frame.setVisible(true);
+      }
+
     } catch (UnsupportedAudioFileException e) {
       e.printStackTrace();
     } catch (IOException e) {
       e.printStackTrace();
     } catch (AuToBIException e) {
       e.printStackTrace();
+    }
+  }
+
+
+  public static class SpectrogramPanel extends JPanel {
+    private BufferedImage image = null;
+
+    private int width, height;
+    private double min = 0., max = 0.;
+
+    public SpectrogramPanel(Spectrum spectrum) {
+      this.width = spectrum.numFrames();
+      this.height = spectrum.numFreqs() / 2;
+
+      for (int i = 0; i < spectrum.numFrames(); i++) {
+        for (int j = 0; j < spectrum.numFreqs(); j++) {
+          max = Math.max(max, spectrum.get(i, j));
+          min = Math.min(min, spectrum.get(i, j));
+        }
+      }
+
+      image = new BufferedImage(width, height, BufferedImage.TYPE_USHORT_GRAY);
+
+      for (int i = 0; i < spectrum.numFrames(); i++) {
+        for (int j = 0; j < spectrum.numFreqs() / 2; j++) {     // only display up to the nyquist rate
+          double scaled_v = 1 - (spectrum.get(i, j) - min) / (max - min);
+          int scaled_i = (int) (Math.min(255, scaled_v * 256));
+          scaled_i = (scaled_i * 256 + scaled_i) * 256 + scaled_i;
+          image.setRGB(i, height - j - 1, scaled_i); // y=0 is the top of the image
+        }
+      }
+    }
+
+    @Override
+    public void paint(Graphics g) {
+
+      Dimension dims = getSize();
+      g.setColor(Color.WHITE);
+      g.fillRect(0, 0, dims.width - 1, dims.height - 1);
+
+      if (image != null) {
+        g.drawImage(image, 0, 0, null);
+      }
     }
   }
 }
