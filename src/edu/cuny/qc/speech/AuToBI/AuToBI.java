@@ -963,7 +963,7 @@ public class AuToBI {
 
   /**
    * Registers a large default set of feature extractors.
-   *
+   * <p/>
    * This method has been deprecated.  The feature registration is no longer propagated "manually"
    * by the user or AuToBI.  Rather, reflection is used to identify the available feature extractors
    * in a package.  The features are registered by the member variable, "moniker".
@@ -1297,9 +1297,14 @@ public class AuToBI {
 
   public void run() {
     try {
-      if (hasParameter("input_file") && hasParameter("cprom_file")) {
+      int file_types = 0;
+      file_types += hasParameter("input_file") ? 1 : 0;
+      file_types += hasParameter("cprom_file") ? 1 : 0;
+      file_types += hasParameter("rhapsodie_file") ? 1 : 0;
+      if (file_types > 1) {
         throw new AuToBIException(
-            "Both -input_file and -cprom_file are entered.  Only one input file may be specified.");
+            "More than one of -input_file, -cprom_file and -rhapsodie_file are entered.  Only one input file may be " +
+                "specified.");
       }
 
       // TODO: support reading sph files.
@@ -1323,6 +1328,11 @@ public class AuToBI {
         // Since both C-Prom files and other TextGrid files use the ".TextGrid" extension,
         // the user needs to specify cprom files explicitly
         file = new FormattedFile(getOptionalParameter("cprom_file"), FormattedFile.Format.CPROM);
+        word_reader = WordReaderUtils.getAppropriateReader(file, getParameters());
+      } else if (hasParameter("rhapsodie_file")) {
+        // Since both Rhapsodie files and other TextGrid files use the ".TextGrid" extension,
+        // the user needs to specify rhapsodie files explicitly
+        file = new FormattedFile(getOptionalParameter("rhapsodie_file"), FormattedFile.Format.RHAPSODIE);
         word_reader = WordReaderUtils.getAppropriateReader(file, getParameters());
       } else {
         AuToBIUtils.info(

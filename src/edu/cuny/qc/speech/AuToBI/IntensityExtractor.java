@@ -22,6 +22,7 @@ package edu.cuny.qc.speech.AuToBI;
 
 import edu.cuny.qc.speech.AuToBI.core.*;
 import edu.cuny.qc.speech.AuToBI.io.WavReader;
+import edu.cuny.qc.speech.AuToBI.util.SignalProcessingUtils;
 
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.sound.sampled.AudioInputStream;
@@ -75,19 +76,20 @@ public class IntensityExtractor extends SampledDataAnalyzer {
     double t0 = win_dur / 2.0;  // the first intensity frame is half way between the first window.
     int s0 = xToNearestIndex(0.0, wav.getFrameSize(), t0);
 
-    int num_frames = (int) Math.floor((wav.getDuration() - win_dur) / time_step) + 1;
+    int num_frames = (int) Math.floor((wav.getNumSamples() - win_samples) / time_samples) + 1;
 
     if (wav.getDuration() < time_step || wav.getDuration() < win_dur) {
       return new Contour(t0, time_step, 0);
     }
 
-    double[] window = constructHanningWindow(win_samples);
+    double[] window = SignalProcessingUtils.constructHanningWindow(win_samples);
     double[] intensity = new double[num_frames];
 
     int mid_sample = s0;
     for (int i = 0; i < num_frames; i++, mid_sample += time_samples) {
       int bottom_sample = mid_sample - win_samples / 2;
       int top_sample = mid_sample + win_samples / 2;
+      if (top_sample >= wav.getNumSamples()) break;
 
       double ssq = 0.0;
       double win = 0.0;
@@ -98,7 +100,7 @@ public class IntensityExtractor extends SampledDataAnalyzer {
         }
         mean /= (top_sample - bottom_sample + 1);
       }
-      for (int idx = bottom_sample; idx <= top_sample; idx++) {
+      for (int idx = bottom_sample; idx < top_sample; idx++) {
         double energy = wav.getSample(channel, idx) - mean;
         ssq += energy * energy * window[idx - bottom_sample];
         win += window[idx - bottom_sample];
