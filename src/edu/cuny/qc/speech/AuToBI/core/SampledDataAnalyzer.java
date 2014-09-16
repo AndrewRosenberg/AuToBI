@@ -1,22 +1,27 @@
 /*  SampledDataAnalyzer.java
 
-    Copyright (c) 2009 Andrew Rosenberg
-    Based in large part on Sampled.c distributed as part of the Praat package Copyright (C) 1992-2008 Paul Boersma
+    Copyright (c) 2009-2014 Andrew Rosenberg
 
-    This file is part of the AuToBI prosodic analysis package.
+    Inspired by Sampled.c distributed as part of the Praat package Copyright (C) 1992-2008 Paul Boersma
 
-    AuToBI is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+  This file is part of the AuToBI prosodic analysis package.
 
-    AuToBI is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+  AuToBI is free software: you can redistribute it and/or modify
+  it under the terms of the Apache License (see boilerplate below)
 
-    You should have received a copy of the GNU General Public License
-    along with AuToBI.  If not, see <http://www.gnu.org/licenses/>.
+ ***********************************************************************************************************************
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You should have received a copy of the Apache 2.0 License along with AuToBI.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ *
+ ***********************************************************************************************************************
  */
 
 package edu.cuny.qc.speech.AuToBI.core;
@@ -84,7 +89,7 @@ public abstract class SampledDataAnalyzer {
    * These parameters are calculated using the wav file to be analysed, the time step of the desired analysis and the
    * length (in time) of the window of analysis.
    *
-   * @param time_step The time step of the desired analysis.
+   * @param time_step   The time step of the desired analysis.
    * @param window_size The length of the analysis window.
    * @return a Pair containing the number of frames (first) and the initial time (second)
    */
@@ -124,20 +129,4 @@ public abstract class SampledDataAnalyzer {
     return frame;
   }
 
-  /**
-   * Constructs a hanning window to convolve with a signal.
-   *
-   * @param hanning_window_samples The size of the hanning window
-   * @return The convolution window
-   */
-  protected double[] constructHanningWindow(int hanning_window_samples) {
-
-    double[] window = new double[hanning_window_samples];
-    for (int i = 0; i < hanning_window_samples; ++i) {
-      double phase = i * 1.0 / (hanning_window_samples - 1);
-      window[i] = 0.5 * (1.0 - Math.cos(2.0 * Math.PI * phase));
-    }
-
-    return window;
-  }
 }

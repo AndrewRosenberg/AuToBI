@@ -1,21 +1,25 @@
 /*  PartitionUtils.java
 
-    Copyright (c) 2009-2010 Andrew Rosenberg
+    Copyright (c) 2009-2014 Andrew Rosenberg
 
     This file is part of the AuToBI prosodic analysis package.
 
     AuToBI is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+    it under the terms of the Apache License (see boilerplate below)
 
-    AuToBI is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with AuToBI.  If not, see <http://www.gnu.org/licenses/>.
+ ***********************************************************************************************************************
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You should have received a copy of the Apache 2.0 License along with AuToBI.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ *
+ ***********************************************************************************************************************
  */
 package edu.cuny.qc.speech.AuToBI.util;
 
@@ -48,8 +52,7 @@ public class PartitionUtils {
    * @param data_points  The data points to assign numbers to
    * @param feature_name The feature that will store the fold assignment
    * @param num_folds    The total number of folds to assign
-   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException
-   *          if the number of folds is invalid
+   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException if the number of folds is invalid
    */
   public static void assignFoldNum(List<Word> data_points, String feature_name, Integer num_folds)
       throws AuToBIException {
@@ -93,8 +96,8 @@ public class PartitionUtils {
    * @param feature_name    The feature to store the fold assignment on
    * @param num_folds       the numer of folds to construct
    * @param class_attribute the class attribute
-   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException
-   *          If there is a region that does not have an associated class attribute
+   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException If there is a region that does not have an associated
+   * class attribute
    */
   public static void assignStratifiedFoldNum(List<Word> data_points, String feature_name, Integer num_folds,
                                              String class_attribute) throws AuToBIException {
@@ -137,8 +140,9 @@ public class PartitionUtils {
     testingPoints.clear();
 
     for (Word word : dataPoints) {
-      if (!word.hasAttribute(foldFeatureName))
+      if (!word.hasAttribute(foldFeatureName)) {
         throw new AuToBIException("Word does not have a fold assignment stored in feature: " + foldFeatureName);
+      }
       if ((word.getAttribute(foldFeatureName)).equals(foldNum)) {
         testingPoints.add(word);
       } else {
@@ -211,7 +215,8 @@ public class PartitionUtils {
   }
 
   /**
-   * Undersamples the data points of with majority class (as determined by class_attribute) down to the size of the next most
+   * Undersamples the data points of with majority class (as determined by class_attribute) down to the size of the
+   * next most
    * represented class value
    * <p/>
    * If there are two majority classes, this operation does not effect the data points.
@@ -234,7 +239,7 @@ public class PartitionUtils {
         target_size = majority_size;
         majority_size = class_histogram.get(key);
         majority_class = key;
-      } else if (class_histogram.get(key) > target_size){
+      } else if (class_histogram.get(key) > target_size) {
         target_size = class_histogram.get(key);
       }
     }

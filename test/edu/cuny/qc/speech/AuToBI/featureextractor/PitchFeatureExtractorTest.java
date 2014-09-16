@@ -111,9 +111,9 @@ public class PitchFeatureExtractorTest {
       Contour c = (Contour) w.getAttribute("f0");
       // Assume that Pitch Extraction is tested in PitchExtractor
       // We'll do some sanity checks here.
-      assertEquals(94, c.size());
+      assertEquals(100, c.size());
       assertEquals(0.01, c.getStep(), 0.0001);
-      assertEquals(0.035, c.getStart(), 0.0001);
+      assertEquals(0.0037499999161809683, c.getStart(), 0.0001);
     } catch (FeatureExtractorException e) {
       fail();
     }
@@ -144,9 +144,9 @@ public class PitchFeatureExtractorTest {
       Contour c = (Contour) w.getAttribute("f0");
       // Assume that Pitch Extraction is tested in PitchExtractor
       // We'll do some sanity checks here.
-      assertEquals(94, c.size());
+      assertEquals(100, c.size());
       assertEquals(0.01, c.getStep(), 0.0001);
-      assertEquals(0.035, c.getStart(), 0.0001);
+      assertEquals(0.0037499999161809683, c.getStart(), 0.0001);
     } catch (FeatureExtractorException e) {
       fail();
     }

@@ -1,21 +1,25 @@
 /*  WavReader.java
 
-    Copyright 2009-2010 Andrew Rosenberg
+    Copyright 2009-2014 Andrew Rosenberg
 
     This file is part of the AuToBI prosodic analysis package.
 
     AuToBI is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+    it under the terms of the Apache License (see boilerplate below)
 
-    AuToBI is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with AuToBI.  If not, see <http://www.gnu.org/licenses/>.
+ ***********************************************************************************************************************
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You should have received a copy of the Apache 2.0 License along with AuToBI.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ *
+ ***********************************************************************************************************************
  */
 
 package edu.cuny.qc.speech.AuToBI.io;
@@ -64,10 +68,9 @@ public class WavReader {
    *
    * @param filename the filename to read
    * @return The wav data stored in the file.
-   * @throws IOException                   if there is a file reading problem
-   * @throws UnsupportedAudioFileException if there is a problem with the audio file format
-   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException
-   *                                       if the file is not 16 bit
+   * @throws IOException                                    if there is a file reading problem
+   * @throws UnsupportedAudioFileException                  if there is a problem with the audio file format
+   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException if the file is not 16 bit
    */
   public WavData read(String filename, Double start, Double end)
       throws UnsupportedAudioFileException, IOException, AuToBIException {
@@ -97,8 +100,7 @@ public class WavReader {
    * @param start  The start time to read in seconds
    * @param end    The end time to read in seconds
    * @return the wave data
-   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException
-   *          if there is an IO problem.
+   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException if there is an IO problem.
    */
   @SuppressWarnings("ResultOfMethodCallIgnored")
   public WavData read(AudioInputStream stream, Double start, Double end) throws AuToBIException {

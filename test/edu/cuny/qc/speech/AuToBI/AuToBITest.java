@@ -886,7 +886,7 @@ public class AuToBITest {
   @Test
   public void testInitializeAuToBITasksGeneratesPABTTask() {
     autobi.getParameters()
-        .setParameter("boundary_tone_classifier", TEST_DIR + "/boundary_tone_classification.classifier");
+        .setParameter("phrase_accent_boundary_tone_classifier", TEST_DIR + "/boundary_tone_classification.classifier");
     autobi.initializeAuToBITasks();
     assertEquals(1, autobi.tasks.size());
     assertTrue(autobi.tasks.containsKey("phrase_accent_boundary_tone_classification"));

@@ -19,6 +19,7 @@
  */
 package edu.cuny.qc.speech.AuToBI.core;
 
+import edu.cuny.qc.speech.AuToBI.util.SignalProcessingUtils;
 import org.junit.Test;
 
 import static junit.framework.Assert.*;
@@ -106,7 +107,7 @@ public class SampledDataAnalyzerTest {
   public void testGetHanningWindow() {
     SampledDataAnalyzer sda = new SampledDataAnalyzer() {
     };
-    double[] window = sda.constructHanningWindow(7);
+    double[] window = SignalProcessingUtils.constructHanningWindow(7);
     assertArrayEquals(new double[]{0.0, 0.25, 0.75, 1.0, 0.75, 0.25, 0.0}, window, 0.0001);
   }
 

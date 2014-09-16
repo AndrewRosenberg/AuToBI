@@ -1,21 +1,25 @@
 /*  AuToBI.java
 
-    Copyright (c) 2009-2012 Andrew Rosenberg
+    Copyright (c) 2009-2014 Andrew Rosenberg
 
     This file is part of the AuToBI prosodic analysis package.
 
     AuToBI is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+    it under the terms of the Apache License (see boilerplate below)
 
-    AuToBI is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with AuToBI.  If not, see <http://www.gnu.org/licenses/>.
+ ***********************************************************************************************************************
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You should have received a copy of the Apache 2.0 License along with AuToBI.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ *
+ ***********************************************************************************************************************
  */
 package edu.cuny.qc.speech.AuToBI;
 
@@ -336,51 +340,67 @@ public class AuToBI {
       // parse feature
       List<String> fparams = AuToBIUtils.parseFeatureName(feature);
 
+      FeatureExtractor fe = null;
       // Construct FeatureExtractor
-      Class c = moniker_map.get(fparams.get(0));
+      if (!getFeatureRegistry().containsKey(fparams.get(0))) {
+        Class c = moniker_map.get(fparams.get(0));
 
-      // Null FeatureExtractors correspond to features that do not to be extracted by a feature extractor
-      // These might include resources (eventually) but will include features created during region construction
-      // like file and speaker_id.  (This is also useful for testing)
-      if (c != null) {
-        Constructor[] cons = c.getConstructors();
-        Object[] plist = fparams.subList(1, fparams.size()).toArray();
+        // Null FeatureExtractors correspond to features that do not to be extracted by a feature extractor
+        // These might include resources (eventually) but will include features created during region construction
+        // like file and speaker_id.  (This is also useful for testing)
+        if (c != null) {
+          Constructor[] cons = c.getConstructors();
+          Object[] plist = fparams.subList(1, fparams.size()).toArray();
 
-        // find constructor which takes as many strings as there are elements in plist
-        Constructor correct_cons = null;
-        for (Constructor constructor : cons) {
-          if (constructor.getParameterTypes().length == plist.length) {
-            boolean found = true;
-            for (Class param_class : constructor.getParameterTypes()) {
-              if (param_class != String.class) {
-                found = false;
+          // find constructor which takes as many strings as there are elements in plist
+          Constructor correct_cons = null;
+          for (Constructor constructor : cons) {
+            if (constructor.getParameterTypes().length == plist.length) {
+              boolean found = true;
+              for (Class param_class : constructor.getParameterTypes()) {
+                if (param_class != String.class) {
+                  found = false;
+                }
+              }
+              if (found) {
+                correct_cons = constructor;
+                break;
               }
             }
-            if (found) {
-              correct_cons = constructor;
-              break;
+          }
+          if (correct_cons != null) {
+            fe = (FeatureExtractor) correct_cons.newInstance(plist);
+
+
+            // Register FeatureExtractor
+            registerFeatureExtractor(fe, true);
+
+            // push required features
+            for (String f : fe.getRequiredFeatures()) {
+              features.push(f);
             }
+          } else {
+            // couldn't find a matching constructor.
+            AuToBIUtils.warn("Couldn't find a matching constructor for: " + feature);
+            registerNullFeatureExtractor(fparams.get(0));
+          }
+        } else {  // Neither the feature registry nor moniker map can construct a feature here,
+          // assume a null feature extractor
+          registerNullFeatureExtractor(fparams.get(0));
+        }
+      } else {  // there was already a Feature Extractor registered.
+
+        fe = getFeatureRegistry().get(fparams.get(0));
+
+        if (fe != null) {
+          // push required features
+          for (String f : fe.getRequiredFeatures()) {
+            features.push(f);
           }
         }
-        if (correct_cons == null) {
-          throw new AuToBIException(
-              "Class, " + c.toString() + ", registered to the moniker, " + fparams.get(0) + ", does not " +
-                  "have a constructor that takes " + plist.length +
-                  " String arguments in order to construct the requested feature, " + feature);
-        }
-        FeatureExtractor fe = (FeatureExtractor) correct_cons.newInstance(plist);
-
-        // Register FeatureExtractor
-        registerFeatureExtractor(fe, true);
-
-        // push required features
-        for (String f : fe.getRequiredFeatures()) {
-          features.push(f);
-        }
-      } else {
-        registerNullFeatureExtractor(fparams.get(0));
       }
-      // push any nested features on to the list
+
+      // push any nested features on to the stack
       for (int i = 1; i < fparams.size(); ++i) {
         // don't include parameters that are numbers or quoted strings
         if (!fparams.get(i).matches("^\\d") && !fparams.get(i).matches("\"")) {
@@ -723,6 +743,13 @@ public class AuToBI {
 
         List<Word> words;
         try {
+          if (new_fs.get() == null) {
+            throw new AuToBIException("Unexpected null response from feature set propagation.");
+          }
+          if (new_fs.get().getDataPoints() == null) {
+            throw new AuToBIException("Unexpected null FeatureSet data points.");
+          }
+
           words = new_fs.get().getDataPoints();
 
           // Attribute omission by attribute values.
@@ -1397,6 +1424,7 @@ public class AuToBI {
       // AR: why not use the feature set propagator here?  move the reader information down here after constructing a
       // big autobi_fs feature set including all of the extracted features.  This will simplify the code and unify
       // AuToBI, AuToBITrainer and AuToBITrainTest a little more
+      initializeFeatureRegistry(autobi_fs);
       extractFeatures(autobi_fs);
       autobi_fs.constructFeatures();
 
@@ -1422,6 +1450,12 @@ public class AuToBI {
     } catch (IOException e) {
       e.printStackTrace();
     } catch (FeatureExtractorException e) {
+      e.printStackTrace();
+    } catch (InvocationTargetException e) {
+      e.printStackTrace();
+    } catch (InstantiationException e) {
+      e.printStackTrace();
+    } catch (IllegalAccessException e) {
       e.printStackTrace();
     }
   }

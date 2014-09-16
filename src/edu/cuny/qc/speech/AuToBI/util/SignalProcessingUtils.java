@@ -1,3 +1,26 @@
+/* SignalProcessingUtils.java
+  Copyright 2014 Andrew Rosenberg
+
+    This file is part of the AuToBI prosodic analysis package.
+
+    AuToBI is free software: you can redistribute it and/or modify
+    it under the terms of the Apache License (see boilerplate below)
+
+ ***********************************************************************************************************************
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You should have received a copy of the Apache 2.0 License along with AuToBI.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ *
+ ***********************************************************************************************************************
+ */
+
 package edu.cuny.qc.speech.AuToBI.util;
 
 import org.jtransforms.fft.DoubleFFT_1D;
@@ -98,7 +121,7 @@ public class SignalProcessingUtils {
    */
   public static double[] convolveSignal(double[] signal, double[] window) {
     double[] convolved = new double[signal.length];
-    for (int i = 0; i < window.length; ++i) {
+    for (int i = 0; i < Math.min(signal.length, window.length); ++i) {
       convolved[i] = signal[i] * window[i];
     }
     for (int i = window.length; i < signal.length; ++i) {
@@ -117,7 +140,7 @@ public class SignalProcessingUtils {
    */
   public static double[] absoluteValueSquared(double[] data) {
     double[] result = new double[data.length / 2];
-    for (int i = 2; i < data.length; i += 2) {
+    for (int i = 2; i < data.length - 1; i += 2) {
       result[i / 2] = data[i] * data[i] + (data[i + 1] * data[i + 1]);
     }
     return result;
@@ -135,5 +158,23 @@ public class SignalProcessingUtils {
     window_fft.realForward(s);
 
     return absoluteValueSquared(s);
+  }
+
+  /**
+   * Resizes an array.
+   * <p/>
+   * This is used to deliver an array with size = 2^d to the FFT operation
+   *
+   * @param data         The data
+   * @param desired_size The desired size of the array
+   * @return a new array of complex values
+   */
+  public static double[] resizeArray(double[] data, int desired_size) {
+    double[] array = new double[desired_size];
+    System.arraycopy(data, 0, array, 0, Math.min(desired_size, data.length));
+    for (int i = data.length; i < desired_size; ++i) {
+      array[i] = 0.0;
+    }
+    return array;
   }
 }

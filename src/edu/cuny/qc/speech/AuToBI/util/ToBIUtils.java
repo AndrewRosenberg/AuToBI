@@ -1,21 +1,25 @@
 /*  ToBIUtils.java
 
-    Copyright 2009-2010 Andrew Rosenberg
+    Copyright 2009-2014 Andrew Rosenberg
 
     This file is part of the AuToBI prosodic analysis package.
 
     AuToBI is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+    it under the terms of the Apache License (see boilerplate below)
 
-    AuToBI is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with AuToBI.  If not, see <http://www.gnu.org/licenses/>.
+ ***********************************************************************************************************************
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You should have received a copy of the Apache 2.0 License along with AuToBI.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ *
+ ***********************************************************************************************************************
  */
 package edu.cuny.qc.speech.AuToBI.util;
 
@@ -47,11 +51,13 @@ public class ToBIUtils {
       String label = "NONBOUNDARY";
       if (word.getBreakAfter() != null && (
           word.getBreakAfter().equals("3") || word.getBreakAfter().equals("3p") ||
-              word.getBreakAfter().equals("3-")))
+              word.getBreakAfter().equals("3-"))) {
         label = "INTERMEDIATE_BOUNDARY";
+      }
       if ((word.getBreakAfter() != null) && (
-          word.getBreakAfter().equals("4-") || word.getBreakAfter().equals("4")))
+          word.getBreakAfter().equals("4-") || word.getBreakAfter().equals("4"))) {
         label = "INTONATIONAL_BOUNDARY";
+      }
       word.setAttribute(attribute_name, label);
     }
   }
@@ -68,7 +74,9 @@ public class ToBIUtils {
     for (Word word : data_points) {
       String label = "NONBOUNDARY";
       if ((word.getBreakAfter() != null) && (
-          word.getBreakAfter().equals("4-") || word.getBreakAfter().equals("4"))) label = "INTONATIONAL_BOUNDARY";
+          word.getBreakAfter().equals("4-") || word.getBreakAfter().equals("4"))) {
+        label = "INTONATIONAL_BOUNDARY";
+      }
       word.setAttribute(attribute_name, label);
     }
   }
@@ -165,20 +173,26 @@ public class ToBIUtils {
   public static void generateDefaultTonesFromBreaks(List<Word> words) {
     for (Word word : words) {
       if (word.getBreakAfter().startsWith("4")) {
-        if (!word.hasBoundaryTone())
+        if (!word.hasBoundaryTone()) {
           word.setBoundaryTone("X%?");
-        if (!word.hasPhraseAccent())
+        }
+        if (!word.hasPhraseAccent()) {
           word.setPhraseAccent("X%-");
+        }
       } else if (word.getBreakAfter().startsWith("3")) {
-        if (word.hasBoundaryTone())
+        if (word.hasBoundaryTone()) {
           word.setBoundaryTone(null);
-        if (!word.hasPhraseAccent())
+        }
+        if (!word.hasPhraseAccent()) {
           word.setPhraseAccent("X%-");
+        }
       } else {
-        if (word.hasBoundaryTone())
+        if (word.hasBoundaryTone()) {
           word.setBoundaryTone(null);
-        if (word.hasPhraseAccent())
+        }
+        if (word.hasPhraseAccent()) {
           word.setPhraseAccent(null);
+        }
       }
     }
   }
@@ -191,8 +205,7 @@ public class ToBIUtils {
    * word. 3) every intonational phrase has a boundary tone
    *
    * @param words The words to check
-   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException
-   *          when word annotations to not match the ToBI standard
+   * @throws edu.cuny.qc.speech.AuToBI.core.AuToBIException when word annotations to not match the ToBI standard
    */
   public static void checkToBIAnnotations(List<Word> words) throws AuToBIException {
     Word starting_word = null;
@@ -258,7 +271,8 @@ public class ToBIUtils {
 
     Pattern accent_pattern =
         Pattern.compile(
-            "(L\\+H\\*|L\\*\\+H|L\\*|H\\*|!H\\*|L\\+!H\\*|L\\*\\+!H|H\\+!H\\*|X\\*|\\(H\\+L\\)\\*|H\\+L\\*|H+L\\*|.+\\+|\\+.+)");
+            "(L\\+H\\*|L\\*\\+H|L\\*|H\\*|!H\\*|L\\+!H\\*|L\\*\\+!H|H\\+!H\\*|X\\*|\\(H\\+L\\)\\*|H\\+L\\*|H+L\\*|" +
+                ".+\\+|\\+.+)");
     Matcher accent_matcher = accent_pattern.matcher(label);
     if (accent_matcher.find()) {
       tones[0] = accent_matcher.group();

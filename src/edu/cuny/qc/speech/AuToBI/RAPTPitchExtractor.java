@@ -1,11 +1,32 @@
-/**
- * Created by andrew on 6/11/14.
+/* RAPTPitchExtractor.java
+ *
+ * Copyright 2014 Andrew Rosenberg
  *
  * Implementation of the RAPT Pitch Tracking algorithm.
  * As described in A Robust Algorithm for Pitch Tracking by David Talkin 1995
  *
  * This is a translation of the c implementation of RAPT distributed as part of the SPTK
  * http://sp-tk.sourceforge.net/
+ *
+ *     This file is part of the AuToBI prosodic analysis package.
+
+ AuToBI is free software: you can redistribute it and/or modify
+ it under the terms of the Apache License (see boilerplate below)
+
+ ***********************************************************************************************************************
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You should have received a copy of the Apache 2.0 License along with AuToBI.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ *
+ ***********************************************************************************************************************
+ *
  *
  * SPTK is covered by a BSD-style licenxe included in sptk-license.txt.  The SPTK copyright notice is included here
  *
@@ -74,6 +95,7 @@
 package edu.cuny.qc.speech.AuToBI;
 
 import edu.cuny.qc.speech.AuToBI.core.AuToBIException;
+import edu.cuny.qc.speech.AuToBI.core.Contour;
 import edu.cuny.qc.speech.AuToBI.core.PitchContour;
 import edu.cuny.qc.speech.AuToBI.core.WavData;
 import edu.cuny.qc.speech.AuToBI.io.WavReader;
@@ -1782,7 +1804,6 @@ public class RAPTPitchExtractor {
     }
     int padding = (alpha + beta + 3) * frame_shift;
 
-
     int total_samples = wav.getNumSamples() + padding;
     if (total_samples < ((par.frame_step * 2) + par.wind_dur) * sf) {
       throw new AuToBIException("Sound is too short given the frame and window sizes");
@@ -1848,10 +1869,13 @@ public class RAPTPitchExtractor {
 
     // The pitch extractor will calculate extra frames based on padded noise at the end of the audio.
     // only output the frames corresponding to the original file.
-    double[] f = new double[Math.min(fnum, f0.size())];
-    for (int i = 0; i < Math.min(fnum, f0.size()); i++)
-      f[i] = f0.get(i);
-    return new PitchContour(t0, par.frame_step, f);
+    PitchContour out = new PitchContour(t0, par.frame_step, Math.min(fnum, f0.size()));
+    for (int i = 0; i < Math.min(fnum, f0.size()); i++) {
+      if (f0.get(i) > 0) {
+        out.set(i, f0.get(i));
+      }
+    }
+    return out;
   }
 
   /**
@@ -1919,5 +1943,4 @@ public class RAPTPitchExtractor {
       e.printStackTrace();
     }
   }
-
 }

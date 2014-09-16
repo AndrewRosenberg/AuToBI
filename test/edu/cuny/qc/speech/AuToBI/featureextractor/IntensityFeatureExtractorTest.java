@@ -113,9 +113,9 @@ public class IntensityFeatureExtractorTest {
     try {
       fe.extractFeatures(regions);
       Contour c = (Contour) w.getAttribute("I");
-      assertEquals(92, c.size());
+      assertEquals(97, c.size());
       assertEquals(0.01, c.getStep(), 0.0001);
-      assertEquals(0.0449886621317273, c.getStart(), 0.0001);
+      assertEquals(0.02, c.getStart(), 0.0001);
       // Assume that the intensity extraction algorithm is tested in IntensityExtractor.
       // Here we'll make sure that the generated contour passes some sanity checks.
     } catch (FeatureExtractorException e) {

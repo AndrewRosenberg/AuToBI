@@ -1,24 +1,28 @@
 /*  VillingSyllabifier.java
 
-    Copyright 2009-2012 Andrew Rosenberg
+    Copyright 2009-2014 Andrew Rosenberg
     An implementation of a technique described in
       Villing et al. (2004) Automatic Blind Syllable Segmentation for Continuous Speech In: Irish Signals and Systems
       Conference 2004, 30 June - 2 July 2004, Queens University, Belfast.
 
-    This file is part of the AuToBI prosodic analysis package.
+  This file is part of the AuToBI prosodic analysis package.
 
-    AuToBI is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+  AuToBI is free software: you can redistribute it and/or modify
+  it under the terms of the Apache License (see boilerplate below)
 
-    AuToBI is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with AuToBI.  If not, see <http://www.gnu.org/licenses/>.
+ ***********************************************************************************************************************
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You should have received a copy of the Apache 2.0 License along with AuToBI.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ *
+ ***********************************************************************************************************************
  */
 package edu.cuny.qc.speech.AuToBI.core.syllabifier;
 
@@ -61,6 +65,8 @@ public class VillingSyllabifier extends Syllabifier {
   public List<Region> generatePseudosyllableRegions(WavData wav) {
 
     // Divide the signal into three channels using low pass filters.
+    // TODO: include coefficients for sampling rates other than 16k and include a selection for them. In order 8k,
+    // 22.05k, 44.1k
     Pair<double[], double[]> yulewalk_coefs = getYuleWalkFilterCoefficients();
     Pair<double[], double[]> equal_loudness_filter = get150hzHighPassFilterCoefficients();
     Pair<double[], double[]> one_khz_lowpass_filter = get1khzLowPassFilterCoefficients();
@@ -89,9 +95,9 @@ public class VillingSyllabifier extends Syllabifier {
         reverse(filter(smoothing_filter.first, smoothing_filter.second, env_1))));
 
     // Downsample to 100Hz
-    env_3 = downsample(env_3, 160);
-    // env_2 = downsample(env_2, 160);
-    env_1 = downsample(env_1, 160);
+    env_3 = downsample(env_3, (int) (wav.sampleRate / 100)); //160);
+    // env_2 = downsample(env_2, (int) (wav.sampleRate / 100));
+    env_1 = downsample(env_1, (int) (wav.sampleRate / 100));// 160);
 
     env_3 = array_pow(env_3, 0.3);
     // env_2 = array_pow(env_2, 0.3);
@@ -187,7 +193,7 @@ public class VillingSyllabifier extends Syllabifier {
     for (int i = 0; i < syllables.size(); ++i) {
       Region r = syllables.get(i);
       double sum = 0;
-      int sf = (int) (r.getStart() * 100);
+      int sf = (int) (r.getStart() * 100);  // convert to indices based on a 100kHz sr.
       int ef = (int) (r.getEnd() * 100);
       for (int j = sf; j < ef; ++j)
         sum += env_3[j];
