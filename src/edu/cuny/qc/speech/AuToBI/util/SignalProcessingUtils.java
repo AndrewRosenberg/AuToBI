@@ -47,7 +47,7 @@ public class SignalProcessingUtils {
     double[] window = new double[hanning_window_samples];
     for (int i = 0; i < hanning_window_samples; ++i) {
       double phase = i * 1.0 / (hanning_window_samples - 1);
-      window[i] = 0.5 * (1.0 - Math.cos(2.0 * Math.PI * phase));
+      window[i] = 0.5 + 0.5 * Math.cos(Math.PI * phase);
     }
 
     return window;
@@ -67,8 +67,8 @@ public class SignalProcessingUtils {
 
     double[] window = new double[hanning_window_samples];
     for (int i = 0; i < hanning_window_samples; ++i) {
-      double phase = i * 1.0 / (hanning_window_samples - 1);
-      window[i] = 0.5 * (1.0 - Math.cos(2.0 * Math.PI * phase));
+      double phase = i * 1.0 / hanning_window_samples;
+      window[i] = 0.5 + 0.5 * Math.cos(Math.PI * phase);
     }
 
     return window;
@@ -88,7 +88,7 @@ public class SignalProcessingUtils {
     double[] window = new double[hamming_window_samples];
     for (int i = 0; i < hamming_window_samples; ++i) {
       double phase = i * 1.0 / (hamming_window_samples - 1);
-      window[i] = 0.54 * -0.46 * Math.cos(2.0 * Math.PI * phase);
+      window[i] = 0.54 + 0.46 * Math.cos(Math.PI * phase);
     }
     return window;
   }
@@ -103,11 +103,15 @@ public class SignalProcessingUtils {
    * @param hamming_window_samples The size of the Hamming window
    * @return The convolution window
    */
-  public static double[] constructHalfHammingWindow(int hamming_window_samples) {
+  public static double[] constructHalfHammingWindow(int hamming_window_samples, boolean rev) {
     double[] window = new double[hamming_window_samples];
     for (int i = 0; i < hamming_window_samples; ++i) {
-      double phase = i * 1.0 / (hamming_window_samples * 2 - 1);
-      window[i] = 0.54 * -0.46 * Math.cos(2.0 * Math.PI * phase);
+      double phase = i * 1.0 / hamming_window_samples;
+      int tgt_i = i;
+      if (rev) {
+        tgt_i = hamming_window_samples - i - 1;
+      }
+      window[tgt_i] = 0.54 + 0.46 * Math.cos(Math.PI * phase);
     }
     return window;
   }
