@@ -340,7 +340,7 @@ public class AuToBI {
       // parse feature
       List<String> fparams = AuToBIUtils.parseFeatureName(feature);
 
-      FeatureExtractor fe = null;
+      FeatureExtractor fe;
       // Construct FeatureExtractor
       if (!getFeatureRegistry().containsKey(fparams.get(0))) {
         Class c = moniker_map.get(fparams.get(0));
@@ -720,7 +720,6 @@ public class AuToBI {
             temp_features.add(av_pair[0]);
             fs.insertRequiredFeature(av_pair[0]);
           }
-
         }
       } catch (AuToBIException e) {
         e.printStackTrace();
@@ -757,19 +756,19 @@ public class AuToBI {
           // example, to classify only phrase ending words.
           if (attr_omit.size() > 0) {
             for (Word w : words) {
-              boolean include = true;
+//              boolean include = true;
               for (Pair<String, String> e : attr_omit) {
                 if (w.hasAttribute(e.first) && w.getAttribute(e.first).equals(e.second)) {
-                  include = false;
+                  w.setAttribute("__ignore__", true);
+//                  include = false;
                 }
               }
-              if (include) {
-                fs.getDataPoints().add(w);
-              }
+//              if (include) {
+//                fs.getDataPoints().add(w);
+//              }
             }
-          } else {
-            fs.getDataPoints().addAll(words);
           }
+          fs.getDataPoints().addAll(words);
         } catch (InterruptedException e) {
           e.printStackTrace();
         } catch (ExecutionException e) {
@@ -845,7 +844,7 @@ public class AuToBI {
    * @throws IOException If there is a problem writing to the destination file.
    */
   public void writeTextGrid(List<Word> words, String out_file) throws IOException {
-    String text_grid = generateTextGridString(words);
+    String text_grid = generateManualLookingTextGridString(words);
 
     AuToBIFileWriter writer = new AuToBIFileWriter(out_file);
     writer.write(text_grid);
@@ -853,7 +852,97 @@ public class AuToBI {
   }
 
   /**
+   * Generates a TextGrid representation of hypothesized ToBI labels that looks like a manual annotation.
+   * <p/>
+   * Specifically, Pitch accents appear as points in the middle of the accented region.  Phrase ending tones
+   * are points at the end of the region.  A breaks tier is included.  Currently the only predicted break indices
+   * are 1, 3, and 4.  3 and 4 are derived from intonational and intermediate phrase boundary detection.
+   *
+   * @param words the words to output
+   * @return a string representing the textgrid contents of the words.
+   */
+  public String generateManualLookingTextGridString(List<Word> words) {
+    StringBuilder text_grid = new StringBuilder();
+
+    text_grid.append("File type = \"ooTextFile\"\n");
+    text_grid.append("Object class = \"TextGrid\"\n");
+    text_grid.append("xmin = 0\n");
+    text_grid.append("xmax = ").append(words.get(words.size() - 1).getEnd()).append("\n");
+    text_grid.append("tiers? <exists>\n");
+    text_grid.append("size = 3\n");
+    text_grid.append("item []:\n");
+    text_grid.append("item [1]:\n");
+    text_grid.append("class = \"TextTier\"\n");
+    text_grid.append("name = \"tones\"\n");
+    text_grid.append("xmin = 0\n");
+    text_grid.append("xmax = ").append(words.get(words.size() - 1).getEnd()).append("\n");
+    text_grid.append("points: size = __NUM_TONES__\n");
+    int tone_num = 1;
+    for (Word w : words) {
+      if (w.hasAttribute("hyp_pitch_accent")) {
+        if (!w.getAttribute("hyp_pitch_accent").equals("DEACCENTED")) {
+          text_grid.append("points [").append(++tone_num).append("]:\n");
+          text_grid.append("time = ").append(w.getStart() + w.getDuration() / 2).append("\n");
+          text_grid.append("mark = \"").append(w.getAttribute("hyp_pitch_accent").toString()).append("\"\n");
+        }
+      }
+
+      if (w.hasAttribute("hyp_phrase_boundary")) {
+        if (!w.getAttribute("hyp_phrase_boundary").equals("NONBOUNDARY")) {
+          text_grid.append("points [").append(++tone_num).append("]:\n");
+          text_grid.append("time = ").append(w.getEnd()).append("\n");
+          text_grid.append("mark = \"").append(w.getAttribute("hyp_phrase_boundary").toString()).append("\"\n");
+        }
+      }
+    }
+
+    text_grid.append("item [2]:\n");
+    text_grid.append("class = \"IntervalTier\"\n");
+    text_grid.append("name = \"words\"\n");
+    text_grid.append("xmin = 0\n");
+    text_grid.append("xmax = ").append(words.get(words.size() - 1).getEnd()).append("\n");
+    text_grid.append("intervals: size = ").append(words.size()).append("\n");
+    for (int i = 0; i < words.size(); ++i) {
+      Word w = words.get(i);
+      text_grid.append("intervals [").append(i + 1).append("]:\n");
+      text_grid.append("xmin = ").append(w.getStart()).append("\n");
+      text_grid.append("xmax = ").append(w.getEnd()).append("\n");
+      text_grid.append("text = \"").append(w.getLabel()).append("\"\n");
+    }
+
+    text_grid.append("item [3]:\n");
+    text_grid.append("class = \"TextTier\"\n");
+    text_grid.append("name = \"breaks\"\n");
+    text_grid.append("xmin = 0\n");
+    text_grid.append("xmax = ").append(words.get(words.size() - 1).getEnd()).append("\n");
+    text_grid.append("points: size = ").append(words.size()).append("\n");
+    for (int i = 0; i < words.size(); ++i) {
+      Word w = words.get(i);
+
+      String b_label = "1";
+      if (w.hasAttribute(tasks.get("intonational_phrase_boundary_detection").getHypFeature()) &&
+          w.getAttribute(tasks.get("intonational_phrase_boundary_detection").getHypFeature())
+              .equals("INTONATIONAL_BOUNDARY")) {
+        b_label = "4";
+      } else if (w.hasAttribute(tasks.get("intermediate_phrase_boundary_detection").getHypFeature()) &&
+          w.getAttribute(tasks.get("intermediate_phrase_boundary_detection").getHypFeature())
+              .equals("INTERMEDIATE_BOUNDARY")) {
+        b_label = "3";
+      }
+      text_grid.append("points [").append(i + 1).append("]:\n");
+      text_grid.append("time = ").append(w.getEnd()).append("\n");
+      text_grid.append("mark = \"").append(b_label).append("\"\n");
+    }
+
+    return text_grid.toString().replace("__NUM_TONES__", Integer.toString(tone_num - 1));
+  }
+
+
+  /**
    * Generates a TextGrid representation of the words and hypothesized ToBI labels.
+   * <p/>
+   * Predicted pitch accents and boundary tones each appear on a separate interval tier with the
+   * same number of regions.
    *
    * @param words the words to output
    * @return a string representing the textgrid contents of the words.

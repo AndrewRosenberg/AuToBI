@@ -36,7 +36,8 @@ import java.util.List;
 public class RhapsodieTextGridReader extends TextGridReader {
 
   private String tone_tier_name; // the name of the tone tier.
-  private Tier tone_tier;  // A tier to store tone annotations
+  private Tier tone_tier;        // A tier to store tone annotations
+  private Tier rhap_words_tier;  // the words tier from rhapsodie annotation
 
   public RhapsodieTextGridReader(String filename, String words_tier, String tone_tier, String charset) {
     super(filename, words_tier, null, null, charset);
@@ -89,7 +90,103 @@ public class RhapsodieTextGridReader extends TextGridReader {
       constructToBILikeAnnotations(syllables, tone_tier.getRegions());
     }
 
+    // Annotate word final state
+    annotateWordFinal(syllables, rhap_words_tier.getRegions());
+
+    // Merge word final schwas with previous syllables (make sure to take the union of the tone annotations
+    // expid: SchwaCollapse
+//    mergeFinalSchwas(syllables);
+
+    // expid: SchwaIgnore
+//    ignoreFinalSchwas(syllables);
+
     return syllables;
+  }
+
+  /**
+   * When identifying the final syllable in a word, ignore any final schwa, considering the penultimate syllable to
+   * be 'final'.
+   *
+   * @param syllables the syllables to analyze.
+   */
+  private void ignoreFinalSchwas(List<Word> syllables) {
+    int si = 1;
+    while (si < syllables.size()) {
+      Word s = syllables.get(si);
+      if (s.getLabel().endsWith("@") && s.getAttribute("word_final").equals("true")) {
+        Word s_prev = syllables.get(si - 1);
+
+        s_prev.setAttribute("word_final", "true");
+        s.setAttribute("word_final", "false");
+
+        s_prev.setAccent(s_prev.getAccent() + s.getAccent());
+
+        if (s.getBoundaryTone() == null) {
+          s.setBoundaryTone("");
+        }
+        if (s_prev.getBoundaryTone() == null) {
+          s_prev.setBoundaryTone("");
+        }
+        s_prev.setBoundaryTone(s_prev.getBoundaryTone().replace("%", "") + s.getBoundaryTone().replace("%", "") + "%");
+
+        s.setAccent("");
+        s.setBoundaryTone("");
+        s.setAttribute("__ignore__", true);
+      }
+      si++;
+    }
+  }
+
+  /**
+   * Merge syllables that end a word with a schwa to the previous syllable.  These are prosodically neutral,
+   * serving mostly to displace the boundary of the word from prosodic boundary.
+   *
+   * @param syllables the syllables to merge.
+   */
+  private void mergeFinalSchwas(List<Word> syllables) {
+    int si = 0;
+    while (si < syllables.size()) {
+      Word s = syllables.get(si);
+      if (s.getLabel().endsWith("@") && s.getAttribute("word_final").equals("true")) {
+        Word s_prev = syllables.get(si - 1);
+
+        // copy label and annotation.
+        s_prev.setLabel(s_prev.getLabel() + "_" + s.getLabel());
+        s_prev.setAttribute("word_final", "true");
+        s_prev.setAccent(s_prev.getAccent() + s.getAccent());
+
+        s.setBoundaryTone("");
+        s_prev.setBoundaryTone("");
+        s_prev.setBoundaryTone(s_prev.getBoundaryTone().replace("%", "") + s.getBoundaryTone().replace("%", "") + "%");
+
+        // delete si
+        syllables.remove(si);
+      } else {
+        si++;
+      }
+    }
+  }
+
+  private void annotateWordFinal(List<Word> syllables, List<Region> words) {
+    double eps = 0.00001;
+    int wi = 0;
+    int si = 0;
+
+    while (wi < words.size()) {
+      Region r = words.get(wi);
+
+      while (si < syllables.size() && syllables.get(si).getEnd() < r.getEnd()) {
+        syllables.get(si).setAttribute("word_final", "false");
+        si++;
+      }
+
+      // Approximate equality
+      if (si < syllables.size() && Math.abs(syllables.get(si).getEnd() - r.getEnd()) < eps) {
+        syllables.get(si).setAttribute("word_final", "true");
+        si++;
+      }
+      wi++;
+    }
   }
 
   /**
@@ -110,6 +207,10 @@ public class RhapsodieTextGridReader extends TextGridReader {
         }
       } else if (tier.getName().equals("syllabe")) {
         words_tier = tier;
+      }
+
+      if (tier.getName().equals("word")) {
+        rhap_words_tier = tier;
       }
 
       if (tone_tier_name != null) {
