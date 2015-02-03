@@ -35,8 +35,10 @@
             <zipfileset src="lib/guava-16.0.1.jar"/>
             <zipfileset src="lib/jakarta-oro-2.1-dev-1.jar"/>
             <zipfileset src="lib/Jama-1.0.2.jar"/>
+            <zipfileset src="lib/JLargeArrays-1.2.jar"/>
             <zipfileset src="lib/javassist.jar"/>
             <zipfileset src="lib/jnt_fft.jar"/>
+            <zipfileset src="lib/JTransforms-3.0.jar"/>
             <zipfileset src="lib/liblinear-1.94.jar"/>
             <zipfileset src="lib/log4j-1.2.15.jar"/>
             <zipfileset src="lib/reflections-0.9.9-RC1-uberjar.jar"/>

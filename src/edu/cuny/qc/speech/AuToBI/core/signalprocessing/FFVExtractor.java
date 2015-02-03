@@ -181,7 +181,7 @@ public class FFVExtractor {
 
     double[] out = new double[external.length + internal.length];
     System.arraycopy(external, 0, out, 0, external.length);
-    System.arraycopy(internal, 0, out, 0 + external.length, internal.length);
+    System.arraycopy(internal, 0, out, external.length, internal.length);
 
     return out;
   }
@@ -333,8 +333,8 @@ public class FFVExtractor {
 
     for (int j = 0; j < filterbank_mask.length; j++) {
       filterbank_mask[j] = false;
-      for (int i = 0; i < filterbank.length; i++) {
-        if (filterbank[i][j] != 0) {
+      for (double[] fb : filterbank) {
+        if (fb[j] != 0) {
           filterbank_mask[j] = true;
           break;
         }
