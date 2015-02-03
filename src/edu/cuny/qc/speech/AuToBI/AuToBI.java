@@ -915,11 +915,13 @@ public class AuToBI {
       Word w = words.get(i);
 
       String b_label = "1";
-      if (w.hasAttribute(tasks.get("intonational_phrase_boundary_detection").getHypFeature()) &&
+      if (getTasks().containsKey("intonational_phrase_boundary_detection") &&
+          w.hasAttribute(tasks.get("intonational_phrase_boundary_detection").getHypFeature()) &&
           w.getAttribute(tasks.get("intonational_phrase_boundary_detection").getHypFeature())
               .equals("INTONATIONAL_BOUNDARY")) {
         b_label = "4";
-      } else if (w.hasAttribute(tasks.get("intermediate_phrase_boundary_detection").getHypFeature()) &&
+      } else if (getTasks().containsKey("intonational_phrase_boundary_detection") &&
+          w.hasAttribute(tasks.get("intermediate_phrase_boundary_detection").getHypFeature()) &&
           w.getAttribute(tasks.get("intermediate_phrase_boundary_detection").getHypFeature())
               .equals("INTERMEDIATE_BOUNDARY")) {
         b_label = "3";
