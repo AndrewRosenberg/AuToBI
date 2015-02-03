@@ -756,16 +756,11 @@ public class AuToBI {
           // example, to classify only phrase ending words.
           if (attr_omit.size() > 0) {
             for (Word w : words) {
-//              boolean include = true;
               for (Pair<String, String> e : attr_omit) {
                 if (w.hasAttribute(e.first) && w.getAttribute(e.first).equals(e.second)) {
                   w.setAttribute("__ignore__", true);
-//                  include = false;
                 }
               }
-//              if (include) {
-//                fs.getDataPoints().add(w);
-//              }
             }
           }
           fs.getDataPoints().addAll(words);

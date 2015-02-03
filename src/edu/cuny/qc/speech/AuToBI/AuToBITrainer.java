@@ -81,7 +81,7 @@ public class AuToBITrainer {
 
     autobi.propagateFeatureSet(filenames, fs);
 
-    // Remove features with an __ignore__ attribute set to true.
+    // Remove features with an __ignore__ attribute set to true before training.
     for (Iterator<Word> it = fs.getDataPoints().iterator(); it.hasNext(); ) {
       Word w = it.next();
       if (w.hasAttribute("__ignore__") && w.getAttribute("__ignore__").equals(true)) {

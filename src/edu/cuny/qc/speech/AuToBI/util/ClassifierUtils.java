@@ -316,6 +316,9 @@ public class ClassifierUtils {
     EvaluationResults eval = new EvaluationResults(sorted_values);
 
     for (Word w : fs.getDataPoints()) {
+      if (w.hasAttribute("__ignore__") && ((Boolean) w.getAttribute("__ignore__"))) {
+        continue;
+      }
       if (!w.hasAttribute(hyp_feature)) {
         AuToBIUtils.warn("Word, " + w + ", has no hypothesized attribute: " + hyp_feature);
       } else if (!w.hasAttribute(true_feature)) {
