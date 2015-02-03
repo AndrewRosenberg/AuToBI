@@ -81,7 +81,7 @@ public class PitchAccentDetectionFeatureSet extends FeatureSet {
           for (String slope : new String[]{"", "delta"}) {
             for (String agg : new String[]{"zMeanWordContext", "zMaxWordContext"}) {
               insertRequiredFeature(AuToBIUtils
-                  .makeFeatureName(agg, AuToBIUtils.makeFeatureName(norm, AuToBIUtils.makeFeatureName(slope, acoustic)),
+                  .makeFeatureName(agg, AuToBIUtils.makeFeatureName(slope, AuToBIUtils.makeFeatureName(norm, acoustic)),
                       context));
             }
           }
