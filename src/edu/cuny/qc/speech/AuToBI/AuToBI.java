@@ -32,6 +32,8 @@ import edu.cuny.qc.speech.AuToBI.io.*;
 import edu.cuny.qc.speech.AuToBI.util.AuToBIUtils;
 import edu.cuny.qc.speech.AuToBI.util.ClassifierUtils;
 import edu.cuny.qc.speech.AuToBI.util.WordReaderUtils;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.apache.log4j.BasicConfigurator;
 import org.reflections.Reflections;
@@ -124,6 +126,8 @@ public class AuToBI {
       }
     } else {
       BasicConfigurator.configure();
+      Logger l = Logger.getRootLogger();
+      l.setLevel(Level.WARN);
     }
 
     registerDefaultFeatureExtractorMonikers();
