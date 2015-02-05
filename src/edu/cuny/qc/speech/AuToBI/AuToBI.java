@@ -127,7 +127,7 @@ public class AuToBI {
     } else {
       BasicConfigurator.configure();
       Logger l = Logger.getRootLogger();
-      l.setLevel(Level.WARN);
+      l.setLevel(Level.INFO);
     }
 
     registerDefaultFeatureExtractorMonikers();
