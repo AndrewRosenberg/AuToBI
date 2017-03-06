@@ -42,6 +42,16 @@ public class TemporalContextNormalizedFeatureExtractor extends FeatureExtractor 
   private int foll;
 
   /**
+   * Constructs a ContextNormalizedFeatureExtractor from String arguments.
+   * @param attribute_name the attribute to analyze
+   * @param prev the ms previous to include (as a string)
+   * @param foll the ms following to include (as a string)
+   */
+  public TemporalContextNormalizedFeatureExtractor(String attribute_name, String prev, String foll) {
+    this(attribute_name, Integer.parseInt(prev), Integer.parseInt(foll));
+  }
+
+  /**
    * Constructs a ContextNormalizedFeatureExtractor
    *
    * @param attribute_name the attribute to analyze
