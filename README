@@ -6,9 +6,11 @@ AuToBI is free software: you can redistribute it and/or modify
 it under the terms of the Apache License included in this repository 
 as LICENSE-2.0.txt
 
-The lib file contains the list of dependent files. But these are not enough.
+Some build notes:
 
-build.xml is the most important file here. It contains the list of all the dependent libraries required and its correct versions. 
+The lib file contains the distributions of some (but not all) dependency jars. 
+
+build.xml contains the list of all the dependent libraries required and their correct versions. 
 Download them and place it in the lib folder.
 
 Start a new project using ANT build in Eclipse and run an ANT build for build.xml.
