@@ -5,3 +5,14 @@ Copyright (c) 2009-2017 Andrew Rosenberg
 AuToBI is free software: you can redistribute it and/or modify
 it under the terms of the Apache License included in this repository 
 as LICENSE-2.0.txt
+
+Some build notes:
+
+The lib file contains the distributions of some (but not all) dependency jars. 
+
+build.xml contains the list of all the dependent libraries required and their correct versions. 
+Download them and place it in the lib folder.
+
+Start a new project using ANT build in Eclipse and run an ANT build for build.xml.
+
+The ouput is AuToBI.jar, which can be run in the command line as indicated in the manual.
