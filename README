@@ -13,4 +13,4 @@ Download them and place it in the lib folder.
 
 Start a new project using ANT build in Eclipse and run an ANT build for build.xml.
 
-The ouput is AuToBI.jar, which can be run in the command line as indicate din the manual.
+The ouput is AuToBI.jar, which can be run in the command line as indicated in the manual.
