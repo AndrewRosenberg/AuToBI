@@ -90,6 +90,19 @@ public class WordReaderUtils {
         reader = new RhapsodieTextGridReader(filename, params.getOptionalParameter("words_tier_name", "syllabe"),
             "pseudo-ToBI", params.getOptionalParameter("charset"));
         break;
+      case TONGJI:
+            reader = new TongjiGamesReader(filename, params.getOptionalParameter("ipu_tier_name"),
+                    params.getOptionalParameter("syllable_tier_name"),
+                    params.getOptionalParameter("tone_unit_tier_name"),
+                    params.getOptionalParameter("breaks_tier_name"),
+                    params.getOptionalParameter("charset"));
+            break;
+      case COSPRO:
+            reader = new COSPROReader(filename, params.getOptionalParameter("breaks_tier_name"),
+                    params.getOptionalParameter("phones_tier_name"),
+                    params.getOptionalParameter("characters_tier_name"),
+                    params.getOptionalParameter("charset"));
+            break;
       case BURNC:
         reader = new BURNCReader(filename.replace(".ala", ""));
         break;

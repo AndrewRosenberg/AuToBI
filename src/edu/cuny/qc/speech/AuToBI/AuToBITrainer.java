@@ -99,21 +99,23 @@ public class AuToBITrainer {
 
     List<FormattedFile> filenames;
     try {
-      filenames = AuToBIReaderUtils.globFormattedFiles(autobi.getParameter("training_filenames"));
-    } catch (AuToBIException e) {
-      try {
-        filenames = AuToBIReaderUtils.globFormattedFiles(autobi.getParameter("cprom_filenames"),
-            FormattedFile.Format.CPROM);
-      } catch (AuToBIException e1) {
-        try {
-          filenames = AuToBIReaderUtils.globFormattedFiles(autobi.getParameter("rhapsodie_filenames"),
-              FormattedFile.Format.RHAPSODIE);
-        } catch (AuToBIException e2) {
-          AuToBIUtils
-              .error("No training files specified with -training_filenames, -cprom_filenames or -rhapsodie_filenames");
-          return;
-        }
+      if (autobi.hasParameter("training_filenames")) {
+        filenames = AuToBIReaderUtils.globFormattedFiles(autobi.getParameter("training_filenames"));
+      } else if (autobi.hasParameter("cprom_filenames")) {
+        filenames = AuToBIReaderUtils.globFormattedFiles(autobi.getParameter("cprom_filenames"), FormattedFile.Format.CPROM);
+      } else if (autobi.hasParameter("rhapsodie_filenames")) {
+        filenames = AuToBIReaderUtils.globFormattedFiles(autobi.getParameter("rhapsodie_filenames"), FormattedFile.Format.RHAPSODIE);
+      } else if (autobi.hasParameter("tongji_filenames")) {
+        filenames = AuToBIReaderUtils.globFormattedFiles(autobi.getParameter("tongji_filenames"), FormattedFile.Format.TONGJI);
+      } else if (autobi.hasParameter("cospro_filenames")) {
+        filenames = AuToBIReaderUtils.globFormattedFiles(autobi.getParameter("cospro_filenames"), FormattedFile.Format.COSPRO);
+      } else {
+        AuToBIUtils.error("No training files specified with -training_filenames, -{cprom, rhapsodie, tongji, cospro}_filenames");
+        return;
       }
+    } catch (AuToBIException e) {
+      e.printStackTrace();
+      return;
     }
 
     HashMap<String, AuToBITask> tasks = AuToBIUtils.createTaskListFromParameters(autobi.getParameters(), false);

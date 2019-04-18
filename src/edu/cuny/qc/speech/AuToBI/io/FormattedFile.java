@@ -33,7 +33,7 @@ package edu.cuny.qc.speech.AuToBI.io;
 public class FormattedFile {
   public static enum Format {
     TEXTGRID, CPROM, BURNC, SIMPLE_WORD, SWB_NXT, BUCKEYE, KOH, CONS_GZ, DUR, POSTING_LIST,
-    RHAPSODIE
+    RHAPSODIE, TONGJI, COSPRO
   }
 
   public String filename;
@@ -102,4 +102,3 @@ public class FormattedFile {
     return format;
   }
 }
-
